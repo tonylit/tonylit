@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://tonylit.me/search/index.html</loc>
+    <lastmod>2015-11-15T14:25:12.565Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://tonylit.me/404.html</loc>
     <lastmod>2015-11-15T14:07:40.103Z</lastmod>
   </url>
