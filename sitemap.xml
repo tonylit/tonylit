@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
-  <url>
-    <loc>http://tonylit.me/search/index.html</loc>
-    <lastmod>2015-11-15T15:34:33.054Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://tonylit.me/404.html</loc>
-    <lastmod>2015-11-15T14:07:40.103Z</lastmod>
-  </url>
-  
+
+    
+    
+    
   <url>
     <loc>http://tonylit.me/2015/11/13/hexo%E6%8A%A5%E9%94%99%E5%A4%84%E7%90%86/</loc>
     <lastmod>2015-11-13T05:37:27.000Z</lastmod>
-  </url>
-  
+    <data>
+        <display>
+        <title>hexo报错处理</title>
+        <pubTime>2015-11-13T03:37:27.000Z</pubTime>
+        
+        <tag>hexo </tag>
+         
+         
+           
+             
+              <breadCrumb title="hexo" url="http://tonylit.me/categories/hexo/"/>
+          
+        </display>
+    </data>
+    </url>
+
 </urlset>
