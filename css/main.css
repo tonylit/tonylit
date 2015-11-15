@@ -804,6 +804,20 @@ body {
 .use-motion .menu-item {
   opacity: 0;
 }
+input.menu-search-input {
+  background-repeat: no-repeat;
+  background-position: 5px center;
+  width: 70px;
+  height: 20px;
+  padding: 3px 9px 3px 23px;
+  border-radius: 25px;
+  border: 1px solid #c4c4c4;
+  box-shadow: inset 1px 1px 1px 1px rgba(0,0,0,0.17);
+  color: #555;
+  font-size: 13px;
+  background-image: url("/images/searchicon.png");
+  background-size: 15px 15px;
+}
 .translation {
   margin-top: -20px;
   font-size: 14px;
@@ -961,7 +975,7 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #7da387;
+  background: #420d42;
 }
 .sidebar-nav {
   margin: 0 0 20px;
