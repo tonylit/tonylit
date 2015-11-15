@@ -165,31 +165,15 @@
 
       
       
-        <li class="menu-item menu-item-search">
-          <a href="#" class="st-search-show-outputs">
-            
-              <i class="menu-item-icon fa fa-search icon-next-search"></i> <br />
-            
-            搜索
-          </a>
-        </li>
-      
     </ul>
   
 
   
     <div class="site-search">
       
-  
-
-<script type="text/javascript">
-  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
-    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-
-  _st('install', 'UKzsm7y3awFNb3GtdZrB','2.0.0');
-</script>
+  <form class="site-search-form" >
+  <input type="text" id="ts-search-input" class="menu-search-input">
+</form>
 
 
 
@@ -672,6 +656,28 @@
   <script type="text/javascript" src="/js/bootstrap.js"></script>
 
   
+  <script>
+    var customRenderActFunction = function(item) {
+      var out = '<p class="title">' + item['document']['title'].split(" // ")[0] + '</p>';
+      return out;
+    };
+    var option = {
+      engineKey: 'tinysou-cdn.b0.upaiyun.com',
+      renderActFunction: customRenderActFunction
+    };
+    (function(w,d,t,u,n,s,e){
+      s = d.createElement(t);
+      s.src = u;
+      s.async = 1;
+      w[n] = function(r){
+        w[n].opts = r;
+      };
+      e = d.getElementsByTagName(t)[0];
+      e.parentNode.insertBefore(s, e);
+    })(window,document,'script','//tinysou-cdn.b0.upaiyun.com/ts.js','_ts');
+    _ts(option);
+  </script>
+
   
 
   
