@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[君临天下]]></title>
+  <subtitle><![CDATA[今年lebron绝逼夺冠，bie跟我急!]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://tonylit.me/"/>
+  <updated>2015-11-13T05:37:27.000Z</updated>
+  <id>http://tonylit.me/</id>
+  
+  <author>
+    <name><![CDATA[tonyli]]></name>
+    <email><![CDATA[489631402@qq.com]]></email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[hexo报错处理]]></title>
+    <link href="http://tonylit.me/2015/11/13/hexo%E6%8A%A5%E9%94%99%E5%A4%84%E7%90%86/"/>
+    <id>http://tonylit.me/2015/11/13/hexo报错处理/</id>
+    <published>2015-11-13T03:37:27.000Z</published>
+    <updated>2015-11-13T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h2 id="strong_text_hexo_s后,访问页面显示Cannot_GET_/">strong text hexo s后,访问页面显示Cannot GET /</h2><p><strong>解决方法：</strong><br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">执行：npm <span class="keyword">install</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>##hexo deploy命令显示ERROR Deployer not found : github<br><strong>解决方法：</strong><br><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">首先将_config.yml的deploy的<span class="typedef"><span class="keyword">type</span>改成git</span></span><br><span class="line">运行下npm install hexo-deployer-git <span class="comment">--save</span></span><br><span class="line">最后再hexo g</span><br></pre></td></tr></table></figure></p>
+<p><a href="http://guoyuxiang.com/2015/07/27/%E5%9F%BA%E4%BA%8Eswiftype%E5%BA%94%E7%94%A8%E4%BA%8EHexo-Yilia-%E4%B8%BB%E9%A2%98%E7%9A%84%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" target="_blank" rel="external">http://guoyuxiang.com/2015/07/27/%E5%9F%BA%E4%BA%8Eswiftype%E5%BA%94%E7%94%A8%E4%BA%8EHexo-Yilia-%E4%B8%BB%E9%A2%98%E7%9A%84%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/</a></p>
+<hr>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h2 id="strong_text_hexo_s后,访问页面显示Cannot_GET_/">strong text hexo s后,访问页面显示Cannot GET /</h2><p><strong>解决方法：</strong><br><figure class="]]>
+    </summary>
+    
+      <category term="hexo" scheme="http://tonylit.me/tags/hexo/"/>
+    
+      <category term="hexo" scheme="http://tonylit.me/categories/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[各路大神的日月精华]]></title>
+    <link href="http://tonylit.me/2015/10/13/%E5%90%84%E8%B7%AF%E5%A4%A7%E7%A5%9E%E7%9A%84%E7%B2%BE%E5%8D%8E%E5%B8%96/"/>
+    <id>http://tonylit.me/2015/10/13/各路大神的精华帖/</id>
+    <published>2015-10-13T03:37:27.000Z</published>
+    <updated>2015-10-13T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h4 id="汇总各路大神的帖子，供自己学习"><strong>汇总各路大神的帖子，供自己学习</strong></h4><p><a href="http://www.tuicool.com/articles/QFzUbm" target="_blank" rel="external">同时托管github和gitcafe</a> </p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h4 id="汇总各路大神的帖子，供自己学习"><strong>汇总各路大神的帖子，供自己学习</strong></h4><p><a href="http://www.tuicool.com/articles/QFzUbm" target="_blank" rel="]]>
+    </summary>
+    
+      <category term="精华" scheme="http://tonylit.me/tags/%E7%B2%BE%E5%8D%8E/"/>
+    
+      <category term="精华" scheme="http://tonylit.me/categories/%E7%B2%BE%E5%8D%8E/"/>
+    
+  </entry>
+  
+</feed>
