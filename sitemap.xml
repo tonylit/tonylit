@@ -27,12 +27,17 @@
   </url>
   
   <url>
+    <loc>http://tonylit.me/js/motion_global.js</loc>
+    <lastmod>2015-10-26T17:43:18.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://tonylit.me/js/search-toggle.js</loc>
     <lastmod>2015-10-26T17:43:18.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://tonylit.me/js/motion_global.js</loc>
+    <loc>http://tonylit.me/js/ua-parser.min.js</loc>
     <lastmod>2015-10-26T17:43:18.000Z</lastmod>
   </url>
   
@@ -47,7 +52,7 @@
   </url>
   
   <url>
-    <loc>http://tonylit.me/js/ua-parser.min.js</loc>
+    <loc>http://tonylit.me/js/bootstrap.scrollspy.js</loc>
     <lastmod>2015-10-26T17:43:18.000Z</lastmod>
   </url>
   
@@ -63,11 +68,6 @@
   
   <url>
     <loc>http://tonylit.me/js/fancy-box.js</loc>
-    <lastmod>2015-10-26T17:43:18.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://tonylit.me/js/bootstrap.scrollspy.js</loc>
     <lastmod>2015-10-26T17:43:18.000Z</lastmod>
   </url>
   
