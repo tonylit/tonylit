@@ -2359,5 +2359,5 @@ form input.st-search-input_my {
   -webkit-box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.17);
   box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.17);
   outline: none;
-  background: #fcfcfc url("/images/search.png") no-repeat 7px 7px;
+  background: #fcfcfc url("/img/search.png") no-repeat 7px 7px;
 }
