@@ -22,19 +22,32 @@
     <updated>2015-11-13T05:37:27.000Z</updated>
     <content type="html"><![CDATA[<hr>
 <h2 id="strong_text_hexo_s后,访问页面显示Cannot_GET_/">strong text hexo s后,访问页面显示Cannot GET /</h2><p><strong>解决方法：</strong><br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">执行：npm <span class="keyword">install</span></span><br></pre></td></tr></table></figure></p>
-<hr>
-<p>##hexo deploy命令显示ERROR Deployer not found : github<br><strong>解决方法：</strong><br><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">首先将_config.yml的deploy的<span class="typedef"><span class="keyword">type</span>改成git</span></span><br><span class="line">运行下npm install hexo-deployer-git <span class="comment">--save</span></span><br><span class="line">最后再hexo g</span><br></pre></td></tr></table></figure></p>
+<h2 id="<!-_more_->"><a id="more"></a></h2><p>##hexo deploy命令显示ERROR Deployer not found : github<br><strong>解决方法：</strong><br><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">首先将_config.yml的deploy的<span class="typedef"><span class="keyword">type</span>改成git</span></span><br><span class="line">运行下npm install hexo-deployer-git <span class="comment">--save</span></span><br><span class="line">最后再hexo g</span><br></pre></td></tr></table></figure></p>
 <p><a href="http://guoyuxiang.com/2015/07/27/%E5%9F%BA%E4%BA%8Eswiftype%E5%BA%94%E7%94%A8%E4%BA%8EHexo-Yilia-%E4%B8%BB%E9%A2%98%E7%9A%84%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" target="_blank" rel="external">http://guoyuxiang.com/2015/07/27/%E5%9F%BA%E4%BA%8Eswiftype%E5%BA%94%E7%94%A8%E4%BA%8EHexo-Yilia-%E4%B8%BB%E9%A2%98%E7%9A%84%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/</a></p>
 <hr>
+<h2 id="增加主页的标签">增加主页的标签</h2><p><strong>解决方法：</strong><br>menu:<br>主页: /<br>所有文章: /archives<br>前端: /categories/前端<br>随笔: /tags/随笔</p>
+<p>在post的顶部添加categories: 前端 ，tags: 随笔</p>
+<p>或者<br>menu:<br>主页: /<br>所有文章: /archives<br>前端: /tags/前端<br>随笔: /tags/随笔</p>
+<p>在post的顶部添加tags: [随笔, 前端]</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<hr>
-<h2 id="strong_text_hexo_s后,访问页面显示Cannot_GET_/">strong text hexo s后,访问页面显示Cannot GET /</h2><p><strong>解决方法：</strong><br><figure class="]]>
+<h2 id="strong_text_hexo_s后,访问页面显示Cannot_GET_/">strong text hexo s后,访问页面显示Cannot GET /</h2><p><strong>解决方法：</strong><br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">执行：npm <span class="keyword">install</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="<!-_more_->">]]>
+    
     </summary>
     
       <category term="hexo" scheme="http://tonylit.me/tags/hexo/"/>
     
+      <category term="life" scheme="http://tonylit.me/tags/life/"/>
+    
+      <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
       <category term="hexo" scheme="http://tonylit.me/categories/hexo/"/>
+    
+      <category term="work" scheme="http://tonylit.me/categories/hexo/work/"/>
+    
+      <category term="life" scheme="http://tonylit.me/categories/hexo/work/life/"/>
     
   </entry>
   
