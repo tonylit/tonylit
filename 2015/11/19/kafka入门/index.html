@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content=""/>
+  
+  <title>kafka入门 | 淘淘的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="公司的一些项目用的ActivemMQ，最近有个项目开始尝试使用Kafka，有幸帮忙测试了kafka-Producer和Consumer消息吞吐相关的性能，包括broker切换消息的丢失率。在此之前，我对kafka完全不了解。kafka 作为分布式的消息系统，性能大大超过传统的ActiveMQ，市场前景很广，虽然目前还有一些不足的地方，但以后很可能会是分布式消息系统的主流，有必要学习一下！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kafka入门">
+<meta property="og:url" content="http://tonylit.me/2015/11/19/kafka入门/index.html">
+<meta property="og:site_name" content="淘淘的博客">
+<meta property="og:description" content="公司的一些项目用的ActivemMQ，最近有个项目开始尝试使用Kafka，有幸帮忙测试了kafka-Producer和Consumer消息吞吐相关的性能，包括broker切换消息的丢失率。在此之前，我对kafka完全不了解。kafka 作为分布式的消息系统，性能大大超过传统的ActiveMQ，市场前景很广，虽然目前还有一些不足的地方，但以后很可能会是分布式消息系统的主流，有必要学习一下！">
+<meta property="og:image" content="http://tonylit.me/img/kafkatuopu.jpg">
+<meta property="og:image" content="http://tonylit.me/img/topic.png">
+<meta property="og:image" content="http://tonylit.me/img/consumers.png">
+<meta property="og:updated_time" content="2015-11-19T05:37:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kafka入门">
+<meta name="twitter:description" content="公司的一些项目用的ActivemMQ，最近有个项目开始尝试使用Kafka，有幸帮忙测试了kafka-Producer和Consumer消息吞吐相关的性能，包括broker切换消息的丢失率。在此之前，我对kafka完全不了解。kafka 作为分布式的消息系统，性能大大超过传统的ActiveMQ，市场前景很广，虽然目前还有一些不足的地方，但以后很可能会是分布式消息系统的主流，有必要学习一下！">
+  
+    <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/leaves.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script src="http://kiritor.github.io//js/jquery.nicescroll.js"></script>
+
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+<form class="search" method="get" accept-charset="utf-8">
+			<input type="text" id="chillax-search-input" class="st-search-input_my" maxlength="30" placeholder="search" />
+		</form>
+
+
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/c.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/" class="alluraregular">tonyli</a></h1>
+		</hgroup>
+        <!--
+		
+		<p class="header-subtitle">今年lebron绝逼夺冠，bie跟我急!</p>
+		
+        -->
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/work">工作日志</a></li>
+				        
+							<li><a href="/tags/life">点滴生活</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/loadrunner/" style="font-size: 10px;">loadrunner</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/work/" style="font-size: 20px;">work</a> <a href="/tags/前端性能/" style="font-size: 10px;">前端性能</a> <a href="/tags/工作/" style="font-size: 13.33px;">工作</a> <a href="/tags/性能/" style="font-size: 16.67px;">性能</a> <a href="/tags/网络攻击/" style="font-size: 10px;">网络攻击</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+					</div>
+				</section>
+				
+
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">自古求真皆寂寞，惟挑心灯伴夜霭</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tonyli</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/c.jpg" class="js-avatar">
+				<hgroup>
+				  <h1 class="header-author">tonyli</h1>
+				</hgroup>
+			</div>
+			
+			<p class="header-subtitle">今年lebron绝逼夺冠，bie跟我急!</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/work">工作日志</a></li>
+		        
+					<li><a href="/tags/life">点滴生活</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+
+	  <div class="recent">
+最近在研究中间件相关性能调优......
+</div>
+
+      <div class="body-wrap"><article id="post-kafka入门" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2015/11/19/kafka入门/" class="article-date">
+  	<time datetime="2015-11-19T03:37:27.000Z" itemprop="datePublished">2015-11-19</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      kafka入门
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kafka/">kafka</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工作/">工作</a></li></ul>
+	</div>
+
+
+                                        
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#与其他常用Message_Queue对比"><span class="toc-number">2.</span> <span class="toc-text">与其他常用Message Queue对比</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#术语"><span class="toc-number">2.1.</span> <span class="toc-text">术语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拓扑结构"><span class="toc-number">2.2.</span> <span class="toc-text">拓扑结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Topics_和Logs"><span class="toc-number">2.3.</span> <span class="toc-text">Topics 和Logs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分布式"><span class="toc-number">2.4.</span> <span class="toc-text">分布式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Producers"><span class="toc-number">2.5.</span> <span class="toc-text">Producers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Consumers"><span class="toc-number">2.6.</span> <span class="toc-text">Consumers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消息的有序性"><span class="toc-number">2.7.</span> <span class="toc-text">消息的有序性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#环境搭建"><span class="toc-number">3.</span> <span class="toc-text">环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#下载kafka"><span class="toc-number">3.1.</span> <span class="toc-text">下载kafka</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动服务"><span class="toc-number">3.2.</span> <span class="toc-text">启动服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#先启动zookeeper"><span class="toc-number">3.2.1.</span> <span class="toc-text">先启动zookeeper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#再启动kafka"><span class="toc-number">3.2.2.</span> <span class="toc-text">再启动kafka</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建_topic"><span class="toc-number">3.3.</span> <span class="toc-text">创建 topic</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#发送消息"><span class="toc-number">3.4.</span> <span class="toc-text">发送消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动consumer"><span class="toc-number">3.5.</span> <span class="toc-text">启动consumer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#搭建一个多个broker的集群"><span class="toc-number">3.6.</span> <span class="toc-text">搭建一个多个broker的集群</span></a></li></ol></li></ol>
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p>公司的一些项目用的<a href="http://www.cnblogs.com/kgdxpr/p/3381974.html" target="_blank" rel="external">ActivemMQ</a>，最近有个项目开始尝试使用Kafka，有幸帮忙测试了kafka-Producer和Consumer消息吞吐相关的性能，包括broker切换消息的丢失率。在此之前，我对kafka完全不了解。<br>kafka 作为分布式的消息系统，性能大大超过传统的ActiveMQ，市场前景很广，虽然目前还有一些不足的地方，但以后很可能会是分布式消息系统的主流，有必要学习一下！<br><a id="more"></a></p>
+<h1 id="介绍">介绍</h1><p>kafka是Linkedin于2010年12月份开源的消息系统，它主要用于处理活跃的流式数据。活跃的流式数据在web网站应用中非常常见，这些数据包括网站的pv、用户访问了什么内容，搜索了什么内容等。 这些数据通常以日志的形式记录下来，然后每隔一段时间进行一次统计处理。<br>传统的日志分析系统提供了一种离线处理日志信息的可扩展方案，但若要进行实时处理，通常会有较大延迟。而现有的消息（队列）系统能够很好的处理实时或者近似实时的应用，但未处理的数据通常不会写到磁盘上，这对于Hadoop之类（一小时或者一天只处理一部分数据）的离线应用而言，可能存在问题。Kafka正是为了解决以上问题而设计的，它能够很好地离线和在线应用。</p>
+<h1 id="与其他常用Message_Queue对比">与其他常用Message Queue对比</h1><ul>
+<li><strong>RabbitMQ</strong><br>RabbitMQ是使用Erlang编写的一个开源的消息队列，本身支持很多的协议：AMQP，XMPP, SMTP, STOMP，也正因如此，它非常重量级，更适合于企业级的开发。同时实现了Broker构架，这意味着消息在发送给客户端时先在中心队列排队。对路由，负载均衡或者数据持久化都有很好的支持。</li>
+<li><strong>Redis</strong><br>Redis是一个基于Key-Value对的NoSQL数据库，开发维护很活跃。虽然它是一个Key-Value数据库存储系统，但它本身支持MQ功能，所以完全可以当做一个轻量级的队列服务来使用。对于RabbitMQ和Redis的入队和出队操作，各执行100万次，每10万次记录一次执行时间。测试数据分为128Bytes、512Bytes、1K和10K四个不同大小的数据。实验表明：入队时，当数据比较小时Redis的性能要高于RabbitMQ，而如果数据大小超过了10K，Redis则慢的无法忍受；出队时，无论数据大小，Redis都表现出非常好的性能，而RabbitMQ的出队性能则远低于Redis。</li>
+<li><strong>ZeroMQ</strong><br>ZeroMQ号称最快的消息队列系统，尤其针对大吞吐量的需求场景。ZMQ能够实现RabbitMQ不擅长的高级/复杂的队列，但是开发人员需要自己组合多种技术框架，技术上的复杂度是对这MQ能够应用成功的挑战。ZeroMQ具有一个独特的非中间件的模式，你不需要安装和运行一个消息服务器或中间件，因为你的应用程序将扮演了这个服务角色。你只需要简单的引用ZeroMQ程序库，可以使用NuGet安装，然后你就可以愉快的在应用程序之间发送消息了。但是ZeroMQ仅提供非持久性的队列，也就是说如果宕机，数据将会丢失。其中，Twitter的Storm 0.9.0以前的版本中默认使用ZeroMQ作为数据流的传输（Storm从0.9版本开始同时支持ZeroMQ和Netty作为传输模块）。</li>
+<li><strong>ActiveMQ</strong><br>ActiveMQ是Apache下的一个子项目。 类似于ZeroMQ，它能够以代理人和点对点的技术实现队列。同时类似于RabbitMQ，它少量代码就可以高效地实现高级应用场景。<br>-<strong>Kafka/Jafka</strong><br>Kafka是Apache下的一个子项目，是一个高性能跨语言分布式发布/订阅消息队列系统，而Jafka是在Kafka之上孵化而来的，即Kafka的一个升级版。具有以下特性：快速持久化，可以在O(1)的系统开销下进行消息持久化；高吞吐，在一台普通的服务器上既可以达到10W/s的吞吐速率；完全的分布式系统，Broker、Producer、Consumer都原生自动支持分布式，自动实现复杂均衡；支持Hadoop数据并行加载，对于像Hadoop的一样的日志数据和离线分析系统，但又要求实时处理的限制，这是一个可行的解决方案。Kafka通过Hadoop的并行加载机制来统一了在线和离线的消息处理。Apache Kafka相对于ActiveMQ是一个非常轻量级的消息系统，除了性能非常好之外，还是一个工作良好的分布式系统。<h2 id="术语">术语</h2>首先让我们看几个基本的消息系统术语：</li>
+<li><strong>Broker</strong><br>Kafka集群包含一个或多个服务器，这种服务器被称为broker</li>
+<li><strong>Topic</strong><br>每条发布到Kafka集群的消息都有一个类别，这个类别被称为Topic。（物理上不同Topic的消息分开存储，逻辑上一个Topic的消息虽然保存于一个或多个broker上但用户只需指定消息的Topic即可生产或消费数据而不必关心数据存于何处）</li>
+<li><strong>Partition</strong><br>Parition是物理上的概念，每个Topic包含一个或多个Partition.</li>
+<li><strong>Producer</strong><br>负责发布消息到Kafka broker</li>
+<li><strong>Consumer</strong><br>消息消费者，向Kafka broker读取消息的客户端。</li>
+<li><strong>Consumer Group</strong><br>每个Consumer属于一个特定的Consumer Group（可为每个Consumer指定group name，若不指定group name则属于默认的group）。<h2 id="拓扑结构">拓扑结构</h2><img src="/img/kafkatuopu.jpg" alt="Alt text"><br>如上图所示，一个典型的Kafka集群中包含若干Producer（可以是web前端产生的Page View，或者是服务器日志，系统CPU、Memory等），若干broker（Kafka支持水平扩展，一般broker数量越多，集群吞吐率越高），若干Consumer Group，以及一个Zookeeper集群。Kafka通过Zookeeper管理集群配置，选举leader，以及在Consumer Group发生变化时进行rebalance。Producer使用push模式将消息发布到broker，Consumer使用pull模式从broker订阅并消费消息。<br>需要提到的一点：<strong>客户端和服务端通过TCP协议通信</strong>。Kafka提供了Java客户端，并且对多种语言都提供了支持。<h2 id="Topics_和Logs">Topics 和Logs</h2>先来看一下Kafka提供的一个抽象概念:topic.<br>一个topic是对一组消息的归纳。Topic在逻辑上可以被认为是一个queue，每条消费都必须指定它的topic，可以简单理解为必须指明把这条消息放进哪个queue里。对每个topic，Kafka 对它的日志进行了分区，如下图所示：<br><img src="/img/topic.png" alt="Alt text"><br>每个分区都由一系列有序的、不可变的消息组成，这些消息被连续的追加到分区中。分区中的每个消息都有一个连续的序列号叫做offset,用来在分区中唯一的标识这个消息。<br>在一个可配置的时间段内，Kafka集群保留所有发布的消息，不管这些消息有没有被消费。比如，如果消息的保存策略被设置为2天，那么在一个消息被发布的两天时间内，它都是可以被消费的。之后它将被丢弃以释放空间。Kafka的性能是和数据量无关的常量级的，所以保留太多的数据并不是问题。</li>
+</ul>
+<p>实际上每个consumer唯一需要维护的数据是消息在日志中的位置，也就是offset.这个offset有consumer来维护：一般情况下随着consumer不断的读取消息，这offset的值不断增加，但其实consumer可以以任意的顺序读取消息，比如它可以将offset设置成为一个旧的值来重读之前的消息。</p>
+<p>以上特点的结合，使Kafka consumers非常的轻量级：它们可以在不对集群和其他consumer造成影响的情况下读取消息。你可以使用命令行来”tail”消息而不会对其他正在消费消息的consumer造成影响。</p>
+<p>将日志分区可以达到以下目的：首先这使得每个日志的数量不会太大，可以在单个服务上保存。另外每个分区可以单独发布和消费，为并发操作topic提供了一种可能。</p>
+<h2 id="分布式">分布式</h2><p>每个分区在Kafka集群的若干服务中都有副本，这样这些持有副本的服务可以共同处理数据和请求，副本数量是可以配置的。副本使Kafka具备了容错能力。<br>每个分区都由一个服务器作为“leader”，零或若干服务器作为“followers”,leader负责处理消息的读和写，followers则去复制leader.如果leader down了，followers中的一台则会自动成为leader。集群中的每个服务都会同时扮演两个角色：作为它所持有的一部分分区的leader，同时作为其他分区的followers，这样集群就会据有较好的负载均衡。</p>
+<h2 id="Producers">Producers</h2><p>Producer将消息发布到它指定的topic中,并负责决定发布到哪个分区。通常简单的由负载均衡机制随机选择分区，但也可以通过特定的分区函数选择分区。使用的更多的是第二种,我们也是使用的这个。</p>
+<h2 id="Consumers">Consumers</h2><p>发布消息通常有两种模式：队列模式（queuing）和发布-订阅模式(publish-subscribe)。队列模式中，consumers可以同时从服务端读取消息，每个消息只被其中一个consumer读到；发布-订阅模式中消息被广播到所有的consumer中。Consumers可以加入一个consumer 组，共同竞争一个topic，topic中的消息将被分发到组中的一个成员中。同一组中的consumer可以在不同的程序中，也可以在不同的机器上。如果所有的consumer都在一个组中，这就成为了传统的队列模式，在各consumer中实现负载均衡。如果所有的consumer都不在不同的组中，这就成为了发布-订阅模式，所有的消息都被分发到所有的consumer中。更常见的是，每个topic都有若干数量的consumer组，每个组都是一个逻辑上的“订阅者”，为了容错和更好的稳定性，每个组由若干consumer组成。这其实就是一个发布-订阅模式，只不过订阅者是个组而不是单个consumer。<br><img src="/img/consumers.png" alt="Alt text"><br>由两个机器组成的集群拥有4个分区 (P0-P3) 2个consumer组. A组有两个consumerB组有4个</p>
+<h2 id="消息的有序性">消息的有序性</h2><p><strong>相比传统的消息系统，Kafka可以很好的保证有序性。</strong><br>传统的队列在服务器上保存有序的消息，如果多个consumers同时从这个服务器消费消息，服务器就会以消息存储的顺序向consumer分发消息。虽然服务器按顺序发布消息，但是消息是被异步的分发到各consumer上，所以当消息到达时可能已经失去了原来的顺序，这意味着并发消费将导致顺序错乱。为了避免故障，这样的消息系统通常使用“专用consumer”的概念，其实就是只允许一个消费者消费消息，当然这就意味着失去了并发性。</p>
+<p>在这方面Kafka做的更好，通过分区的概念，Kafka可以在多个consumer组并发的情况下提供较好的有序性和负载均衡。将每个分区分只分发给一个consumer组，这样一个分区就只被这个组的一个consumer消费，就可以顺序的消费这个分区的消息。因为有多个分区，依然可以在多个consumer组之间进行负载均衡。注意consumer组的数量不能多于分区的数量，也就是有多少分区就允许多少并发消费。</p>
+<p>Kafka只能保证一个分区之内消息的有序性，在不同的分区之间是不可以的，这已经可以满足大部分应用的需求。如果需要topic中所有消息的有序性，那就只能让这个topic只有一个分区，当然也就只有一个consumer组消费它。</p>
+<hr>
+<h1 id="环境搭建">环境搭建</h1><h2 id="下载kafka">下载kafka</h2><p><a href="http://kafka.apache.org/downloads.html" target="_blank" rel="external">下载最新版本的kafka</a>，我用的kafka_2.9.2-0.8.1.1</p>
+<blockquote>
+<p>我是放在/opt 目录下的<br>tar -xvf kafka_2.9.2-0.8.1.1.tgz</p>
+</blockquote>
+<h2 id="启动服务">启动服务</h2><h3 id="先启动zookeeper">先启动zookeeper</h3><p>Kafka用到了Zookeeper，所有首先启动Zookper，下面简单的启用一个单实例的Zookkeeper服务。可以在命令的结尾加个&amp;符号，这样就可以启动后离开控制台。</p>
+<blockquote>
+<p>cd kafka_2.9.2-0.8.1.1/bin/<br>bash zookeeper-server-start.sh /opt/kafka_2.9.2-0.8.1.1/config/zookeeper.properties &amp;</p>
+</blockquote>
+<p>这里可能会报错：<br>Unrecognized VM option ‘+UseCompressedOops’<br>Could not create the Java virtual machine.</p>
+<blockquote>
+<p>解决方法：<br>查看 bin/kafka-run-class.sh<br>找到<br>if [ -z “$KAFKA_JVM_PERFORMANCE_OPTS” ]; then<br>  KAFKA_JVM_PERFORMANCE_OPTS=”-server  -XX:+UseCompressedOops -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSScavengeBeforeRemark -XX:+DisableExplicitGC -Djava.awt.headless=true”<br>fi<br>去掉-XX:+UseCompressedOops<br>再启用就可以了</p>
+</blockquote>
+<h3 id="再启动kafka">再启动kafka</h3><blockquote>
+<p>bash kafka-server-start.sh /opt/kafka_2.9.2-0.8.1.1/config/server.properties &amp;</p>
+</blockquote>
+<p>如果报错，启动不了，可以多开几个终端试一试。</p>
+<h2 id="创建_topic">创建 topic</h2><p>创建一个叫做“test”的topic，它只有一个分区，一个副本。</p>
+<blockquote>
+<p>bash kafka-topics.sh –create –zookeeper localhost:2181 –replication-factor 1 –partitions 1 –topic test</p>
+</blockquote>
+<p>可以通过list命令查看创建的topic:</p>
+<blockquote>
+<p>bash kafka-topics.sh –list –zookeeper localhost:2181</p>
+</blockquote>
+<p>除了手动创建topic，还可以配置broker让它自动创建topic.</p>
+<h2 id="发送消息">发送消息</h2><p>Kafka 使用一个简单的命令行producer，从文件中或者从标准输入中读取消息并发送到服务端。默认的每条命令将发送一条消息。<br>运行producer并在控制台中输一些消息，这些消息将被发送到服务端：</p>
+<blockquote>
+<p>bash kafka-console-producer.sh –broker-list localhost:9092 –topic<br>test</p>
+</blockquote>
+<p>ctrl+c可以退出发送。</p>
+<h2 id="启动consumer">启动consumer</h2><p>Kafka也有一个命令行consumer可以读取消息并输出到标准输出</p>
+<blockquote>
+<p>bash kafka-console-consumer.sh –zookeeper localhost:2181 –topic test –from-beginning</p>
+</blockquote>
+<h2 id="搭建一个多个broker的集群">搭建一个多个broker的集群</h2><p>刚才只是启动了单个broker，现在启动有3个broker组成的集群，这些broker节点也都是在本机上的：<br>首先为每个节点编写配置文件：</p>
+<blockquote>
+<p>cp config/server.properties config/server-1.properties<br>cp config/server.properties config/server-2.properties</p>
+</blockquote>
+<p>在拷贝出的新文件中添加以下参数：<br>config/server-1.properties:<br>    broker.id=1<br>    port=9093<br>    log.dir=/tmp/kafka-logs-1</p>
+<p>config/server-2.properties:<br>    broker.id=2<br>    port=9094<br>    log.dir=/tmp/kafka-logs-2</p>
+<p>broker.id在集群中唯一的标注一个节点，因为在同一个机器上，所以必须制定不同的端口和日志文件，避免数据被覆盖。<br>刚才已经启动可Zookeeper和一个节点，现在启动另外两个节点：</p>
+<blockquote>
+<p>bin/kafka-server-start.sh config/server-1.properties &amp;<br>bin/kafka-server-start.sh config/server-2.properties &amp;</p>
+</blockquote>
+<p>创建一个拥有3个副本的topic:</p>
+<blockquote>
+<p>bin/kafka-topics.sh –create –zookeeper localhost:2181 –replication-factor 3 –partitions 1 –topic my-replicated-topic</p>
+</blockquote>
+<p>现在我们搭建了一个集群，怎么知道每个节点的信息呢？运行“”describe topics”命令就可以了：</p>
+<blockquote>
+<p>bin/kafka-topics.sh –describe –zookeeper localhost:2181 –topic my-replicated-topic<br>Topic:my-replicated-topic       PartitionCount:1        ReplicationFactor:3     Configs:<br>        Topic: my-replicated-topic      Partition: 0    Leader: 1       Replicas: 1,2,0 Isr: 1,2,0</p>
+</blockquote>
+<p>下面解释一下这些输出。第一行是对所有分区的一个描述，然后每个分区都会对应一行，因为我们只有一个分区所以下面就只加了一行。<br><strong>leader</strong>：负责处理消息的读和写，leader是从所有节点中随机选择的.<br><strong>replicas</strong>：列出了所有的副本节点，不管节点是否在服务中.<br><strong>isr</strong>：是正在服务中的节点.<br>在我们的例子中，节点1是作为leader运行。<br>向topic发送消息：</p>
+<blockquote>
+<p>bin/kafka-console-producer.sh –broker-list localhost:9092 –topic my-replicated-topic<br>my test message 1my test message 2</p>
+</blockquote>
+<p>消费这些消息：</p>
+<blockquote>
+<p>bin/kafka-console-consumer.sh –zookeeper localhost:2181 –from-beginning –topic my-replicated-topic</p>
+<p>my test message 1<br>my test message 2</p>
+</blockquote>
+<p>测试一下容错能力.Broker 1作为leader运行，现在我们kill掉它：</p>
+<blockquote>
+<p>ps | grep server-1.properties7564 ttys002    0:15.91 /System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home/bin/java…<br>kill -9 7564</p>
+</blockquote>
+<p>另外一个节点被选做了leader,node 1 不再出现在 in-sync 副本列表中：</p>
+<blockquote>
+<p>bin/kafka-topics.sh –describe –zookeeper localhost:218192 –topic my-replicated-topic<br>Topic:my-replicated-topic       PartitionCount:1        ReplicationFactor:3     Configs:<br>        Topic: my-replicated-topic      Partition: 0    Leader: 2       Replicas: 1,2,0 Isr: 2,0</p>
+</blockquote>
+<p>虽然最初负责续写消息的leader down掉了，但之前的消息还是可以消费的：</p>
+<blockquote>
+<p>bin/kafka-console-consumer.sh –zookeeper localhost:2181 –from-beginning –topic my-replicated-topic<br>…<br>my test message 1<br>my test message 2</p>
+</blockquote>
+
+                                                                                
+                                        </div>
+                                        
+            </div>
+            
+                <div class="bdsharebuttonbox" style="margin-top:10px;margin-left:30px;float:left;">
+                    <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                    <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                    <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
+                    <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
+                    <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                    <a href="#" class="bds_more" data-cmd="more"></a>
+                </div>
+                <script>
+                    window._bd_share_config = {
+                        "common": {
+                            "bdSnsKey": {},
+                            "bdText": "",
+                            "bdMini": "1",
+                            "bdMiniList": false,
+                            "bdStyle": "2",
+                            "bdSize": "16"
+                        },
+                        "share": {}
+                    };
+                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
+  
+  
+    <a href="/2015/11/18/全球黑客撕逼，蓝翔又在毕业考试吗？/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">全球黑客撕逼，蓝翔又在毕业考试吗？</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-kafka入门" data-title="kafka入门" data-url="http://tonylit.me/2015/11/19/kafka入门/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "kiritor"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
+</article>
+
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+    
+-->
+<!--
+
+-->
+
+</div>
+      <!--<footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 tonyli
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+    
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+   
+  </div>
+</footer>-->
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/prefixfree.js" type="text/javascript"></script>
+<script src="/js/require-2.1.20.js" type="text/javascript"></script>
+<script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
+    <a title="返回顶部" style="opacity: 100%;">
+        <img src="/img/scrollup.png" />
+    </a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+
+  </div>
+</body>
+</html>
