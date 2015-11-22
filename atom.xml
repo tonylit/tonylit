@@ -24,7 +24,7 @@
 <p><img src="/img/levron-james.jpg" alt="Alt text"></p>
 <a id="more"></a>
 <hr>
-<div class="owl-media owl-video"><br><div class="owl-media owl-video owl-youku"><iframe src="http://player.youku.com/embed/XNTAzODA2ODYw" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen></iframe></div><br></div>]]></content>
+<div height="800" width="600" class="owl-media owl-video"><br><div class="owl-media owl-video owl-youku"><iframe src="http://player.youku.com/embed/XNTAzODA2ODYw" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen></iframe></div><br></div>]]></content>
     <summary type="html">
     <![CDATA[<p>什么时候开始喜欢詹姆斯，<br>应该是09年东决G2绝杀魔术，<br>1s绝杀的时候，真的是把我看哭了，一个人带队实在是太不容易！<br>现在，23号又回到了家乡，<br>剑指总冠军，我们拭目以待！！</p>
 <p><img src="/img/levron-james.jpg" alt="Alt text"></p>]]>
@@ -34,8 +34,6 @@
       <category term="lebron james" scheme="http://tonylit.me/tags/lebron-james/"/>
     
       <category term="life" scheme="http://tonylit.me/tags/life/"/>
-    
-      <category term="work" scheme="http://tonylit.me/tags/work/"/>
     
   </entry>
   
