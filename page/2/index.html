@@ -4,18 +4,17 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>search | 淘淘的博客</title>
+  <title>淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
+  <meta name="description" content="技术,性能,生活,互联网">
 <meta property="og:type" content="website">
-<meta property="og:title" content="search">
-<meta property="og:url" content="http://tonylit.me/search/index.html">
+<meta property="og:title" content="淘淘的博客">
+<meta property="og:url" content="http://tonylit.me/page/2/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description">
-<meta property="og:updated_time" content="2015-11-16T01:38:36.281Z">
+<meta property="og:description" content="技术,性能,生活,互联网">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="search">
-<meta name="twitter:description">
+<meta name="twitter:title" content="淘淘的博客">
+<meta name="twitter:description" content="技术,性能,生活,互联网">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -193,7 +192,143 @@
 最近在研究中间件相关性能调优......
 </div>
 
-      <div class="body-wrap"><article id="search-undefined" class="article article-type-search" itemscope itemprop="blogPost">
+      <div class="body-wrap"><!-- 是否开启微简历 -->
+
+
+      <div class="resume">
+    <ul id="centerwell">
+        <li id="aboutMe">
+            <h3></h3>
+            <div>
+                <h2 style="margin-top:10px;">About Me</h2>
+                <label>姓名:Tony Li</label>
+                </br>
+                <label>邮件:489631402@qq.com</label>
+                 </br>
+           
+                <label>自古求真皆寂寞，惟挑心灯伴夜霭</label>
+                </label>
+            </div>
+
+        </li>
+        <li id="work">
+            <h3></h3>
+            <div>
+                <h2 style="margin-top:10px;">兴趣爱好</h2>
+                <label>电影，dota，篮球</label>
+                </br>
+                <label>喜欢NBA，勒布郎詹姆斯的球迷</label>
+
+            </div>
+
+        </li>
+        <li id="close" style="float:right;width:40px;">
+            <a class="ck-prev" href="javascript:;">上一张</a>
+        </li>
+    </ul>
+    <script>
+        $(document).ready(function() {
+            var $centerwell_first = $('#centerwell li:first');
+            /* $centerwell_first.animate({
+            width: '400px'
+        }, 300);
+        $centerwell_first.find('h3').animate({}, 300);
+       */
+            /*'#centerwell li').click(function() {
+            window.open($(this).find('a').attr('href'));
+        });
+        */
+            $('#centerwell li').mouseenter(function() {
+                if (!$(this).is(':animated') && $(this).attr("id") != "close") {
+                    $(this).animate({
+                        width: '600'
+                    }, 300).siblings().not("#close").animate({
+                        width: '140px'
+                    }, 300);
+
+                    $(this).find('h3').animate({
+                        backgroundPosition: '-140px'
+                    }, 300).parent().siblings().find('h3').animate({
+                        backgroundPosition: '0px'
+                    }, 300);
+                }
+
+            });
+            $("#close").mouseenter(function() {
+                $('#centerwell li:not(#close)').animate({
+                    width: '140px'
+                }, 300);
+                $('#centerwell li:not(#close)').find("h3").animate({
+                    backgroundPosition: '0px'
+                }, 300);
+            });
+        });
+    </script>
+</div>
+
+
+<style>
+    #ds-recent-comments {
+        background: #fefefe none repeat scroll 0 0;
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        box-shadow: 0 1px 3px #b8b9b9;
+    }
+    #ds-recent-comments:hover {
+        background-color: #f7f7f7;
+    }
+    #ds-recent-comments li.ds-comment {
+        font-size: 13px;
+        list-style-type: none;
+        margin: 0 !important;
+        padding: 6px 0 !important;
+        position: relative !important;
+        word-wrap: break-word;
+        border-top: 0 none;
+        border-radius: 2px;
+    }
+    #ds-recent-comments li.ds-comment .ds-avatar {
+        left: 0 !important;
+        position: absolute !important;
+        top: 6px !important;
+        border: 0 none;
+        border-radius: 50%;
+        margin-left: 8px;
+    }
+    #ds-recent-comments li.ds-comment .ds-avatar img {
+        border-radius: 50%;
+    }
+    #ds-recent-comments li.ds-comment .ds-meta {
+        margin-top: 2px;
+    }
+    #ds-recent-comments li.ds-comment .ds-excerpt {
+        line-height: 18px;
+    }
+    #ds-recent-comments li.ds-comment.ds-show-avatars {
+        padding-left: 48px !important;
+    }
+</style>
+<ul class="ds-recent-comments" data-num-items="1" data-show-avatars="1" data-show-time="0" data-show-admin="0" data-excerpt-length="70" ></ul>
+<!--多说js加载开始，一个页面只需要加载一次 -->
+<script type="text/javascript">
+    var duoshuoQuery = {
+        short_name: "tonylit"
+    };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = 'http://static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })(
+        console.info($("#ds-recent-comments a"))
+    );
+</script>
+
+
+  
+    <article id="post-前端性能测试" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -207,8 +342,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/search/index.html" class="article-date">
-  	<time datetime="2015-11-17T11:09:11.819Z" itemprop="datePublished">2015-11-17</time>
+            <a href="/2015/10/14/前端性能测试/" class="article-date">
+  	<time datetime="2015-10-14T03:37:27.000Z" itemprop="datePublished">2015-10-14</time>
 </a>
 
         </div>
@@ -221,93 +356,140 @@
                             <header class="article-header">
                                 
   
-    <h1 class="article-title" itemprop="name">
-      search
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/14/前端性能测试/">前端性能测试</a>
     </h1>
   
 
 
                             </header>
                             
-                                <div class="article-info article-info-post">
-                                    
-
-                                        
-
-                                            <div class="clearfix"></div>
-                                </div>
-                                
                                     
                                         <div class="article-entry" itemprop="articleBody">
                                             
-                                                            
+
+                                                
                                                                 
-                                                                            <div id="st-results-container"><br></div>
-                                                                                
+                                                                    <p>前端时间领导要求统计网站几个核心页面的<strong>性能指标，pagesize、request数量、请求体积</strong>等，本身对前端 的东东不是很了解，看了一些资料，学习了一些前端的知识，包括页面渲染的顺序，各浏览器对请求的处理机制，各大公司对前端性能的一些指标等，结合网友总结 的一些工具的使用，简单的搭建了前端性能监控平台。<br>
+                                                                        
                                         </div>
                                         
+                                            <div class="article-info article-info-index">
+                                                
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端性能/">前端性能</a></li></ul>
+	</div>
+
+
+                                                    
+
+                                                        
+                                                            <p class="article-more-link">
+                                                                <a  href="/2015/10/14/前端性能测试/#more">More >></a>
+                                                            </p>
+                                                            
+                                                                <div class="clearfix"></div>
+                                            </div>
+                                            
             </div>
             
-                <div class="bdsharebuttonbox" style="margin-top:10px;margin-left:30px;float:left;">
-                    <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
-                    <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
-                    <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
-                    <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
-                    <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
-                    <a href="#" class="bds_more" data-cmd="more"></a>
-                </div>
-                <script>
-                    window._bd_share_config = {
-                        "common": {
-                            "bdSnsKey": {},
-                            "bdText": "",
-                            "bdMini": "1",
-                            "bdMiniList": false,
-                            "bdStyle": "2",
-                            "bdSize": "16"
-                        },
-                        "share": {}
-                    };
-                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
-                </script>
-                
                     
-                        
-
-                            
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="search-undefined" data-title="search" data-url="http://tonylit.me/search/index.html"></div>
-                                    <!-- 多说评论框 end -->
-                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-                                    <script type="text/javascript">
-                                        var duoshuoQuery = {
-                                            short_name: "kiritor"
-                                        };
-                                        (function() {
-                                            var ds = document.createElement('script');
-                                            ds.type = 'text/javascript';
-                                            ds.async = true;
-                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-                                            ds.charset = 'UTF-8';
-                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
-                                        })();
-                                    </script>
-                                    <!-- 多说公共JS代码 end -->
-                                    
 </article>
 
 <!--
 
-    <div style="width:100%;background-color:#fff;">
-        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
-    </div>
-    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
-    
 -->
 <!--
 
 -->
+
+  
+    <article id="post-loadrunner监控linux服务器" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2015/10/14/loadrunner监控linux服务器/" class="article-date">
+  	<time datetime="2015-10-14T03:37:27.000Z" itemprop="datePublished">2015-10-14</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/14/loadrunner监控linux服务器/">loadrunner监控linux服务器</a>
+    </h1>
+  
+
+
+                            </header>
+                            
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+
+                                                
+                                                                
+                                                                    <p><strong>loadrunner监控linux服务器的cpu、io、内存等</strong><br><img src="/img/linux-server.PNG" alt="Alt text"></p>
+                                                                        
+                                        </div>
+                                        
+                                            <div class="article-info article-info-index">
+                                                
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/loadrunner/">loadrunner</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+	</div>
+
+
+                                                    
+
+                                                        
+                                                            <p class="article-more-link">
+                                                                <a  href="/2015/10/14/loadrunner监控linux服务器/#more">More >></a>
+                                                            </p>
+                                                            
+                                                                <div class="clearfix"></div>
+                                            </div>
+                                            
+            </div>
+            
+                    
+                                <!-- 多说评论框 start -->
+                                
+</article>
+
+<!--
+
+-->
+<!--
+
+-->
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </nav>
+  
+
 
 </div>
       <!--<footer id="footer">

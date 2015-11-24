@@ -4,7 +4,7 @@
   <subtitle><![CDATA[今年lebron绝逼夺冠，bie跟我急!]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2015-11-22T05:37:27.000Z</updated>
+  <updated>2015-11-24T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -13,6 +13,214 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[kafka与countdownlatch]]></title>
+    <link href="http://tonylit.me/2015/11/24/kafka%E4%B8%8Ecountdownlatch/"/>
+    <id>http://tonylit.me/2015/11/24/kafka与countdownlatch/</id>
+    <published>2015-11-24T03:37:27.000Z</published>
+    <updated>2015-11-24T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>之前测试kafka消息发送的QPS，刚开始用loadrunner写java的，模拟kafka produce的send，发现loadrunner对这种高精确的请求有很大误差（kafka 的消息精确到毫秒，最小的测试40ms），可能loadrunner模拟请求自身需要耗费时间，遂改为直接通过编写代码多线程方式发送请求。<br><a id="more"></a><br>哎，很惭愧，对java不是很精通~<br>开始直接无脑new Thread，for循环依次启动10个线程执行，如下：</p>
+<pre><code><span class="keyword">public</span> class KafkaProduce {
+<span class="keyword">static</span> <span class="keyword">final</span> ProducerConfig config;
+<span class="keyword">static</span> {
+    <span class="comment">// 设置配置属性</span>
+    Properties props = <span class="keyword">new</span> Properties();
+    props.put(<span class="string">"metadata.broker.list"</span>, <span class="string">"192.168.28.191:9092,192.168.28.192:9092"</span>);
+    props.put(<span class="string">"serializer.class"</span>, <span class="string">"kafka.serializer.StringEncoder"</span>);
+    <span class="comment">// key.serializer.class默认为serializer.class</span>
+    props.put(<span class="string">"key.serializer.class"</span>, <span class="string">"kafka.serializer.StringEncoder"</span>);
+    <span class="comment">// 值为0,1,-1,可以参考</span>
+    <span class="comment">// http://kafka.apache.org/08/configuration.html</span>
+    props.put(<span class="string">"request.required.acks"</span>, <span class="string">"0"</span>);
+    config = <span class="keyword">new</span> ProducerConfig(props);
+}
+<span class="keyword">static</span> <span class="keyword">String</span> topic = <span class="string">"kafka_test_1"</span>;
+<span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">byte</span>[] data = <span class="keyword">new</span> <span class="built_in">byte</span>[<span class="number">1024</span>];
+
+<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) <span class="keyword">throws</span> Exception {
+    <span class="keyword">try</span> {
+        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">10</span>; i++) {
+
+            <span class="keyword">new</span> Thread() {
+                <span class="comment">// 创建producer</span>
+                Producer&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt; producer = <span class="keyword">new</span> Producer&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;(config);
+
+                @Override
+                <span class="keyword">public</span> <span class="keyword">void</span> run() {
+                    <span class="keyword">long</span> all = <span class="number">0</span>;
+                    <span class="keyword">long</span> begin = System.nanoTime();
+                    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">1000</span>; i++) {
+                        producer.send(<span class="keyword">new</span> KeyedMessage&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;(topic, <span class="keyword">new</span> <span class="keyword">String</span>(data)));
+                    }
+                    <span class="keyword">long</span> end = System.nanoTime();
+                    all += end - begin;
+                    System.out.<span class="built_in">println</span>(TimeUnit.NANOSECONDS.toMillis(all));
+                }
+            }.start();
+
+        }
+    }
+    <span class="keyword">catch</span> (Exception e) {
+        System.out.<span class="built_in">println</span>(<span class="string">"kafka failed"</span>);
+        e.printStackTrace();
+    }
+
+}}
+</code></pre><p>执行结果：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1106</span></span><br><span class="line"><span class="number">1637</span></span><br><span class="line"><span class="number">1676</span></span><br><span class="line"><span class="number">1682</span></span><br><span class="line"><span class="number">1701</span></span><br><span class="line"><span class="number">1751</span></span><br><span class="line"><span class="number">1760</span></span><br><span class="line"><span class="number">1777</span></span><br><span class="line"><span class="number">1859</span></span><br><span class="line"><span class="number">1913</span></span><br><span class="line"><span class="number">1938</span></span><br></pre></td></tr></table></figure>
+<p>今天无聊逛了逛贴吧，发现竟然有countdownlatch这么个东东，可以让10个线程一块跑，并发执行的话，这个应该更合理吧，遂改了一下代码：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> class KafaProduce2 &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> ProducerConfig config;</span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    <span class="comment">// 设置配置属性</span></span><br><span class="line">    Properties props = <span class="keyword">new</span> Properties();</span><br><span class="line">    props.put(<span class="string">"metadata.broker.list"</span>, <span class="string">"192.168.28.191:9092,192.168.28.192:9092"</span>);</span><br><span class="line">    props.put(<span class="string">"serializer.class"</span>, <span class="string">"kafka.serializer.StringEncoder"</span>);</span><br><span class="line">    <span class="comment">// key.serializer.class默认为serializer.class</span></span><br><span class="line">    props.put(<span class="string">"key.serializer.class"</span>, <span class="string">"kafka.serializer.StringEncoder"</span>);</span><br><span class="line">    <span class="comment">// 值为0,1,-1,可以参考</span></span><br><span class="line">    <span class="comment">// http://kafka.apache.org/08/configuration.html</span></span><br><span class="line">    props.put(<span class="string">"request.required.acks"</span>, <span class="string">"0"</span>);</span><br><span class="line">    config = <span class="keyword">new</span> ProducerConfig(props);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">String</span> topic = <span class="string">"kafka_test_1"</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">byte</span>[] data = <span class="keyword">new</span> <span class="built_in">byte</span>[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 倒数计数器</span></span><br><span class="line">    <span class="keyword">final</span> CountDownLatch begin = <span class="keyword">new</span> CountDownLatch(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 倒数计数器</span></span><br><span class="line">    <span class="keyword">final</span> CountDownLatch end = <span class="keyword">new</span> CountDownLatch(<span class="number">10</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">9</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">new</span> Thread() &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 创建producer</span></span><br><span class="line">            Producer&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt; producer = <span class="keyword">new</span> Producer&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;(config);</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> run() &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    begin.await();</span><br><span class="line">                    <span class="keyword">long</span> all = <span class="number">0</span>;</span><br><span class="line">                    <span class="keyword">long</span> begin = System.nanoTime();</span><br><span class="line">                    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">1000</span>; i++) &#123;</span><br><span class="line">                        producer.send(<span class="keyword">new</span> KeyedMessage&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;(topic, <span class="keyword">new</span> <span class="keyword">String</span>(data)));</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">long</span> end = System.nanoTime();</span><br><span class="line">                    all = end - begin;</span><br><span class="line">                    System.out.<span class="built_in">println</span>(TimeUnit.NANOSECONDS.toMillis(all));</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line"></span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">finally</span> &#123;</span><br><span class="line">                    end.countDown();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    begin.countDown();</span><br><span class="line"></span><br><span class="line">    System.out.<span class="built_in">println</span>(<span class="string">"开始。。。。"</span>);</span><br><span class="line"></span><br><span class="line">    end.await();</span><br><span class="line"></span><br><span class="line">    System.out.<span class="built_in">println</span>(<span class="string">"结束。。。。"</span>);</span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">开始。。。。</span><br><span class="line"><span class="number">1406</span></span><br><span class="line"><span class="number">1618</span></span><br><span class="line"><span class="number">1643</span></span><br><span class="line"><span class="number">1708</span></span><br><span class="line"><span class="number">1714</span></span><br><span class="line"><span class="number">1768</span></span><br><span class="line"><span class="number">1783</span></span><br><span class="line"><span class="number">1837</span></span><br><span class="line"><span class="number">1840</span></span><br><span class="line"><span class="number">1858</span></span><br><span class="line">结束。。。。</span><br></pre></td></tr></table></figure>
+<p>然后，加了个线程池，如下：</p>
+<pre><code><span class="keyword">public</span> class KafkaProduce3 {
+<span class="keyword">static</span> <span class="keyword">final</span> ProducerConfig config;
+<span class="keyword">static</span> {
+    <span class="comment">// 设置配置属性</span>
+    Properties props = <span class="keyword">new</span> Properties();
+    props.put(<span class="string">"metadata.broker.list"</span>, <span class="string">"192.168.28.191:9092,192.168.28.192:9092"</span>);
+    props.put(<span class="string">"serializer.class"</span>, <span class="string">"kafka.serializer.StringEncoder"</span>);
+    <span class="comment">// key.serializer.class默认为serializer.class</span>
+    props.put(<span class="string">"key.serializer.class"</span>, <span class="string">"kafka.serializer.StringEncoder"</span>);
+    <span class="comment">// 值为0,1,-1,可以参考</span>
+    <span class="comment">// http://kafka.apache.org/08/configuration.html</span>
+    props.put(<span class="string">"request.required.acks"</span>, <span class="string">"0"</span>);
+    config = <span class="keyword">new</span> ProducerConfig(props);
+}
+<span class="keyword">static</span> <span class="keyword">String</span> topic = <span class="string">"kafka_test_1"</span>;
+<span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">byte</span>[] data = <span class="keyword">new</span> <span class="built_in">byte</span>[<span class="number">1024</span>];
+
+<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) <span class="keyword">throws</span> InterruptedException {
+
+    <span class="comment">// 倒数计数器</span>
+    <span class="keyword">final</span> CountDownLatch begin = <span class="keyword">new</span> CountDownLatch(<span class="number">1</span>);
+
+    <span class="comment">// 倒数计数器</span>
+    <span class="keyword">final</span> CountDownLatch end = <span class="keyword">new</span> CountDownLatch(<span class="number">10</span>);
+
+    ExecutorService execu = Executors.newFixedThreadPool(<span class="number">10</span>);
+    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">9</span>; i++) {
+        Runnable r = <span class="keyword">new</span> Runnable() {
+
+            <span class="comment">// 创建producer</span>
+            Producer&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt; producer = <span class="keyword">new</span> Producer&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;(config);
+
+            <span class="keyword">public</span> <span class="keyword">void</span> run() {
+                <span class="keyword">try</span> {
+                    begin.await();
+                    <span class="keyword">long</span> all = <span class="number">0</span>;
+                    KeyedMessage k = <span class="keyword">new</span> KeyedMessage&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;(topic, <span class="keyword">new</span> <span class="keyword">String</span>(data));
+
+                    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">1000</span>; i++) {
+                        <span class="keyword">long</span> begin = System.nanoTime();
+                        producer.send(k);
+                        <span class="keyword">long</span> end = System.nanoTime();
+                        all += end - begin;
+                    }
+
+                    System.out.<span class="built_in">println</span>(TimeUnit.NANOSECONDS.toMillis(all));
+                }
+                <span class="keyword">catch</span> (InterruptedException e) {
+
+                    e.printStackTrace();
+                }
+                <span class="keyword">finally</span> {
+                    end.countDown();
+                }
+
+            };
+        };
+
+        execu.submit(r);
+    }
+
+    begin.countDown();
+
+    System.out.<span class="built_in">println</span>(<span class="string">"开始。。。。"</span>);
+
+    end.await();
+
+    System.out.<span class="built_in">println</span>(<span class="string">"结束。。。。"</span>);
+    execu.shutdown();
+}}
+</code></pre><p>结果：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">开始。。。。</span><br><span class="line"><span class="number">1296</span></span><br><span class="line"><span class="number">1463</span></span><br><span class="line"><span class="number">1464</span></span><br><span class="line"><span class="number">1578</span></span><br><span class="line"><span class="number">1603</span></span><br><span class="line"><span class="number">1630</span></span><br><span class="line"><span class="number">1755</span></span><br><span class="line"><span class="number">1771</span></span><br><span class="line"><span class="number">1826</span></span><br><span class="line"><span class="number">1854</span></span><br><span class="line">结束。。。。</span><br></pre></td></tr></table></figure>
+<p>后面2个结果好一些，做并发测试的时候也更合理！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>之前测试kafka消息发送的QPS，刚开始用loadrunner写java的，模拟kafka produce的send，发现loadrunner对这种高精确的请求有很大误差（kafka 的消息精确到毫秒，最小的测试40ms），可能loadrunner模拟请求自身需要耗费时间，遂改为直接通过编写代码多线程方式发送请求。<br>]]>
+    
+    </summary>
+    
+      <category term="java" scheme="http://tonylit.me/tags/java/"/>
+    
+      <category term="kafka" scheme="http://tonylit.me/tags/kafka/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[docker]]></title>
+    <link href="http://tonylit.me/2015/11/24/docker/"/>
+    <id>http://tonylit.me/2015/11/24/docker/</id>
+    <published>2015-11-24T03:37:27.000Z</published>
+    <updated>2015-11-24T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>如果你现在不知道<strong>docker</strong>，那你在这个圈子里就low了。<br>docker作为一个轻量级的虚拟化解决方案，完爆其他的虚拟化技术（kvm、vmware…），各大互联网公司，阿里、百度、qiniu等等，只要是做云的，都开始转向docker，包括VMware也宣布与docker合作。<br>不得不说民间大神还是吊啊，脑子和技术杠杠的，生下来这个一条大鲸鱼，这即将是一场革命，开发和运维是不是都在哈哈哈啊！！<br><img src="/img/docker/docker-ico.png" alt="Alt text"><br><a id="more"></a></p>
+<h1 id="史上最全的docker资料集">史上最全的docker资料集</h1><p>不错的整理，<a href="http://special.csdncms.csdn.net/BeDocker/" target="_blank" rel="external">docker的很多资料都在这</a></p>
+<h1 id="什么是docker？">什么是docker？</h1><p>Docker 是一个开源项目，诞生于 2013 年初，最初是 dotCloud 公司内部的一个业余项目。它基于 Google 公司推出的 Go 语言实现。<br> Docker 的基础是 Linux 容器（<a href="http://baike.baidu.com/link?url=1MqaZ9yQUbI7hbcp3v4oZlKyKVVfn01E1aDJ4SmXnTCmybuaWyMzpr4sr6wPNIBYKj5NqMq3Y3MhC7Anptdnwa" target="_blank" rel="external">LXC</a>）等技术，在 LXC 的基础上 Docker 进行了进一步的封装，让用户不需要去关心容器的管理，使得操作更为简便。用户操作 Docker 的容器就像操作一个快速轻量级的虚拟机一样简单。</p>
+<h1 id="为啥都在使用docker？">为啥都在使用docker？</h1><p><strong>Dock可以用来：</strong></p>
+<ul>
+<li>自动化打包和部署任何应用</li>
+<li>创建一个轻量级私有PaaS云</li>
+<li>搭建开发测试环境</li>
+<li>部署可扩展的Web应用</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th style="text-align:center">docker</th>
+<th style="text-align:right">虚拟机</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>启动</td>
+<td style="text-align:center">秒级</td>
+<td style="text-align:right">分钟级</td>
+</tr>
+<tr>
+<td>硬盘使用</td>
+<td style="text-align:center">一般为 MB</td>
+<td style="text-align:right">一般为 GB</td>
+</tr>
+<tr>
+<td>性能</td>
+<td style="text-align:center">接近原生</td>
+<td style="text-align:right">弱于</td>
+</tr>
+<tr>
+<td>系统支持量</td>
+<td style="text-align:center">单机支持上千个容器</td>
+<td style="text-align:right">一般几十个</td>
+</tr>
+</tbody>
+</table>
+<h1 id="docker与传统虚拟机的比较">docker与传统虚拟机的比较</h1><p><strong>传统vm</strong><br><img src="/img/docker/docker-jiagou.png" alt="Alt text">  </p>
+<p><strong>docker</strong><br><img src="/img/docker/vm-jiagou.png" alt="Alt text"></p>
+<p>比较两图的差异，虚拟机的Guest OS层和Hypervisor层在docker中被Docker Engine层所替代。虚拟机的Guest OS就是虚拟机安装的操作系统，它是一个完整操作系统内核；虚拟机的Hypervisor层可以简单理解为一个硬件虚拟化平台，它在Host OS是以内核态的驱动存在的。<br>虚拟机实现资源隔离的方法是利用独立的OS，并利用Hypervisor虚拟化CPU、内存、IO设备等实现的。例如，为了虚拟CPU，Hypervisor会为每个虚拟的CPU创建一个数据结构，模拟CPU的全部寄存器的值，在适当的时候跟踪并修改这些值。需要指出的是在大多数情况下，虚拟机软件代码是直接跑在硬件上的，而不需要Hypervisor介入。只有在一些权限高的请求下，Guest OS需要运行内核态修改CPU的寄存器数据，Hypervisor会介入，修改并维护虚拟的CPU状态。<br>docker直接利用宿主机的内核，而不需要Guest OS。因此，当新建一个容器时，docker不需要和虚拟机一样重新加载一个操作系统内核。引导、加载操作系统内核是一个比较费时费资源的过程，当新建一个虚拟机时，虚拟机软件需要加载Guest OS，这个新建过程是分钟级别的。而docker由于直接利用宿主机的操作系统，则省略了这个过程，因此新建一个docker容器只需要几秒钟，因此，docker对比虚拟机在资源消耗上也占有比较大的优势。事实上，在一台物理机上我们可以很容易建立成百上千的容器，而只能建立几个虚拟机。</p>
+<h2 id="计算能力上的比较（IBM发表的论文）">计算能力上的比较（IBM发表的论文）</h2><p>根据IBM发表的论文给出的数据进行分析。以下的数据均是在IBM x3650 M4服务器测得，其主要的硬件参数是：<br>（1）2颗英特尔xeon E5-2655 处理器，主频2.4-3.0 GHz。每颗处理器有8个核，因此总共有16个核。<br>（2）256 GB RAM.<br>在测试中是通过运算Linpack程序来获得计算能力数据的。结果如下图所示：<br><img src="/img/docker/yunsuan.png" alt="Alt text"><br>从左往右分别是物理机、docker和虚拟机的计算能力数据。<br>差距还是很明显的，docker相对于物理机其计算能力几乎没有损耗，而虚拟机对比物理机则有着非常明显的损耗。虚拟机的计算能力损耗在50%左右。<br>为什么会有这么大的性能损耗呢？一方面是因为虚拟机增加了一层虚拟硬件层，运行在虚拟机上的应用程序在进行数值计算时是运行在Hypervisor虚拟的CPU上的；另外一方面是由于计算程序本身的特性导致的差异。虚拟机虚拟的cpu架构不同于实际cpu架构，数值计算程序一般针对特定的cpu架构有一定的优化措施，虚拟化使这些措施作废，甚至起到反效果。</p>
+<h1 id="docker的劣势">docker的劣势</h1><p>docker的劣势</p>
+<p>docker也不是完美的系统。相对于虚拟机，docker还存在着以下几个缺点：<br>1.资源隔离方面不如虚拟机，docker是利用cgroup实现资源限制的，只能限制资源消耗的最大值，而不能隔绝其他程序占用自己的资源。<br>2.安全性问题。docker目前并不能分辨具体执行指令的用户，只要一个用户拥有执行docker的权限，那么他就可以对docker的容器进行所有操作，不管该容器是否是由该用户创建。比如A和B都拥有执行docker的权限，由于docker的server端并不会具体判断docker cline是由哪个用户发起的，A可以删除B创建的容器，存在一定的安全风险。<br>3.docker目前还在版本的快速更新中，细节功能调整比较大。一些核心模块依赖于高版本内核，存在版本兼容问题</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>如果你现在不知道<strong>docker</strong>，那你在这个圈子里就low了。<br>docker作为一个轻量级的虚拟化解决方案，完爆其他的虚拟化技术（kvm、vmware…），各大互联网公司，阿里、百度、qiniu等等，只要是做云的，都开始转向docker，包括VMware也宣布与docker合作。<br>不得不说民间大神还是吊啊，脑子和技术杠杠的，生下来这个一条大鲸鱼，这即将是一场革命，开发和运维是不是都在哈哈哈啊！！<br><img src="/img/docker/docker-ico.png" alt="Alt text"><br>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[天选之子-lebron james]]></title>
