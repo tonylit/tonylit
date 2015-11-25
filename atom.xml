@@ -16,11 +16,11 @@
   
   <entry>
     <title><![CDATA[Jprofiler安装]]></title>
-    <link href="http://tonylit.me/2015/11/25/Jprofiler%E7%9B%91%E6%8E%A7/"/>
-    <id>http://tonylit.me/2015/11/25/Jprofiler监控/</id>
+    <link href="http://tonylit.me/2015/11/25/Jprofiler%E5%AE%89%E8%A3%85/"/>
+    <id>http://tonylit.me/2015/11/25/Jprofiler安装/</id>
     <published>2015-11-25T03:37:27.000Z</published>
     <updated>2015-11-25T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>Jprofiler是一个全面的JAVA剖析工具，它有很好的GUI帮助我们定位性能瓶颈、抓住内容泄露等问题。<br>之前一直没机会用，最近给某新项目压性能的时候用了一下，灰常牛X，直接定位到sql层面的问题（耗时长），确实省了很多事情。项目组用的mysql数据库，慢查询真的挺shi的。我在想如果用的oracle，AWR,ADDM,SLA一下，啪啪啪完事。</p>
+    <content type="html"><![CDATA[<p>Jprofiler是一个全面的JAVA剖析工具，它有很好的GUI帮助我们定位性能瓶颈、抓住内容泄露等问题。<br>之前一直没机会用，最近在某新项目组压性能的时候用了一下。<br>灰常牛X，直接定位到sql层面的问题（耗时长），在问题定位上省了很多时间。<br>项目组用的mysql数据库，慢查询真的挺shi的，如果用的oracle，AWR,ADDM,SLA一下，啪啪啪完事~</p>
 <a id="more"></a>
 <p>Jprofiler监控这块其实挺简单的，主要是安装，尤其是要监控远程resin或者tomcat，装起来还是挺麻烦的，搞了我一个多小时…</p>
 <h1 id="Jprofiler下载">Jprofiler下载</h1><p><a href="http://www.ej-technologies.com/download/jprofiler/files" target="_blank" rel="external">下载最新版本的Jprofiler</a>，<a href="http://pan.baidu.com/s/1hqe2rv2" target="_blank" rel="external">我的网盘下载</a>，我用的9.0，windows和linux版本都需要下载。</p>
@@ -71,7 +71,7 @@
 <p>后面一直next，就可以了</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>Jprofiler是一个全面的JAVA剖析工具，它有很好的GUI帮助我们定位性能瓶颈、抓住内容泄露等问题。<br>之前一直没机会用，最近给某新项目压性能的时候用了一下，灰常牛X，直接定位到sql层面的问题（耗时长），确实省了很多事情。项目组用的mysql数据库，慢查询真的挺shi的。我在想如果用的oracle，AWR,ADDM,SLA一下，啪啪啪完事。</p>]]>
+    <![CDATA[<p>Jprofiler是一个全面的JAVA剖析工具，它有很好的GUI帮助我们定位性能瓶颈、抓住内容泄露等问题。<br>之前一直没机会用，最近在某新项目组压性能的时候用了一下。<br>灰常牛X，直接定位到sql层面的问题（耗时长），在问题定位上省了很多时间。<br>项目组用的mysql数据库，慢查询真的挺shi的，如果用的oracle，AWR,ADDM,SLA一下，啪啪啪完事~</p>]]>
     
     </summary>
     
