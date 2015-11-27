@@ -4,26 +4,29 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>性能监控与分析-数据库 | 淘淘的博客</title>
+  <title>性能分析过程 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一个网站的性能分为很多方面，从网络、OS、中间件、code、sql、数据库，还有前端的很多方面，比如：page size、请求数、开启压缩等，实在是太多太多，估计一辈子搞完所有的是不可能了。    大型网站在访问高峰的时候，实际上最大的瓶颈在数据库。很多互联网公司为了解决数据库瓶颈，会在DB端应用很多缓存机制，memcache、redis、包括减轻流复制的压力会应用MQ，kafka等消息队列。据统">
+  <meta name="description" content="性能分析过程一般情况，该怎样定位性能问题：
+
+资源利用率：top、vmstat、iostat、netstat进程：top，top -Hp  &amp;lt; pid &amp;gt;系统调用：strace应用监控：jstack、jprofile、jvisualvm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="性能监控与分析-数据库">
-<meta property="og:url" content="http://tonylit.me/2015/11/13/性能监控与分析-数据库/index.html">
+<meta property="og:title" content="性能分析过程">
+<meta property="og:url" content="http://tonylit.me/2015/11/14/性能分析过程 - 副本 (7)/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="一个网站的性能分为很多方面，从网络、OS、中间件、code、sql、数据库，还有前端的很多方面，比如：page size、请求数、开启压缩等，实在是太多太多，估计一辈子搞完所有的是不可能了。    大型网站在访问高峰的时候，实际上最大的瓶颈在数据库。很多互联网公司为了解决数据库瓶颈，会在DB端应用很多缓存机制，memcache、redis、包括减轻流复制的压力会应用MQ，kafka等消息队列。据统">
-<meta property="og:image" content="http://tonylit.me/img/ORACLE-AWR.png">
-<meta property="og:image" content="http://tonylit.me/img/login_oracle.PNG">
-<meta property="og:image" content="http://tonylit.me/img/awr-create.PNG">
-<meta property="og:image" content="http://tonylit.me/img/shengchengawr.PNG">
-<meta property="og:image" content="http://tonylit.me/img/AWR-1.PNG">
-<meta property="og:image" content="http://tonylit.me/img/Top_5_Timed_Events.PNG">
-<meta property="og:image" content="http://tonylit.me/img/addm-1.PNG">
-<meta property="og:image" content="http://tonylit.me/img/addm-2.PNG">
-<meta property="og:updated_time" content="2015-11-13T05:37:27.000Z">
+<meta property="og:description" content="性能分析过程一般情况，该怎样定位性能问题：
+
+资源利用率：top、vmstat、iostat、netstat进程：top，top -Hp  &amp;lt; pid &amp;gt;系统调用：strace应用监控：jstack、jprofile、jvisualvm">
+<meta property="og:image" content="http://tonylit.me/img/xingnengfenxiguocheng.PNG">
+<meta property="og:image" content="http://tonylit.me/img/vmstat.PNG">
+<meta property="og:image" content="http://tonylit.me/img/strace.PNG">
+<meta property="og:image" content="http://tonylit.me/img/jstack.PNG">
+<meta property="og:image" content="http://tonylit.me/img/jprofiler.PNG">
+<meta property="og:updated_time" content="2015-11-14T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="性能监控与分析-数据库">
-<meta name="twitter:description" content="一个网站的性能分为很多方面，从网络、OS、中间件、code、sql、数据库，还有前端的很多方面，比如：page size、请求数、开启压缩等，实在是太多太多，估计一辈子搞完所有的是不可能了。    大型网站在访问高峰的时候，实际上最大的瓶颈在数据库。很多互联网公司为了解决数据库瓶颈，会在DB端应用很多缓存机制，memcache、redis、包括减轻流复制的压力会应用MQ，kafka等消息队列。据统">
+<meta name="twitter:title" content="性能分析过程">
+<meta name="twitter:description" content="性能分析过程一般情况，该怎样定位性能问题：
+
+资源利用率：top、vmstat、iostat、netstat进程：top，top -Hp  &amp;lt; pid &amp;gt;系统调用：strace应用监控：jstack、jprofile、jvisualvm">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -201,7 +204,7 @@
 最近在研究中间件相关性能调优......
 </div>
 
-      <div class="body-wrap"><article id="post-性能监控与分析-数据库" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-性能分析过程 - 副本 (7)" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -215,8 +218,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2015/11/13/性能监控与分析-数据库/" class="article-date">
-  	<time datetime="2015-11-13T03:37:27.000Z" itemprop="datePublished">2015-11-13</time>
+            <a href="/2015/11/14/性能分析过程 - 副本 (7)/" class="article-date">
+  	<time datetime="2015-11-14T03:37:27.000Z" itemprop="datePublished">2015-11-14</time>
 </a>
 
         </div>
@@ -230,7 +233,7 @@
                                 
   
     <h1 class="article-title" itemprop="name">
-      性能监控与分析-数据库
+      性能分析过程
     </h1>
   
 
@@ -255,36 +258,44 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#常见的数据库问题有哪些？"><span class="toc-number">1.</span> <span class="toc-text">常见的数据库问题有哪些？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ORCLE性能监控-AWR报告和ADDM"><span class="toc-number">2.</span> <span class="toc-text">ORCLE性能监控-AWR报告和ADDM</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#awr和addm介绍"><span class="toc-number">2.1.</span> <span class="toc-text">awr和addm介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何导出awr报告"><span class="toc-number">2.2.</span> <span class="toc-text">如何导出awr报告</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何快速定位问题"><span class="toc-number">2.3.</span> <span class="toc-text">如何快速定位问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何导出ADDM报告"><span class="toc-number">2.4.</span> <span class="toc-text">如何导出ADDM报告</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#性能分析过程"><span class="toc-number">1.</span> <span class="toc-text">性能分析过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#资源利用率"><span class="toc-number">1.1.</span> <span class="toc-text">资源利用率</span></a></li></ol></li></ol>
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <p>  一个网站的性能分为很多方面，从网络、OS、中间件、code、sql、数据库，还有前端的很多方面，比如：page size、请求数、开启压缩等，实在是太多太多，估计一辈子搞完所有的是不可能了。<br>    大型网站在访问高峰的时候，实际上<strong>最大的瓶颈在数据库</strong>。很多互联网公司为了解决数据库瓶颈，会在DB端应用很多缓存机制，memcache、redis、包括减轻流复制的压力会应用MQ，kafka等消息队列。据统计，某宝和某度数据库的压力仅占期请求的10%~20%,大多数都是被redis等处理掉了。<br>    那么问题来了，我们在性能测试的时候遇到DB端的性能问题该怎么定位与分析呢？</p>
-<a id="more"></a>
-<p>数据库的性能无非就两个方面-<strong>sql和配置</strong></p>
-<h1 id="常见的数据库问题有哪些？">常见的数据库问题有哪些？</h1><blockquote>
-<p>SQL语句低效或高负载<br>应用程序使用ORCLE数据库效果不佳<br>数据库内存结构大小不足<br>并发问题<br>I/O问题<br>数据库配置问题<br>数据库性能随着时间下降</p>
-</blockquote>
-<h1 id="ORCLE性能监控-AWR报告和ADDM">ORCLE性能监控-AWR报告和ADDM</h1><h2 id="awr和addm介绍">awr和addm介绍</h2><blockquote>
-<p><strong>AWR</strong>:Automatic Workload Repository 是 10g 引入的一个重要组件，存贮着近期一段时间内数据库活动状态的详细信息、信息保留默认是7天。<br><img src="/img/ORACLE-AWR.png" alt="Alt text"></p>
-<p><strong>ADDM</strong>：Oracle10g中推出了新的优化诊断工具：就是通过诊断和分析awr得到的数据来推断数据库可能存在的问题，addm给出的建议是依照减少db_time为依据。每次收集完awr报告后，都会产生一个addm分析，分析结果在shared_pool里，mmon进程定期将其写入磁盘，AWR每产生一次快照，MMON进程就通知ADDM把AWR最近两次快照之间的差值进行分析。因此，在默认情况下，每当有AWR的快照产生，ADDM将自动运行。通过em可以查看。所以说白了，addm应该是帮助我们发现问题的一个很好的工具。<strong>addm可以定位出很多问题，或许你想不到的，它都能帮你想到。</strong></p>
-</blockquote>
-<h2 id="如何导出awr报告">如何导出awr报告</h2><p>首先进入$ORACLE_HOME/rdbms/admin目录，在sqlplus下运行<strong>@awrrpt</strong>脚本（记得切换oralce用户哦~），按照提示一步一步就可以达成，导出的格式有两种，txt格式和html格式</p>
-<p><img src="/img/login_oracle.PNG" alt="Alt text"></p>
-<p><img src="/img/awr-create.PNG" alt="Alt text"></p>
-<p><img src="/img/shengchengawr.PNG" alt="Alt text"></p>
-<p>我们看到最后生成一个awr报告文件，把它拿出来，改成html格式的文件。</p>
-<p><img src="/img/AWR-1.PNG" alt="Alt text"></p>
-<h2 id="如何快速定位问题">如何快速定位问题</h2><p>刚开始看到AWR报告的时候我就mengbi了，内容实在是太多，从上到下哗啦啦的好多屏。<br>其实大家别害怕，里面99%的内容可以忽略了，我们直接看核心的东东-<strong>Top 5 Timed Events</strong> ，这个是oracle占用时间最长的5个events，直接看这个就行了。<br><img src="/img/Top_5_Timed_Events.PNG" alt="Alt text"></p>
-<p>什么？里面写的啥，看不懂？？<br>其实，里面很多东西DBA也不懂，我们百度，谷歌搜起来，很多优化的方案都有，更专业的话，请看一些oracle自己的文章。<br>还有更懒省事、简单有效的方法，使用ADDM报告，上面也介绍了，它就像个私人医生，给你诊断oracle的性能问题并且给你解决方案。<br><strong>我们来看看ADDM能定位哪些问题</strong>：</p>
+                                                                            <h1 id="性能分析过程">性能分析过程</h1><p>一般情况，该怎样定位性能问题：<br><img src="/img/xingnengfenxiguocheng.PNG" alt="Alt text"></p>
 <blockquote>
-<p>•操作系统内存页入页出问题<br>•由于Oracle负载和非Oracle负载导致的CPU瓶颈问题<br>•导致不同资源负载的Top SQL语句和对象——CPU消耗、IO带宽占用、潜在IO问题、RAC内部通讯繁忙<br>•按照PLSQL和JAVA执行时间排的Top SQL语句.<br>•过多地连接 (login/logoff).<br>•过多硬解析问题——由于shared pool过小、书写问题、绑定大小不适应、解析失败原因引起的。<br>•过多软解析问题<br>•索引查询过多导致资源争用.<br>•由于用户锁导致的过多的等待时间 (通过包dbms_lock加的锁)<br>•由于DML锁导致的过多等待时间(例如锁住表了)<br>•由于管道输出导致的过多等待时间(如通过包dbms_pipe.put进行管道输出)<br>•由于并发更新同一个记录导致的过多等待时间(行级锁等待)<br>•由于ITL不够导致的过多等待时间（大量的事务操作同一个数据块）<br>•系统中过多的commit和rollback(logfile sync事件).<br>•由于磁盘带宽太小和其他潜在问题（如由于logfile太小导致过多的checkpoint，MTTR设置问题，过多的undo操作等等）导致的IO性能问题I<br>•对于DBWR进程写数据块，磁盘IO吞吐量不足<br>•由于归档进程无法跟上redo日至产生的速度，导致系统变慢<br>•redo数据文件太小导致的问题<br>•由于扩展磁盘分配导致的争用<br>•由于移动一个对象的高水位导致的争用问题<br>•内存太小问题——SGA Target, PGA, Buffer Cache, Shared Pool<br>•在一个实例或者一个机群环境中存在频繁读写争用的热块<br>•在一个实例或者一个机群环境中存在频繁读写争用的热对象<br>•RAC环境中内部通讯问题<br>•LMS进程无法跟上导致锁请求阻塞<br>•在RAC环境中由于阻塞和争用导致的实例倾斜<br>•RMAN导致的IO和CPU问题<br>•Streams和AQ问题<br>•资源管理等待事件</p>
+<p>资源利用率：top、vmstat、iostat、netstat<br>进程：top，top -Hp  &lt; pid &gt;<br>系统调用：strace<br>应用监控：jstack、jprofile、jvisualvm<br><a id="more"></a></p>
+<h2 id="资源利用率">资源利用率</h2><p>top、vmstat、iostat、netstat、还有很多（sar、nmon），我比较喜欢用vmstat。</p>
 </blockquote>
-<h2 id="如何导出ADDM报告">如何导出ADDM报告</h2><p>和上面导出AWR报告一样，首先进入$ORACLE_HOME/rdbms/admin目录，在sqlplus下运行<strong>@addmrpt</strong>脚本（记得切换oralce用户哦~），按照提示一步一步就可以达成。<br>我们把生成的addm报告拿出来，瞅一瞅~<br><img src="/img/addm-1.PNG" alt="Alt text"></p>
-<p>哎，我英语不好，很多看不懂，没办法啊！！！<br>去百度整片翻译一下吧~~<br><img src="/img/addm-2.PNG" alt="Alt text"></p>
-<p>好了，后面的事情不用多少了，调参数，优化sql，改bug吧~~</p>
+<p><img src="/img/vmstat.PNG" alt="Alt text"></p>
+<blockquote>
+<p>r： 表示运行队列,简单理解为有多少线程在排队，一般不要超过cpu个数的5倍。<br>b： 表示阻塞的进程,这个不多说，进程阻塞，大家懂的。<br>swpd ：虚拟内存已使用的大小。<br>free ：  空闲的物理内存的大小。<br>buff ：  物理内存用来缓存读写操作的buffer大小<br>cache： 物理内存用来缓存进程地址空间的 cache 大小<br>si ： 每秒从磁盘读入虚拟内存的大小，如果这个值大于0，表示物理内存不够用。<br>so：  每秒虚拟内存写入磁盘的大小，如果这个值大于0，同上。<br>bi ： 块设备每秒接收的块数量，一般指磁盘读入。<br>bo： 块设备每秒发送的块数量，一般指磁盘读出。<br>in： 每秒CPU的中断次数，包括时间中断<br>cs ：每秒上下文切换次数。<br>us： 用户CPU时间。<br>sy ：系统CPU时间，小于30%。<br>id ： 空闲 CPU时间。<br>wt：等待IO CPU时间，小于40%。</p>
+</blockquote>
+<p>我们先看一看哪一块的利用率超标了，下面附上OS常用阀值：</p>
+<pre><code>-<span class="ruby"><span class="constant">TotalCPU</span>% &lt; <span class="number">75</span>%
+</span>-<span class="ruby"><span class="constant">SysCPU</span>% &lt; <span class="number">30</span>%
+</span>-<span class="ruby"><span class="constant">Load</span> <span class="constant">Average</span> &lt; <span class="number">5</span>
+</span>-<span class="ruby"><span class="constant">Wio</span>% &lt; <span class="number">40</span>%
+</span>-<span class="ruby">network% &lt; <span class="number">30</span>% -高了会大量丢包
+</span>-<span class="ruby">mem% &lt; <span class="number">80</span>%~<span class="number">90</span>%
+</span>-<span class="ruby"><span class="constant">Disk</span> busy% &lt; <span class="number">60</span>%
+</span>-<span class="ruby"><span class="constant">Disk</span> usage &lt; <span class="number">90</span>% -高了会进行碎片整理</span>
+</code></pre><p>如果发现比阀值高，肿么办？<br>不要着急，我们需要精确定位到具体的进程，看看到底哪个进程在捣鬼！<br>top 一下，看下cpu利用率占用或者内存占用高的进程。<br>将它的pid记住，开始动手分尸（分析）</p>
+<pre><code><span class="number">1</span><span class="class">.strace</span> -f -c -<span class="tag">p</span> &lt;pid&gt;
+<span class="number">2</span><span class="class">.jstack</span> -l &lt;pid&gt;
+<span class="number">3</span>.jprofile或者jvisualvm
+.....
+</code></pre><p>strace：可以将应用对系统的所有调用都打出来，我们可以看到应用程序到底对内核干了多少坏坏的事儿~~~</p>
+<blockquote>
+<p>strace -f -c -p <pid><br><img src="/img/strace.PNG" alt="Alt text"></pid></p>
+</blockquote>
+<p>啥？？看不懂syscall，我也看不懂，老老实实百度~~<br>因为我接触大多都是java程序，所以我还是比较钟情于jstack和jprofiler的，嘿嘿！</p>
+<blockquote>
+<p>jstack -l <pid><br><img src="/img/jstack.PNG" alt="Alt text"><br>JVM的所有线程都打出来，建议输出到文件中，多打几次。</pid></p>
+</blockquote>
+<p>至于jprofiler，灰常牛X的jvm监控工具，线程数量，方法调用次数，sql执行时间，方法占用cpu的比例，内存大小，gc频率……所有的jvm相关的东东都有，具体怎么用在这里先不多说，上个图看看先~<br><img src="/img/jprofiler.PNG" alt="Alt text"></p>
 
                                                                                 
                                         </div>
@@ -318,18 +329,18 @@
                         
 <nav id="article-nav">
   
-    <a href="/2015/11/14/性能分析过程 - 副本 (8)/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/11/18/全球黑客撕逼，蓝翔又在毕业考试吗？/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          性能分析过程
+          全球黑客撕逼，蓝翔又在毕业考试吗？
         
       </div>
     </a>
   
   
-    <a href="/2015/10/20/登录filter实现/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">登录filter实现</div>
+    <a href="/2015/11/14/性能分析过程 - 副本 (6)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">性能分析过程</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -339,7 +350,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-性能监控与分析-数据库" data-title="性能监控与分析-数据库" data-url="http://tonylit.me/2015/11/13/性能监控与分析-数据库/"></div>
+                                    <div class="ds-thread" data-thread-key="post-性能分析过程 - 副本 (7)" data-title="性能分析过程" data-url="http://tonylit.me/2015/11/14/性能分析过程 - 副本 (7)/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">
