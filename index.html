@@ -797,7 +797,7 @@
 -->
 
   
-    <article id="post-性能分析过程 - 副本 (7)" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-性能分析过程" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -811,7 +811,7 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2015/11/14/性能分析过程 - 副本 (7)/" class="article-date">
+            <a href="/2015/11/14/性能分析过程/" class="article-date">
   	<time datetime="2015-11-14T03:37:27.000Z" itemprop="datePublished">2015-11-14</time>
 </a>
 
@@ -826,7 +826,7 @@
                                 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/14/性能分析过程 - 副本 (7)/">性能分析过程</a>
+      <a class="article-title" href="/2015/11/14/性能分析过程/">性能分析过程</a>
     </h1>
   
 
@@ -856,7 +856,7 @@
 
                                                         
                                                             <p class="article-more-link">
-                                                                <a  href="/2015/11/14/性能分析过程 - 副本 (7)/#more">More >></a>
+                                                                <a  href="/2015/11/14/性能分析过程/#more">More >></a>
                                                             </p>
                                                             
                                                                 <div class="clearfix"></div>
@@ -877,7 +877,7 @@
 -->
 
   
-    <article id="post-性能分析过程 - 副本 (6)" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-性能监控与分析-数据库" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -891,8 +891,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2015/11/14/性能分析过程 - 副本 (6)/" class="article-date">
-  	<time datetime="2015-11-14T03:37:27.000Z" itemprop="datePublished">2015-11-14</time>
+            <a href="/2015/11/13/性能监控与分析-数据库/" class="article-date">
+  	<time datetime="2015-11-13T03:37:27.000Z" itemprop="datePublished">2015-11-13</time>
 </a>
 
         </div>
@@ -906,7 +906,7 @@
                                 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/14/性能分析过程 - 副本 (6)/">性能分析过程</a>
+      <a class="article-title" href="/2015/11/13/性能监控与分析-数据库/">性能监控与分析-数据库</a>
     </h1>
   
 
@@ -919,9 +919,7 @@
 
                                                 
                                                                 
-                                                                    <h1 id="性能分析过程">性能分析过程</h1><p>一般情况，该怎样定位性能问题：<br><img src="/img/xingnengfenxiguocheng.PNG" alt="Alt text"></p>
-<blockquote>
-<p>资源利用率：top、vmstat、iostat、netstat<br>进程：top，top -Hp  &lt; pid &gt;<br>系统调用：strace<br>应用监控：jstack、jprofile、jvisualvm<br>
+                                                                    <p>  一个网站的性能分为很多方面，从网络、OS、中间件、code、sql、数据库，还有前端的很多方面，比如：page size、请求数、开启压缩等，实在是太多太多，估计一辈子搞完所有的是不可能了。<br>    大型网站在访问高峰的时候，实际上<strong>最大的瓶颈在数据库</strong>。很多互联网公司为了解决数据库瓶颈，会在DB端应用很多缓存机制，memcache、redis、包括减轻流复制的压力会应用MQ，kafka等消息队列。据统计，某宝和某度数据库的压力仅占期请求的10%~20%,大多数都是被redis等处理掉了。<br>    那么问题来了，我们在性能测试的时候遇到DB端的性能问题该怎么定位与分析呢？</p>
                                                                         
                                         </div>
                                         
@@ -936,7 +934,7 @@
 
                                                         
                                                             <p class="article-more-link">
-                                                                <a  href="/2015/11/14/性能分析过程 - 副本 (6)/#more">More >></a>
+                                                                <a  href="/2015/11/13/性能监控与分析-数据库/#more">More >></a>
                                                             </p>
                                                             
                                                                 <div class="clearfix"></div>
@@ -959,7 +957,7 @@
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
