@@ -4,7 +4,7 @@
   <subtitle><![CDATA[今年lebron绝逼夺冠，bie跟我急!]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2015-11-13T05:37:27.000Z</updated>
+  <updated>2015-12-01T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -13,6 +13,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[atom编辑器]]></title>
+    <link href="http://tonylit.me/2015/12/01/atom%E7%BC%96%E8%BE%91%E5%99%A8/"/>
+    <id>http://tonylit.me/2015/12/01/atom编辑器/</id>
+    <published>2015-12-01T03:37:27.000Z</published>
+    <updated>2015-12-01T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>狂拽炫酷屌炸天的编辑器插件，<br>来点音乐、再配上机械键盘，啪啪啪！爆爆爆爆！!<br><img src="/img/atom/atom1.PNG" alt="Alt text"><br><img src="/img/atom/atom2.PNG" alt="Alt text"><br><a id="more"></a></p>
+<p>安装起来很简单</p>
+<h1 id="下载插件">下载插件</h1><p>1.github上面<a href="https://github.com/tonylit/activate-power-mode，" target="_blank" rel="external">https://github.com/tonylit/activate-power-mode，</a><br>  先fork以下，下载下来<br><img src="/img/atom/gitatom.PNG" alt="Alt text"></p>
+<h1 id="安装插件">安装插件</h1><p>2.把下载的插件放入C:\Users\pc.atom\packages 文件夹中<br>  打开cmd调到activate-power-mode-master这个文件里面apm install就可以了<br> 如果有如下报错：<br> <img src="/img/atom/error.PNG" alt="Alt text"><br> 请多执行几次apm install（我是执行了几十次，网络实在是不稳定）</p>
+<p> #开启插件<br> 重新打开atom，按快捷键ctrl+alt+o，如果快捷键冲突，请按 ctrl + alt + r reload window 之后就可以按 ctrl + alt + o </p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>狂拽炫酷屌炸天的编辑器插件，<br>来点音乐、再配上机械键盘，啪啪啪！爆爆爆爆！!<br><img src="/img/atom/atom1.PNG" alt="Alt text"><br><img src="/img/atom/atom2.PNG" alt="Alt text"><br>]]>
+    
+    </summary>
+    
+      <category term="atom" scheme="http://tonylit.me/tags/atom/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[抽奖性能测试]]></title>
