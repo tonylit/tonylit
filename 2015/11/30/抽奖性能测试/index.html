@@ -248,7 +248,7 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#业务说明"><span class="toc-number">1.</span> <span class="toc-text">业务说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#技术架构："><span class="toc-number">2.</span> <span class="toc-text">技术架构：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试环境："><span class="toc-number">3.</span> <span class="toc-text">测试环境：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#被测系统硬件"><span class="toc-number">4.</span> <span class="toc-text">被测系统硬件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#结果："><span class="toc-number">5.</span> <span class="toc-text">结果：</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#业务说明"><span class="toc-number">1.</span> <span class="toc-text">业务说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#技术架构："><span class="toc-number">2.</span> <span class="toc-text">技术架构：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试环境："><span class="toc-number">3.</span> <span class="toc-text">测试环境：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#被测系统硬件"><span class="toc-number">4.</span> <span class="toc-text">被测系统硬件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#结果："><span class="toc-number">5.</span> <span class="toc-text">结果：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#其他："><span class="toc-number">6.</span> <span class="toc-text">其他：</span></a></li></ol>
 </div>
 
                                                         
@@ -263,6 +263,12 @@
 <h1 id="测试环境：">测试环境：</h1><p><img src="/img/redis.png" alt="Alt text"></p>
 <h1 id="被测系统硬件">被测系统硬件</h1><p>应用服务器    Intel(R) Xeon(R) CPU E5-2650<br>Processor :  1×2<br>Memory：1.5G</p>
 <h1 id="结果：">结果：</h1><p>发送祝福语TPS:222<br>抽奖TPS：192</p>
+<h1 id="其他：">其他：</h1><p>抽奖需要考虑的点：</p>
+<ul>
+<li>cache和db端持久化问题<br>redis这边数据不能每次入库就清空，保证要在redis中有持久化。</li>
+<li>数据量保证一致<br>有多少奖就抽多少，不能发现多抽的情况</li>
+<li>单个奖项数量一致<br>一等奖只有一个，不会被几个人同时抽中</li>
+</ul>
 
                                                                                 
                                         </div>

@@ -90,6 +90,12 @@
 <h1 id="测试环境：">测试环境：</h1><p><img src="/img/redis.png" alt="Alt text"></p>
 <h1 id="被测系统硬件">被测系统硬件</h1><p>应用服务器    Intel(R) Xeon(R) CPU E5-2650<br>Processor :  1×2<br>Memory：1.5G</p>
 <h1 id="结果：">结果：</h1><p>发送祝福语TPS:222<br>抽奖TPS：192</p>
+<h1 id="其他：">其他：</h1><p>抽奖需要考虑的点：</p>
+<ul>
+<li>cache和db端持久化问题<br>redis这边数据不能每次入库就清空，保证要在redis中有持久化。</li>
+<li>数据量保证一致<br>有多少奖就抽多少，不能发现多抽的情况</li>
+<li>单个奖项数量一致<br>一等奖只有一个，不会被几个人同时抽中</li>
+</ul>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>公司成立20周年在网站上搞了个<strong>抽奖活动</strong>，应邀给项目组做一次压力测试。<br>之前也没有过类似业务的测试，无指标参考，在此记录下，下次类似测试可以参考参考。<br>]]>
