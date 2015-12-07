@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://tonylit.me/2015/12/07/loadrunner%E8%B0%83%E7%94%A8java/</loc>
+    <lastmod>2015-12-07T05:37:27.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://tonylit.me/2015/12/04/tcpdump/</loc>
     <lastmod>2015-12-04T05:37:27.000Z</lastmod>
   </url>
@@ -107,12 +112,12 @@
   </url>
   
   <url>
-    <loc>http://tonylit.me/js/fancy-box.js</loc>
+    <loc>http://tonylit.me/js/bootstrap.scrollspy.js</loc>
     <lastmod>2015-10-26T17:43:18.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://tonylit.me/js/bootstrap.scrollspy.js</loc>
+    <loc>http://tonylit.me/js/fancy-box.js</loc>
     <lastmod>2015-10-26T17:43:18.000Z</lastmod>
   </url>
   
