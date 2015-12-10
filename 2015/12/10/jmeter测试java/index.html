@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content=""/>
+  
+  <title>Jmeter测试java程序 | 淘淘的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="之前写过用loadrunner测试java程序。其实Jmeter同样可以，它本身是开源、java实现的，对java的支持比较优秀。那么问题来了，怎么使用Jmeter进行工作呢？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jmeter测试java程序">
+<meta property="og:url" content="http://tonylit.me/2015/12/10/jmeter测试java/index.html">
+<meta property="og:site_name" content="淘淘的博客">
+<meta property="og:description" content="之前写过用loadrunner测试java程序。其实Jmeter同样可以，它本身是开源、java实现的，对java的支持比较优秀。那么问题来了，怎么使用Jmeter进行工作呢？">
+<meta property="og:image" content="http://tonylit.me/img/jmeter/jmeter.jpg">
+<meta property="og:image" content="http://tonylit.me/img/jmeter/jmeter_jar.PNG">
+<meta property="og:image" content="http://tonylit.me/img/jmeter/jmeter_java.PNG">
+<meta property="og:updated_time" content="2015-12-10T05:37:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jmeter测试java程序">
+<meta name="twitter:description" content="之前写过用loadrunner测试java程序。其实Jmeter同样可以，它本身是开源、java实现的，对java的支持比较优秀。那么问题来了，怎么使用Jmeter进行工作呢？">
+  
+    <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/leaves.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script src="http://kiritor.github.io//js/jquery.nicescroll.js"></script>
+
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+<form class="search" method="get" accept-charset="utf-8">
+			<input type="text" id="chillax-search-input" class="st-search-input_my" maxlength="30" placeholder="search" />
+		</form>
+
+
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/c.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/" class="alluraregular">tonyli</a></h1>
+		</hgroup>
+        <!--
+		
+		<p class="header-subtitle">今年lebron绝逼夺冠，bie跟我急!</p>
+		
+        -->
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/work">工作日志</a></li>
+				        
+							<li><a href="/tags/life">点滴生活</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Jmeter/" style="font-size: 10px;">Jmeter</a> <a href="/tags/Jprofiler/" style="font-size: 10px;">Jprofiler</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/tags/java/" style="font-size: 12.5px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/kafka/" style="font-size: 12.5px;">kafka</a> <a href="/tags/lebron-james/" style="font-size: 10px;">lebron james</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/loadrunner/" style="font-size: 15px;">loadrunner</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/work/" style="font-size: 17.5px;">work</a> <a href="/tags/前端性能/" style="font-size: 10px;">前端性能</a> <a href="/tags/工作/" style="font-size: 15px;">工作</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a> <a href="/tags/网络攻击/" style="font-size: 10px;">网络攻击</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+					</div>
+				</section>
+				
+
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">科比：他来湖人.或者我去骑士.就这么简单 麦迪：我希望更正一下我之前说的话.如果詹姆斯是我的队友... 凯文杜兰特：我永远在追赶他的背影 保罗：我人生最大的两个愿望.一是为基德打替补.二是为詹姆斯奉献助攻 艾弗森：他才是答案。 迈克尔.乔丹：我很幸运，当他进入NBA的时候，我已经退役了！</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tonyli</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/c.jpg" class="js-avatar">
+				<hgroup>
+				  <h1 class="header-author">tonyli</h1>
+				</hgroup>
+			</div>
+			
+			<p class="header-subtitle">今年lebron绝逼夺冠，bie跟我急!</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/work">工作日志</a></li>
+		        
+					<li><a href="/tags/life">点滴生活</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+
+	  <div class="recent">
+最近在研究中间件相关性能调优......
+</div>
+
+      <div class="body-wrap"><article id="post-jmeter测试java" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2015/12/10/jmeter测试java/" class="article-date">
+  	<time datetime="2015-12-10T03:37:27.000Z" itemprop="datePublished">2015-12-10</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      Jmeter测试java程序
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jmeter/">Jmeter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+	</div>
+
+
+                                        
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第一步："><span class="toc-number">1.</span> <span class="toc-text">第一步：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第二步"><span class="toc-number">2.</span> <span class="toc-text">第二步</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第三步"><span class="toc-number">3.</span> <span class="toc-text">第三步</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第四步"><span class="toc-number">4.</span> <span class="toc-text">第四步</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实例"><span class="toc-number">5.</span> <span class="toc-text">实例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#先写一个被测试的类"><span class="toc-number">5.1.</span> <span class="toc-text">先写一个被测试的类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建一个JmeterTest类，并继承AbstractJavaSamplerClient："><span class="toc-number">5.2.</span> <span class="toc-text">创建一个JmeterTest类，并继承AbstractJavaSamplerClient：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Export为Runnable_Jar_File：hello-jar"><span class="toc-number">5.3.</span> <span class="toc-text">Export为Runnable Jar File：hello.jar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将此hello-jar包放入JMETER_HOME\lib\ext目录；"><span class="toc-number">5.4.</span> <span class="toc-text">将此hello.jar包放入JMETER_HOME\lib\ext目录；</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#打开JMeter,添加线程组，添加Java请求，查看结果树。"><span class="toc-number">5.5.</span> <span class="toc-text">打开JMeter,添加线程组，添加Java请求，查看结果树。</span></a></li></ol></li></ol>
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p>之前写过用loadrunner测试java程序。其实Jmeter同样可以，它本身是开源、java实现的，对java的支持比较优秀。<br>那么问题来了，怎么使用Jmeter进行工作呢？<br><img src="/img/jmeter/jmeter.jpg" alt="Alt text"></p>
+<a id="more"></a>
+<h1 id="第一步：">第一步：</h1><p>创建java工程，并把Jmeter文件夹中lib目录下的jar包添加进入工程。<br><img src="/img/jmeter/jmeter_jar.PNG" alt="Alt text"></p>
+<h1 id="第二步">第二步</h1><p>创建一个类继承AbstractJavaSamplerClient，并重写；</p>
+<blockquote>
+<p>public Arguments getDefaultParameters();设置可用参数及默认值；<br>public void setupTest(JavaSamplerContext arg0)：每个线程测试前执行一次，做一些初始化工作；<br>public SampleResult runTest(JavaSamplerContext arg0)：开始测试，从arg0参数可以获得参数值；<br>public void teardownTest(JavaSamplerContext arg0)：测试结束时调用；</p>
+</blockquote>
+<p>执行的先后顺序为：<br>getDefaultParameters() –&gt; setupTest(JavaSamplerContext context) –&gt; runTest(JavaSamplerContext context) –&gt; teardownTest(JavaSamplerContext context)</p>
+<blockquote>
+<p>常用的方法： </p>
+<ul>
+<li>addArgument(“name”, “value”)    定义参数</li>
+<li>sampleStart()   定义事务的开始，类似于LR的lr_start_transaction，和LR一样事务间不要放无关代码 </li>
+<li>sampleEnd()    定义事务的结束，类似于LR的lr_end_transaction </li>
+<li>setSuccessful(true、false)   设置运行结果的成功或失败，Jmeter统计成功失败的次数，在聚合报告中能够体现。</li>
+</ul>
+</blockquote>
+<h1 id="第三步">第三步</h1><p>将java工程导出为jar包，将此jar包放入JMETER_HOME\lib\ext目录</p>
+<h1 id="第四步">第四步</h1><p>打开JMeter，创建线程组、Java Request、查看结果树，进行测试；</p>
+<h1 id="实例">实例</h1><h2 id="先写一个被测试的类">先写一个被测试的类</h2><p>简单一点：<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">     <span class="keyword">*</span> Copyright 2015 Focus Technology, Co., Ltd. All rights reserved.</span><br><span class="line">package jmeter.test;</span><br><span class="line"></span><br><span class="line">/<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> HelloWorld.java</span><br><span class="line"> <span class="keyword">*</span> </span><br><span class="line"> <span class="keyword">*</span> <span class="comment">@author lit</span></span><br><span class="line"> <span class="keyword">*</span>/</span><br><span class="line">public class HelloWorld &#123;</span><br><span class="line"></span><br><span class="line">  public String sayHello(String world1, String world2) &#123;</span><br><span class="line">        return world1 + world2;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="创建一个JmeterTest类，并继承AbstractJavaSamplerClient：">创建一个JmeterTest类，并继承AbstractJavaSamplerClient：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"> * Copyright <span class="number">2015</span> Focus Technology, Co., Ltd. All rights reserved.</span><br><span class="line"><span class="keyword">package</span> jmeter.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.jmeter.config.Arguments;</span><br><span class="line"><span class="keyword">import</span> org.apache.jmeter.protocol.java.sampler.AbstractJavaSamplerClient;</span><br><span class="line"><span class="keyword">import</span> org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;</span><br><span class="line"><span class="keyword">import</span> org.apache.jmeter.samplers.SampleResult;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * JmeterTest.java</span><br><span class="line"> * </span><br><span class="line"> * <span class="doctag">@author</span> lit</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JmeterTest</span> <span class="keyword">extends</span> <span class="title">AbstractJavaSamplerClient</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String world1;</span><br><span class="line">    <span class="keyword">private</span> String world2;</span><br><span class="line">    <span class="keyword">private</span> String world_final;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 这个方法是用来自定义java方法入参的。 params.addArgument("name","guodegang");表示入参名字叫name,值为guodegang。 设置可用参数及的默认值；</span><br><span class="line">     */</span></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Arguments <span class="title">getDefaultParameters</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Arguments arguments = <span class="keyword">new</span> Arguments();</span><br><span class="line">        arguments.addArgument(<span class="string">"name"</span>, <span class="string">"guodegang"</span>);</span><br><span class="line">        arguments.addArgument(<span class="string">"age"</span>, <span class="string">"48"</span>);</span><br><span class="line">        <span class="keyword">return</span> arguments;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 每个线程测试前执行一次，做一些初始化工作；</span></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setupTest</span><span class="params">(JavaSamplerContext arg0)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 开始测试，从arg0参数可以获得参数值；</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SampleResult <span class="title">runTest</span><span class="params">(JavaSamplerContext arg0)</span> </span>&#123;</span><br><span class="line">        world1 = arg0.getParameter(<span class="string">"name"</span>);</span><br><span class="line">        world2 = arg0.getParameter(<span class="string">"age"</span>);</span><br><span class="line">        <span class="comment">// 增加jmter的sample</span></span><br><span class="line">        SampleResult sr = <span class="keyword">new</span> SampleResult();</span><br><span class="line">        sr.setSampleLabel(<span class="string">"java request"</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// jmeter 开始统计响应时间标记</span></span><br><span class="line">            sr.sampleStart();</span><br><span class="line">            HelloWorld helloWorld = <span class="keyword">new</span> HelloWorld();</span><br><span class="line">            world_final = helloWorld.sayHello(world1, world2);</span><br><span class="line">            <span class="keyword">if</span> (world_final != <span class="keyword">null</span> &amp;&amp; world_final.length() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                sr.setResponseData(<span class="string">"结果是："</span> + world_final, <span class="keyword">null</span>);</span><br><span class="line">                sr.setDataType(SampleResult.TEXT);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            sr.setSuccessful(<span class="keyword">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            sr.setSuccessful(<span class="keyword">false</span>);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">// jmeter 结束统计响应时间标记</span></span><br><span class="line">            sr.sampleEnd();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 测试结束时调用；</span></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">teardownTest</span><span class="params">(JavaSamplerContext arg0)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 本地测试用</span><br><span class="line">     * </span><br><span class="line">     * <span class="doctag">@param</span> args</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">        Arguments params = <span class="keyword">new</span> Arguments();</span><br><span class="line">        params.addArgument(<span class="string">"name"</span>, <span class="string">"guodegang"</span>);</span><br><span class="line">        params.addArgument(<span class="string">"age"</span>, <span class="string">"48"</span>);</span><br><span class="line">        JavaSamplerContext arg0 = <span class="keyword">new</span> JavaSamplerContext(params);</span><br><span class="line">        JmeterTest test = <span class="keyword">new</span> JmeterTest();</span><br><span class="line">        test.setupTest(arg0);</span><br><span class="line">        test.runTest(arg0);</span><br><span class="line">        test.teardownTest(arg0);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Export为Runnable_Jar_File：hello-jar">Export为Runnable Jar File：hello.jar</h2><h2 id="将此hello-jar包放入JMETER_HOME\lib\ext目录；">将此hello.jar包放入JMETER_HOME\lib\ext目录；</h2><h2 id="打开JMeter,添加线程组，添加Java请求，查看结果树。">打开JMeter,添加线程组，添加Java请求，查看结果树。</h2><p><img src="/img/jmeter/jmeter_java.PNG" alt="Alt text"></p>
+
+                                                                                
+                                        </div>
+                                        
+            </div>
+            
+                <div class="bdsharebuttonbox" style="margin-top:10px;margin-left:30px;float:left;">
+                    <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                    <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                    <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
+                    <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
+                    <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                    <a href="#" class="bds_more" data-cmd="more"></a>
+                </div>
+                <script>
+                    window._bd_share_config = {
+                        "common": {
+                            "bdSnsKey": {},
+                            "bdText": "",
+                            "bdMini": "1",
+                            "bdMiniList": false,
+                            "bdStyle": "2",
+                            "bdSize": "16"
+                        },
+                        "share": {}
+                    };
+                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
+  
+    <a href="/2015/12/10/性能测试葵花宝典/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          性能测试葵花宝典
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/07/loadrunner调用java/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">loadrunner调用java程序</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-jmeter测试java" data-title="Jmeter测试java程序" data-url="http://tonylit.me/2015/12/10/jmeter测试java/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "kiritor"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
+</article>
+
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+    
+-->
+<!--
+
+-->
+
+</div>
+      <!--<footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 tonyli
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+    
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+   
+  </div>
+</footer>-->
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/prefixfree.js" type="text/javascript"></script>
+<script src="/js/require-2.1.20.js" type="text/javascript"></script>
+<script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
+    <a title="返回顶部" style="opacity: 100%;">
+        <img src="/img/scrollup.png" />
+    </a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+
+  </div>
+</body>
+</html>
