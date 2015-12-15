@@ -4,20 +4,31 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>Linux系统抓包-tcpdump与tcpflow | 淘淘的博客</title>
+  <title>淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="平时抓包用的最多的是wireshark和httpwatch，如果想在linux服务器上抓包，比较常用tcpdump，tcpflow命令，tcpdump对http包的抓取支持不好，tcpflow的http的抓取表现不错">
+  <meta name="description" content="title: Druid连接池监控date: 2015-12-15 11:37:27updated    : 2015-12-15 13:37:27tags: 
+- work
+- 性能
+categories: 
+Druid是一个JDBC组件， 首先是一个数据库连接池，属于阿里巴巴众多开源项目的一个。如果想看具体的介绍请看这里：官网介绍：http://code.alibabatech.com/wik">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux系统抓包-tcpdump与tcpflow">
-<meta property="og:url" content="http://tonylit.me/2015/12/04/tcpdump/index.html">
+<meta property="og:title" content="淘淘的博客">
+<meta property="og:url" content="http://tonylit.me/2015/12/15/druid连接池监控/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="平时抓包用的最多的是wireshark和httpwatch，如果想在linux服务器上抓包，比较常用tcpdump，tcpflow命令，tcpdump对http包的抓取支持不好，tcpflow的http的抓取表现不错">
-<meta property="og:image" content="http://tonylit.me/img/tcoflow1.PNG">
-<meta property="og:image" content="http://tonylit.me/img/tcvpflow2.PNG">
-<meta property="og:updated_time" content="2015-12-04T05:37:27.000Z">
+<meta property="og:description" content="title: Druid连接池监控date: 2015-12-15 11:37:27updated    : 2015-12-15 13:37:27tags: 
+- work
+- 性能
+categories: 
+Druid是一个JDBC组件， 首先是一个数据库连接池，属于阿里巴巴众多开源项目的一个。如果想看具体的介绍请看这里：官网介绍：http://code.alibabatech.com/wik">
+<meta property="og:image" content="http://tonylit.me/img/druid.jpeg">
+<meta property="og:updated_time" content="2015-12-15T11:53:30.176Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux系统抓包-tcpdump与tcpflow">
-<meta name="twitter:description" content="平时抓包用的最多的是wireshark和httpwatch，如果想在linux服务器上抓包，比较常用tcpdump，tcpflow命令，tcpdump对http包的抓取支持不好，tcpflow的http的抓取表现不错">
+<meta name="twitter:title" content="淘淘的博客">
+<meta name="twitter:description" content="title: Druid连接池监控date: 2015-12-15 11:37:27updated    : 2015-12-15 13:37:27tags: 
+- work
+- 性能
+categories: 
+Druid是一个JDBC组件， 首先是一个数据库连接池，属于阿里巴巴众多开源项目的一个。如果想看具体的介绍请看这里：官网介绍：http://code.alibabatech.com/wik">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -195,7 +206,7 @@
 最近在研究中间件相关性能调优......
 </div>
 
-      <div class="body-wrap"><article id="post-tcpdump" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-druid连接池监控" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -209,8 +220,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2015/12/04/tcpdump/" class="article-date">
-  	<time datetime="2015-12-04T03:37:27.000Z" itemprop="datePublished">2015-12-04</time>
+            <a href="/2015/12/15/druid连接池监控/" class="article-date">
+  	<time datetime="2015-12-15T11:53:30.176Z" itemprop="datePublished">2015-12-15</time>
 </a>
 
         </div>
@@ -220,78 +231,24 @@
                     <input type="hidden" class="isFancy" />
                     
                         
-                            <header class="article-header">
-                                
-  
-    <h1 class="article-title" itemprop="name">
-      Linux系统抓包-tcpdump与tcpflow
-    </h1>
-  
-
-
-                            </header>
-                            
-                                <div class="article-info article-info-post">
-                                    
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工作/">工作</a></li></ul>
-	</div>
-
-
-                                        
-
-                                            <div class="clearfix"></div>
-                                </div>
-                                
-                                    
                                         <div class="article-entry" itemprop="articleBody">
                                             
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#tcpdump"><span class="toc-number">1.</span> <span class="toc-text">tcpdump</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tcpdump的命令格式"><span class="toc-number">1.1.</span> <span class="toc-text">tcpdump的命令格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#监听网卡eth0"><span class="toc-number">1.2.</span> <span class="toc-text">监听网卡eth0</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#监听指定协议的数据"><span class="toc-number">1.3.</span> <span class="toc-text">监听指定协议的数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#监听指定的主机"><span class="toc-number">1.4.</span> <span class="toc-text">监听指定的主机</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcpflow"><span class="toc-number">2.</span> <span class="toc-text">tcpflow</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#在web-xml中添加如下："><span class="toc-number">1.</span> <span class="toc-text">在web.xml中添加如下：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置完成，重启应用，访问http://ip地址+端口/druid/index-html"><span class="toc-number">2.</span> <span class="toc-text">配置完成，重启应用，访问http://ip地址+端口/druid/index.html</span></a></li></ol>
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <p>平时抓包用的最多的是wireshark和httpwatch，<br>如果想在linux服务器上抓包，比较常用tcpdump，tcpflow命令，tcpdump对http包的抓取支持不好，tcpflow的http的抓取表现不错<br><a id="more"></a></p>
-<h1 id="tcpdump">tcpdump</h1><h2 id="tcpdump的命令格式">tcpdump的命令格式</h2><blockquote>
-<p>tcpdump [-i 网卡] -nnAX ‘表达式’ 各参数说明如下：<br>-i：interface 监听的网卡。<br>-nn：表示以ip和port的方式显示来源主机和目的主机，而不是用主机名和服务。<br>-A：以ascii的方式显示数据包，抓取web数据时很有用。<br>-X：数据包将会以16进制和ascii的方式显示。  表达式：表达式有很多种，常见的有：host 主机；port 端口；src host 发包主机；dst host 收包主机。</p>
-</blockquote>
-<h2 id="监听网卡eth0">监听网卡eth0</h2><blockquote>
-<p>tcpdump -i eth0</p>
-</blockquote>
-<h2 id="监听指定协议的数据">监听指定协议的数据</h2><blockquote>
-<p>tcpdump -i eth0 -nn ‘icmp’</p>
-</blockquote>
-<p>这个是用来监听icmp协议的数据，就是ping命令使用的协议。<br>类似的，如果要监听tcp或者是udp协议，只需要修改上例的icmp就可以了</p>
-<h2 id="监听指定的主机">监听指定的主机</h2><blockquote>
-<p> tcpdump -i eth0 -nn ‘host 192.168.43.59’</p>
-</blockquote>
-<p>这样的话，192.168.1.231这台主机接收到的包和发送的包都会被抓取。</p>
-<blockquote>
-<p>  tcpdump -i eth0 -nn ‘src host 192.168.43.59’ </p>
-</blockquote>
-<p>这样只有192.168.43.59这台主机发送的包才会被抓取。</p>
-<blockquote>
-<p> tcpdump -i eth0 -nn ‘dst host 192.168.43.59’ </p>
-</blockquote>
-<p>  这样只有192.168.43.59这台主机接收到的包才会被抓取。</p>
-<p>监听指定端口</p>
-<blockquote>
-<p> tcpdump -i eth0 -nnA ‘port 80’</p>
-</blockquote>
-<p>用来监听主机的80端口收到和发送的所有数据包。</p>
-<p>监听指定主机和端口<br> tcpdump -i eth0 -nnA ‘port 80 and src host 192.168.43.59’<br>多个条件可以用and，or连接。<br>上例表示监听192.168.43.59主机通过80端口发送的数据包。</p>
-<h1 id="tcpflow">tcpflow</h1><p>一般情况操作系统不会自带tcpflow，下载一个<br><a href="http://download.chinaunix.net/download/0011000/10190.shtml" target="_blank" rel="external">tcpflow下载</a></p>
-<p>安装啥的就不说了，主要看一下抓取包的内容</p>
-<blockquote>
-<p>tcpflow -i eth0 host ‘192.168.17.39’</p>
-</blockquote>
-<p>他会生成很多文件：<br><img src="/img/tcoflow1.PNG" alt="Alt text"></p>
-<p>打开看看：<br><img src="/img/tcvpflow2.PNG" alt="Alt text"></p>
-<p>是不是和浏览器查看的差不多！</p>
+                                                                            <p>title: Druid连接池监控<br>date: 2015-12-15 11:37:27<br>updated    : 2015-12-15 13:37:27<br>tags: </p>
+<pre><code>-<span class="ruby"> work
+</span>-<span class="ruby"> 性能</span>
+</code></pre><p>categories: </p>
+<p>Druid是一个JDBC组件， 首先是一个数据库连接池，属于阿里巴巴众多开源项目的一个。如果想看具体的介绍请看这里：<br>官网介绍：<a href="http://code.alibabatech.com/wiki/display/Druid/Home" target="_blank" rel="external">http://code.alibabatech.com/wiki/display/Druid/Home</a><br>我这里主要介绍怎么监控druid<br><a id="more"></a></p>
+<h1 id="在web-xml中添加如下：">在web.xml中添加如下：</h1><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">&lt;servlet&gt;</span>  </span><br><span class="line"></span><br><span class="line">        <span class="variable">&lt;servlet-name&gt;</span>DruidStatView<span class="variable">&lt;/servlet-name&gt;</span>  </span><br><span class="line">        <span class="variable">&lt;servlet-class&gt;</span>com.alibaba.druid.support.http.StatViewServlet<span class="variable">&lt;/servlet-class&gt;</span>  </span><br><span class="line">    <span class="variable">&lt;/servlet&gt;</span>  </span><br><span class="line">    <span class="variable">&lt;servlet-mapping&gt;</span>  </span><br><span class="line">        <span class="variable">&lt;servlet-name&gt;</span>DruidStatView<span class="variable">&lt;/servlet-name&gt;</span>  </span><br><span class="line">        <span class="variable">&lt;url-pattern&gt;</span>/druid/<span class="keyword">*</span><span class="variable">&lt;/url-pattern&gt;</span>  </span><br><span class="line">    <span class="variable">&lt;/servlet-mapping&gt;</span> </span><br><span class="line"><span class="variable">&lt;filter&gt;</span>  </span><br><span class="line">        <span class="variable">&lt;filter-name&gt;</span>DruidWebStatFilter<span class="variable">&lt;/filter-name&gt;</span>  </span><br><span class="line">        <span class="variable">&lt;filter-class&gt;</span>com.alibaba.druid.support.http.WebStatFilter<span class="variable">&lt;/filter-class&gt;</span>  </span><br><span class="line">        <span class="variable">&lt;init-param&gt;</span>  </span><br><span class="line">            <span class="variable">&lt;param-name&gt;</span>exclusions<span class="variable">&lt;/param-name&gt;</span>  </span><br><span class="line">            <span class="variable">&lt;param-value&gt;</span><span class="keyword">*</span>.js,<span class="keyword">*</span>.gif,<span class="keyword">*</span>.jpg,<span class="keyword">*</span>.png,<span class="keyword">*</span>.css,<span class="keyword">*</span>.ico,/druid/<span class="keyword">*</span><span class="variable">&lt;/param-value&gt;</span>  </span><br><span class="line">        <span class="variable">&lt;/init-param&gt;</span>  </span><br><span class="line">      <span class="variable">&lt;/filter&gt;</span>  </span><br><span class="line">      <span class="variable">&lt;filter-mapping&gt;</span>  </span><br><span class="line">        <span class="variable">&lt;filter-name&gt;</span>DruidWebStatFilter<span class="variable">&lt;/filter-name&gt;</span>  </span><br><span class="line">        <span class="variable">&lt;url-pattern&gt;</span>/<span class="keyword">*</span><span class="variable">&lt;/url-pattern&gt;</span>  </span><br><span class="line">      <span class="variable">&lt;/filter-mapping&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="配置完成，重启应用，访问http://ip地址+端口/druid/index-html">配置完成，重启应用，访问<a href="http://ip地址+端口/druid/index.html" target="_blank" rel="external">http://ip地址+端口/druid/index.html</a></h1><p><img src="/img/druid.jpeg" alt="Alt text"></p>
 
                                                                                 
                                         </div>
@@ -325,18 +282,9 @@
                         
 <nav id="article-nav">
   
-    <a href="/2015/12/07/loadrunner调用java/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          loadrunner调用java程序
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/12/04/tcp/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">lrs_set_recv_timeout 解决长连接等待</div>
+    <a href="/2015/12/10/性能测试葵花宝典/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">性能测试葵花宝典</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -346,7 +294,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-tcpdump" data-title="Linux系统抓包-tcpdump与tcpflow" data-url="http://tonylit.me/2015/12/04/tcpdump/"></div>
+                                    <div class="ds-thread" data-thread-key="post-druid连接池监控" data-title="" data-url="http://tonylit.me/2015/12/15/druid连接池监控/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">
