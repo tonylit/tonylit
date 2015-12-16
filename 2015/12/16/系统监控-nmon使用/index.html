@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content=""/>
+  
+  <title>系统监控-nmon使用 | 淘淘的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="压力测试的时候，可以使用nmon收集服务器资源使用情况。工具很不错，收集的结果展示起来也比较直观，是性能测试监控工具的一把好刷子。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="系统监控-nmon使用">
+<meta property="og:url" content="http://tonylit.me/2015/12/16/系统监控-nmon使用/index.html">
+<meta property="og:site_name" content="淘淘的博客">
+<meta property="og:description" content="压力测试的时候，可以使用nmon收集服务器资源使用情况。工具很不错，收集的结果展示起来也比较直观，是性能测试监控工具的一把好刷子。">
+<meta property="og:image" content="http://tonylit.me/img/nmon/nmon_2.PNG">
+<meta property="og:image" content="http://tonylit.me/img/nmon/nmon_1.PNG">
+<meta property="og:image" content="http://tonylit.me/img/nmon/nmon_2.PNG">
+<meta property="og:image" content="http://tonylit.me/img/nmon/nmon_3.PNG">
+<meta property="og:image" content="http://tonylit.me/img/nmon/nmon_4.PNG">
+<meta property="og:image" content="http://tonylit.me/img/nmon/nmon_5.PNG">
+<meta property="og:image" content="http://tonylit.me/img/nmon/nmon_6.PNG">
+<meta property="og:image" content="http://tonylit.me/img/nmon/nmon_7.PNG">
+<meta property="og:image" content="http://tonylit.me/img/nmon/nmon_8.PNG">
+<meta property="og:image" content="http://tonylit.me/img/nmon/nmon_9.PNG">
+<meta property="og:image" content="http://tonylit.me/img/nmon/nmon_10.PNG">
+<meta property="og:image" content="http://tonylit.me/img/nmon/nmon_11.PNG">
+<meta property="og:updated_time" content="2015-12-16T05:37:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="系统监控-nmon使用">
+<meta name="twitter:description" content="压力测试的时候，可以使用nmon收集服务器资源使用情况。工具很不错，收集的结果展示起来也比较直观，是性能测试监控工具的一把好刷子。">
+  
+    <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/leaves.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script src="http://kiritor.github.io//js/jquery.nicescroll.js"></script>
+
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+<form class="search" method="get" accept-charset="utf-8">
+			<input type="text" id="chillax-search-input" class="st-search-input_my" maxlength="30" placeholder="search" />
+		</form>
+
+
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/c.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/" class="alluraregular">tonyli</a></h1>
+		</hgroup>
+        <!--
+		
+		<p class="header-subtitle">今年lebron绝逼夺冠，bie跟我急!</p>
+		
+        -->
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/work">工作日志</a></li>
+				        
+							<li><a href="/tags/life">点滴生活</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Jmeter/" style="font-size: 12px;">Jmeter</a> <a href="/tags/Jprofiler/" style="font-size: 10px;">Jprofiler</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 12px;">docker</a> <a href="/tags/java/" style="font-size: 14px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/kafka/" style="font-size: 12px;">kafka</a> <a href="/tags/lebron-james/" style="font-size: 10px;">lebron james</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/loadrunner/" style="font-size: 14px;">loadrunner</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/work/" style="font-size: 16px;">work</a> <a href="/tags/前端性能/" style="font-size: 10px;">前端性能</a> <a href="/tags/工作/" style="font-size: 18px;">工作</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a> <a href="/tags/网络攻击/" style="font-size: 10px;">网络攻击</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+					</div>
+				</section>
+				
+
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">科比：他来湖人.或者我去骑士.就这么简单 麦迪：我希望更正一下我之前说的话.如果詹姆斯是我的队友... 凯文杜兰特：我永远在追赶他的背影 保罗：我人生最大的两个愿望.一是为基德打替补.二是为詹姆斯奉献助攻 艾弗森：他才是答案。 迈克尔.乔丹：我很幸运，当他进入NBA的时候，我已经退役了！</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tonyli</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/c.jpg" class="js-avatar">
+				<hgroup>
+				  <h1 class="header-author">tonyli</h1>
+				</hgroup>
+			</div>
+			
+			<p class="header-subtitle">今年lebron绝逼夺冠，bie跟我急!</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/work">工作日志</a></li>
+		        
+					<li><a href="/tags/life">点滴生活</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+
+	  <div class="recent">
+最近在研究中间件相关性能调优......
+</div>
+
+      <div class="body-wrap"><article id="post-系统监控-nmon使用" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2015/12/16/系统监控-nmon使用/" class="article-date">
+  	<time datetime="2015-12-16T03:37:27.000Z" itemprop="datePublished">2015-12-16</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      系统监控-nmon使用
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工作/">工作</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+	</div>
+
+
+                                        
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Nmon简介"><span class="toc-number">1.</span> <span class="toc-text">Nmon简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Nmon安装使用"><span class="toc-number">2.</span> <span class="toc-text">Nmon安装使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nmon数据采集与分析"><span class="toc-number">3.</span> <span class="toc-text">nmon数据采集与分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#性能参数介绍："><span class="toc-number">4.</span> <span class="toc-text">性能参数介绍：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SYS_SUMM标签页：系统汇总页面"><span class="toc-number">4.1.</span> <span class="toc-text">SYS_SUMM标签页：系统汇总页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AAA标签页：系统信息"><span class="toc-number">4.2.</span> <span class="toc-text">AAA标签页：系统信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CPU使用情况：标签页（CPU_ALL,CPU_SUMM,CPU001，CPU002）"><span class="toc-number">4.3.</span> <span class="toc-text">CPU使用情况：标签页（CPU_ALL,CPU_SUMM,CPU001，CPU002）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#磁盘读写情况：标签页（DISK_SUMM/DISKBUSY/DISKREAD/DISKWRITE/DISKXFER）"><span class="toc-number">4.4.</span> <span class="toc-text">磁盘读写情况：标签页（DISK_SUMM/DISKBUSY/DISKREAD/DISKWRITE/DISKXFER）</span></a></li></ol></li></ol>
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p>压力测试的时候，可以使用nmon收集服务器资源使用情况。工具很不错，收集的结果展示起来也比较直观，是性能测试监控工具的一把好刷子。<br><img src="/img/nmon/nmon_2.PNG" alt="Alt text"></p>
+<a id="more"></a>
+<h1 id="Nmon简介">Nmon简介</h1><p>Nmon是由IBM提供的，免费监控AIX系统和 linux系统资源的工具，使用比较广泛。相对于其他的监控工具来说，nmon所记录的信息比较全面，它能在系统运行中实时地捕捉系统资源的使用情况，并 能输出结果到文件中，然后通过nmon_analyzer工具产生数据文件和图形化的结果。<br>另外，它不会消耗大量的CPU周期，通常低于百分之一。<br>nmon所记录的数据包含以下几个方面：</p>
+<blockquote>
+<p>● cpu占用率<br>● 内存使用情况<br>● 磁盘I/O速度、传输和读写比<br>● 文件系统的使用率<br>● 网络I/O速度、传输和读写比率、错误统计率与传输包的大小<br>● 消耗资源最多的进程<br>● 计算机详细信息和资源<br>● 页面空间和页面I/O速度<br>●用户自定义的磁盘组<br>● 网络文件系统</p>
+</blockquote>
+<h1 id="Nmon安装使用">Nmon安装使用</h1><p>1.首先检查自己的操作系统，我这里为centos5.8 64位<br>下载nmon监控工具和nmon analyser分析工具<br><a href="http://pan.baidu.com/s/1nuicjHJ" target="_blank" rel="external">http://pan.baidu.com/s/1nuicjHJ</a><br>2.将nmon监控工具放在监控服务器上，解压；该文件无执行权限，给它加上chmod +x mon_x86_64_centos5<br><img src="/img/nmon/nmon_1.PNG" alt="Alt text"><br>3.运行./nmon_x86_64_centos5，便可进入nmon监控界面<br><img src="/img/nmon/nmon_2.PNG" alt="Alt text"><br>按h键，查看选项<img src="/img/nmon/nmon_3.PNG" alt="Alt text"><br>4.我们键入c，m，d，看下cpu，内存，磁盘I/O<br><img src="/img/nmon/nmon_4.PNG" alt="Alt text"></p>
+<h1 id="nmon数据采集与分析">nmon数据采集与分析</h1><blockquote>
+<p>./nmon_x86_64_centos5 -f -t -s 30 -c 180<br>-f:按标准格式输出文件：<hostname>_YYYYMMDD_HHMM.nmon<br>-t:输出中包括占用率较高的进程<br>-s 30：每30秒收集一次数据<br>-c 180：一共收集180次</hostname></p>
+</blockquote>
+<p>生成的文件如下：<br><img src="/img/nmon/nmon_5.PNG" alt="Alt text"><br>为了分析nmon监控获得的结果，我们用nmon_analyser工具图形化监控结果<br>打开nmon_analyser<br><img src="/img/nmon/nmon_6.PNG" alt="Alt text"></p>
+<p>将我们监控的结果添加进来，自动生成图形：<img src="/img/nmon/nmon_7.PNG" alt="Alt text"></p>
+<h1 id="性能参数介绍：">性能参数介绍：</h1><p>nmon analyser生成的execl中包括很多工作表<br><img src="/img/nmon/nmon_8.PNG" alt="Alt text"></p>
+<blockquote>
+<p>?    系统汇总（对应SYS_SUMM标签），其中蓝线为cpu占用的变化情况，粉线代表磁盘IO的变化情况<br>?    磁盘读写情况汇总（对应DIS_SUMM标签），其中蓝色为磁盘读的速率KB/S，紫色为磁盘写的速率KB/S<br>?    内存情况汇总（对应MEM标签），曲线表示内存剩余量（MB）</p>
+</blockquote>
+<h2 id="SYS_SUMM标签页：系统汇总页面">SYS_SUMM标签页：系统汇总页面</h2><blockquote>
+<p> User%  ：用户进程占CPU时间百分比  Sys%    ：线程和中断占用CPU时间百分比<br>Wait%    ：所有进程线程被阻塞等待完成一次IO所占CPU时间百分比 Idle%    ：CPU空闲时间百分比 CPU%    ：CPU利用率的百分比</p>
+</blockquote>
+<p>如果一个CPU被充分利用，比例应该是：65%~70% user time，30%~35% system time，0%~5% idle time</p>
+<h2 id="AAA标签页：系统信息">AAA标签页：系统信息</h2><p>页面信息包括：执行的命令、主机cpu数、操作系统版本信息、主机名等信息<br><img src="/img/nmon/nmon_9.PNG" alt="Alt text"></p>
+<h2 id="CPU使用情况：标签页（CPU_ALL,CPU_SUMM,CPU001，CPU002）">CPU使用情况：标签页（CPU_ALL,CPU_SUMM,CPU001，CPU002）</h2><p>主机CPU使用情况以及单颗CPU的使用情况<br><img src="/img/nmon/nmon_10.PNG" alt="Alt text"></p>
+<h2 id="磁盘读写情况：标签页（DISK_SUMM/DISKBUSY/DISKREAD/DISKWRITE/DISKXFER）">磁盘读写情况：标签页（DISK_SUMM/DISKBUSY/DISKREAD/DISKWRITE/DISKXFER）</h2><p>磁盘的读写、及I/O的统计信息，系统各磁盘分区的情况。<br><img src="/img/nmon/nmon_11.PNG" alt="Alt text"></p>
+
+                                                                                
+                                        </div>
+                                        
+            </div>
+            
+                <div class="bdsharebuttonbox" style="margin-top:10px;margin-left:30px;float:left;">
+                    <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                    <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                    <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
+                    <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
+                    <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                    <a href="#" class="bds_more" data-cmd="more"></a>
+                </div>
+                <script>
+                    window._bd_share_config = {
+                        "common": {
+                            "bdSnsKey": {},
+                            "bdText": "",
+                            "bdMini": "1",
+                            "bdMiniList": false,
+                            "bdStyle": "2",
+                            "bdSize": "16"
+                        },
+                        "share": {}
+                    };
+                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
+  
+  
+    <a href="/2015/12/16/jenkins+maven+jmeter性能自动化实践/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">jenkins+maven+jmeter 性能自动化实践</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-系统监控-nmon使用" data-title="系统监控-nmon使用" data-url="http://tonylit.me/2015/12/16/系统监控-nmon使用/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "kiritor"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
+</article>
+
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+    
+-->
+<!--
+
+-->
+
+</div>
+      <!--<footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 tonyli
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+    
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+   
+  </div>
+</footer>-->
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/prefixfree.js" type="text/javascript"></script>
+<script src="/js/require-2.1.20.js" type="text/javascript"></script>
+<script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
+    <a title="返回顶部" style="opacity: 100%;">
+        <img src="/img/scrollup.png" />
+    </a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+
+  </div>
+</body>
+</html>
