@@ -21,12 +21,17 @@
     <published>2015-12-22T03:37:27.000Z</published>
     <updated>2015-12-22T05:37:27.000Z</updated>
     <content type="html"><![CDATA[<h1 id="STAF概念：">STAF概念：</h1><p>全称：Software Testing AntoMation Framework,软件测试自动化框架，为测试人员提供了一个端到端的自动化测试解决方案。<br>每台装有STAF环境的机器都是对等的，一个端可以直接调用另一个端提供服务。采用P2P架构，没有服务端、客户端之分，任何一台机器都可以向其他的机器发送请求。可以利用STAF的这种特性来实现分布式执行的功能。</p>
+<hr>
 <a id="more"></a>
-<h1 id="STAF在linunx下的安装：">STAF在linunx下的安装：</h1><p>1.下载STAF的安装包STAF3412-linux.tar.gz<br>2.解压：tar -xzvf  STAF3412-linux.tar.gz<br>3.解压缩完进入staf文件夹，执行./STAFIns，一直回车，安装OK<br>4.在环境变量中加入STAF配置<br>编辑 /etc/profile，加入以下配置信息</p>
+<h1 id="STAF在linunx下的安装：">STAF在linunx下的安装：</h1><p>1.下载STAF的安装包STAF3412-linux.tar.gz</p>
+<p>2.解压：tar -xzvf  STAF3412-linux.tar.gz</p>
+<p>3.解压缩完进入staf文件夹，执行./STAFIns，一直回车，安装OK</p>
+<p>4.在环境变量中加入STAF配置<br>编辑 /etc/profile，加入以下配置信息</p>
 <blockquote>
 <p>PATH=”/usr/local/staf/bin:${PATH}” export STAFCONVDIR=/usr/local/staf/codepage export<br>LD_LIBRARY_PATH=”/usr/local/staf/lib:${LD_LIBRARY_PATH}” export<br>CLASSPATH=”/usr/local/staf/lib/JSTAF.jar:/usr/local/staf/samples/demo/STAFDemo.jar:${CLASSPATH}”</p>
 </blockquote>
-<p>5.输入source /etc/profile,让配置文件生效<br>6.修改staf配置文件，在staf安装目录下（默认会安装在/usr/local/staf/）的bin文件夹中-STAF.cfg<br><strong>参数格式</strong></p>
+<p>5.输入source /etc/profile,让配置文件生效</p>
+<p>6.修改staf配置文件，在staf安装目录下（默认会安装在/usr/local/staf/）的bin文件夹中-STAF.cfg<br><strong>参数格式</strong></p>
 <blockquote>
 <p>#当错误条件发生的时候形成trace信息 trace enable tracepoints “error deprecated”  </p>
 <p>#Enable TCP/IP connections</p>
@@ -42,7 +47,8 @@
 <p> Level 0 - No access<br>    Level 1 - Restricted access. Only PING and helps available.<br>    Level 2 - Limited access. Only query/view facilities available.<br>    Level 3 - Standard access. Non-destructive updates allowed, e.g., logging.<br>    Level 4 - Advanced access. Update abilities, e.g., copying files, deleting log files.<br>    Level 5 - All access, e.g., SHUTDOWN, Process invocation, Trust definition manipulation</p>
 </blockquote>
 <p>默认是trust machine local://local level 5     //表示本地local的操作是5级权限<br>如果需要外部的pc能够 操作本地的staf，发送各种请求的话，需要执行ip地址或是网段<br>trust machine ssl://192.100.<em> level 5   //表示 对于192.100 网段开放 5级权限  针对ssl<br>trust machine tcp://192.100.</em> level 5    //表示 对于192.100 网段开放 5级权限  针对tcp</p>
-<p>7.启动STAF服务<br>cd /usr/local/staf/bin<br>./STAFProc &amp;<br>查看是否启动<br>8.确认已经安装完成<br>staf local service list<br><img src="/img/staf/staf_1.PNG" alt="Alt text"></p>
+<p>7.启动STAF服务<br>cd /usr/local/staf/bin<br>./STAFProc &amp;<br>查看是否启动</p>
+<p>8.确认已经安装完成<br>staf local service list<br><img src="/img/staf/staf_1.PNG" alt="Alt text"></p>
 <p>说明安装成功了</p>
 <h1 id="STAF请求格式">STAF请求格式</h1><p>STAF  <endpoint>  &lt; Service&gt;  <request></request></endpoint></p>
 <p><endpoint> 远程机器的IP或者localhost。表示向哪台机器发送请求</endpoint></p>
@@ -51,7 +57,8 @@
 <h1 id="STAF服务">STAF服务</h1><p>STAF所有功能都是通过服务实现的<br>主要有两种类型的服务：内部服务（Internal Service），外部服务(External Service)。每种服务都可以处理多种请求，每种请求都有安全级别限制<br>内部服务：开启staf这些服务就可以工作了。一般被集成到STAFProc,一般都是一些比较基本常用的服务。<br>外部服务：不是staf基本服务，必须将服务注册到staf才可以使用。需要动态载入，可执行代码不在STAFProc中，一般都在jar中或者外部dll库中。<br><img src="/img/staf/staf_3.PNG" alt="Alt text"></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h1 id="STAF概念：">STAF概念：</h1><p>全称：Software Testing AntoMation Framework,软件测试自动化框架，为测试人员提供了一个端到端的自动化测试解决方案。<br>每台装有STAF环境的机器都是对等的，一个端可以直接调用另一个端提供服务。采用P2P架构，没有服务端、客户端之分，任何一台机器都可以向其他的机器发送请求。可以利用STAF的这种特性来实现分布式执行的功能。</p>]]>
+    <![CDATA[<h1 id="STAF概念：">STAF概念：</h1><p>全称：Software Testing AntoMation Framework,软件测试自动化框架，为测试人员提供了一个端到端的自动化测试解决方案。<br>每台装有STAF环境的机器都是对等的，一个端可以直接调用另一个端提供服务。采用P2P架构，没有服务端、客户端之分，任何一台机器都可以向其他的机器发送请求。可以利用STAF的这种特性来实现分布式执行的功能。</p>
+<hr>]]>
     
     </summary>
     
@@ -228,7 +235,7 @@
 </ol>
 <p>3.启动完，我们可以访问jenkins了，输入ip:端口<br><img src="/img/jenkins/jenkins_5.PNG" alt="Alt text"><br>4.使用nginx代理访问jenkins，这一步可以不要，主要是我想用域名方式访问。我们在nginx中简单配置下就可以了：<br><img src="/img/jenkins/jenkins_6.PNG" alt="Alt text"><br><img src="/img/jenkins/jenkins_7.PNG" alt="Alt text"><br>以上，jenkins搭建完成了，比较简单。</p>
 <hr>
-<h1 id="第三步：将项目放在jenkins中构建">第三步：将项目放在jenkins中构建</h1><p>我这里实现的很简单，直接调用的服务器上的脚本运行的；而且本人对jenkins的配置刚开始了解，不太懂，关于项目配置大家可以具体学习下，网上资料比较多。<br>1.开始之前，需要在jenkins中加入以下插件，在jenkins的插件管理中上传就可以了。<br>2.新建一个项目（我这里新建的构建一个自由风格的软件项目），直接运行服务器上的脚本<br><img src="/img/jenkins/jenkins_8.PNG" alt="Alt text"><br>脚本中实现如下：<br><img src="/img/jenkins/jenkins_9.PNG" alt="Alt text"></p>
+<h1 id="第三步：将项目放在jenkins中构建">第三步：将项目放在jenkins中构建</h1><p>我这里实现的很简单，直接调用的服务器上的脚本运行的；而且本人对jenkins的配置刚开始了解，不太懂，关于项目配置大家可以具体学习下，网上资料比较多。<br>1.开始之前，需要在jenkins中加入上面下载的插件，在jenkins的插件管理中上传就可以了。<br>2.新建一个项目（我这里新建的构建一个自由风格的软件项目），直接运行服务器上的脚本<br><img src="/img/jenkins/jenkins_8.PNG" alt="Alt text"><br>脚本中实现如下：<br><img src="/img/jenkins/jenkins_9.PNG" alt="Alt text"></p>
 <figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">export LANG=en_US</span><br><span class="line">export LC_ALL=en_US</span><br><span class="line">export JAVA_HOME=/opt/jdk1.<span class="number">7.0_40</span>/</span><br><span class="line">export CLASSPATH=<span class="variable">$JAVA</span>_HOME/lib:<span class="variable">$JAVA</span>_HOME/jre/lib:<span class="variable">$CLASSPATH</span></span><br><span class="line">export MAVEN_HOME=/opt/apache-maven-<span class="number">3.0</span>.<span class="number">4</span>/</span><br><span class="line">export PATH=<span class="variable">$JAVA</span>_HOME/bin:$&#123;MAVEN_HOME&#125;/bin:<span class="variable">$PATH</span></span><br><span class="line">export MAVEN_OPTS=<span class="string">"-Xmx1024m -XX:MaxPermSize=512m"</span></span><br><span class="line"> </span><br><span class="line">cd  /app/maven_jmeter/</span><br><span class="line">/opt/apache-maven-<span class="number">3.0</span>.<span class="number">4</span>/bin/mvn -s /opt/apache-maven-<span class="number">3.0</span>.<span class="number">4</span>/conf/voen_setting.xml jmeter:jmeter</span><br></pre></td></tr></table></figure>
 <p>以上，jenkins的项目构建结束。</p>
 <hr>

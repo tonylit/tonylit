@@ -257,12 +257,17 @@
                                                             
                                                                 
                                                                             <h1 id="STAF概念：">STAF概念：</h1><p>全称：Software Testing AntoMation Framework,软件测试自动化框架，为测试人员提供了一个端到端的自动化测试解决方案。<br>每台装有STAF环境的机器都是对等的，一个端可以直接调用另一个端提供服务。采用P2P架构，没有服务端、客户端之分，任何一台机器都可以向其他的机器发送请求。可以利用STAF的这种特性来实现分布式执行的功能。</p>
+<hr>
 <a id="more"></a>
-<h1 id="STAF在linunx下的安装：">STAF在linunx下的安装：</h1><p>1.下载STAF的安装包STAF3412-linux.tar.gz<br>2.解压：tar -xzvf  STAF3412-linux.tar.gz<br>3.解压缩完进入staf文件夹，执行./STAFIns，一直回车，安装OK<br>4.在环境变量中加入STAF配置<br>编辑 /etc/profile，加入以下配置信息</p>
+<h1 id="STAF在linunx下的安装：">STAF在linunx下的安装：</h1><p>1.下载STAF的安装包STAF3412-linux.tar.gz</p>
+<p>2.解压：tar -xzvf  STAF3412-linux.tar.gz</p>
+<p>3.解压缩完进入staf文件夹，执行./STAFIns，一直回车，安装OK</p>
+<p>4.在环境变量中加入STAF配置<br>编辑 /etc/profile，加入以下配置信息</p>
 <blockquote>
 <p>PATH=”/usr/local/staf/bin:${PATH}” export STAFCONVDIR=/usr/local/staf/codepage export<br>LD_LIBRARY_PATH=”/usr/local/staf/lib:${LD_LIBRARY_PATH}” export<br>CLASSPATH=”/usr/local/staf/lib/JSTAF.jar:/usr/local/staf/samples/demo/STAFDemo.jar:${CLASSPATH}”</p>
 </blockquote>
-<p>5.输入source /etc/profile,让配置文件生效<br>6.修改staf配置文件，在staf安装目录下（默认会安装在/usr/local/staf/）的bin文件夹中-STAF.cfg<br><strong>参数格式</strong></p>
+<p>5.输入source /etc/profile,让配置文件生效</p>
+<p>6.修改staf配置文件，在staf安装目录下（默认会安装在/usr/local/staf/）的bin文件夹中-STAF.cfg<br><strong>参数格式</strong></p>
 <blockquote>
 <p>#当错误条件发生的时候形成trace信息 trace enable tracepoints “error deprecated”  </p>
 <p>#Enable TCP/IP connections</p>
@@ -278,7 +283,8 @@
 <p> Level 0 - No access<br>    Level 1 - Restricted access. Only PING and helps available.<br>    Level 2 - Limited access. Only query/view facilities available.<br>    Level 3 - Standard access. Non-destructive updates allowed, e.g., logging.<br>    Level 4 - Advanced access. Update abilities, e.g., copying files, deleting log files.<br>    Level 5 - All access, e.g., SHUTDOWN, Process invocation, Trust definition manipulation</p>
 </blockquote>
 <p>默认是trust machine local://local level 5     //表示本地local的操作是5级权限<br>如果需要外部的pc能够 操作本地的staf，发送各种请求的话，需要执行ip地址或是网段<br>trust machine ssl://192.100.<em> level 5   //表示 对于192.100 网段开放 5级权限  针对ssl<br>trust machine tcp://192.100.</em> level 5    //表示 对于192.100 网段开放 5级权限  针对tcp</p>
-<p>7.启动STAF服务<br>cd /usr/local/staf/bin<br>./STAFProc &amp;<br>查看是否启动<br>8.确认已经安装完成<br>staf local service list<br><img src="/img/staf/staf_1.PNG" alt="Alt text"></p>
+<p>7.启动STAF服务<br>cd /usr/local/staf/bin<br>./STAFProc &amp;<br>查看是否启动</p>
+<p>8.确认已经安装完成<br>staf local service list<br><img src="/img/staf/staf_1.PNG" alt="Alt text"></p>
 <p>说明安装成功了</p>
 <h1 id="STAF请求格式">STAF请求格式</h1><p>STAF  <endpoint>  &lt; Service&gt;  <request></request></endpoint></p>
 <p><endpoint> 远程机器的IP或者localhost。表示向哪台机器发送请求</endpoint></p>
