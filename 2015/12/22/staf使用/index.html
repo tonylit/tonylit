@@ -262,10 +262,7 @@
 <h1 id="STAF在linunx下的安装：">STAF在linunx下的安装：</h1><p>1.下载STAF的安装包STAF3412-linux.tar.gz</p>
 <p>2.解压：tar -xzvf  STAF3412-linux.tar.gz</p>
 <p>3.解压缩完进入staf文件夹，执行./STAFIns，一直回车，安装OK</p>
-<p>4.在环境变量中加入STAF配置<br>编辑 /etc/profile，加入以下配置信息</p>
-<blockquote>
-<p>PATH=”/usr/local/staf/bin:${PATH}” export STAFCONVDIR=/usr/local/staf/codepage export<br>LD_LIBRARY_PATH=”/usr/local/staf/lib:${LD_LIBRARY_PATH}” export<br>CLASSPATH=”/usr/local/staf/lib/JSTAF.jar:/usr/local/staf/samples/demo/STAFDemo.jar:${CLASSPATH}”</p>
-</blockquote>
+<p>4.在环境变量中加入STAF配置<br>编辑 /etc/profile，加入以下配置信息<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PATH=<span class="string">"/usr/local/staf/bin:<span class="variable">$&#123;PATH&#125;</span>"</span> <span class="built_in">export</span> STAFCONVDIR=/usr/<span class="built_in">local</span>/staf/codepage <span class="built_in">export</span></span><br><span class="line">LD_LIBRARY_PATH=<span class="string">"/usr/local/staf/lib:<span class="variable">$&#123;LD_LIBRARY_PATH&#125;</span>"</span> <span class="built_in">export</span></span><br><span class="line">CLASSPATH=<span class="string">"/usr/local/staf/lib/JSTAF.jar:/usr/local/staf/samples/demo/STAFDemo.jar:<span class="variable">$&#123;CLASSPATH&#125;</span>"</span></span><br></pre></td></tr></table></figure></p>
 <p>5.输入source /etc/profile,让配置文件生效</p>
 <p>6.修改staf配置文件，在staf安装目录下（默认会安装在/usr/local/staf/）的bin文件夹中-STAF.cfg<br><strong>参数格式</strong></p>
 <blockquote>
