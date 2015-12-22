@@ -4,29 +4,29 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>export��import��������docker���� | 淘淘的博客</title>
+  <title>export、import导出导入docker容器 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="����������������ʹ��docker import����docker�ľ�������centosϵͳΪ�������ǵ���centos-6-x86_64.tar.gz
+  <meta name="description" content="导入容器快照可以使用docker import导入docker的镜像，已centos系统为例，我们导入centos-6-x86_64.tar.gz
 
 Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]
-Create an empty filesystem image and import the c">
+Create an empty filesystem image and import the contents of thetarbal">
 <meta property="og:type" content="article">
-<meta property="og:title" content="export��import��������docker����">
+<meta property="og:title" content="export、import导出导入docker容器">
 <meta property="og:url" content="http://tonylit.me/2015/12/22/docker import和export/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="����������������ʹ��docker import����docker�ľ�������centosϵͳΪ�������ǵ���centos-6-x86_64.tar.gz
+<meta property="og:description" content="导入容器快照可以使用docker import导入docker的镜像，已centos系统为例，我们导入centos-6-x86_64.tar.gz
 
 Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]
-Create an empty filesystem image and import the c">
+Create an empty filesystem image and import the contents of thetarbal">
 <meta property="og:image" content="http://tonylit.me/img/docker/docker_import.PNG">
 <meta property="og:image" content="http://tonylit.me/img/docker/docker_ps.PNG">
 <meta property="og:updated_time" content="2015-12-22T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="export��import��������docker����">
-<meta name="twitter:description" content="����������������ʹ��docker import����docker�ľ�������centosϵͳΪ�������ǵ���centos-6-x86_64.tar.gz
+<meta name="twitter:title" content="export、import导出导入docker容器">
+<meta name="twitter:description" content="导入容器快照可以使用docker import导入docker的镜像，已centos系统为例，我们导入centos-6-x86_64.tar.gz
 
 Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]
-Create an empty filesystem image and import the c">
+Create an empty filesystem image and import the contents of thetarbal">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -233,7 +233,7 @@ Create an empty filesystem image and import the c">
                                 
   
     <h1 class="article-title" itemprop="name">
-      export��import��������docker����
+      export、import导出导入docker容器
     </h1>
   
 
@@ -258,30 +258,30 @@ Create an empty filesystem image and import the c">
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#������������"><span class="toc-number">1.</span> <span class="toc-text">������������</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ʵ��"><span class="toc-number">1.1.</span> <span class="toc-text">ʵ��</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#导入容器快照"><span class="toc-number">1.</span> <span class="toc-text">导入容器快照</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#实例"><span class="toc-number">1.1.</span> <span class="toc-text">实例</span></a></li></ol></li></ol>
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <h1 id="������������">������������</h1><p>����ʹ��docker import����docker�ľ�������centosϵͳΪ�������ǵ���<a href="http://download.openvz.org/template/precreated/" target="_blank" rel="external">centos-6-x86_64.tar.gz</a></p>
+                                                                            <h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/" target="_blank" rel="external">centos-6-x86_64.tar.gz</a></p>
 <blockquote>
 <p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
 <p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br><a id="more"></a></p>
 </blockquote>
-<h2 id="ʵ��">ʵ��</h2><blockquote>
+<h2 id="实例">实例</h2><blockquote>
 <p>cat centos-6-x86_64.tar.gz|docker import - test/centos-6:v1.0<br><img src="/img/docker/docker_import.PNG" alt="Alt text"></p>
 </blockquote>
-<p>���⣬Ҳ����ͨ��ָ�� URL ����ĳ��Ŀ¼�����룬����</p>
+<p>此外，也可以通过指定 URL 或者某个目录来导入，例如</p>
 <blockquote>
 <p> docker import <a href="http://example.com/exampleimage.tgz" target="_blank" rel="external">http://example.com/exampleimage.tgz</a> example/imagerepo</p>
 </blockquote>
-<p>*ע���û��ȿ���ʹ�� docker load �����뾵���洢�ļ������ؾ����⣬Ҳ����ʹ�� docker import ������һ���������յ����ؾ����⡣�����ߵ������������������ļ����������е���ʷ��¼��Ԫ������Ϣ����������������ʱ�Ŀ���״̬�����������洢�ļ�������������¼������ҲҪ�󡣴��⣬�����������ļ�����ʱ��������ָ����ǩ��Ԫ������Ϣ��</p>
-<p>#��������<br>������һ��������</p>
+<p>*注：用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p>
+<p>#导出容器<br>先启动一下容器：</p>
 <blockquote>
 <p>docker run -t -i 5de0ac2f6f7e /bin/bash</p>
 </blockquote>
-<p>����������-t��ʾ������tty�նˣ�-i��ʾ����interactive�����Խ�����</p>
+<p>两个参数，-t表示给容器tty终端，-i表示可以interactive，可以交互。</p>
 <p><img src="/img/docker/docker_ps.PNG" alt="Alt text"></p>
 <blockquote>
 <p>docker export 5d73efeb9a38 &gt; tonylit_centos6.tar</p>
@@ -331,7 +331,7 @@ Create an empty filesystem image and import the c">
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-docker import和export" data-title="export��import��������docker����" data-url="http://tonylit.me/2015/12/22/docker import和export/"></div>
+                                    <div class="ds-thread" data-thread-key="post-docker import和export" data-title="export、import导出导入docker容器" data-url="http://tonylit.me/2015/12/22/docker import和export/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">
