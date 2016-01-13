@@ -12,11 +12,11 @@
 <meta property="og:url" content="http://tonylit.me/2016/01/13/loadrunner11录制app/index.html">
 <meta property="og:site_name" content="淘淘的博客">
 <meta property="og:description" content="app的性能测试，loadrunner12已经支持该协议，无奈12的破解….而且我要吐槽一下，12的bug好多啊，而且界面风格非驴非马，看着着实难受！so，怎么使用我们的11来录制app脚本呢？">
-<meta property="og:image" content="http://tonylit.me/LR_APP/1.png">
-<meta property="og:image" content="http://tonylit.me/LR_APP/2.png">
-<meta property="og:image" content="http://tonylit.me/LR_APP/3.png">
-<meta property="og:image" content="http://tonylit.me/LR_APP/4.png">
-<meta property="og:image" content="http://tonylit.me/LR_APP/5.png">
+<meta property="og:image" content="http://tonylit.me/img/LR_APP/1.png">
+<meta property="og:image" content="http://tonylit.me/img/LR_APP/2.png">
+<meta property="og:image" content="http://tonylit.me/img/LR_APP/3.png">
+<meta property="og:image" content="http://tonylit.me/img/LR_APP/4.png">
+<meta property="og:image" content="http://tonylit.me/img/LR_APP/5.png">
 <meta property="og:updated_time" content="2016-01-13T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Loadrunner11录制APP">
@@ -261,12 +261,12 @@
                                                                             <p>app的性能测试，loadrunner12已经支持该协议，无奈12的破解….<br>而且我要吐槽一下，12的bug好多啊，而且界面风格非驴非马，看着着实难受！<br>so，怎么使用我们的11来录制app脚本呢？<br><a id="more"></a></p>
 <h1 id="原理">原理</h1><p>手机终端和电脑在同一无线网络内，手机终端可以使用代理将请求通过电脑进行转发。</p>
 <h1 id="步骤">步骤</h1><h2 id="手机和电脑连接同一wifi">手机和电脑连接同一wifi</h2><p>看一下电脑的ip，记录下来</p>
-<h2 id="loadrunner设置">loadrunner设置</h2><p>1.现则web（HTTP/HTML协议）<br><img src="/LR_APP/1.png" alt="Alt text"><br>2.选择Win32 Application<br>   Porgram to record:选择C:\Program Files(x86)\HP\LoadRunner\bin\wplus_init_wsock.exe<br>   <img src="/LR_APP/2.png" alt="Alt text"></p>
-<p>3.录制选项的设置：<br>a.     Capture Level Socket level data<br><img src="/LR_APP/3.png" alt="Alt text"><br>b.      New Entry 配置<br><img src="/LR_APP/4.png" alt="Alt text"><br>www.csdn.net使我们进行测试的网址<br>说明：Taregt Server为需要录制的地址，Port设置为80<br>Traffic Forwarding 为代理转发的IP，需要与手机端设置一致，设置为本机不冲突的端口即可，如2008</p>
+<h2 id="loadrunner设置">loadrunner设置</h2><p>1.现则web（HTTP/HTML协议）<br><img src="/img/LR_APP/1.png" alt="Alt text"><br>2.选择Win32 Application<br>   Porgram to record:选择C:\Program Files(x86)\HP\LoadRunner\bin\wplus_init_wsock.exe<br>   <img src="/img/LR_APP/2.png" alt="Alt text"></p>
+<p>3.录制选项的设置：<br>a.     Capture Level Socket level data<br><img src="/img/LR_APP/3.png" alt="Alt text"><br>b.      New Entry 配置<br><img src="/img/LR_APP/4.png" alt="Alt text"><br>www.csdn.net使我们进行测试的网址<br>说明：Taregt Server为需要录制的地址，Port设置为80<br>Traffic Forwarding 为代理转发的IP，需要与手机端设置一致，设置为本机不冲突的端口即可，如2008</p>
 <ol>
 <li>配置完成后保存即可</li>
 </ol>
-<p>##手机设置<br><img src="/LR_APP/5.png" alt="Alt text"><br>其中IP为笔记本IP，代理端口为Loadrunner设置的代理转发端口号</p>
+<p>##手机设置<br><img src="/img/LR_APP/5.png" alt="Alt text"><br>其中IP为笔记本IP，代理端口为Loadrunner设置的代理转发端口号</p>
 <h1 id="开始录制">开始录制</h1><p>点击开始录制，然后就可以操作手机app了。</p>
 
                                                                                 
