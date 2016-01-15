@@ -711,7 +711,7 @@
 </code></pre></blockquote>
 <h2 id="步骤四、在启动脚本中增加jprofiler的启动参数">步骤四、在启动脚本中增加jprofiler的启动参数</h2><p>以resin为例，在resin的启动脚本中加入启动参数：</p>
 <blockquote>
-<p>-agentpath:/home/admin/jprofiler9/bin/linux-x64/libjprofilerti.so=port=8849,nowait</p>
+<p>-agentpath:/home/admin/jprofiler9/bin/linux-x64/libjprofilerti.so=port=8849,nowait<br>resin3.1的在配置文件中加入<br> <jvm-arg>-agentpath:/home/admin/jprofiler9/bin/linux-x64/libjprofilerti.so=port=8849,nowait</jvm-arg></p>
 </blockquote>
 <p>端口可以自己制定，注意后面连接的时候需要用到此端口</p>
 <p>##步骤五、启动本地jprofiler客户端，配置信息</p>
