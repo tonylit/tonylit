@@ -41,7 +41,6 @@
     <published>2016-01-20T03:37:27.000Z</published>
     <updated>2016-01-20T05:37:27.000Z</updated>
     <content type="html"><![CDATA[<p>平时查看服务器连接数，很多命令记不住<br>在此整理一下！</p>
-<hr>
 <a id="more"></a>
 <h1 id="查看Web服务器（Nginx_Apache）的并发请求数及其TCP连接状态：">查看Web服务器（Nginx Apache）的并发请求数及其TCP连接状态：</h1><blockquote>
 <p>netstat -n | awk ‘/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}’<br>netstat -n|grep  ^tcp|awk ‘{print $NF}’|sort -nr|uniq -c<br>或者：<br>netstat -n | awk ‘/^tcp/ {++state[$NF]} END {for(key in state) print key,”t”,state[key]}’<br>返回结果一般如下：</p>
@@ -62,8 +61,7 @@
 </blockquote>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>平时查看服务器连接数，很多命令记不住<br>在此整理一下！</p>
-<hr>]]>
+    <![CDATA[<p>平时查看服务器连接数，很多命令记不住<br>在此整理一下！</p>]]>
     
     </summary>
     
