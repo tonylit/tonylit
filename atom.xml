@@ -41,13 +41,25 @@
     <published>2016-01-20T03:37:27.000Z</published>
     <updated>2016-01-20T05:37:27.000Z</updated>
     <content type="html"><![CDATA[<p>服务器上连接数查看的一些命令汇总。<br><a id="more"></a></p>
-<h1 id="查看Web服务器（Nginx_Apache）的并发请求数及其TCP连接状态：">查看Web服务器（Nginx Apache）的并发请求数及其TCP连接状态：</h1><p>netstat -n | awk ‘/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}’<br>netstat -n|grep  ^tcp|awk ‘{print $NF}’|sort -nr|uniq -c<br>或者：<br>netstat -n | awk ‘/^tcp/ {++state[$NF]} END {for(key in state) print key,”t”,state[key]}’<br>返回结果一般如下：</p>
+<h1 id="查看Web服务器（Nginx_Apache）的并发请求数及其TCP连接状态：">查看Web服务器（Nginx Apache）的并发请求数及其TCP连接状态：</h1><blockquote>
+<p>netstat -n | awk ‘/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}’<br>netstat -n|grep  ^tcp|awk ‘{print $NF}’|sort -nr|uniq -c<br>或者：<br>netstat -n | awk ‘/^tcp/ {++state[$NF]} END {for(key in state) print key,”t”,state[key]}’<br>返回结果一般如下：</p>
 <p>LAST_ACK 5 （正在等待处理的请求数）<br>SYN_RECV 30<br>ESTABLISHED 1597 （正常数据传输状态）<br>FIN_WAIT1 51<br>FIN_WAIT2 504<br>TIME_WAIT 1057 （处理完毕，等待超时结束的请求数）</p>
+</blockquote>
 <p>其他参数说明：</p>
+<blockquote>
 <p>CLOSED：无连接是活动的或正在进行<br>LISTEN：服务器在等待进入呼叫<br>SYN_RECV：一个连接请求已经到达，等待确认<br>SYN_SENT：应用已经开始，打开一个连接<br>ESTABLISHED：正常数据传输状态<br>FIN_WAIT1：应用说它已经完成<br>FIN_WAIT2：另一边已同意释放<br>ITMED_WAIT：等待所有分组死掉<br>CLOSING：两边同时尝试关闭<br>TIME_WAIT：另一边已初始化一个释放<br>LAST_ACK：等待所有分组死掉</p>
-<h1 id="查看Nginx运行进程数">查看Nginx运行进程数</h1><p>ps -ef | grep nginx | wc -l<br>返回的数字就是nginx的运行进程数，如果是apache则执行<br>ps -ef | grep httpd | wc -l</p>
-<p>#查看Web服务器进程连接数：<br>netstat -antp | grep 80 | grep ESTABLISHED -c</p>
-<p>＃查看MySQL进程连接数：<br>ps -axef | grep mysqld -c</p>
+</blockquote>
+<h1 id="查看Nginx运行进程数">查看Nginx运行进程数</h1><blockquote>
+<p>ps -ef | grep nginx | wc -l<br>返回的数字就是nginx的运行进程数，如果是apache则执行<br>ps -ef | grep httpd | wc -l</p>
+</blockquote>
+<p>#查看Web服务器进程连接数：</p>
+<blockquote>
+<p>netstat -antp | grep 80 | grep ESTABLISHED -c</p>
+</blockquote>
+<p>＃查看MySQL进程连接数：</p>
+<blockquote>
+<p>ps -axef | grep mysqld -c</p>
+</blockquote>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>服务器上连接数查看的一些命令汇总。<br>]]>
