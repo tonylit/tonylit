@@ -766,6 +766,47 @@
   </entry>
   
   <entry>
+    <title><![CDATA[dockerfile中的RUN、CMD和ENTRY]]></title>
+    <link href="http://tonylit.me/2015/11/27/dockerCMD%E5%92%8CRUN/"/>
+    <id>http://tonylit.me/2015/11/27/dockerCMD和RUN/</id>
+    <published>2015-11-27T03:37:27.000Z</published>
+    <updated>2015-11-27T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>最近在学习dockerfile，有几条指令着实比较混淆，RUN，CMD，ENTRYPOINT。<br>在此记录一下用法，回头好多看看！<br><a id="more"></a></p>
+<h1 id="用法">用法</h1><blockquote>
+<p><strong>RUN</strong>在构建image时运行的指令, 在Dockerfile中可以写多条RUN指令.<br><strong>CMD</strong>和<strong>ENTRYPOINT</strong>则是在运行container 时会运行的指令, 都只能写一条, 如果写了多条, 则最后一条生效.<br><strong>CMD</strong>和<strong>ENTRYPOINT</strong>的<strong>区别</strong>是:  CMD在运行时会被command覆盖, ENTRYPOINT不会被运行时的command覆盖</p>
+</blockquote>
+<p>CMD和ENTRYPOINT比较让人费解，举个例子就明白了：</p>
+<blockquote>
+<p>docker run [OPTIONS] IMAGE [COMMAND] [ARG…]   –entrypoint=””<br>docker run -ti tony/web1 /opt/resin.sh start</p>
+</blockquote>
+<p> 这里的/opt/resin.sh start就是command，将覆盖Dockerfile的CMD, 但是不会覆盖ENTRYPOINT.<br>如果要覆盖ENTRYPOINT, 那么可以在docker run运行时输入 –entrypoint=”….”.</p>
+<p>CMD和ENTRYPOINT一般用于制作具备后台服务的image, 例如apache, database等. 在使用这种image启动container时, 自动启动服务</p>
+<h1 id="需要注意">需要注意</h1><p>在Docker　daemon模式下，无论你是使用ENTRYPOINT，还是CMD，最后的命令，一定要是当前进程需要一直运行的，才能够防容器退出。</p>
+<h2 id="以下无效方式：">以下无效方式：</h2><blockquote>
+<p> ENTRYPOINT service tomcat7 start #运行几秒钟之后，容器就会退出  CMD service tomcat7<br>start #运行几秒钟之后，容器就会退出</p>
+</blockquote>
+<h2 id="这样有效：">这样有效：</h2><blockquote>
+<p>ENTRYPOINT service tomcat7 start &amp;&amp; tail -f<br>/var/lib/tomcat7/logs/catalina.out</p>
+</blockquote>
+<p> 或者</p>
+<blockquote>
+<p>CMD service tomcat7 start &amp;&amp; tail -f<br>/var/lib/tomcat7/logs/catalina.out</p>
+</blockquote>
+<p>这样也有效：</p>
+<blockquote>
+<p>ENTRYPOINT [“/usr/sbin/sshd”]  CMD [“-D”]</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近在学习dockerfile，有几条指令着实比较混淆，RUN，CMD，ENTRYPOINT。<br>在此记录一下用法，回头好多看看！<br>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Jprofiler安装]]></title>
     <link href="http://tonylit.me/2015/11/25/Jprofiler%E5%AE%89%E8%A3%85/"/>
     <id>http://tonylit.me/2015/11/25/Jprofiler安装/</id>
@@ -1063,47 +1104,6 @@
       <category term="kafka" scheme="http://tonylit.me/tags/kafka/"/>
     
       <category term="工作" scheme="http://tonylit.me/tags/%E5%B7%A5%E4%BD%9C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[dockerfile中的RUN、CMD和ENTRY]]></title>
-    <link href="http://tonylit.me/2015/11/19/dockerCMD%E5%92%8CRUN/"/>
-    <id>http://tonylit.me/2015/11/19/dockerCMD和RUN/</id>
-    <published>2015-11-19T03:37:27.000Z</published>
-    <updated>2015-11-19T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>最近在学习dockerfile，有几条指令着实比较混淆，RUN，CMD，ENTRYPOINT。<br>在此记录一下用法，回头好多看看！<br><a id="more"></a></p>
-<h1 id="用法">用法</h1><blockquote>
-<p><strong>RUN</strong>在构建image时运行的指令, 在Dockerfile中可以写多条RUN指令.<br><strong>CMD</strong>和<strong>ENTRYPOINT</strong>则是在运行container 时会运行的指令, 都只能写一条, 如果写了多条, 则最后一条生效.<br><strong>CMD</strong>和<strong>ENTRYPOINT</strong>的<strong>区别</strong>是:  CMD在运行时会被command覆盖, ENTRYPOINT不会被运行时的command覆盖</p>
-</blockquote>
-<p>CMD和ENTRYPOINT比较让人费解，举个例子就明白了：</p>
-<blockquote>
-<p>docker run [OPTIONS] IMAGE [COMMAND] [ARG…]   –entrypoint=””<br>docker run -ti tony/web1 /opt/resin.sh start</p>
-</blockquote>
-<p> 这里的/opt/resin.sh start就是command，将覆盖Dockerfile的CMD, 但是不会覆盖ENTRYPOINT.<br>如果要覆盖ENTRYPOINT, 那么可以在docker run运行时输入 –entrypoint=”….”.</p>
-<p>CMD和ENTRYPOINT一般用于制作具备后台服务的image, 例如apache, database等. 在使用这种image启动container时, 自动启动服务</p>
-<h1 id="需要注意">需要注意</h1><p>在Docker　daemon模式下，无论你是使用ENTRYPOINT，还是CMD，最后的命令，一定要是当前进程需要一直运行的，才能够防容器退出。</p>
-<h2 id="以下无效方式：">以下无效方式：</h2><blockquote>
-<p> ENTRYPOINT service tomcat7 start #运行几秒钟之后，容器就会退出  CMD service tomcat7<br>start #运行几秒钟之后，容器就会退出</p>
-</blockquote>
-<h2 id="这样有效：">这样有效：</h2><blockquote>
-<p>ENTRYPOINT service tomcat7 start &amp;&amp; tail -f<br>/var/lib/tomcat7/logs/catalina.out</p>
-</blockquote>
-<p> 或者</p>
-<blockquote>
-<p>CMD service tomcat7 start &amp;&amp; tail -f<br>/var/lib/tomcat7/logs/catalina.out</p>
-</blockquote>
-<p>这样也有效：</p>
-<blockquote>
-<p>ENTRYPOINT [“/usr/sbin/sshd”]  CMD [“-D”]</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>最近在学习dockerfile，有几条指令着实比较混淆，RUN，CMD，ENTRYPOINT。<br>在此记录一下用法，回头好多看看！<br>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   

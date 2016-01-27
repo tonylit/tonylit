@@ -405,6 +405,23 @@
 
     
   <url>
+    <loc>http://tonylit.me/2015/11/27/dockerCMD%E5%92%8CRUN/</loc>
+    <lastmod>2015-11-27T05:37:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>dockerfile中的RUN、CMD和ENTRY</title>
+        <pubTime>2015-11-27T03:37:27.000Z</pubTime>
+        
+        <tag>docker</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://tonylit.me/2015/11/25/Jprofiler%E5%AE%89%E8%A3%85/</loc>
     <lastmod>2015-11-25T05:37:27.000Z</lastmod>
     <data>
@@ -489,23 +506,6 @@
         <tag>kafka</tag>
          
         <tag>工作</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://tonylit.me/2015/11/19/dockerCMD%E5%92%8CRUN/</loc>
-    <lastmod>2015-11-19T05:37:27.000Z</lastmod>
-    <data>
-        <display>
-        <title>dockerfile中的RUN、CMD和ENTRY</title>
-        <pubTime>2015-11-19T03:37:27.000Z</pubTime>
-        
-        <tag>docker</tag>
          
          
            
