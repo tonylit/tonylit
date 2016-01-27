@@ -30,6 +30,7 @@
 </blockquote>
 <p> 这里的/opt/resin.sh start就是command，将覆盖Dockerfile的CMD, 但是不会覆盖ENTRYPOINT.<br>如果要覆盖ENTRYPOINT, 那么可以在docker run运行时输入 –entrypoint=”….”.</p>
 <p>CMD和ENTRYPOINT一般用于制作具备后台服务的image, 例如apache, database等. 在使用这种image启动container时, 自动启动服务</p>
+<hr>
 <h1 id="需要注意">需要注意</h1><p>在Docker　daemon模式下，无论你是使用ENTRYPOINT，还是CMD，最后的命令，一定要是当前进程需要一直运行的，才能够防容器退出。</p>
 <h2 id="以下无效方式：">以下无效方式：</h2><blockquote>
 <p> ENTRYPOINT service tomcat7 start #运行几秒钟之后，容器就会退出  CMD service tomcat7<br>start #运行几秒钟之后，容器就会退出</p>
