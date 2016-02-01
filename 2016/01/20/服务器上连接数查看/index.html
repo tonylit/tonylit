@@ -255,8 +255,8 @@
                                                                 
                                                                             <p>平时查看服务器连接数，很多命令记不住<br>在此整理一下！</p>
 <a id="more"></a>
-<h1 id="查看Web服务器（Nginx_Apache）的并发请求数及其TCP连接状态：">查看Web服务器（Nginx Apache）的并发请求数及其TCP连接状态：</h1><blockquote>
-<p>netstat -n | awk ‘/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}’<br>netstat -n|grep  ^tcp|awk ‘{print $NF}’|sort -nr|uniq -c<br>或者：<br>netstat -n | awk ‘/^tcp/ {++state[$NF]} END {for(key in state) print key,”t”,state[key]}’<br>返回结果一般如下：</p>
+<h1 id="查看Web服务器（Nginx_Apache）的并发请求数及其TCP连接状态：">查看Web服务器（Nginx Apache）的并发请求数及其TCP连接状态：</h1><p>netstat -n | awk ‘/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}’<br>或者：<br>netstat -n|grep  ^tcp|awk ‘{print $NF}’|sort -nr|uniq -c<br>或者：<br>netstat -n | awk ‘/^tcp/ {++state[$NF]} END {for(key in state) print key,state[key]}’<br>返回结果一般如下：</p>
+<blockquote>
 <p>LAST_ACK 5 （正在等待处理的请求数）<br>SYN_RECV 30<br>ESTABLISHED 1597 （正常数据传输状态）<br>FIN_WAIT1 51<br>FIN_WAIT2 504<br>TIME_WAIT 1057 （处理完毕，等待超时结束的请求数）</p>
 </blockquote>
 <p>其他参数说明：</p>
