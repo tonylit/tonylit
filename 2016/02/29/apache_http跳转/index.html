@@ -4,29 +4,19 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>性能分析过程 | 淘淘的博客</title>
+  <title>apache http跳转https | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="性能分析过程一般情况，该怎样定位性能问题：
-
-资源利用率：top、vmstat、iostat、netstat进程：top，top -Hp  &amp;lt; pid &amp;gt;系统调用：strace应用监控：jstack、jprofile、jvisualvm">
+  <meta name="description" content="apache中开启转发配置，将http跳转到https">
 <meta property="og:type" content="article">
-<meta property="og:title" content="性能分析过程">
-<meta property="og:url" content="http://tonylit.me/2015/11/14/性能分析过程/index.html">
+<meta property="og:title" content="apache http跳转https">
+<meta property="og:url" content="http://tonylit.me/2016/02/29/apache_http跳转/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="性能分析过程一般情况，该怎样定位性能问题：
-
-资源利用率：top、vmstat、iostat、netstat进程：top，top -Hp  &amp;lt; pid &amp;gt;系统调用：strace应用监控：jstack、jprofile、jvisualvm">
-<meta property="og:image" content="http://tonylit.me/img/xingnengfenxiguocheng.PNG">
-<meta property="og:image" content="http://tonylit.me/img/vmstat.PNG">
-<meta property="og:image" content="http://tonylit.me/img/strace.PNG">
-<meta property="og:image" content="http://tonylit.me/img/jstack.PNG">
-<meta property="og:image" content="http://tonylit.me/img/jprofiler.PNG">
-<meta property="og:updated_time" content="2015-11-14T05:37:27.000Z">
+<meta property="og:description" content="apache中开启转发配置，将http跳转到https">
+<meta property="og:image" content="http://tonylit.me/img/1456713499110.png">
+<meta property="og:updated_time" content="2016-02-29T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="性能分析过程">
-<meta name="twitter:description" content="性能分析过程一般情况，该怎样定位性能问题：
-
-资源利用率：top、vmstat、iostat、netstat进程：top，top -Hp  &amp;lt; pid &amp;gt;系统调用：strace应用监控：jstack、jprofile、jvisualvm">
+<meta name="twitter:title" content="apache http跳转https">
+<meta name="twitter:description" content="apache中开启转发配置，将http跳转到https">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -204,7 +194,7 @@
 高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
 </div>
 
-      <div class="body-wrap"><article id="post-性能分析过程" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-apache_http跳转" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -218,8 +208,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2015/11/14/性能分析过程/" class="article-date">
-  	<time datetime="2015-11-14T03:37:27.000Z" itemprop="datePublished">2015-11-14</time>
+            <a href="/2016/02/29/apache_http跳转/" class="article-date">
+  	<time datetime="2016-02-29T03:37:27.000Z" itemprop="datePublished">2016-02-29</time>
 </a>
 
         </div>
@@ -233,7 +223,7 @@
                                 
   
     <h1 class="article-title" itemprop="name">
-      性能分析过程
+      apache http跳转https
     </h1>
   
 
@@ -243,7 +233,7 @@
                                 <div class="article-info article-info-post">
                                     
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/">apache</a></li></ul>
 	</div>
 
 
@@ -258,44 +248,17 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#性能分析过程"><span class="toc-number">1.</span> <span class="toc-text">性能分析过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#资源利用率"><span class="toc-number">1.1.</span> <span class="toc-text">资源利用率</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#全部http请求跳转https"><span class="toc-number">1.</span> <span class="toc-text">全部http请求跳转https</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#单url跳转"><span class="toc-number">2.</span> <span class="toc-text">单url跳转</span></a></li></ol>
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <h1 id="性能分析过程">性能分析过程</h1><p>一般情况，该怎样定位性能问题：<br><img src="/img/xingnengfenxiguocheng.PNG" alt="Alt text"></p>
-<blockquote>
-<p>资源利用率：top、vmstat、iostat、netstat<br>进程：top，top -Hp  &lt; pid &gt;<br>系统调用：strace<br>应用监控：jstack、jprofile、jvisualvm<br><a id="more"></a></p>
-<h2 id="资源利用率">资源利用率</h2><p>top、vmstat、iostat、netstat、还有很多（sar、nmon），我比较喜欢用vmstat。</p>
-</blockquote>
-<p><img src="/img/vmstat.PNG" alt="Alt text"></p>
-<blockquote>
-<p>r： 表示运行队列,简单理解为有多少线程在排队，一般不要超过cpu个数的5倍。<br>b： 表示阻塞的进程,这个不多说，进程阻塞，大家懂的。<br>swpd ：虚拟内存已使用的大小。<br>free ：  空闲的物理内存的大小。<br>buff ：  物理内存用来缓存读写操作的buffer大小<br>cache： 物理内存用来缓存进程地址空间的 cache 大小<br>si ： 每秒从磁盘读入虚拟内存的大小，如果这个值大于0，表示物理内存不够用。<br>so：  每秒虚拟内存写入磁盘的大小，如果这个值大于0，同上。<br>bi ： 块设备每秒接收的块数量，一般指磁盘读入。<br>bo： 块设备每秒发送的块数量，一般指磁盘读出。<br>in： 每秒CPU的中断次数，包括时间中断<br>cs ：每秒上下文切换次数。<br>us： 用户CPU时间。<br>sy ：系统CPU时间，小于30%。<br>id ： 空闲 CPU时间。<br>wt：等待IO CPU时间，小于40%。</p>
-</blockquote>
-<p>我们先看一看哪一块的利用率超标了，下面附上OS常用阀值：</p>
-<pre><code>-<span class="ruby"><span class="constant">TotalCPU</span>% &lt; <span class="number">75</span>%
-</span>-<span class="ruby"><span class="constant">SysCPU</span>% &lt; <span class="number">30</span>%
-</span>-<span class="ruby"><span class="constant">Load</span> <span class="constant">Average</span> &lt; <span class="number">5</span>
-</span>-<span class="ruby"><span class="constant">Wio</span>% &lt; <span class="number">40</span>%
-</span>-<span class="ruby">network% &lt; <span class="number">30</span>% -高了会大量丢包
-</span>-<span class="ruby">mem% &lt; <span class="number">80</span>%~<span class="number">90</span>%
-</span>-<span class="ruby"><span class="constant">Disk</span> busy% &lt; <span class="number">60</span>%
-</span>-<span class="ruby"><span class="constant">Disk</span> usage &lt; <span class="number">90</span>% -高了会进行碎片整理</span>
-</code></pre><p>如果发现比阀值高，肿么办？<br>不要着急，我们需要精确定位到具体的进程，看看到底哪个进程在捣鬼！<br>top 一下，看下cpu利用率占用或者内存占用高的进程。<br>将它的pid记住，开始动手分尸（分析）</p>
-<pre><code><span class="number">1</span><span class="class">.strace</span> -f -c -<span class="tag">p</span> &lt;pid&gt;
-<span class="number">2</span><span class="class">.jstack</span> -l &lt;pid&gt;
-<span class="number">3</span>.jprofile或者jvisualvm
-.....
-</code></pre><p>strace：可以将应用对系统的所有调用都打出来，我们可以看到应用程序到底对内核干了多少坏坏的事儿~~~</p>
-<blockquote>
-<p>strace -f -c -p <pid><br><img src="/img/strace.PNG" alt="Alt text"></pid></p>
-</blockquote>
-<p>啥？？看不懂syscall，我也看不懂，老老实实百度~~<br>因为我接触大多都是java程序，所以我还是比较钟情于jstack和jprofiler的，嘿嘿！</p>
-<blockquote>
-<p>jstack -l <pid><br><img src="/img/jstack.PNG" alt="Alt text"><br>JVM的所有线程都打出来，建议输出到文件中，多打几次。</pid></p>
-</blockquote>
-<p>至于jprofiler，灰常牛X的jvm监控工具，线程数量，方法调用次数，sql执行时间，方法占用cpu的比例，内存大小，gc频率……所有的jvm相关的东东都有，具体怎么用在这里先不多说，上个图看看先~<br><img src="/img/jprofiler.PNG" alt="Alt text"></p>
+                                                                            <p>apache中开启转发配置，将http跳转到https<br><a id="more"></a></p>
+<p>#开启apache的rewrite模块<br><img src="/img/1456713499110.png" alt="Alt text"></p>
+<h1 id="全部http请求跳转https">全部http请求跳转https</h1><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword"><span class="common">Listen</span></span> 443</span><br><span class="line"><span class="keyword">NameVirtualHost</span> *:443</span><br><span class="line"><span class="tag">&lt;VirtualHost *:443&gt;</span></span><br><span class="line">	<span class="keyword">SSLEngine</span> <span class="literal">on</span></span><br><span class="line">        <span class="keyword">SSLProtocol</span> <span class="literal">all</span> -SSLv2</span><br><span class="line">        <span class="keyword">SSLCipherSuite</span> <span class="literal">ALL</span>:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL</span><br><span class="line">        <span class="keyword">SSLCertificateFile</span> <span class="string">"/opt/xyz/apache2.2.9_resin3.0.25/etc/apache2/server.crt"</span></span><br><span class="line">        <span class="keyword">SSLCertificateKeyFile</span> <span class="string">"/opt/xyz/apache2.2.9_resin3.0.25/etc/apache2/server.key"</span></span><br><span class="line">        <span class="keyword">SSLCertificateChainFile</span>  <span class="string">"/opt/xyz/apache2.2.9_resin3.0.25/etc/apache2//intermediate.crt"</span></span><br><span class="line"><span class="tag">&lt;/VirtualHost&gt;</span></span><br><span class="line"><span class="tag">&lt;VirtualHost  *:80&gt;</span></span><br><span class="line">        <span class="keyword"><span class="common">RewriteEngine</span></span> <span class="literal">on</span></span><br><span class="line">        <span class="keyword"><span class="common">RewriteCond</span></span> <span class="cbracket">%&#123;SERVER_PORT&#125;</span> !^443$</span><br><span class="line">        <span class="keyword"><span class="common">RewriteRule</span></span> ^/?(.*)$ https://<span class="cbracket">%&#123;SERVER_NAME&#125;</span><span class="cbracket">%&#123;REQUEST_URI&#125;</span><span class="sqbracket"> [L,R]</span></span><br><span class="line"><span class="tag">&lt;/VirtualHost&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="单url跳转">单url跳转</h1><p>比如<a href="http://sales.vemic.com/logon.do" target="_blank" rel="external">http://sales.vemic.com/logon.do</a> 跳转到<a href="https://sales.vemic.com/logon.do" target="_blank" rel="external">https://sales.vemic.com/logon.do</a></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword"><span class="common">RewriteEngine</span></span> <span class="literal">on</span></span><br><span class="line"><span class="keyword"><span class="common">RewriteCond</span></span> <span class="cbracket">%&#123;SERVER_PORT&#125;</span> !^443$</span><br><span class="line"><span class="keyword"><span class="common">RewriteRule</span></span> ^/logon.do$ https://<span class="cbracket">%&#123;SERVER_NAME&#125;</span><span class="cbracket">%&#123;REQUEST_URI&#125;</span><span class="sqbracket"> [L,R]</span></span><br></pre></td></tr></table></figure>
 
                                                                                 
                                         </div>
@@ -329,18 +292,18 @@
                         
 <nav id="article-nav">
   
-    <a href="/2015/11/18/全球黑客撕逼，蓝翔又在毕业考试吗？/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/02/29/apache http跳转/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          全球黑客撕逼，蓝翔又在毕业考试吗？
+          apache设置http跳转https转发
         
       </div>
     </a>
   
   
-    <a href="/2015/11/13/性能监控与分析-数据库/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">性能监控与分析-数据库</div>
+    <a href="/2016/01/27/dockerCMD和RUN/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">dockerfile中的RUN、CMD和ENTRY</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -350,7 +313,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-性能分析过程" data-title="性能分析过程" data-url="http://tonylit.me/2015/11/14/性能分析过程/"></div>
+                                    <div class="ds-thread" data-thread-key="post-apache_http跳转" data-title="apache http跳转https" data-url="http://tonylit.me/2016/02/29/apache_http跳转/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">
