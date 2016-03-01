@@ -4,29 +4,18 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>export、import导出导入docker容器 | 淘淘的博客</title>
+  <title>使用docker-enter进入docker容器 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="导入容器快照可以使用docker import导入docker的镜像，已centos系统为例，我们导入centos-6-x86_64.tar.gz
-
-Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]
-Create an empty filesystem image and import the contents of thetarbal">
+  <meta name="description" content="之前进入docker容器的时候，会用docker exec命令，今天发现一个更好用的docker-enter命令！">
 <meta property="og:type" content="article">
-<meta property="og:title" content="export、import导出导入docker容器">
-<meta property="og:url" content="http://tonylit.me/2015/12/22/docker import和export/index.html">
+<meta property="og:title" content="使用docker-enter进入docker容器">
+<meta property="og:url" content="http://tonylit.me/2016/03/01/docker-enter/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="导入容器快照可以使用docker import导入docker的镜像，已centos系统为例，我们导入centos-6-x86_64.tar.gz
-
-Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]
-Create an empty filesystem image and import the contents of thetarbal">
-<meta property="og:image" content="http://tonylit.me/img/docker/docker_import.PNG">
-<meta property="og:image" content="http://tonylit.me/img/docker/docker_ps.PNG">
-<meta property="og:updated_time" content="2015-12-22T05:37:27.000Z">
+<meta property="og:description" content="之前进入docker容器的时候，会用docker exec命令，今天发现一个更好用的docker-enter命令！">
+<meta property="og:updated_time" content="2016-03-01T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="export、import导出导入docker容器">
-<meta name="twitter:description" content="导入容器快照可以使用docker import导入docker的镜像，已centos系统为例，我们导入centos-6-x86_64.tar.gz
-
-Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]
-Create an empty filesystem image and import the contents of thetarbal">
+<meta name="twitter:title" content="使用docker-enter进入docker容器">
+<meta name="twitter:description" content="之前进入docker容器的时候，会用docker exec命令，今天发现一个更好用的docker-enter命令！">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -204,7 +193,7 @@ Create an empty filesystem image and import the contents of thetarbal">
 高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
 </div>
 
-      <div class="body-wrap"><article id="post-docker import和export" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-docker-enter" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -218,8 +207,8 @@ Create an empty filesystem image and import the contents of thetarbal">
     </script>
     
         <div class="article-meta">
-            <a href="/2015/12/22/docker import和export/" class="article-date">
-  	<time datetime="2015-12-22T03:37:27.000Z" itemprop="datePublished">2015-12-22</time>
+            <a href="/2016/03/01/docker-enter/" class="article-date">
+  	<time datetime="2016-03-01T03:37:27.000Z" itemprop="datePublished">2016-03-01</time>
 </a>
 
         </div>
@@ -233,7 +222,7 @@ Create an empty filesystem image and import the contents of thetarbal">
                                 
   
     <h1 class="article-title" itemprop="name">
-      export、import导出导入docker容器
+      使用docker-enter进入docker容器
     </h1>
   
 
@@ -258,34 +247,14 @@ Create an empty filesystem image and import the contents of thetarbal">
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#导入容器快照"><span class="toc-number">1.</span> <span class="toc-text">导入容器快照</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#实例"><span class="toc-number">1.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#导出容器"><span class="toc-number">2.</span> <span class="toc-text">导出容器</span></a></li></ol>
+    
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/" target="_blank" rel="external">centos-6-x86_64.tar.gz</a></p>
-<blockquote>
-<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
-<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br><a id="more"></a></p>
-</blockquote>
-<h2 id="实例">实例</h2><blockquote>
-<p>cat centos-6-x86_64.tar.gz|docker import - test/centos-6:v1.0<br><img src="/img/docker/docker_import.PNG" alt="Alt text"></p>
-</blockquote>
-<p>此外，也可以通过指定 URL 或者某个目录来导入，例如</p>
-<blockquote>
-<p> docker import <a href="http://example.com/exampleimage.tgz" target="_blank" rel="external">http://example.com/exampleimage.tgz</a> example/imagerepo</p>
-</blockquote>
-<p>*注：用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p>
-<h1 id="导出容器">导出容器</h1><p>先启动一下容器：</p>
-<blockquote>
-<p>docker run -t -i 5de0ac2f6f7e /bin/bash</p>
-</blockquote>
-<p>两个参数，-t表示给容器tty终端，-i表示可以interactive，可以交互。</p>
-<p><img src="/img/docker/docker_ps.PNG" alt="Alt text"></p>
-<blockquote>
-<p>docker export 5d73efeb9a38 &gt; tonylit_centos6.tar</p>
-</blockquote>
+                                                                            <p>之前进入docker容器的时候，会用docker exec命令，今天发现一个更好用的docker-enter命令！<br><a id="more"></a><br>1.首先确认安装了nsenter<br>nsenter一般linux操作系统默认自带了，没有的话，安装下。<br>2.在$PATH下面新建docker-enter文件<br>将下面的脚本copy进去，赋执行权限，使用方式： docker-enter <container-id></container-id></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/sh</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="operator">-e</span> $(dirname <span class="string">"<span class="variable">$0</span>"</span>)/nsenter ]; <span class="keyword">then</span></span><br><span class="line">  <span class="comment"># with boot2docker, nsenter is not in the PATH but it is in the same folder</span></span><br><span class="line">  NSENTER=$(dirname <span class="string">"<span class="variable">$0</span>"</span>)/nsenter</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  NSENTER=nsenter</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$1</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"Usage: `basename "</span><span class="variable">$0</span><span class="string">"` CONTAINER [COMMAND [ARG]...]"</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"Enters the Docker CONTAINER and executes the specified COMMAND."</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"If COMMAND is not specified, runs an interactive shell in CONTAINER."</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  PID=$(docker inspect --format <span class="string">"&#123;&#123;.State.Pid&#125;&#125;"</span> <span class="string">"<span class="variable">$1</span>"</span>)</span><br><span class="line">  <span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$PID</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">  <span class="built_in">shift</span></span><br><span class="line">  OPTS=<span class="string">"--target <span class="variable">$PID</span> --mount --uts --ipc --net --pid --"</span></span><br><span class="line">  <span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$1</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="comment"># No command given.</span></span><br><span class="line">    <span class="comment"># Use su to clear all host environment variables except for TERM,</span></span><br><span class="line">    <span class="comment"># initialize the environment variables HOME, SHELL, USER, LOGNAME, PATH,</span></span><br><span class="line">    <span class="comment"># and start a login shell.</span></span><br><span class="line">    <span class="string">"<span class="variable">$NSENTER</span>"</span> <span class="variable">$OPTS</span> su - root</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="comment"># Use env to clear all host environment variables.</span></span><br><span class="line">    <span class="string">"<span class="variable">$NSENTER</span>"</span> <span class="variable">$OPTS</span> env --ignore-environment -- <span class="string">"<span class="variable">$@</span>"</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
 
                                                                                 
                                         </div>
@@ -319,18 +288,9 @@ Create an empty filesystem image and import the contents of thetarbal">
                         
 <nav id="article-nav">
   
-    <a href="/2015/12/28/2015年终总结/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          2015年终总结
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/12/22/staf使用/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">staf使用</div>
+    <a href="/2016/02/29/apache_http跳转/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">apache http跳转https</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -340,7 +300,7 @@ Create an empty filesystem image and import the contents of thetarbal">
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-docker import和export" data-title="export、import导出导入docker容器" data-url="http://tonylit.me/2015/12/22/docker import和export/"></div>
+                                    <div class="ds-thread" data-thread-key="post-docker-enter" data-title="使用docker-enter进入docker容器" data-url="http://tonylit.me/2016/03/01/docker-enter/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">
