@@ -4,21 +4,21 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>性能测试葵花宝典 | 淘淘的博客</title>
+  <title>docker-compose安装 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在此整理性能测试过程中的一些精华内容，并持续进行为此命名为性能测试葵花宝典，我先练上！">
+  <meta name="description" content="curl -L https://github.com/docker/compose/releases/download/1.1.0/docker-compose-`uname -s-uname -m` &amp;gt; /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose">
 <meta property="og:type" content="article">
-<meta property="og:title" content="性能测试葵花宝典">
-<meta property="og:url" content="http://tonylit.me/2015/12/10/性能测试葵花宝典/index.html">
+<meta property="og:title" content="docker-compose安装">
+<meta property="og:url" content="http://tonylit.me/2016/03/09/docker-compose安装/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="在此整理性能测试过程中的一些精华内容，并持续进行为此命名为性能测试葵花宝典，我先练上！">
-<meta property="og:image" content="http://tonylit.me/img/葵花宝典.jpg">
-<meta property="og:image" content="http://tonylit.me/img/OSI_7.gif">
-<meta property="og:image" content="http://tonylit.me/img/threadstatus.gif">
-<meta property="og:updated_time" content="2015-12-10T05:37:27.000Z">
+<meta property="og:description" content="curl -L https://github.com/docker/compose/releases/download/1.1.0/docker-compose-`uname -s-uname -m` &amp;gt; /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose">
+<meta property="og:updated_time" content="2016-03-09T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="性能测试葵花宝典">
-<meta name="twitter:description" content="在此整理性能测试过程中的一些精华内容，并持续进行为此命名为性能测试葵花宝典，我先练上！">
+<meta name="twitter:title" content="docker-compose安装">
+<meta name="twitter:description" content="curl -L https://github.com/docker/compose/releases/download/1.1.0/docker-compose-`uname -s-uname -m` &amp;gt; /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -196,7 +196,7 @@
 高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
 </div>
 
-      <div class="body-wrap"><article id="post-性能测试葵花宝典" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-docker-compose安装" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -210,8 +210,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2015/12/10/性能测试葵花宝典/" class="article-date">
-  	<time datetime="2015-12-10T03:37:27.000Z" itemprop="datePublished">2015-12-10</time>
+            <a href="/2016/03/09/docker-compose安装/" class="article-date">
+  	<time datetime="2016-03-09T03:37:27.000Z" itemprop="datePublished">2016-03-09</time>
 </a>
 
         </div>
@@ -225,7 +225,7 @@
                                 
   
     <h1 class="article-title" itemprop="name">
-      性能测试葵花宝典
+      docker-compose安装
     </h1>
   
 
@@ -235,7 +235,7 @@
                                 <div class="article-info article-info-post">
                                     
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
 	</div>
 
 
@@ -250,22 +250,14 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#压力机的资源利用率"><span class="toc-number">1.</span> <span class="toc-text">压力机的资源利用率</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#OS常用阀值"><span class="toc-number">2.</span> <span class="toc-text">OS常用阀值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#OSI7层模型"><span class="toc-number">3.</span> <span class="toc-text">OSI7层模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#线程状态"><span class="toc-number">4.</span> <span class="toc-text">线程状态</span></a></li></ol>
+    
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <p>在此整理性能测试过程中的一些精华内容，并持续进行<br>为此命名为性能测试葵花宝典，我先练上！<br><img src="/img/葵花宝典.jpg" alt="Alt text"></p>
-<a id="more"></a>
-<h1 id="压力机的资源利用率">压力机的资源利用率</h1><blockquote>
-<p>cpu%&lt;50%<br>内存&lt;80%<br>network&lt;30%,高了容易丢包<br>disk的忙闲&lt;50%<br>disk的空间&lt;90%，高了会碎片整理</p>
-</blockquote>
-<h1 id="OS常用阀值">OS常用阀值</h1><blockquote>
-<p>TotalCPU%&lt;75%<br> sysCPU%&lt;30%<br>  load average&lt;5<br> wio%&lt;40%<br>  network%&lt;30%<br>mem%&lt;80%~90%<br> disk%busy&lt;60%<br> disk queueing &lt;5<br> disk usage&lt;90%</p>
-</blockquote>
-<h1 id="OSI7层模型">OSI7层模型</h1><p><img src="/img/OSI_7.gif" alt="Alt text"></p>
-<h1 id="线程状态">线程状态</h1><p><img src="/img/threadstatus.gif" alt="Alt text"></p>
+                                                                            <p>curl -L <a href="https://github.com/docker/compose/releases/download/1.1.0/docker-compose-`uname" target="_blank" rel="external">https://github.com/docker/compose/releases/download/1.1.0/docker-compose-`uname</a> -s<code>-</code>uname -m` &gt; /usr/local/bin/docker-compose</p>
+<p>chmod +x /usr/local/bin/docker-compose</p>
 
                                                                                 
                                         </div>
@@ -299,18 +291,9 @@
                         
 <nav id="article-nav">
   
-    <a href="/2015/12/15/druid连接池监控/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Druid连接池监控
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/12/10/jmeter测试java/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Jmeter测试java程序</div>
+    <a href="/2016/03/08/docker-run/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">docker run</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -320,7 +303,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-性能测试葵花宝典" data-title="性能测试葵花宝典" data-url="http://tonylit.me/2015/12/10/性能测试葵花宝典/"></div>
+                                    <div class="ds-thread" data-thread-key="post-docker-compose安装" data-title="docker-compose安装" data-url="http://tonylit.me/2016/03/09/docker-compose安装/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">
