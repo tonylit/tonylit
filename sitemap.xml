@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://tonylit.me/2016/03/22/docker%E5%9B%9B%E7%A7%8D%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2016-03-22T05:37:27.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://tonylit.me/2016/03/15/spring%20quartz%E9%85%8D%E7%BD%AE/</loc>
     <lastmod>2016-03-15T05:37:27.000Z</lastmod>
   </url>
@@ -67,12 +72,12 @@
   </url>
   
   <url>
-    <loc>http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/</loc>
+    <loc>http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/</loc>
     <lastmod>2015-12-22T05:37:27.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/</loc>
+    <loc>http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2015-12-22T05:37:27.000Z</lastmod>
   </url>
   
@@ -157,12 +162,12 @@
   </url>
   
   <url>
-    <loc>http://tonylit.me/2015/11/24/docker/</loc>
+    <loc>http://tonylit.me/2015/11/24/kafka%E4%B8%8Ecountdownlatch/</loc>
     <lastmod>2015-11-24T05:37:27.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://tonylit.me/2015/11/24/kafka%E4%B8%8Ecountdownlatch/</loc>
+    <loc>http://tonylit.me/2015/11/24/docker/</loc>
     <lastmod>2015-11-24T05:37:27.000Z</lastmod>
   </url>
   
@@ -262,7 +267,7 @@
   </url>
   
   <url>
-    <loc>http://tonylit.me/js/bootstrap.scrollspy.js</loc>
+    <loc>http://tonylit.me/js/fancy-box.js</loc>
     <lastmod>2015-10-26T17:43:18.000Z</lastmod>
   </url>
   
@@ -272,7 +277,7 @@
   </url>
   
   <url>
-    <loc>http://tonylit.me/js/fancy-box.js</loc>
+    <loc>http://tonylit.me/js/bootstrap.scrollspy.js</loc>
     <lastmod>2015-10-26T17:43:18.000Z</lastmod>
   </url>
   
