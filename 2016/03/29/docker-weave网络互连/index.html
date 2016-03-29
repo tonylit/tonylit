@@ -14,9 +14,9 @@
 <meta property="og:description" content="使用weave实现docker多宿主机互联，OVS太麻烦了，修改网桥简单但是约束比较多，weave比较简单而且好用，也没有多少限制。so，选择了weave">
 <meta property="og:image" content="http://tonylit.me/img/docker-weave/weave图.PNG">
 <meta property="og:image" content="http://tonylit.me/img/docker-weave/weave launch.PNG">
-<meta property="og:image" content="http://tonylit.me/./weave镜像文件.PNG">
-<meta property="og:image" content="http://tonylit.me/img/docker-weave/weave网桥.PNG">
+<meta property="og:image" content="http://tonylit.me/img/docker-weave/weave镜像文件.PNG">
 <meta property="og:image" content="http://tonylit.me/img/docker-weave/weave容器.PNG">
+<meta property="og:image" content="http://tonylit.me/img/docker-weave/weave网桥.PNG">
 <meta property="og:updated_time" content="2016-03-29T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用weave实现docker多宿主机互联">
@@ -264,9 +264,8 @@
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># sudo wget -O <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>weave https:<span class="comment">//raw.githubusercontent.com/zettio/weave/master/weave</span></span><br><span class="line"># sudo chmod a+x <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>weave</span><br></pre></td></tr></table></figure>
 <h1 id="启动weave">启动weave</h1><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># weave launch</span></span><br><span class="line">Unable <span class="keyword">to</span> find image <span class="string">'zettio/weave'</span> locally</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
 <p><img src="/img/docker-weave/weave launch.PNG" alt="Alt text"></p>
-<p>其实下载了三个镜像文件，并且启动了3个容器<br><img src="./weave镜像文件.PNG" alt="Alt text"></p>
+<p>其实下载了三个镜像文件，并且启动了3个容器<br><img src="/img/docker-weave/weave镜像文件.PNG" alt="Alt text"><br><img src="/img/docker-weave/weave容器.PNG" alt="Alt text"></p>
 <p>此时会发现有两个网桥，一个是Docker默认生成的，另一个是Weave生成的<br><img src="/img/docker-weave/weave网桥.PNG" alt="Alt text"></p>
-<p><img src="/img/docker-weave/weave容器.PNG" alt="Alt text"></p>
 <h1 id="连接不同主机">连接不同主机</h1><p>主机B要连接到主机A，则需要在weave launch 后面加上A的ip<br>在B的主机上</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># weave launch <span class="number">192.168</span><span class="number">.1</span><span class="number">.111</span></span></span><br></pre></td></tr></table></figure>
 <h1 id="通过weave启动容器">通过weave启动容器</h1><p>可以使用如下方式启动</p>
