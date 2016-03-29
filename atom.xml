@@ -1032,7 +1032,7 @@
 <p>安装起来很简单：</p>
 <h1 id="安装docker">安装docker</h1><p>1.由于条件限制，只能把rpm包下载下来：<a href="http://pan.baidu.com/s/1c0C0X0G，" target="_blank" rel="external">http://pan.baidu.com/s/1c0C0X0G，</a> 也可以直接：</p>
 <blockquote>
-<p>rpm -Uvh<br><a href="https://get.docker.com/rpm/1.7.1/centos-7/RPMS/x86_64/docker-engine-1.7.1-1.el7.centos.x86_64.rpm" target="_blank" rel="external">https://get.docker.com/rpm/1.7.1/centos-7/RPMS/x86_64/docker-engine-1.7.1-1.el7.centos.x86_64.rpm</a><br>或者<br>yum -y install docker-io<br>2.然后rpm安装一下就可以了：</p>
+<p>rpm -Uvh<br><a href="https://get.docker.com/rpm/1.7.1/centos-7/RPMS/x86_64/docker-engine-1.7.1-1.el7.centos.x86_64.rpm" target="_blank" rel="external">https://get.docker.com/rpm/1.7.1/centos-7/RPMS/x86_64/docker-engine-1.7.1-1.el7.centos.x86_64.rpm</a><br>或者<br>yum -y install docker<br>2.然后rpm安装一下就可以了：</p>
 <p>rpm -Uvh docker-engine-1.7.1-1.el7.centos.x86_64.rpm</p>
 </blockquote>
 <hr>
