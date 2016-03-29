@@ -21,6 +21,23 @@
 
     
   <url>
+    <loc>http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/</loc>
+    <lastmod>2016-03-29T05:37:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>使用weave实现docker多宿主机互联</title>
+        <pubTime>2016-03-29T03:37:27.000Z</pubTime>
+        
+        <tag>-docker</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://tonylit.me/2016/03/22/docker%E5%9B%9B%E7%A7%8D%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2016-03-22T05:37:27.000Z</lastmod>
     <data>
@@ -247,14 +264,14 @@
 
     
   <url>
-    <loc>http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/</loc>
+    <loc>http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2015-12-22T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>export、import导出导入docker容器</title>
+        <title>staf使用</title>
         <pubTime>2015-12-22T03:37:27.000Z</pubTime>
         
-        <tag>docker</tag>
+        <tag>工作</tag>
          
          
            
@@ -264,14 +281,14 @@
 
     
   <url>
-    <loc>http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/</loc>
+    <loc>http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/</loc>
     <lastmod>2015-12-22T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>staf使用</title>
+        <title>export、import导出导入docker容器</title>
         <pubTime>2015-12-22T03:37:27.000Z</pubTime>
         
-        <tag>工作</tag>
+        <tag>docker</tag>
          
          
            
@@ -488,6 +505,23 @@
 
     
   <url>
+    <loc>http://tonylit.me/2015/12/04/tcpdump/</loc>
+    <lastmod>2015-12-04T05:37:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>Linux系统抓包-tcpdump与tcpflow</title>
+        <pubTime>2015-12-04T03:37:27.000Z</pubTime>
+        
+        <tag>工作</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://tonylit.me/2015/12/04/tcp/</loc>
     <lastmod>2015-12-04T05:37:27.000Z</lastmod>
     <data>
@@ -498,23 +532,6 @@
         <tag>loadrunner</tag>
          
         <tag>性能</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://tonylit.me/2015/12/04/tcpdump/</loc>
-    <lastmod>2015-12-04T05:37:27.000Z</lastmod>
-    <data>
-        <display>
-        <title>Linux系统抓包-tcpdump与tcpflow</title>
-        <pubTime>2015-12-04T03:37:27.000Z</pubTime>
-        
-        <tag>工作</tag>
          
          
            
@@ -577,23 +594,6 @@
 
     
   <url>
-    <loc>http://tonylit.me/2015/11/24/docker/</loc>
-    <lastmod>2015-11-24T05:37:27.000Z</lastmod>
-    <data>
-        <display>
-        <title>docker</title>
-        <pubTime>2015-11-24T03:37:27.000Z</pubTime>
-        
-        <tag>docker</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://tonylit.me/2015/11/24/kafka%E4%B8%8Ecountdownlatch/</loc>
     <lastmod>2015-11-24T05:37:27.000Z</lastmod>
     <data>
@@ -604,6 +604,23 @@
         <tag>java</tag>
          
         <tag>kafka</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://tonylit.me/2015/11/24/docker/</loc>
+    <lastmod>2015-11-24T05:37:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>docker</title>
+        <pubTime>2015-11-24T03:37:27.000Z</pubTime>
+        
+        <tag>docker</tag>
          
          
            
