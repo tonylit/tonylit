@@ -250,7 +250,7 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#安装docker"><span class="toc-number">1.</span> <span class="toc-text">安装docker</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#验证安装："><span class="toc-number">2.</span> <span class="toc-text">验证安装：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#启动docker"><span class="toc-number">3.</span> <span class="toc-text">启动docker</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#安装docker"><span class="toc-number">1.</span> <span class="toc-text">安装docker</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#验证安装："><span class="toc-number">2.</span> <span class="toc-text">验证安装：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#启动docker"><span class="toc-number">3.</span> <span class="toc-text">启动docker</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#加入开机启动"><span class="toc-number">4.</span> <span class="toc-text">加入开机启动</span></a></li></ol>
 </div>
 
                                                         
@@ -260,10 +260,7 @@
 <p>安装起来很简单：</p>
 <h1 id="安装docker">安装docker</h1><p>1.由于条件限制，只能把rpm包下载下来：<a href="http://pan.baidu.com/s/1c0C0X0G，" target="_blank" rel="external">http://pan.baidu.com/s/1c0C0X0G，</a> 也可以直接：</p>
 <blockquote>
-<p>rpm -Uvh<br><a href="https://get.docker.com/rpm/1.7.1/centos-7/RPMS/x86_64/docker-engine-1.7.1-1.el7.centos.x86_64.rpm" target="_blank" rel="external">https://get.docker.com/rpm/1.7.1/centos-7/RPMS/x86_64/docker-engine-1.7.1-1.el7.centos.x86_64.rpm</a></p>
-</blockquote>
-<p>2.然后rpm安装一下就可以了：</p>
-<blockquote>
+<p>rpm -Uvh<br><a href="https://get.docker.com/rpm/1.7.1/centos-7/RPMS/x86_64/docker-engine-1.7.1-1.el7.centos.x86_64.rpm" target="_blank" rel="external">https://get.docker.com/rpm/1.7.1/centos-7/RPMS/x86_64/docker-engine-1.7.1-1.el7.centos.x86_64.rpm</a><br>或者<br>yum -y install docker-io<br>2.然后rpm安装一下就可以了：</p>
 <p>rpm -Uvh docker-engine-1.7.1-1.el7.centos.x86_64.rpm</p>
 </blockquote>
 <hr>
@@ -278,6 +275,9 @@
 </blockquote>
 <h1 id="启动docker">启动docker</h1><blockquote>
 <p>service docker start<br><img src="/img/docker/docker-begin.PNG" alt="Alt text"></p>
+</blockquote>
+<h1 id="加入开机启动">加入开机启动</h1><blockquote>
+<p>chkconfig docker on</p>
 </blockquote>
 
                                                                                 
