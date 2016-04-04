@@ -251,7 +251,7 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#修改成tcp的连接方式"><span class="toc-number">1.</span> <span class="toc-text">修改成tcp的连接方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试一下remote_api"><span class="toc-number">2.</span> <span class="toc-text">测试一下remote api</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#修改DOCKER_HOST方式"><span class="toc-number">3.</span> <span class="toc-text">修改DOCKER_HOST方式</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#修改成tcp的连接方式"><span class="toc-number">1.</span> <span class="toc-text">修改成tcp的连接方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试一下remote_api"><span class="toc-number">2.</span> <span class="toc-text">测试一下remote api</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#也可以通过修改DOCKER_HOST的方式"><span class="toc-number">3.</span> <span class="toc-text">也可以通过修改DOCKER_HOST的方式</span></a></li></ol>
 </div>
 
                                                         
@@ -267,7 +267,7 @@
 <h1 id="测试一下remote_api">测试一下remote api</h1><blockquote>
 <p>curl localhost:2375/info<br><img src="/img/docker/remote-info.PNG" alt="Alt text"></p>
 </blockquote>
-<h1 id="修改DOCKER_HOST方式">修改DOCKER_HOST方式</h1><blockquote>
+<h1 id="也可以通过修改DOCKER_HOST的方式">也可以通过修改DOCKER_HOST的方式</h1><blockquote>
 <p>export DOCKER_HOST=”tcp://localhost:2375”</p>
 </blockquote>
 <p>添加此环境变量后，不用修改docker守护进程的启动方式也可以进行docker remote连接。</p>

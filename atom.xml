@@ -30,7 +30,7 @@
 <h1 id="测试一下remote_api">测试一下remote api</h1><blockquote>
 <p>curl localhost:2375/info<br><img src="/img/docker/remote-info.PNG" alt="Alt text"></p>
 </blockquote>
-<h1 id="修改DOCKER_HOST方式">修改DOCKER_HOST方式</h1><blockquote>
+<h1 id="也可以通过修改DOCKER_HOST的方式">也可以通过修改DOCKER_HOST的方式</h1><blockquote>
 <p>export DOCKER_HOST=”tcp://localhost:2375”</p>
 </blockquote>
 <p>添加此环境变量后，不用修改docker守护进程的启动方式也可以进行docker remote连接。</p>
