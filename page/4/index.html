@@ -120,7 +120,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/docker/" style="font-size: 10px;">-docker</a> <a href="/tags/Jmeter/" style="font-size: 12px;">Jmeter</a> <a href="/tags/Jprofiler/" style="font-size: 10px;">Jprofiler</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 18px;">docker</a> <a href="/tags/java/" style="font-size: 14px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/kafka/" style="font-size: 12px;">kafka</a> <a href="/tags/lebron-james/" style="font-size: 10px;">lebron james</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/loadrunner/" style="font-size: 14px;">loadrunner</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/work/" style="font-size: 16px;">work</a> <a href="/tags/前端性能/" style="font-size: 10px;">前端性能</a> <a href="/tags/工作/" style="font-size: 18px;">工作</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a> <a href="/tags/网络攻击/" style="font-size: 10px;">网络攻击</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+						<a href="/tags/docker/" style="font-size: 12px;">-docker</a> <a href="/tags/Jmeter/" style="font-size: 12px;">Jmeter</a> <a href="/tags/Jprofiler/" style="font-size: 10px;">Jprofiler</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 18px;">docker</a> <a href="/tags/java/" style="font-size: 14px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/kafka/" style="font-size: 12px;">kafka</a> <a href="/tags/lebron-james/" style="font-size: 10px;">lebron james</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/loadrunner/" style="font-size: 14px;">loadrunner</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/work/" style="font-size: 16px;">work</a> <a href="/tags/前端性能/" style="font-size: 10px;">前端性能</a> <a href="/tags/工作/" style="font-size: 18px;">工作</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a> <a href="/tags/网络攻击/" style="font-size: 10px;">网络攻击</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
 					</div>
 				</section>
 				
@@ -326,6 +326,92 @@
     );
 </script>
 
+
+  
+    <article id="post-jenkins+maven+jmeter性能自动化实践" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2015/12/16/jenkins+maven+jmeter性能自动化实践/" class="article-date">
+  	<time datetime="2015-12-16T03:37:27.000Z" itemprop="datePublished">2015-12-16</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/16/jenkins+maven+jmeter性能自动化实践/">jenkins+maven+jmeter 性能自动化实践</a>
+    </h1>
+  
+
+
+                            </header>
+                            
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+
+                                                
+                                                                
+                                                                    <p>先简单介绍这几个工具，其实都不陌生了，平时工作中都会接触到<br>jenkins：前身hudson，开源的CI服务器<br>maven：这里主要是要用到maven与jmeter集成的插件（jmeter-maven-plugin）<br>jmeter：java编写的apache下开源的性能测试工具</p>
+<h1 id="整个环境搭建过程：">整个环境搭建过程：</h1><blockquote>
+<ol>
+<li>新建maven工程，在pom中加入jmeter的插件，将jmeter脚本放入项目中，测试</li>
+<li>搭建jenkins（这里使用的linux环境 centos5.8）</li>
+<li>将maven项目配置在jenkins中</li>
+<li>在jenkins中集成jmeter结果展示的插件（Performance），进行jenkins构建，测试</li>
+</ol>
+</blockquote>
+                                                                        
+                                        </div>
+                                        
+                                            <div class="article-info article-info-index">
+                                                
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jmeter/">Jmeter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+	</div>
+
+
+                                                    
+
+                                                        
+                                                            <p class="article-more-link">
+                                                                <a  href="/2015/12/16/jenkins+maven+jmeter性能自动化实践/#more">More >></a>
+                                                            </p>
+                                                            
+                                                                <div class="clearfix"></div>
+                                            </div>
+                                            
+            </div>
+            
+                    
+                                <!-- 多说评论框 start -->
+                                
+</article>
+
+<!--
+
+-->
+<!--
+
+-->
 
   
     <article id="post-druid连接池监控" class="article article-type-post" itemscope itemprop="blogPost">
@@ -640,84 +726,6 @@
 -->
 
   
-    <article id="post-tcpdump" class="article article-type-post" itemscope itemprop="blogPost">
-    <script>
-        $("html").niceScroll({
-            cursorcolor: "#2a2929",
-            cursoropacitymax: 1,
-            touchbehavior: false,
-            cursorwidth: "6px",
-            cursorborder: "5",
-            cursorborderradius: "0px",
-            autohidemode: true
-        });
-    </script>
-    
-        <div class="article-meta">
-            <a href="/2015/12/04/tcpdump/" class="article-date">
-  	<time datetime="2015-12-04T03:37:27.000Z" itemprop="datePublished">2015-12-04</time>
-</a>
-
-        </div>
-        
-            <div class="article-inner">
-                
-                    <input type="hidden" class="isFancy" />
-                    
-                        
-                            <header class="article-header">
-                                
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/04/tcpdump/">Linux系统抓包-tcpdump与tcpflow</a>
-    </h1>
-  
-
-
-                            </header>
-                            
-                                    
-                                        <div class="article-entry" itemprop="articleBody">
-                                            
-
-                                                
-                                                                
-                                                                    <p>平时抓包用的最多的是wireshark和httpwatch，<br>如果想在linux服务器上抓包，比较常用tcpdump，tcpflow命令，tcpdump对http包的抓取支持不好，tcpflow的http的抓取表现不错<br>
-                                                                        
-                                        </div>
-                                        
-                                            <div class="article-info article-info-index">
-                                                
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工作/">工作</a></li></ul>
-	</div>
-
-
-                                                    
-
-                                                        
-                                                            <p class="article-more-link">
-                                                                <a  href="/2015/12/04/tcpdump/#more">More >></a>
-                                                            </p>
-                                                            
-                                                                <div class="clearfix"></div>
-                                            </div>
-                                            
-            </div>
-            
-                    
-                                <!-- 多说评论框 start -->
-                                
-</article>
-
-<!--
-
--->
-<!--
-
--->
-
-  
     <article id="post-tcp" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
@@ -796,6 +804,84 @@
 -->
 
   
+    <article id="post-tcpdump" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2015/12/04/tcpdump/" class="article-date">
+  	<time datetime="2015-12-04T03:37:27.000Z" itemprop="datePublished">2015-12-04</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/04/tcpdump/">Linux系统抓包-tcpdump与tcpflow</a>
+    </h1>
+  
+
+
+                            </header>
+                            
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+
+                                                
+                                                                
+                                                                    <p>平时抓包用的最多的是wireshark和httpwatch，<br>如果想在linux服务器上抓包，比较常用tcpdump，tcpflow命令，tcpdump对http包的抓取支持不好，tcpflow的http的抓取表现不错<br>
+                                                                        
+                                        </div>
+                                        
+                                            <div class="article-info article-info-index">
+                                                
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工作/">工作</a></li></ul>
+	</div>
+
+
+                                                    
+
+                                                        
+                                                            <p class="article-more-link">
+                                                                <a  href="/2015/12/04/tcpdump/#more">More >></a>
+                                                            </p>
+                                                            
+                                                                <div class="clearfix"></div>
+                                            </div>
+                                            
+            </div>
+            
+                    
+                                <!-- 多说评论框 start -->
+                                
+</article>
+
+<!--
+
+-->
+<!--
+
+-->
+
+  
     <article id="post-centos7.1下安装docker" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
@@ -854,84 +940,6 @@
                                                         
                                                             <p class="article-more-link">
                                                                 <a  href="/2015/12/02/centos7.1下安装docker/#more">More >></a>
-                                                            </p>
-                                                            
-                                                                <div class="clearfix"></div>
-                                            </div>
-                                            
-            </div>
-            
-                    
-                                <!-- 多说评论框 start -->
-                                
-</article>
-
-<!--
-
--->
-<!--
-
--->
-
-  
-    <article id="post-atom编辑器" class="article article-type-post" itemscope itemprop="blogPost">
-    <script>
-        $("html").niceScroll({
-            cursorcolor: "#2a2929",
-            cursoropacitymax: 1,
-            touchbehavior: false,
-            cursorwidth: "6px",
-            cursorborder: "5",
-            cursorborderradius: "0px",
-            autohidemode: true
-        });
-    </script>
-    
-        <div class="article-meta">
-            <a href="/2015/12/01/atom编辑器/" class="article-date">
-  	<time datetime="2015-12-01T03:37:27.000Z" itemprop="datePublished">2015-12-01</time>
-</a>
-
-        </div>
-        
-            <div class="article-inner">
-                
-                    <input type="hidden" class="isFancy" />
-                    
-                        
-                            <header class="article-header">
-                                
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/01/atom编辑器/">atom编辑器爆爆爆</a>
-    </h1>
-  
-
-
-                            </header>
-                            
-                                    
-                                        <div class="article-entry" itemprop="articleBody">
-                                            
-
-                                                
-                                                                
-                                                                    <p>狂拽炫酷屌炸天的编辑器插件，<br>来点音乐、再配上机械键盘，啪啪啪！爆爆爆爆！!<br><img src="/img/atom/atom1.gif" alt="Alt text"><br><img src="/img/atom/atom2.gif" alt="Alt text"><br>
-                                                                        
-                                        </div>
-                                        
-                                            <div class="article-info article-info-index">
-                                                
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/atom/">atom</a></li></ul>
-	</div>
-
-
-                                                    
-
-                                                        
-                                                            <p class="article-more-link">
-                                                                <a  href="/2015/12/01/atom编辑器/#more">More >></a>
                                                             </p>
                                                             
                                                                 <div class="clearfix"></div>

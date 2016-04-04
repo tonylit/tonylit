@@ -4,20 +4,22 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>天选之子-lebron james | 淘淘的博客</title>
+  <title>Docker 远程访问 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="什么时候开始喜欢詹姆斯，应该是09年东决G2绝杀魔术，1s绝杀的时候，真的是把我看哭了，一个人带队实在是太不容易！现在，23号又回到了家乡，剑指总冠军，我们拭目以待！！">
+  <meta name="description" content="docker的client与server有两种连接方式，一种是socket连接，另外一种就是remote api。这里整理一下怎样进行remote api访问docker的server。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="天选之子-lebron james">
-<meta property="og:url" content="http://tonylit.me/2015/11/22/天选之子-詹姆斯/index.html">
+<meta property="og:title" content="Docker 远程访问">
+<meta property="og:url" content="http://tonylit.me/2016/04/02/docker远程连接/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="什么时候开始喜欢詹姆斯，应该是09年东决G2绝杀魔术，1s绝杀的时候，真的是把我看哭了，一个人带队实在是太不容易！现在，23号又回到了家乡，剑指总冠军，我们拭目以待！！">
-<meta property="og:image" content="http://tonylit.me/img/levron-james.jpg">
-<meta property="og:image" content="http://tonylit.me/img/king.jpg">
-<meta property="og:updated_time" content="2015-11-22T05:37:27.000Z">
+<meta property="og:description" content="docker的client与server有两种连接方式，一种是socket连接，另外一种就是remote api。这里整理一下怎样进行remote api访问docker的server。">
+<meta property="og:image" content="http://tonylit.me/img/docker/docker连接方式.PNG">
+<meta property="og:image" content="http://tonylit.me/img/docker/docker-tcp连接方式.PNG">
+<meta property="og:image" content="http://tonylit.me/img/docker/docker-tcp进程.PNG">
+<meta property="og:image" content="http://tonylit.me/img/docker/remote-info.PNG">
+<meta property="og:updated_time" content="2016-04-02T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="天选之子-lebron james">
-<meta name="twitter:description" content="什么时候开始喜欢詹姆斯，应该是09年东决G2绝杀魔术，1s绝杀的时候，真的是把我看哭了，一个人带队实在是太不容易！现在，23号又回到了家乡，剑指总冠军，我们拭目以待！！">
+<meta name="twitter:title" content="Docker 远程访问">
+<meta name="twitter:description" content="docker的client与server有两种连接方式，一种是socket连接，另外一种就是remote api。这里整理一下怎样进行remote api访问docker的server。">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -195,7 +197,7 @@
 高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
 </div>
 
-      <div class="body-wrap"><article id="post-天选之子-詹姆斯" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-docker远程连接" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -209,8 +211,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2015/11/22/天选之子-詹姆斯/" class="article-date">
-  	<time datetime="2015-11-22T03:37:27.000Z" itemprop="datePublished">2015-11-22</time>
+            <a href="/2016/04/02/docker远程连接/" class="article-date">
+  	<time datetime="2016-04-02T03:37:27.000Z" itemprop="datePublished">2016-04-02</time>
 </a>
 
         </div>
@@ -224,7 +226,7 @@
                                 
   
     <h1 class="article-title" itemprop="name">
-      天选之子-lebron james
+      Docker 远程访问
     </h1>
   
 
@@ -234,7 +236,7 @@
                                 <div class="article-info article-info-post">
                                     
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lebron-james/">lebron james</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/life/">life</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">-docker</a></li></ul>
 	</div>
 
 
@@ -249,18 +251,27 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#荣誉榜-What_is_the_MVP_means？"><span class="toc-number">1.</span> <span class="toc-text">荣誉榜-What is the MVP means？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#激情夺冠之路"><span class="toc-number">2.</span> <span class="toc-text">激情夺冠之路</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#修改成tcp的连接方式"><span class="toc-number">1.</span> <span class="toc-text">修改成tcp的连接方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试一下remote_api"><span class="toc-number">2.</span> <span class="toc-text">测试一下remote api</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#修改DOCKER_HOST方式"><span class="toc-number">3.</span> <span class="toc-text">修改DOCKER_HOST方式</span></a></li></ol>
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <p>什么时候开始喜欢詹姆斯，<br>应该是09年东决G2绝杀魔术，<br>1s绝杀的时候，真的是把我看哭了，一个人带队实在是太不容易！<br>现在，23号又回到了家乡，<br>剑指总冠军，我们拭目以待！！</p>
-<p><img src="/img/levron-james.jpg" alt="Alt text"></p>
-<a id="more"></a>
-<hr>
-<h1 id="荣誉榜-What_is_the_MVP_means？">荣誉榜-What is the MVP means？</h1><p><img src="/img/king.jpg" alt="Alt text"></p>
-<h1 id="激情夺冠之路">激情夺冠之路</h1><div class="owl-youku"><br><div class="owl-media owl-video owl-youku"><iframe src="http://player.youku.com/embed/XNTAzODA2ODYw" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen></iframe></div><br></div>
+                                                                            <p>docker的client与server有两种连接方式，一种是socket连接，另外一种就是remote api。<br>这里整理一下怎样进行remote api访问docker的server。<br><a id="more"></a><br>docker守护进程启动时-H 有三个选项：配置服务端的3种连接方式<br><img src="/img/docker/docker连接方式.PNG" alt="Alt text"></p>
+<h1 id="修改成tcp的连接方式">修改成tcp的连接方式</h1><p>我这里是centos7，修改/lib/systemd/system/docker.service<br><img src="/img/docker/docker-tcp连接方式.PNG" alt="Alt text"></p>
+<p>修改完成后重启docker service</p>
+<blockquote>
+<p>service docker restart</p>
+</blockquote>
+<p>看一下是不是tcp的方式<br><img src="/img/docker/docker-tcp进程.PNG" alt="Alt text"></p>
+<h1 id="测试一下remote_api">测试一下remote api</h1><blockquote>
+<p>curl localhost:2375/info<br><img src="/img/docker/remote-info.PNG" alt="Alt text"></p>
+</blockquote>
+<h1 id="修改DOCKER_HOST方式">修改DOCKER_HOST方式</h1><blockquote>
+<p>export DOCKER_HOST=”tcp://localhost:2375”</p>
+</blockquote>
+<p>添加此环境变量后，不用修改docker守护进程的启动方式也可以进行docker remote连接。</p>
+
                                                                                 
                                         </div>
                                         
@@ -293,18 +304,9 @@
                         
 <nav id="article-nav">
   
-    <a href="/2015/11/24/kafka与countdownlatch/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          kafka与countdownlatch
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/11/19/kafka入门/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">kafka入门</div>
+    <a href="/2016/03/29/docker-weave网络互连/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用weave实现docker多宿主机互联</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -314,7 +316,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-天选之子-詹姆斯" data-title="天选之子-lebron james" data-url="http://tonylit.me/2015/11/22/天选之子-詹姆斯/"></div>
+                                    <div class="ds-thread" data-thread-key="post-docker远程连接" data-title="Docker 远程访问" data-url="http://tonylit.me/2016/04/02/docker远程连接/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">
