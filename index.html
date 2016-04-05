@@ -370,7 +370,7 @@
 
                                                 
                                                                 
-                                                                    <p>docker服务启动后，会创建一个名叫docker0的网桥，这个网桥将容器连接在一起。<br>但是，两台物理机之间的容器连接不了啊！！<br><a href="http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/">weave</a>可以实现，but，weave后容器访问不了外网….<br>只能试试创建网桥的方式了，在docker服务启动的时候使用以下启动参数指定网桥。</p>
+                                                                    <p>如果你不想使用docker0，docker,可以指定使用的网桥</p>
 <blockquote>
 <p>-b BRIDGE or –bridge=BRIDGE</p>
 </blockquote>
