@@ -275,7 +275,7 @@
 <h2 id="重启网络">重启网络</h2><blockquote>
 <p> service network restart</p>
 </blockquote>
-<p>查看一下网桥有木有生效<br><img src="/img/docker网桥/br0网桥.PNG" alt="Alt text"></p>
+<p>查看一下网桥有木有生效<br><img src="/img/docker网桥/br0网桥.PNG" alt="Alt text"><br>好的，已经生效！</p>
 <h1 id="修改docker启动参数，增加-b=br0">修改docker启动参数，增加-b=br0</h1><blockquote>
 <p>vim /lib/systemd/system/docker.service</p>
 </blockquote>
@@ -284,7 +284,7 @@
 <p>service docker restart</p>
 </blockquote>
 <p>创建一个容器，看一下是不是连接到br0网桥上了<br><img src="/img/docker网桥/brctl-show.PNG" alt="Alt text"></p>
-<p>我们看到新建的容器连接到了br0网桥上面</p>
+<p>我们看到新建的容器连接到了br0网桥上面<br>OK了，这样，容器可以通过宿主机上的物理网卡与其他宿主机上的容器连接了</p>
 <h1 id="删除网桥">删除网桥</h1><p>当然，如果想删除网桥，可以用以下命令：</p>
 <blockquote>
 <p> ip link set dev br0 down<br> ip link del br0</p>
