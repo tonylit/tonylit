@@ -20,7 +20,7 @@
     <id>http://tonylit.me/2016/04/05/centos7自定义docker网桥/</id>
     <published>2016-04-05T03:37:27.000Z</published>
     <updated>2016-04-05T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>如果你不想使用docker0，docker,可以指定使用的网桥</p>
+    <content type="html"><![CDATA[<p>如果你不想使用docker0，docker可以指定使用的网桥</p>
 <blockquote>
 <p>-b BRIDGE or –bridge=BRIDGE</p>
 </blockquote>
@@ -48,7 +48,7 @@
 <h1 id="拓扑图">拓扑图</h1><p><img src="/img/docker网桥/dockertuopu-1.jpg" alt="Alt text"><br><img src="/img/docker网桥/dockertuopu-2.jpg" alt="Alt text"></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>如果你不想使用docker0，docker,可以指定使用的网桥</p>
+    <![CDATA[<p>如果你不想使用docker0，docker可以指定使用的网桥</p>
 <blockquote>
 <p>-b BRIDGE or –bridge=BRIDGE</p>
 </blockquote>]]>
