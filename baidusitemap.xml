@@ -4,6 +4,23 @@
 
     
   <url>
+    <loc>http://tonylit.me/2016/04/05/centos7%E8%87%AA%E5%AE%9A%E4%B9%89docker%E7%BD%91%E6%A1%A5/</loc>
+    <lastmod>2016-04-05T05:37:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>centos7 自定义docker网桥</title>
+        <pubTime>2016-04-05T03:37:27.000Z</pubTime>
+        
+        <tag>docker</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://tonylit.me/2016/04/02/docker%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5/</loc>
     <lastmod>2016-04-02T05:37:27.000Z</lastmod>
     <data>
@@ -26,23 +43,6 @@
     <data>
         <display>
         <title>docker pull关于https的报错处理</title>
-        <pubTime>2016-03-29T03:37:27.000Z</pubTime>
-        
-        <tag>docker</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://tonylit.me/2016/03/29/centos7%E8%87%AA%E5%AE%9A%E4%B9%89docker%E7%BD%91%E6%A1%A5/</loc>
-    <lastmod>2016-03-29T05:37:27.000Z</lastmod>
-    <data>
-        <display>
-        <title>centos7 自定义docker网桥</title>
         <pubTime>2016-03-29T03:37:27.000Z</pubTime>
         
         <tag>docker</tag>
