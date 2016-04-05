@@ -38,6 +38,23 @@
 
     
   <url>
+    <loc>http://tonylit.me/2016/03/29/centos7%E8%87%AA%E5%AE%9A%E4%B9%89docker%E7%BD%91%E6%A1%A5/</loc>
+    <lastmod>2016-03-29T05:37:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>centos7 自定义docker网桥</title>
+        <pubTime>2016-03-29T03:37:27.000Z</pubTime>
+        
+        <tag>docker</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/</loc>
     <lastmod>2016-03-29T05:37:27.000Z</lastmod>
     <data>
@@ -391,14 +408,14 @@
 
     
   <url>
-    <loc>http://tonylit.me/2015/12/16/soupui%E6%8E%A5%E5%8F%A3%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</loc>
+    <loc>http://tonylit.me/2015/12/16/jenkins+maven+jmeter%E6%80%A7%E8%83%BD%E8%87%AA%E5%8A%A8%E5%8C%96%E5%AE%9E%E8%B7%B5/</loc>
     <lastmod>2015-12-16T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>SoupUI接口性能测试</title>
+        <title>jenkins+maven+jmeter 性能自动化实践</title>
         <pubTime>2015-12-16T03:37:27.000Z</pubTime>
         
-        <tag>工作</tag>
+        <tag>Jmeter</tag>
          
         <tag>性能</tag>
          
@@ -429,14 +446,14 @@
 
     
   <url>
-    <loc>http://tonylit.me/2015/12/16/jenkins+maven+jmeter%E6%80%A7%E8%83%BD%E8%87%AA%E5%8A%A8%E5%8C%96%E5%AE%9E%E8%B7%B5/</loc>
+    <loc>http://tonylit.me/2015/12/16/soupui%E6%8E%A5%E5%8F%A3%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</loc>
     <lastmod>2015-12-16T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>jenkins+maven+jmeter 性能自动化实践</title>
+        <title>SoupUI接口性能测试</title>
         <pubTime>2015-12-16T03:37:27.000Z</pubTime>
         
-        <tag>Jmeter</tag>
+        <tag>工作</tag>
          
         <tag>性能</tag>
          
@@ -522,6 +539,23 @@
 
     
   <url>
+    <loc>http://tonylit.me/2015/12/04/tcpdump/</loc>
+    <lastmod>2015-12-04T05:37:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>Linux系统抓包-tcpdump与tcpflow</title>
+        <pubTime>2015-12-04T03:37:27.000Z</pubTime>
+        
+        <tag>工作</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://tonylit.me/2015/12/04/tcp/</loc>
     <lastmod>2015-12-04T05:37:27.000Z</lastmod>
     <data>
@@ -532,23 +566,6 @@
         <tag>loadrunner</tag>
          
         <tag>性能</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://tonylit.me/2015/12/04/tcpdump/</loc>
-    <lastmod>2015-12-04T05:37:27.000Z</lastmod>
-    <data>
-        <display>
-        <title>Linux系统抓包-tcpdump与tcpflow</title>
-        <pubTime>2015-12-04T03:37:27.000Z</pubTime>
-        
-        <tag>工作</tag>
          
          
            

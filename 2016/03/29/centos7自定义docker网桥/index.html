@@ -4,19 +4,29 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>docker pull关于https的报错处理 | 淘淘的博客</title>
+  <title>centos7 自定义docker网桥 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：">
+  <meta name="description" content="docker服务启动后，会创建一个名叫docker0的网桥，这个网桥将容器连接在一起。如果希望使用自己创建的网桥，可以在docker服务启动的时候使用一下启动参数指定网桥。
+
+-b BRIDGE or –bridge=BRIDGE">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker pull关于https的报错处理">
-<meta property="og:url" content="http://tonylit.me/2016/03/29/docker_pull_https_error/index.html">
+<meta property="og:title" content="centos7 自定义docker网桥">
+<meta property="og:url" content="http://tonylit.me/2016/03/29/centos7自定义docker网桥/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：">
-<meta property="og:image" content="http://tonylit.me/img/docker异常/docker_pull_https_error.PNG">
+<meta property="og:description" content="docker服务启动后，会创建一个名叫docker0的网桥，这个网桥将容器连接在一起。如果希望使用自己创建的网桥，可以在docker服务启动的时候使用一下启动参数指定网桥。
+
+-b BRIDGE or –bridge=BRIDGE">
+<meta property="og:image" content="http://tonylit.me/img/docker网桥/dockertuopu-1.jpg">
+<meta property="og:image" content="http://tonylit.me/img/docker网桥/dockertuopu-2.jpg">
+<meta property="og:image" content="http://tonylit.me/img/docker网桥/br0网桥.PNG">
+<meta property="og:image" content="http://tonylit.me/img/docker网桥/网桥参数.PNG">
+<meta property="og:image" content="http://tonylit.me/img/docker网桥/brctl-show.PNG">
 <meta property="og:updated_time" content="2016-03-29T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="docker pull关于https的报错处理">
-<meta name="twitter:description" content="从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：">
+<meta name="twitter:title" content="centos7 自定义docker网桥">
+<meta name="twitter:description" content="docker服务启动后，会创建一个名叫docker0的网桥，这个网桥将容器连接在一起。如果希望使用自己创建的网桥，可以在docker服务启动的时候使用一下启动参数指定网桥。
+
+-b BRIDGE or –bridge=BRIDGE">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -194,7 +204,7 @@
 高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
 </div>
 
-      <div class="body-wrap"><article id="post-docker_pull_https_error" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-centos7自定义docker网桥" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -208,7 +218,7 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2016/03/29/docker_pull_https_error/" class="article-date">
+            <a href="/2016/03/29/centos7自定义docker网桥/" class="article-date">
   	<time datetime="2016-03-29T03:37:27.000Z" itemprop="datePublished">2016-03-29</time>
 </a>
 
@@ -223,7 +233,7 @@
                                 
   
     <h1 class="article-title" itemprop="name">
-      docker pull关于https的报错处理
+      centos7 自定义docker网桥
     </h1>
   
 
@@ -248,22 +258,38 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#修改docker配置文件"><span class="toc-number">1.</span> <span class="toc-text">修改docker配置文件</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#拓扑图"><span class="toc-number">1.</span> <span class="toc-text">拓扑图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#新建网桥_编辑bridge的配置文件"><span class="toc-number">2.</span> <span class="toc-text">新建网桥 编辑bridge的配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#重启网络"><span class="toc-number">2.1.</span> <span class="toc-text">重启网络</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#修改docker启动参数，增加-b=br0"><span class="toc-number">3.</span> <span class="toc-text">修改docker启动参数，增加-b=br0</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#重启docker服务"><span class="toc-number">3.1.</span> <span class="toc-text">重启docker服务</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#删除网桥"><span class="toc-number">4.</span> <span class="toc-text">删除网桥</span></a></li></ol>
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>
-<a id="more"></a>
-<p>网上很多解决方法都是Ubuntu系统的，centos7 docker的配置文件真是难找。</p>
-<h1 id="修改docker配置文件">修改docker配置文件</h1><p>刚开始修改/etc/sysconfig/docker文件，加入–insecure-registry docker.vemic.com:5000，没启作用。<br>起作用的配置如下修改：<br>vi /usr/lib/systemd/system/docker.service</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[Unit]</span></span><br><span class="line"><span class="setting">Description=<span class="value">Docker Application Container Engine</span></span></span><br><span class="line"><span class="comment">##这里讲https-&gt;http</span></span><br><span class="line"><span class="setting">Documentation=<span class="value">http://docs.docker.com</span></span></span><br><span class="line"><span class="setting">After=<span class="value">network.target docker.socket</span></span></span><br><span class="line"><span class="setting">Requires=<span class="value">docker.socket</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Service]</span></span><br><span class="line"><span class="comment">##这里加入-d  --insecure-registry docker.vemic.com:5000</span></span><br><span class="line"><span class="setting">ExecStart=<span class="value">/usr/bin/docker -d  --insecure-registry docker.vemic.com:<span class="number">5000</span> -H fd:// <span class="variable">$OPTIONS</span> <span class="variable">$DOCKER_STORAGE_OPTIONS</span>  </span></span></span><br><span class="line"><span class="setting">MountFlags=<span class="value">slave</span></span></span><br><span class="line"><span class="setting">LimitNOFILE=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitNPROC=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitCORE=<span class="value">infinity</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Install]</span></span><br><span class="line"><span class="setting">WantedBy=<span class="value">multi-user.target</span></span></span><br></pre></td></tr></table></figure>
-<p>以上修改后重启docker</p>
+                                                                            <p>docker服务启动后，会创建一个名叫docker0的网桥，这个网桥将容器连接在一起。<br>如果希望使用自己创建的网桥，可以在docker服务启动的时候使用一下启动参数指定网桥。</p>
 <blockquote>
-<p>service docker restart<br>systemctl daemon-reload</p>
+<p>-b BRIDGE or –bridge=BRIDGE</p>
 </blockquote>
-<p>OK了</p>
+<a id="more"></a>
+<h1 id="拓扑图">拓扑图</h1><p><img src="/img/docker网桥/dockertuopu-1.jpg" alt="Alt text"><br><img src="/img/docker网桥/dockertuopu-2.jpg" alt="Alt text"></p>
+<h1 id="新建网桥_编辑bridge的配置文件">新建网桥 编辑bridge的配置文件</h1><p>我这里使用的centos7，在/etc/sysconfig/network-scripts下新建一个网桥配置：ifcfg-br0 并编辑：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DEVICE=<span class="string">"br0"</span></span><br><span class="line">ONBOOT=<span class="string">"yes"</span></span><br><span class="line">TYPE=Bridge</span><br><span class="line">BOOTPROTO=<span class="keyword">static</span></span><br><span class="line">IPADDR=<span class="number">192.168</span><span class="number">.43</span><span class="number">.244</span></span><br><span class="line">NETMASK=<span class="number">255.255</span><span class="number">.255</span><span class="number">.0</span></span><br></pre></td></tr></table></figure>
+<p>我们看到，这里指定一个名叫br0的网桥，ip为192.168.43.244(可以指定某一个网卡的ip，这样就将这台机器上容器绑定到这个网卡所对应的物理网络上)</p>
+<h2 id="重启网络">重启网络</h2><blockquote>
+<p> service network restart</p>
+</blockquote>
+<p>查看一下网桥有木有生效<br><img src="/img/docker网桥/br0网桥.PNG" alt="Alt text"></p>
+<h1 id="修改docker启动参数，增加-b=br0">修改docker启动参数，增加-b=br0</h1><blockquote>
+<p>vim /lib/systemd/system/docker.service</p>
+</blockquote>
+<p><img src="/img/docker网桥/网桥参数.PNG" alt="Alt text"></p>
+<h2 id="重启docker服务">重启docker服务</h2><blockquote>
+<p>service docker restart</p>
+</blockquote>
+<p>创建一个容器，看一下是不是连接到br0网桥上了<br><img src="/img/docker网桥/brctl-show.PNG" alt="Alt text"></p>
+<p>我们看到新建的容器连接到了br0网桥上面</p>
+<h1 id="删除网桥">删除网桥</h1><p>当然，如果想删除网桥，可以用以下命令：</p>
+<blockquote>
+<p> ip link set dev br0 down<br> ip link del br0</p>
+</blockquote>
 
                                                                                 
                                         </div>
@@ -297,18 +323,18 @@
                         
 <nav id="article-nav">
   
-    <a href="/2016/04/02/docker远程连接/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/03/29/docker-weave网络互连/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          Docker 远程访问
+          使用weave实现docker多宿主机互联
         
       </div>
     </a>
   
   
-    <a href="/2016/03/29/docker-weave网络互连/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">使用weave实现docker多宿主机互联</div>
+    <a href="/2016/03/22/docker四种网络模式/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">docker网络学习</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -318,7 +344,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-docker_pull_https_error" data-title="docker pull关于https的报错处理" data-url="http://tonylit.me/2016/03/29/docker_pull_https_error/"></div>
+                                    <div class="ds-thread" data-thread-key="post-centos7自定义docker网桥" data-title="centos7 自定义docker网桥" data-url="http://tonylit.me/2016/03/29/centos7自定义docker网桥/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">
