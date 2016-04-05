@@ -25,7 +25,6 @@
 <p>-b BRIDGE or –bridge=BRIDGE</p>
 </blockquote>
 <a id="more"></a>
-<h1 id="拓扑图">拓扑图</h1><p><img src="/img/docker网桥/dockertuopu-1.jpg" alt="Alt text"><br><img src="/img/docker网桥/dockertuopu-2.jpg" alt="Alt text"></p>
 <h1 id="新建网桥_编辑bridge的配置文件">新建网桥 编辑bridge的配置文件</h1><p>我这里使用的centos7，在/etc/sysconfig/network-scripts下新建一个网桥配置：ifcfg-br0 并编辑：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DEVICE=<span class="string">"br0"</span></span><br><span class="line">ONBOOT=<span class="string">"yes"</span></span><br><span class="line">TYPE=Bridge</span><br><span class="line">BOOTPROTO=<span class="keyword">static</span></span><br><span class="line">IPADDR=<span class="number">192.168</span><span class="number">.43</span><span class="number">.244</span></span><br><span class="line">NETMASK=<span class="number">255.255</span><span class="number">.255</span><span class="number">.0</span></span><br></pre></td></tr></table></figure>
 <p>我们看到，这里指定一个名叫br0的网桥，ip为192.168.43.244(可以指定某一个网卡的ip，这样就将这台机器上容器绑定到这个网卡所对应的物理网络上)</p>
@@ -46,6 +45,7 @@
 <blockquote>
 <p> ip link set dev br0 down<br> ip link del br0</p>
 </blockquote>
+<h1 id="拓扑图">拓扑图</h1><p><img src="/img/docker网桥/dockertuopu-1.jpg" alt="Alt text"><br><img src="/img/docker网桥/dockertuopu-2.jpg" alt="Alt text"></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>docker服务启动后，会创建一个名叫docker0的网桥，这个网桥将容器连接在一起。<br>如果希望使用自己创建的网桥，可以在docker服务启动的时候使用一下启动参数指定网桥。</p>

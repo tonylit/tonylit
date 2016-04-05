@@ -16,11 +16,11 @@
 <meta property="og:description" content="docker服务启动后，会创建一个名叫docker0的网桥，这个网桥将容器连接在一起。如果希望使用自己创建的网桥，可以在docker服务启动的时候使用一下启动参数指定网桥。
 
 -b BRIDGE or –bridge=BRIDGE">
-<meta property="og:image" content="http://tonylit.me/img/docker网桥/dockertuopu-1.jpg">
-<meta property="og:image" content="http://tonylit.me/img/docker网桥/dockertuopu-2.jpg">
 <meta property="og:image" content="http://tonylit.me/img/docker网桥/br0网桥.PNG">
 <meta property="og:image" content="http://tonylit.me/img/docker网桥/网桥参数.PNG">
 <meta property="og:image" content="http://tonylit.me/img/docker网桥/brctl-show.PNG">
+<meta property="og:image" content="http://tonylit.me/img/docker网桥/dockertuopu-1.jpg">
+<meta property="og:image" content="http://tonylit.me/img/docker网桥/dockertuopu-2.jpg">
 <meta property="og:updated_time" content="2016-04-05T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos7 自定义docker网桥">
@@ -258,7 +258,7 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#拓扑图"><span class="toc-number">1.</span> <span class="toc-text">拓扑图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#新建网桥_编辑bridge的配置文件"><span class="toc-number">2.</span> <span class="toc-text">新建网桥 编辑bridge的配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#重启网络"><span class="toc-number">2.1.</span> <span class="toc-text">重启网络</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#修改docker启动参数，增加-b=br0"><span class="toc-number">3.</span> <span class="toc-text">修改docker启动参数，增加-b=br0</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#重启docker服务"><span class="toc-number">3.1.</span> <span class="toc-text">重启docker服务</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#删除网桥"><span class="toc-number">4.</span> <span class="toc-text">删除网桥</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#新建网桥_编辑bridge的配置文件"><span class="toc-number">1.</span> <span class="toc-text">新建网桥 编辑bridge的配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#重启网络"><span class="toc-number">1.1.</span> <span class="toc-text">重启网络</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#修改docker启动参数，增加-b=br0"><span class="toc-number">2.</span> <span class="toc-text">修改docker启动参数，增加-b=br0</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#重启docker服务"><span class="toc-number">2.1.</span> <span class="toc-text">重启docker服务</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#删除网桥"><span class="toc-number">3.</span> <span class="toc-text">删除网桥</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#拓扑图"><span class="toc-number">4.</span> <span class="toc-text">拓扑图</span></a></li></ol>
 </div>
 
                                                         
@@ -269,7 +269,6 @@
 <p>-b BRIDGE or –bridge=BRIDGE</p>
 </blockquote>
 <a id="more"></a>
-<h1 id="拓扑图">拓扑图</h1><p><img src="/img/docker网桥/dockertuopu-1.jpg" alt="Alt text"><br><img src="/img/docker网桥/dockertuopu-2.jpg" alt="Alt text"></p>
 <h1 id="新建网桥_编辑bridge的配置文件">新建网桥 编辑bridge的配置文件</h1><p>我这里使用的centos7，在/etc/sysconfig/network-scripts下新建一个网桥配置：ifcfg-br0 并编辑：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DEVICE=<span class="string">"br0"</span></span><br><span class="line">ONBOOT=<span class="string">"yes"</span></span><br><span class="line">TYPE=Bridge</span><br><span class="line">BOOTPROTO=<span class="keyword">static</span></span><br><span class="line">IPADDR=<span class="number">192.168</span><span class="number">.43</span><span class="number">.244</span></span><br><span class="line">NETMASK=<span class="number">255.255</span><span class="number">.255</span><span class="number">.0</span></span><br></pre></td></tr></table></figure>
 <p>我们看到，这里指定一个名叫br0的网桥，ip为192.168.43.244(可以指定某一个网卡的ip，这样就将这台机器上容器绑定到这个网卡所对应的物理网络上)</p>
@@ -290,6 +289,7 @@
 <blockquote>
 <p> ip link set dev br0 down<br> ip link del br0</p>
 </blockquote>
+<h1 id="拓扑图">拓扑图</h1><p><img src="/img/docker网桥/dockertuopu-1.jpg" alt="Alt text"><br><img src="/img/docker网桥/dockertuopu-2.jpg" alt="Alt text"></p>
 
                                                                                 
                                         </div>
