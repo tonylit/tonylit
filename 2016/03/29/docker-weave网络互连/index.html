@@ -6,12 +6,12 @@
   
   <title>使用weave实现docker多宿主机互联 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="使用weave实现docker多宿主机互联，OVS太麻烦了，修改网桥简单但是约束比较多，weave比较简单而且好用，也没有多少限制。so，选择了weave">
+  <meta name="description" content="使用weave实现docker多宿主机互联">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用weave实现docker多宿主机互联">
 <meta property="og:url" content="http://tonylit.me/2016/03/29/docker-weave网络互连/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="使用weave实现docker多宿主机互联，OVS太麻烦了，修改网桥简单但是约束比较多，weave比较简单而且好用，也没有多少限制。so，选择了weave">
+<meta property="og:description" content="使用weave实现docker多宿主机互联">
 <meta property="og:image" content="http://tonylit.me/img/docker-weave/weave图.PNG">
 <meta property="og:image" content="http://tonylit.me/img/docker-weave/weave launch.PNG">
 <meta property="og:image" content="http://tonylit.me/img/docker-weave/weave镜像文件.PNG">
@@ -20,7 +20,7 @@
 <meta property="og:updated_time" content="2016-03-29T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用weave实现docker多宿主机互联">
-<meta name="twitter:description" content="使用weave实现docker多宿主机互联，OVS太麻烦了，修改网桥简单但是约束比较多，weave比较简单而且好用，也没有多少限制。so，选择了weave">
+<meta name="twitter:description" content="使用weave实现docker多宿主机互联">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -258,7 +258,7 @@
                                                         
                                                             
                                                                 
-                                                                            <p>使用weave实现docker多宿主机互联，<br>OVS太麻烦了，修改网桥简单但是约束比较多，<br>weave比较简单而且好用，也没有多少限制。<br>so，选择了weave<br><a id="more"></a><br>weave是编织的意思，这里指的是建立一个虚拟的网络，将不同主机上的docker容器连接起来<br><img src="/img/docker-weave/weave图.PNG" alt="Alt text"><br>weave的实现原理如下图：</p>
+                                                                            <p>使用weave实现docker多宿主机互联<br><a id="more"></a><br>weave是编织的意思，这里指的是建立一个虚拟的网络，将不同主机上的docker容器连接起来<br><img src="/img/docker-weave/weave图.PNG" alt="Alt text"><br>weave的实现原理如下图：</p>
 <h1 id="环境准备">环境准备</h1><p>两台装有docker的物理机<br>192.168.1.111<br>192.168.1.113</p>
 <h1 id="安装weave">安装weave</h1><p>从github上下载二进制文件安装</p>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># sudo wget -O <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>weave https:<span class="comment">//raw.githubusercontent.com/zettio/weave/master/weave</span></span><br><span class="line"># sudo chmod a+x <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>weave</span><br></pre></td></tr></table></figure>
