@@ -20,7 +20,7 @@
     <id>http://tonylit.me/2016/04/05/centos7自定义docker网桥/</id>
     <published>2016-04-05T03:37:27.000Z</published>
     <updated>2016-04-05T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>docker服务启动后，会创建一个名叫docker0的网桥，这个网桥将容器连接在一起。<br>如果希望使用自己创建的网桥，可以在docker服务启动的时候使用一下启动参数指定网桥。</p>
+    <content type="html"><![CDATA[<p>docker服务启动后，会创建一个名叫docker0的网桥，这个网桥将容器连接在一起。<br>但是，两台物理机之间的容器连接不了啊！！<br><a href="http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/">weave</a>可以实现，but，weave后容器访问不了外网….<br>只能试试创建网桥的方式了，在docker服务启动的时候使用以下启动参数指定网桥。</p>
 <blockquote>
 <p>-b BRIDGE or –bridge=BRIDGE</p>
 </blockquote>
@@ -48,7 +48,7 @@
 <h1 id="拓扑图">拓扑图</h1><p><img src="/img/docker网桥/dockertuopu-1.jpg" alt="Alt text"><br><img src="/img/docker网桥/dockertuopu-2.jpg" alt="Alt text"></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>docker服务启动后，会创建一个名叫docker0的网桥，这个网桥将容器连接在一起。<br>如果希望使用自己创建的网桥，可以在docker服务启动的时候使用一下启动参数指定网桥。</p>
+    <![CDATA[<p>docker服务启动后，会创建一个名叫docker0的网桥，这个网桥将容器连接在一起。<br>但是，两台物理机之间的容器连接不了啊！！<br><a href="http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/">weave</a>可以实现，but，weave后容器访问不了外网….<br>只能试试创建网桥的方式了，在docker服务启动的时候使用以下启动参数指定网桥。</p>
 <blockquote>
 <p>-b BRIDGE or –bridge=BRIDGE</p>
 </blockquote>]]>
