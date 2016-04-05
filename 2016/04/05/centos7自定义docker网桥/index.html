@@ -8,14 +8,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="docker服务启动后，会创建一个名叫docker0的网桥，这个网桥将容器连接在一起。但是，两台物理机之间的容器连接不了啊！！weave可以实现，but，weave后容器访问不了外网….只能试试创建网桥的方式了，在docker服务启动的时候使用以下启动参数指定网桥。
 
--b BRIDGE or –bridge=BRIDGE">
+-b BRIDGE or –bridge=BRIDGE
+
+&quot;&amp;gt;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="centos7 自定义docker网桥">
 <meta property="og:url" content="http://tonylit.me/2016/04/05/centos7自定义docker网桥/index.html">
 <meta property="og:site_name" content="淘淘的博客">
 <meta property="og:description" content="docker服务启动后，会创建一个名叫docker0的网桥，这个网桥将容器连接在一起。但是，两台物理机之间的容器连接不了啊！！weave可以实现，but，weave后容器访问不了外网….只能试试创建网桥的方式了，在docker服务启动的时候使用以下启动参数指定网桥。
 
--b BRIDGE or –bridge=BRIDGE">
+-b BRIDGE or –bridge=BRIDGE
+
+&quot;&amp;gt;">
 <meta property="og:image" content="http://tonylit.me/img/docker网桥/br0网桥.PNG">
 <meta property="og:image" content="http://tonylit.me/img/docker网桥/网桥参数.PNG">
 <meta property="og:image" content="http://tonylit.me/img/docker网桥/brctl-show.PNG">
@@ -26,7 +30,9 @@
 <meta name="twitter:title" content="centos7 自定义docker网桥">
 <meta name="twitter:description" content="docker服务启动后，会创建一个名叫docker0的网桥，这个网桥将容器连接在一起。但是，两台物理机之间的容器连接不了啊！！weave可以实现，but，weave后容器访问不了外网….只能试试创建网桥的方式了，在docker服务启动的时候使用以下启动参数指定网桥。
 
--b BRIDGE or –bridge=BRIDGE">
+-b BRIDGE or –bridge=BRIDGE
+
+&quot;&amp;gt;">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -258,7 +264,7 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#新建网桥_编辑bridge的配置文件"><span class="toc-number">1.</span> <span class="toc-text">新建网桥 编辑bridge的配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#重启网络"><span class="toc-number">1.1.</span> <span class="toc-text">重启网络</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#修改docker启动参数，增加-b=br0"><span class="toc-number">2.</span> <span class="toc-text">修改docker启动参数，增加-b=br0</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#重启docker服务"><span class="toc-number">2.1.</span> <span class="toc-text">重启docker服务</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#删除网桥"><span class="toc-number">3.</span> <span class="toc-text">删除网桥</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#拓扑图"><span class="toc-number">4.</span> <span class="toc-text">拓扑图</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#<!-_more_->"><span class="toc-number">1.</span> <span class="toc-text"></span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#新建网桥_编辑bridge的配置文件"><span class="toc-number"></span> <span class="toc-text">新建网桥 编辑bridge的配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#重启网络"><span class="toc-number">1.</span> <span class="toc-text">重启网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#好的，已经生效！"><span class="toc-number">2.</span> <span class="toc-text">好的，已经生效！</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#修改docker启动参数，增加-b=br0"><span class="toc-number"></span> <span class="toc-text">修改docker启动参数，增加-b=br0</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#重启docker服务"><span class="toc-number">1.</span> <span class="toc-text">重启docker服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OK了，这样，容器可以通过宿主机上的物理网卡与其他宿主机上的容器连接了"><span class="toc-number">2.</span> <span class="toc-text">OK了，这样，容器可以通过宿主机上的物理网卡与其他宿主机上的容器连接了</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#删除网桥"><span class="toc-number"></span> <span class="toc-text">删除网桥</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ip_link_del_br0"><span class="toc-number">1.</span> <span class="toc-text"> ip link del br0</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#拓扑图"><span class="toc-number"></span> <span class="toc-text">拓扑图</span></a>
 </div>
 
                                                         
@@ -268,15 +274,14 @@
 <blockquote>
 <p>-b BRIDGE or –bridge=BRIDGE</p>
 </blockquote>
-<a id="more"></a>
-<h1 id="新建网桥_编辑bridge的配置文件">新建网桥 编辑bridge的配置文件</h1><p>我这里使用的centos7，在/etc/sysconfig/network-scripts下新建一个网桥配置：ifcfg-br0 并编辑：</p>
+<h2 id="<!-_more_->"><a id="more"></a></h2><h1 id="新建网桥_编辑bridge的配置文件">新建网桥 编辑bridge的配置文件</h1><p>我这里使用的centos7，在/etc/sysconfig/network-scripts下新建一个网桥配置：ifcfg-br0 并编辑：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DEVICE=<span class="string">"br0"</span></span><br><span class="line">ONBOOT=<span class="string">"yes"</span></span><br><span class="line">TYPE=Bridge</span><br><span class="line">BOOTPROTO=<span class="keyword">static</span></span><br><span class="line">IPADDR=<span class="number">192.168</span><span class="number">.43</span><span class="number">.244</span></span><br><span class="line">NETMASK=<span class="number">255.255</span><span class="number">.255</span><span class="number">.0</span></span><br></pre></td></tr></table></figure>
 <p>我们看到，这里指定一个名叫br0的网桥，ip为192.168.43.244(可以指定某一个网卡的ip，这样就将这台机器上容器绑定到这个网卡所对应的物理网络上)</p>
 <h2 id="重启网络">重启网络</h2><blockquote>
 <p> service network restart</p>
 </blockquote>
-<p>查看一下网桥有木有生效<br><img src="/img/docker网桥/br0网桥.PNG" alt="Alt text"><br>好的，已经生效！</p>
-<h1 id="修改docker启动参数，增加-b=br0">修改docker启动参数，增加-b=br0</h1><blockquote>
+<p>查看一下网桥有木有生效<br><img src="/img/docker网桥/br0网桥.PNG" alt="Alt text"></p>
+<h2 id="好的，已经生效！">好的，已经生效！</h2><h1 id="修改docker启动参数，增加-b=br0">修改docker启动参数，增加-b=br0</h1><blockquote>
 <p>vim /lib/systemd/system/docker.service</p>
 </blockquote>
 <p><img src="/img/docker网桥/网桥参数.PNG" alt="Alt text"></p>
@@ -284,12 +289,12 @@
 <p>service docker restart</p>
 </blockquote>
 <p>创建一个容器，看一下是不是连接到br0网桥上了<br><img src="/img/docker网桥/brctl-show.PNG" alt="Alt text"></p>
-<p>我们看到新建的容器连接到了br0网桥上面<br>OK了，这样，容器可以通过宿主机上的物理网卡与其他宿主机上的容器连接了</p>
-<h1 id="删除网桥">删除网桥</h1><p>当然，如果想删除网桥，可以用以下命令：</p>
+<p>我们看到新建的容器连接到了br0网桥上面</p>
+<h2 id="OK了，这样，容器可以通过宿主机上的物理网卡与其他宿主机上的容器连接了">OK了，这样，容器可以通过宿主机上的物理网卡与其他宿主机上的容器连接了</h2><h1 id="删除网桥">删除网桥</h1><p>当然，如果想删除网桥，可以用以下命令：</p>
 <blockquote>
-<p> ip link set dev br0 down<br> ip link del br0</p>
+<p> ip link set dev br0 down   </p>
+<h2 id="ip_link_del_br0"> ip link del br0</h2><h1 id="拓扑图">拓扑图</h1><p><img src="/img/docker网桥/dockertuopu-1.jpg" alt="Alt text"><br><img src="/img/docker网桥/dockertuopu-2.jpg" alt="Alt text"></p>
 </blockquote>
-<h1 id="拓扑图">拓扑图</h1><p><img src="/img/docker网桥/dockertuopu-1.jpg" alt="Alt text"><br><img src="/img/docker网桥/dockertuopu-2.jpg" alt="Alt text"></p>
 
                                                                                 
                                         </div>

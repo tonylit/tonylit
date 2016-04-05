@@ -24,15 +24,14 @@
 <blockquote>
 <p>-b BRIDGE or –bridge=BRIDGE</p>
 </blockquote>
-<a id="more"></a>
-<h1 id="新建网桥_编辑bridge的配置文件">新建网桥 编辑bridge的配置文件</h1><p>我这里使用的centos7，在/etc/sysconfig/network-scripts下新建一个网桥配置：ifcfg-br0 并编辑：</p>
+<h2 id="<!-_more_->"><a id="more"></a></h2><h1 id="新建网桥_编辑bridge的配置文件">新建网桥 编辑bridge的配置文件</h1><p>我这里使用的centos7，在/etc/sysconfig/network-scripts下新建一个网桥配置：ifcfg-br0 并编辑：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DEVICE=<span class="string">"br0"</span></span><br><span class="line">ONBOOT=<span class="string">"yes"</span></span><br><span class="line">TYPE=Bridge</span><br><span class="line">BOOTPROTO=<span class="keyword">static</span></span><br><span class="line">IPADDR=<span class="number">192.168</span><span class="number">.43</span><span class="number">.244</span></span><br><span class="line">NETMASK=<span class="number">255.255</span><span class="number">.255</span><span class="number">.0</span></span><br></pre></td></tr></table></figure>
 <p>我们看到，这里指定一个名叫br0的网桥，ip为192.168.43.244(可以指定某一个网卡的ip，这样就将这台机器上容器绑定到这个网卡所对应的物理网络上)</p>
 <h2 id="重启网络">重启网络</h2><blockquote>
 <p> service network restart</p>
 </blockquote>
-<p>查看一下网桥有木有生效<br><img src="/img/docker网桥/br0网桥.PNG" alt="Alt text"><br>好的，已经生效！</p>
-<h1 id="修改docker启动参数，增加-b=br0">修改docker启动参数，增加-b=br0</h1><blockquote>
+<p>查看一下网桥有木有生效<br><img src="/img/docker网桥/br0网桥.PNG" alt="Alt text"></p>
+<h2 id="好的，已经生效！">好的，已经生效！</h2><h1 id="修改docker启动参数，增加-b=br0">修改docker启动参数，增加-b=br0</h1><blockquote>
 <p>vim /lib/systemd/system/docker.service</p>
 </blockquote>
 <p><img src="/img/docker网桥/网桥参数.PNG" alt="Alt text"></p>
@@ -40,18 +39,19 @@
 <p>service docker restart</p>
 </blockquote>
 <p>创建一个容器，看一下是不是连接到br0网桥上了<br><img src="/img/docker网桥/brctl-show.PNG" alt="Alt text"></p>
-<p>我们看到新建的容器连接到了br0网桥上面<br>OK了，这样，容器可以通过宿主机上的物理网卡与其他宿主机上的容器连接了</p>
-<h1 id="删除网桥">删除网桥</h1><p>当然，如果想删除网桥，可以用以下命令：</p>
+<p>我们看到新建的容器连接到了br0网桥上面</p>
+<h2 id="OK了，这样，容器可以通过宿主机上的物理网卡与其他宿主机上的容器连接了">OK了，这样，容器可以通过宿主机上的物理网卡与其他宿主机上的容器连接了</h2><h1 id="删除网桥">删除网桥</h1><p>当然，如果想删除网桥，可以用以下命令：</p>
 <blockquote>
-<p> ip link set dev br0 down<br> ip link del br0</p>
+<p> ip link set dev br0 down   </p>
+<h2 id="ip_link_del_br0"> ip link del br0</h2><h1 id="拓扑图">拓扑图</h1><p><img src="/img/docker网桥/dockertuopu-1.jpg" alt="Alt text"><br><img src="/img/docker网桥/dockertuopu-2.jpg" alt="Alt text"></p>
 </blockquote>
-<h1 id="拓扑图">拓扑图</h1><p><img src="/img/docker网桥/dockertuopu-1.jpg" alt="Alt text"><br><img src="/img/docker网桥/dockertuopu-2.jpg" alt="Alt text"></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>docker服务启动后，会创建一个名叫docker0的网桥，这个网桥将容器连接在一起。<br>但是，两台物理机之间的容器连接不了啊！！<br><a href="http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/">weave</a>可以实现，but，weave后容器访问不了外网….<br>只能试试创建网桥的方式了，在docker服务启动的时候使用以下启动参数指定网桥。</p>
 <blockquote>
 <p>-b BRIDGE or –bridge=BRIDGE</p>
-</blockquote>]]>
+</blockquote>
+<h2 id="<!-_more_->">]]>
     
     </summary>
     
