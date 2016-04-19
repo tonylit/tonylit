@@ -4,7 +4,7 @@
   <subtitle><![CDATA[今年lebron绝逼夺冠，bie跟我急!]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2016-04-11T05:37:27.000Z</updated>
+  <updated>2016-04-18T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -13,6 +13,51 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[中国南京软件开发者大会-参会收获]]></title>
+    <link href="http://tonylit.me/2016/04/18/%E5%8D%97%E4%BA%AC%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E8%80%85%E5%A4%A7%E4%BC%9A/"/>
+    <id>http://tonylit.me/2016/04/18/南京软件开发者大会/</id>
+    <published>2016-04-18T03:37:27.000Z</published>
+    <updated>2016-04-18T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>4月16，17两天去参加<a href="http://www.njsd-china.org/" target="_blank" rel="external">中国南京软件开发者大会</a>，比较感兴趣的方向是性能和容器技术这块，很遗憾这两块的分享比较少。其他技术方面（微服务架构、云平台、移动端、VR等）不能全都听明白，不过也有不少收获，开阔了视野。<br>今年是第二届南京开发者大会，参会的人数比去年多了3倍，大概700人。组委会和媒体人数比较多，挺有氛围。<br><a id="more"></a><br><img src="/img/中国南京软件开发者大会/njsd.PNG" alt="Alt text"></p>
+<h2 id="16号上午">16号上午</h2><p>上午是4个大牛的分享，<img src="/img/中国南京软件开发者大会/4-16讲师.PNG" alt="Alt text"><br><img src="/img/中国南京软件开发者大会/4-16课程.PNG" alt="Alt text"></p>
+<h3 id="李云鹏-打造尊重个性的工程师文化分享">李云鹏-打造尊重个性的工程师文化分享</h3><p>我南大的学哥，赴美留学，在oracle工作10来年，然后回国创业。分享了oracle公司的工程师们怎样工作，然后谈了硅谷其他的fb，google等公司程序员的生活、工作环境，每个公司的工程师文化都不一样，不过都会加班，这个跟国内一样。</p>
+<h3 id="王丰明-互联网时代的产品增长">王丰明-互联网时代的产品增长</h3><p>用数据分析来帮助企业定位产品方向。<br>这个我不感兴趣，没仔细听。</p>
+<h3 id="许世伟-共建创新生态环境">许世伟-共建创新生态环境</h3><p>七牛的CEO，本来觉得他会讲讲技术，来点干货。然而他说：中国不缺技术，缺的是创新。<br>他从自己的工作经历和七牛的创业经历分享了一些自己的心得，如何创新。<br>我理解的是这样的：其实我们身边有很多痛点，抓住并解决这些痛点就有机会赚钱。</p>
+<h2 id="曾凯-微软拥抱Spark的开源之路">曾凯-微软拥抱Spark的开源之路</h2><p>分享了微软基于Spark做了自己的mobius，大数据处理系统。</p>
+<h1 id="16号下午">16号下午</h1><p>分了5个会场，我选择跟我工作相关的听听。</p>
+<h2 id="无线测试技术会场-沪江无线持续集成的解决方案">无线测试技术会场-沪江无线持续集成的解决方案</h2><p>分享了沪江无线怎么去做app测试持续集成，思想都一样：hook住git仓库，代码有更新的时候jenkins去做后续的打包发布，自动化测试，出报告。</p>
+<h3 id="整体流程：">整体流程：</h3><p>自动构建-&gt;APK扫描-&gt;自动化测试-&gt;专项扫描-&gt;聚合报告和产品交付。<br><img src="/img/中国南京软件开发者大会/沪江无线-持续集成.PNG" alt="Alt text"></p>
+<h3 id="打包：">打包：</h3><p>android的打包方式：Gradle<br>包的依赖管理：maven<br>产出：debug-apk，release-apk<br>ios的打包方式：xctools<br>包依赖管理：cocoapods<br>产出：debug-ipa、release-ipa debug-app</p>
+<h3 id="自动化框架">自动化框架</h3><p><img src="/img/中国南京软件开发者大会/沪江无线流程.PNG" alt="Alt text"></p>
+<h3 id="成果">成果</h3><p><img src="/img/中国南京软件开发者大会/沪江无线-成果1.PNG" alt="Alt text"><br><img src="/img/中国南京软件开发者大会/沪江无线-成果2.PNG" alt="Alt text"></p>
+<p>我对移动测试这块没太涉及。讲了一些专业知识听不懂！！</p>
+<h2 id="架构实践与微服务会场-Akka与微服务实践">架构实践与微服务会场-Akka与微服务实践</h2><p>分享一号店怎样使用akka来做分布式服务，与dubbo做了比较。<br>我们公司分布式服务框架candy也不逊色。</p>
+<h2 id="架构实践与微服务会场-数据库应用的Docker化实践">架构实践与微服务会场-数据库应用的Docker化实践</h2><p>分享了七牛怎样使用docker进行数据库应用的承载。<br>为什么七牛要做docker化服务<br>痛点一：部署繁琐<br>               -准备物理机<br>               -配置软件<br>               -难以自动化<br> 痛点二：运维麻烦<br>              -配置监控<br>              -备份策略<br>              -手动运维，难以自动化<br>  痛点三：资源浪费<br>                -不同节点资源消耗不同<br>                -混合部署增大运维的复杂度<br>                -资源利用率低<br>   痛点四：很难支持多租户<br>                -共享db集群，业务互相影响<br>                -自己实现db中间件，实现复杂；开发周期长；投入大，产出小！<br> 这个docker确实可以很好的解决问题，因为docker就这干这个事情的。</p>
+<h3 id="存储管理">存储管理</h3><p>七牛目前支持本地LVM，未来可以拓展到网络存储。</p>
+<h3 id="网络管理">网络管理</h3><p>-SDN<br>-openvswitch，vxlan，这个之前也研究过，配置比较复杂。我用的是<a href="http://tonylit.me/2016/04/08/pipework%E9%85%8D%E7%BD%AEdocker%E5%AE%B9%E5%99%A8%E7%BD%91%E7%BB%9C/">pipework</a></p>
+<h3 id="一些坑">一些坑</h3><h4 id="避免docker镜像缓存">避免docker镜像缓存</h4><p>错误：</p>
+<blockquote>
+<p>run mkdir -p opt &amp;&amp; tar -xvf jdk.tar.gz &amp;&amp; rm -rf jdk,tar,gz</p>
+</blockquote>
+<p>正确：</p>
+<blockquote>
+<p>run mkdir -p opt \<br> &amp;&amp; tar -xvf jdk.tar.gz  \<br> &amp;&amp; rm -rf jdk,tar,gz</p>
+</blockquote>
+<h4 id="容器重启策略">容器重启策略</h4><p>设置恰当的重启策略：<br>no<br>on-failure 【DB类】<br>always（无状态类，缓存类）</p>
+<h2 id="无线测试技术会场-云化环境中可靠性测试的自动化技术分享">无线测试技术会场-云化环境中可靠性测试的自动化技术分享</h2><p> 分享了华为怎样将可靠性测试自动化。<br> 整体的实现方案跟ftm发布流程差不多，环境准备完成后，需要自动注入不同的测试点（比如内存泄露，网络波动，断电等）收集系统的处理情况。整个系统还是很牛X的。</p>
+<h2 id="17号上午">17号上午</h2><h3 id="软件前沿技术会场-全球最大的OpenStack私有云平台部署和二次开发">软件前沿技术会场-全球最大的OpenStack私有云平台部署和二次开发</h3><p>分享了paypal怎样使用openstack。</p>
+<h3 id="DEVOPS-快速迭代中的精益应用性能管理">DEVOPS-快速迭代中的精益应用性能管理</h3><p>听云的APM介绍，没有用开源的框架，自己基于cglib写的一套框架，进行分布式服务应用的监控和节点间的跟踪。<br>我想到了公司用的pinpoint，主要的功能差不多，方法执行时间、堆栈信息、线程信息。<br>后面有时间会对此研究一下，可以跟性能测试很好的结合起来。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>4月16，17两天去参加<a href="http://www.njsd-china.org/">中国南京软件开发者大会</a>，比较感兴趣的方向是性能和容器技术这块，很遗憾这两块的分享比较少。其他技术方面（微服务架构、云平台、移动端、VR等）不能全都听明白，不过也有不少收获，开阔了视野。<br>今年是第二届南京开发者大会，参会的人数比去年多了3倍，大概700人。组委会和媒体人数比较多，挺有氛围。<br>]]>
+    
+    </summary>
+    
+      <category term="life" scheme="http://tonylit.me/tags/life/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Docker与VMware性能对比]]></title>

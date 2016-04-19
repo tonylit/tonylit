@@ -4,6 +4,23 @@
 
     
   <url>
+    <loc>http://tonylit.me/2016/04/18/%E5%8D%97%E4%BA%AC%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E8%80%85%E5%A4%A7%E4%BC%9A/</loc>
+    <lastmod>2016-04-18T05:37:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>中国南京软件开发者大会-参会收获</title>
+        <pubTime>2016-04-18T03:37:27.000Z</pubTime>
+        
+        <tag>life</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://tonylit.me/2016/04/11/docker-vm%E6%80%A7%E8%83%BD%E6%AF%94%E8%BE%83/</loc>
     <lastmod>2016-04-11T05:37:27.000Z</lastmod>
     <data>
@@ -89,11 +106,11 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/</loc>
+    <loc>http://tonylit.me/2016/03/29/docker_pull_https_error/</loc>
     <lastmod>2016-03-29T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>使用weave实现docker多宿主机互联</title>
+        <title>docker pull关于https的报错处理</title>
         <pubTime>2016-03-29T03:37:27.000Z</pubTime>
         
         <tag>docker</tag>
@@ -106,11 +123,11 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/03/29/docker_pull_https_error/</loc>
+    <loc>http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/</loc>
     <lastmod>2016-03-29T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>docker pull关于https的报错处理</title>
+        <title>使用weave实现docker多宿主机互联</title>
         <pubTime>2016-03-29T03:37:27.000Z</pubTime>
         
         <tag>docker</tag>
