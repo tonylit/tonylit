@@ -4,6 +4,40 @@
 
     
   <url>
+    <loc>http://tonylit.me/2016/04/22/%E5%A6%82%E4%BD%95%E4%B8%8D%E8%BE%93%E5%87%BAdocker%E6%97%A5%E5%BF%97%E5%88%B0%E6%8E%A7%E5%88%B6%E5%8F%B0/</loc>
+    <lastmod>2016-04-22T05:37:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>如何不输出docker日志到控制台</title>
+        <pubTime>2016-04-22T03:37:27.000Z</pubTime>
+        
+        <tag>docker</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://tonylit.me/2016/04/22/supervisor%E7%AE%A1%E7%90%86docker%E8%BF%9B%E7%A8%8B/</loc>
+    <lastmod>2016-04-22T05:37:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>supervisor管理容器进程</title>
+        <pubTime>2016-04-22T03:37:27.000Z</pubTime>
+        
+        <tag>docker</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://tonylit.me/2016/04/18/%E5%8D%97%E4%BA%AC%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E8%80%85%E5%A4%A7%E4%BC%9A/</loc>
     <lastmod>2016-04-18T05:37:27.000Z</lastmod>
     <data>
@@ -366,14 +400,14 @@
 
     
   <url>
-    <loc>http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/</loc>
+    <loc>http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2015-12-22T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>export、import导出导入docker容器</title>
+        <title>staf使用</title>
         <pubTime>2015-12-22T03:37:27.000Z</pubTime>
         
-        <tag>docker</tag>
+        <tag>工作</tag>
          
          
            
@@ -383,14 +417,14 @@
 
     
   <url>
-    <loc>http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/</loc>
+    <loc>http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/</loc>
     <lastmod>2015-12-22T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>staf使用</title>
+        <title>export、import导出导入docker容器</title>
         <pubTime>2015-12-22T03:37:27.000Z</pubTime>
         
-        <tag>工作</tag>
+        <tag>docker</tag>
          
          
            
