@@ -4,22 +4,19 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>docker网络学习 | 淘淘的博客</title>
+  <title>centos7 NFS搭建 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="docker发展到现在，依然后很多不完善的地方，其中网络方面就是比较薄弱的部分。最近在学习docker网络方面的知识，在此整理一下。">
+  <meta name="description" content="使用独立的物理机做应用代码的svn(git)和编译操作，将打包后的文件通过NFS共享到docker宿主机。来看看centos7上怎么搭建NFS。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker网络学习">
-<meta property="og:url" content="http://tonylit.me/2016/03/22/docker四种网络模式/index.html">
+<meta property="og:title" content="centos7 NFS搭建">
+<meta property="og:url" content="http://tonylit.me/2016/05/06/centos7NFS安装/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="docker发展到现在，依然后很多不完善的地方，其中网络方面就是比较薄弱的部分。最近在学习docker网络方面的知识，在此整理一下。">
-<meta property="og:image" content="http://tonylit.me/img/docker-network/宿主机网络情况.PNG">
-<meta property="og:image" content="http://tonylit.me/img/docker-network/docker-bridge-network.PNG">
-<meta property="og:image" content="http://tonylit.me/img/docker-network/docker0拓扑.png">
-<meta property="og:image" content="http://tonylit.me/img/docker-network/none.PNG">
-<meta property="og:updated_time" content="2016-03-22T05:37:27.000Z">
+<meta property="og:description" content="使用独立的物理机做应用代码的svn(git)和编译操作，将打包后的文件通过NFS共享到docker宿主机。来看看centos7上怎么搭建NFS。">
+<meta property="og:image" content="http://tonylit.me/img/nfs-mount.PNG">
+<meta property="og:updated_time" content="2016-05-06T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="docker网络学习">
-<meta name="twitter:description" content="docker发展到现在，依然后很多不完善的地方，其中网络方面就是比较薄弱的部分。最近在学习docker网络方面的知识，在此整理一下。">
+<meta name="twitter:title" content="centos7 NFS搭建">
+<meta name="twitter:description" content="使用独立的物理机做应用代码的svn(git)和编译操作，将打包后的文件通过NFS共享到docker宿主机。来看看centos7上怎么搭建NFS。">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -197,7 +194,7 @@
 高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
 </div>
 
-      <div class="body-wrap"><article id="post-docker四种网络模式" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-centos7NFS安装" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -211,8 +208,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2016/03/22/docker四种网络模式/" class="article-date">
-  	<time datetime="2016-03-22T03:37:27.000Z" itemprop="datePublished">2016-03-22</time>
+            <a href="/2016/05/06/centos7NFS安装/" class="article-date">
+  	<time datetime="2016-05-06T03:37:27.000Z" itemprop="datePublished">2016-05-06</time>
 </a>
 
         </div>
@@ -226,7 +223,7 @@
                                 
   
     <h1 class="article-title" itemprop="name">
-      docker网络学习
+      centos7 NFS搭建
     </h1>
   
 
@@ -251,37 +248,32 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker的4种网络模式"><span class="toc-number">1.</span> <span class="toc-text">Docker的4种网络模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bridge模式-默认模式"><span class="toc-number">2.</span> <span class="toc-text">bridge模式-默认模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#bridge模式拓扑"><span class="toc-number">2.1.</span> <span class="toc-text">bridge模式拓扑</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#host模式"><span class="toc-number">3.</span> <span class="toc-text">host模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#container模式"><span class="toc-number">4.</span> <span class="toc-text">container模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#none模式"><span class="toc-number">5.</span> <span class="toc-text">none模式</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#nfs安装"><span class="toc-number">1.</span> <span class="toc-text">nfs安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置nfs"><span class="toc-number">2.</span> <span class="toc-text">配置nfs</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#启动NFS"><span class="toc-number">3.</span> <span class="toc-text">启动NFS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#检查挂载情况"><span class="toc-number">4.</span> <span class="toc-text">检查挂载情况</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端挂载"><span class="toc-number">4.1.</span> <span class="toc-text">客户端挂载</span></a></li></ol></li></ol>
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <p>docker发展到现在，依然后很多不完善的地方，其中网络方面就是比较薄弱的部分。最近在学习docker网络方面的知识，在此整理一下。<br><a id="more"></a></p>
-<h1 id="Docker的4种网络模式">Docker的4种网络模式</h1><p>我们在使用docker run创建Docker容器时，可以用–net选项指定容器的网络模式，Docker有以下4种网络模式：</p>
-<blockquote>
-<p><strong>host模式</strong>，使用–net=host指定。<br><strong>container模式</strong>，使用–net=container:NAME_or_ID指定。<br><strong>none模式</strong>，使用–net=none指定。<br><strong>bridge模式</strong>，使用–net=bridge指定，默认设置。</p>
+                                                                            <p>使用独立的物理机做应用代码的svn(git)和编译操作，将打包后的文件通过NFS共享到docker宿主机。<br>来看看centos7上怎么搭建NFS。<br><a id="more"></a></p>
+<h1 id="nfs安装">nfs安装</h1><blockquote>
+<p>yum -y install nfs-utils rpcbind</p>
 </blockquote>
-<p>研究docker网络之前先看一下docker宿主机的网络情况：<br>输入ifconfig<br><img src="/img/docker-network/宿主机网络情况.PNG" alt="Alt text"><br>可以看到，安装了docker后，docker会虚拟出一个名字叫docker0的网桥（其上有一个 docker0 内部接口），它在内核层连通了其他的物理或虚拟网卡，这就将所有容器和本地主机都放到同一个物理网络。</p>
-<hr>
-<p>基于centos:5.11版本我自己做了一个镜像focustech/centos:5.11，就用这个镜像来实验。</p>
-<h1 id="bridge模式-默认模式">bridge模式-默认模式</h1><p>bridge模式是Docker默认的网络设置，此模式会为每一个容器分配Network Namespace、设置IP等，并将一个主机上的Docker容器连接到一个虚拟网桥上。<br>启动一个容器看一下：</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="command">run</span> -ti <span class="comment">--rm focustech/centos:5.11 /bin/bash</span></span><br></pre></td></tr></table></figure>
-<p><img src="/img/docker-network/docker-bridge-network.PNG" alt="Alt text"></p>
-<h2 id="bridge模式拓扑">bridge模式拓扑</h2><p>上面也提到了，docker server启动的时候，会创建名叫docker0的虚拟网桥，在此宿主机上启动的docker容器都会连接到这个网桥上来进行通信，有点类似于交换机。<br>容器的ip分配会从<a href="http://tools.ietf.org/html/rfc1918" target="_blank" rel="external">RFC1918</a>所定义的私有ip网段中取，一般会使用172.17.0.0/16这个网段</p>
-<p><img src="/img/docker-network/docker0拓扑.png" alt="Alt text"><br>Docker完成以上网络配置的过程大致是这样的：</p>
+<h1 id="配置nfs">配置nfs</h1><p>nfs的配置文件:/opt/exports<br>默认是空的，比如我需要共享/master/build文件下的文件</p>
 <blockquote>
-<p>在主机上创建一对虚拟网卡veth<br>pair设备。veth设备总是成对出现的，它们组成了一个数据的通道，数据从一个设备进入，就会从另一个设备出来。因此，veth设备常用来连接两个网络设备。</p>
-<p>Docker将veth pair设备的一端放在新创建的容器中，并命名为eth0。另一端放在主机中，以veth65f9这样类似的名字命名，并将这个网络设备加入到docker0网桥中，可以通过brctl show命令查看。</p>
-<p>从docker0子网中分配一个IP给容器使用，并设置docker0的IP地址为容器的默认网关。</p>
+<p>/master/build *(rw,no_root_squash)</p>
 </blockquote>
-<h1 id="host模式">host模式</h1><p>Docker使用了Linux的Namespaces技术来进行资源隔离，如PID Namespace隔离进程，Mount Namespace隔离文件系统，Network Namespace隔离网络等。一个Network Namespace提供了一份独立的网络环境，包括网卡、路由、Iptable规则等都与其他的Network Namespace隔离。一个Docker容器一般会分配一个独立的Network Namespace。但如果启动容器的时候使用host模式，那么这个容器将不会获得一个独立的Network Namespace，而是和宿主机共用一个Network Namespace。容器将不会虚拟出自己的网卡，配置自己的IP等，而是使用宿主机的IP和端口。</p>
-<p>使用–net=host来启动容器看一下：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span> -ti --<span class="keyword">net</span>=host --<span class="keyword">rm</span> focustech/centos:5.11 /bin/bash</span><br></pre></td></tr></table></figure></p>
-<p>输入ifconfig，会看到它的网络情况和宿主机器的一模一样。</p>
-<h1 id="container模式">container模式</h1><p>这个模式指定新创建的容器和已经存在的容器共享一个network namespace。新创建的容器不会创建自己的网卡，配置自己的IP，而是和一个指定的容器共享IP、端口范围等。同样，两个容器除了网络方面，其他的如文件系统、进程列表等还是隔离的。两个容器的进程可以通过lo网卡设备通信。</p>
-<h1 id="none模式">none模式</h1><p>在这种模式下，Docker容器拥有自己的Network Namespace，但是，并不为Docker容器进行任何网络配置。也就是说，这个Docker容器没有网卡、IP、路由等信息。需要我们自己为Docker容器添加网卡、配置IP等。</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span> -ti --<span class="keyword">net</span>=none --<span class="keyword">rm</span> focustech/centos:5.11 /bin/bash</span><br></pre></td></tr></table></figure>
-<p><img src="/img/docker-network/none.PNG" alt="Alt text"></p>
+<p>配置信息如下：</p>
+<blockquote>
+<p>/master/build 可以为一个网段，一个IP，也可以是域名，域名支持通配符 如: *.qq.com<br>rw：read-write，可读写； ro：read-only，只读； sync：文件同时写入硬盘和内存；<br>async：文件暂存于内存，而不是直接写入内存；<br>no_root_squash：NFS客户端连接服务端时如果使用的是root的话，那么对服务端分享的目录来说，也拥有root权限。显然开启这项是不安全的。<br>root_squash：NFS客户端连接服务端时如果使用的是root的话，那么对服务端分享的目录来说，拥有匿名用户权限，通常他将使用nobody或nfsnobody身份；<br>all_squash：不论NFS客户端连接服务端时使用什么用户，对服务端分享的目录来说都是拥有匿名用户权限；<br>anonuid：匿名用户的UID值，可以在此处自行设定。 anongid：匿名用户的GID值。</p>
+</blockquote>
+<h1 id="启动NFS">启动NFS</h1><blockquote>
+<p>service rpcbind start<br>service nfs start</p>
+</blockquote>
+<h1 id="检查挂载情况">检查挂载情况</h1><blockquote>
+<p>showmount -e 192.168.47.10  #查看可挂载</p>
+</blockquote>
+<p><img src="/img/nfs-mount.PNG" alt="Alt text"></p>
+<h2 id="客户端挂载">客户端挂载</h2><p>mount -t nfs 192.168.43.10:/app/test</p>
 
                                                                                 
                                         </div>
@@ -315,18 +307,9 @@
                         
 <nav id="article-nav">
   
-    <a href="/2016/03/29/docker_pull_https_error/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          docker pull关于https的报错处理
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/03/15/spring quartz配置/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">spring quartz执行定时任务</div>
+    <a href="/2016/04/22/supervisor管理docker进程/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">supervisor管理容器进程</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -336,7 +319,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-docker四种网络模式" data-title="docker网络学习" data-url="http://tonylit.me/2016/03/22/docker四种网络模式/"></div>
+                                    <div class="ds-thread" data-thread-key="post-centos7NFS安装" data-title="centos7 NFS搭建" data-url="http://tonylit.me/2016/05/06/centos7NFS安装/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">

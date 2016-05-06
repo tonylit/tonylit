@@ -4,7 +4,7 @@
   <subtitle><![CDATA[今年lebron绝逼夺冠，bie跟我急!]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2016-04-22T05:37:27.000Z</updated>
+  <updated>2016-05-06T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -13,6 +13,42 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[centos7 NFS搭建]]></title>
+    <link href="http://tonylit.me/2016/05/06/centos7NFS%E5%AE%89%E8%A3%85/"/>
+    <id>http://tonylit.me/2016/05/06/centos7NFS安装/</id>
+    <published>2016-05-06T03:37:27.000Z</published>
+    <updated>2016-05-06T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>使用独立的物理机做应用代码的svn(git)和编译操作，将打包后的文件通过NFS共享到docker宿主机。<br>来看看centos7上怎么搭建NFS。<br><a id="more"></a></p>
+<h1 id="nfs安装">nfs安装</h1><blockquote>
+<p>yum -y install nfs-utils rpcbind</p>
+</blockquote>
+<h1 id="配置nfs">配置nfs</h1><p>nfs的配置文件:/opt/exports<br>默认是空的，比如我需要共享/master/build文件下的文件</p>
+<blockquote>
+<p>/master/build *(rw,no_root_squash)</p>
+</blockquote>
+<p>配置信息如下：</p>
+<blockquote>
+<p>/master/build 可以为一个网段，一个IP，也可以是域名，域名支持通配符 如: *.qq.com<br>rw：read-write，可读写； ro：read-only，只读； sync：文件同时写入硬盘和内存；<br>async：文件暂存于内存，而不是直接写入内存；<br>no_root_squash：NFS客户端连接服务端时如果使用的是root的话，那么对服务端分享的目录来说，也拥有root权限。显然开启这项是不安全的。<br>root_squash：NFS客户端连接服务端时如果使用的是root的话，那么对服务端分享的目录来说，拥有匿名用户权限，通常他将使用nobody或nfsnobody身份；<br>all_squash：不论NFS客户端连接服务端时使用什么用户，对服务端分享的目录来说都是拥有匿名用户权限；<br>anonuid：匿名用户的UID值，可以在此处自行设定。 anongid：匿名用户的GID值。</p>
+</blockquote>
+<h1 id="启动NFS">启动NFS</h1><blockquote>
+<p>service rpcbind start<br>service nfs start</p>
+</blockquote>
+<h1 id="检查挂载情况">检查挂载情况</h1><blockquote>
+<p>showmount -e 192.168.47.10  #查看可挂载</p>
+</blockquote>
+<p><img src="/img/nfs-mount.PNG" alt="Alt text"></p>
+<h2 id="客户端挂载">客户端挂载</h2><p>mount -t nfs 192.168.43.10:/app/test</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>使用独立的物理机做应用代码的svn(git)和编译操作，将打包后的文件通过NFS共享到docker宿主机。<br>来看看centos7上怎么搭建NFS。<br>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[supervisor管理容器进程]]></title>
@@ -825,47 +861,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[export、import导出导入docker容器]]></title>
-    <link href="http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/"/>
-    <id>http://tonylit.me/2015/12/22/docker import和export/</id>
-    <published>2015-12-22T03:37:27.000Z</published>
-    <updated>2015-12-22T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/" target="_blank" rel="external">centos-6-x86_64.tar.gz</a></p>
-<blockquote>
-<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
-<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br><a id="more"></a></p>
-</blockquote>
-<h2 id="实例">实例</h2><blockquote>
-<p>cat centos-6-x86_64.tar.gz|docker import - test/centos-6:v1.0<br><img src="/img/docker/docker_import.PNG" alt="Alt text"></p>
-</blockquote>
-<p>此外，也可以通过指定 URL 或者某个目录来导入，例如</p>
-<blockquote>
-<p> docker import <a href="http://example.com/exampleimage.tgz" target="_blank" rel="external">http://example.com/exampleimage.tgz</a> example/imagerepo</p>
-</blockquote>
-<p>*注：用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p>
-<h1 id="导出容器">导出容器</h1><p>先启动一下容器：</p>
-<blockquote>
-<p>docker run -t -i 5de0ac2f6f7e /bin/bash</p>
-</blockquote>
-<p>两个参数，-t表示给容器tty终端，-i表示可以interactive，可以交互。</p>
-<p><img src="/img/docker/docker_ps.PNG" alt="Alt text"></p>
-<blockquote>
-<p>docker export 5d73efeb9a38 &gt; tonylit_centos6.tar</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/">centos-6-x86_64.tar.gz</a></p>
-<blockquote>
-<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
-<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[staf使用]]></title>
     <link href="http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/"/>
     <id>http://tonylit.me/2015/12/22/staf使用/</id>
@@ -911,6 +906,47 @@
     </summary>
     
       <category term="工作" scheme="http://tonylit.me/tags/%E5%B7%A5%E4%BD%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[export、import导出导入docker容器]]></title>
+    <link href="http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/"/>
+    <id>http://tonylit.me/2015/12/22/docker import和export/</id>
+    <published>2015-12-22T03:37:27.000Z</published>
+    <updated>2015-12-22T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/" target="_blank" rel="external">centos-6-x86_64.tar.gz</a></p>
+<blockquote>
+<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
+<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br><a id="more"></a></p>
+</blockquote>
+<h2 id="实例">实例</h2><blockquote>
+<p>cat centos-6-x86_64.tar.gz|docker import - test/centos-6:v1.0<br><img src="/img/docker/docker_import.PNG" alt="Alt text"></p>
+</blockquote>
+<p>此外，也可以通过指定 URL 或者某个目录来导入，例如</p>
+<blockquote>
+<p> docker import <a href="http://example.com/exampleimage.tgz" target="_blank" rel="external">http://example.com/exampleimage.tgz</a> example/imagerepo</p>
+</blockquote>
+<p>*注：用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p>
+<h1 id="导出容器">导出容器</h1><p>先启动一下容器：</p>
+<blockquote>
+<p>docker run -t -i 5de0ac2f6f7e /bin/bash</p>
+</blockquote>
+<p>两个参数，-t表示给容器tty终端，-i表示可以interactive，可以交互。</p>
+<p><img src="/img/docker/docker_ps.PNG" alt="Alt text"></p>
+<blockquote>
+<p>docker export 5d73efeb9a38 &gt; tonylit_centos6.tar</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/">centos-6-x86_64.tar.gz</a></p>
+<blockquote>
+<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
+<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   
