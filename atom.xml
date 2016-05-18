@@ -26,7 +26,7 @@
 </blockquote>
 <p><img src="/img/ssh-keygen.PNG" alt="Alt text"></p>
 <h1 id="copy公钥和私钥到B服务器">copy公钥和私钥到B服务器</h1><p>将生成好的两个秘钥拷贝到B服务器上，一样 的目录(/root/.ssh/)<br>id_rsa<br>id_rsa.pub</p>
-<p>#在B上新建authorized_keys文件<br>在b服务器的/root/.ssh/文件夹中新建authorized_keys，把id_rsa.pub<br>里面的内容拷贝进去，并付600权限</p>
+<h1 id="在B上新建authorized_keys文件">在B上新建authorized_keys文件</h1><p>在b服务器的/root/.ssh/文件夹中新建authorized_keys，把id_rsa.pub<br>里面的内容拷贝进去，并付600权限</p>
 <blockquote>
 <p>cat id_rsa.pub &gt;&gt; authorized_keys<br>chmod 600 .ssh/authorized_keys</p>
 </blockquote>
@@ -48,7 +48,7 @@
     <id>http://tonylit.me/2016/05/18/scp和rsync传输速度比较/</id>
     <published>2016-05-18T03:37:27.000Z</published>
     <updated>2016-05-18T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，rsync测试两次传输。<br><a id="more"></a><br>传输一个3.2G的文件，里面杂七杂八的图片、小文件、大文件、视频….</p>
+    <content type="html"><![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br><a id="more"></a><br>传输一个3.2G的文件，里面杂七杂八的图片、小文件、大文件、视频….</p>
 <h1 id="rsync传输">rsync传输</h1><p>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">rsync -avr --progress --delete /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
 <h2 id="第一次传输：">第一次传输：</h2><p><strong>时间：58s</strong></p>
 <h2 id="第二次传输：">第二次传输：</h2><p><strong>时间：1s</strong></p>
@@ -57,7 +57,7 @@
 <h1 id="结论：">结论：</h1><p>rsync的传输速度比scp快很多</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，rsync测试两次传输。<br>]]>
+    <![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br>]]>
     
     </summary>
     

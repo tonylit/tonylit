@@ -248,7 +248,7 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#A服务器生成公钥和私钥"><span class="toc-number">1.</span> <span class="toc-text">A服务器生成公钥和私钥</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#copy公钥和私钥到B服务器"><span class="toc-number">2.</span> <span class="toc-text">copy公钥和私钥到B服务器</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#A服务器生成公钥和私钥"><span class="toc-number">1.</span> <span class="toc-text">A服务器生成公钥和私钥</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#copy公钥和私钥到B服务器"><span class="toc-number">2.</span> <span class="toc-text">copy公钥和私钥到B服务器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在B上新建authorized_keys文件"><span class="toc-number">3.</span> <span class="toc-text">在B上新建authorized_keys文件</span></a></li></ol>
 </div>
 
                                                         
@@ -260,7 +260,7 @@
 </blockquote>
 <p><img src="/img/ssh-keygen.PNG" alt="Alt text"></p>
 <h1 id="copy公钥和私钥到B服务器">copy公钥和私钥到B服务器</h1><p>将生成好的两个秘钥拷贝到B服务器上，一样 的目录(/root/.ssh/)<br>id_rsa<br>id_rsa.pub</p>
-<p>#在B上新建authorized_keys文件<br>在b服务器的/root/.ssh/文件夹中新建authorized_keys，把id_rsa.pub<br>里面的内容拷贝进去，并付600权限</p>
+<h1 id="在B上新建authorized_keys文件">在B上新建authorized_keys文件</h1><p>在b服务器的/root/.ssh/文件夹中新建authorized_keys，把id_rsa.pub<br>里面的内容拷贝进去，并付600权限</p>
 <blockquote>
 <p>cat id_rsa.pub &gt;&gt; authorized_keys<br>chmod 600 .ssh/authorized_keys</p>
 </blockquote>
