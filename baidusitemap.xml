@@ -4,6 +4,40 @@
 
     
   <url>
+    <loc>http://tonylit.me/2016/05/18/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/</loc>
+    <lastmod>2016-05-18T05:37:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>ssh 免登陆</title>
+        <pubTime>2016-05-18T03:37:27.000Z</pubTime>
+        
+        <tag>work</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://tonylit.me/2016/05/18/scp%E5%92%8Crsync%E4%BC%A0%E8%BE%93%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83/</loc>
+    <lastmod>2016-05-18T05:37:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>rsync和scp传输时间比较</title>
+        <pubTime>2016-05-18T03:37:27.000Z</pubTime>
+        
+        <tag>work</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://tonylit.me/2016/05/06/centos7NFS%E5%AE%89%E8%A3%85/</loc>
     <lastmod>2016-05-06T05:37:27.000Z</lastmod>
     <data>
@@ -417,14 +451,14 @@
 
     
   <url>
-    <loc>http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/</loc>
+    <loc>http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2015-12-22T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>export、import导出导入docker容器</title>
+        <title>staf使用</title>
         <pubTime>2015-12-22T03:37:27.000Z</pubTime>
         
-        <tag>docker</tag>
+        <tag>work</tag>
          
          
            
@@ -434,14 +468,14 @@
 
     
   <url>
-    <loc>http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/</loc>
+    <loc>http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/</loc>
     <lastmod>2015-12-22T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>staf使用</title>
+        <title>export、import导出导入docker容器</title>
         <pubTime>2015-12-22T03:37:27.000Z</pubTime>
         
-        <tag>工作</tag>
+        <tag>docker</tag>
          
          
            
@@ -460,7 +494,7 @@
         
         <tag>loadrunner</tag>
          
-        <tag>工作</tag>
+        <tag>work</tag>
          
         <tag>性能</tag>
          
@@ -481,7 +515,7 @@
         
         <tag>java</tag>
          
-        <tag>工作</tag>
+        <tag>work</tag>
          
          
            
@@ -515,7 +549,7 @@
         <title>系统监控-nmon使用</title>
         <pubTime>2015-12-17T03:37:27.000Z</pubTime>
         
-        <tag>工作</tag>
+        <tag>work</tag>
          
         <tag>性能</tag>
          
@@ -553,7 +587,7 @@
         <title>JavaMelody监控java应用</title>
         <pubTime>2015-12-16T03:37:27.000Z</pubTime>
         
-        <tag>工作</tag>
+        <tag>work</tag>
          
         <tag>性能</tag>
          
@@ -572,7 +606,7 @@
         <title>SoupUI接口性能测试</title>
         <pubTime>2015-12-16T03:37:27.000Z</pubTime>
         
-        <tag>工作</tag>
+        <tag>work</tag>
          
         <tag>性能</tag>
          
@@ -665,7 +699,7 @@
         <title>Linux系统抓包-tcpdump与tcpflow</title>
         <pubTime>2015-12-04T03:37:27.000Z</pubTime>
         
-        <tag>工作</tag>
+        <tag>work</tag>
          
          
            
@@ -811,7 +845,7 @@
         
         <tag>kafka</tag>
          
-        <tag>工作</tag>
+        <tag>work</tag>
          
          
            
@@ -925,7 +959,7 @@
          
         <tag>springmvc</tag>
          
-        <tag>工作</tag>
+        <tag>work</tag>
          
          
            
