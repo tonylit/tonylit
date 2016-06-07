@@ -258,7 +258,7 @@
                                                         
                                                             
                                                                 
-                                                                            <p>之前遇到过线上swap导致io频繁的问题，当时运维人员调整的swappiness参数，解决了问题。一直对swap一知半解，今天看到公众号推送一篇关于swap的好文章，主要内容：<strong>swap、swappiness及kswapd原理，swap分区优先级</strong><br>在此转载一下。<br>【转自】<a href="http://mp.weixin.qq.com/s?__biz=MzA4Nzg5Nzc5OA==&amp;mid=2651660097&amp;idx=1&amp;sn=a3d38e3af2c9d8d431c46fe7680b428d&amp;scene=0#wechat_redirect" target="_blank" rel="external">Linux SWAP 深度解读</a><br><a id="more"></a></p>
+                                                                            <p>之前遇到过线上swap导致io频繁的问题，当时运维人员调整的swappiness参数，解决了问题。<br>一直对swap一知半解，今天看到公众号推送一篇关于swap的好文章，<br>主要内容：<strong>swap、swappiness及kswapd原理，swap分区优先级</strong><br>在此转载一下。<br>【转自】<a href="http://mp.weixin.qq.com/s?__biz=MzA4Nzg5Nzc5OA==&amp;mid=2651660097&amp;idx=1&amp;sn=a3d38e3af2c9d8d431c46fe7680b428d&amp;scene=0#wechat_redirect" target="_blank" rel="external">Linux SWAP 深度解读</a><br><a id="more"></a></p>
 <h1 id="概述">概述</h1><p>本文讨论的swap基于Linux4.4内核代码。Linux内存管理是一套非常复杂的系统，而swap只是其中一个很小的处理逻辑。<br>希望本文能让读者了解Linux对swap的使用大概是什么样子。阅读完本文，应该可以帮你解决以下问题：</p>
 <blockquote>
 <p>1、swap到底是干嘛的？<br>2、swappiness到底是用来调节什么的？<br>3、kswapd什么时候会进行swap操作？<br>4、什么是内存水位标记？<br>5、swap分区的优先级（priority）有啥用？</p>
