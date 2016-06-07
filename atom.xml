@@ -25,7 +25,7 @@
 <blockquote>
 <p>1、swap到底是干嘛的？<br>2、swappiness到底是用来调节什么的？<br>3、kswapd什么时候会进行swap操作？<br>4、什么是内存水位标记？<br>5、swap分区的优先级（priority）有啥用？</p>
 </blockquote>
-<h1 id="1、什么是SWAP，到底是干嘛的？">1、什么是SWAP，到底是干嘛的？</h1><p>我们一般所说的swap，指的是一个交换分区或文件。在Linux上可以使用swapon -s命令查看当前系统上正在使用的交换空间有哪些，以及相关信息：<br><img src="/img/swapon.PNG" alt="Alt text"><br>从功能上讲，交换分区主要是在内存不够用的时候，将部分内存上的数据交换到swap空间上，以便让系统不会因内存不够用而导致oom或者更致命的情况出现。</p>
+<h1 id="1、什么是SWAP，到底是干嘛的？">1、什么是SWAP，到底是干嘛的？</h1><p>我们一般所说的swap，指的是一个交换分区或文件。在Linux上可以使用swapon -s命令查看当前系统上正在使用的交换空间有哪些，以及相关信息：<br><img src="/img/swap解读/swapon.PNG" alt="Alt text"><br>从功能上讲，交换分区主要是在内存不够用的时候，将部分内存上的数据交换到swap空间上，以便让系统不会因内存不够用而导致oom或者更致命的情况出现。</p>
 <p>所以，当内存使用存在压力，开始触发内存回收的行为时，就可能会使用swap空间。</p>
 <p>内核对swap的使用实际上是跟内存回收行为紧密结合的。那么关于内存回收和swap的关系，我们需要思考以下几个问题：</p>
 <blockquote>
@@ -53,14 +53,14 @@
 <p>这两个方法中实际进行内存回收的过程殊途同归，最终都是调用shrink_zone()方法进行针对每个zone的内存页缩减。</p>
 <p>这个方法中会再调用shrink_lruvec()这个方法对每个组织页的链表进程检查。找到这个线索之后，我们就可以清晰的看到内存回收操作究竟针对的page有哪些了。</p>
 <blockquote>
-<p>这些链表主要定义在mm/vmscan.c一个enum中：<br><img src="/img/lru.PNG" alt="Alt text"><br>根据这个enum可以看到，内存回收主要需要进行扫描的链表有如下4个：<br>anon的inactive<br>anon的active<br>file的inactive<br>file的active</p>
+<p>这些链表主要定义在mm/vmscan.c一个enum中：<br><img src="/img/swap解读/lru.PNG" alt="Alt text"><br>根据这个enum可以看到，内存回收主要需要进行扫描的链表有如下4个：<br>anon的inactive<br>anon的active<br>file的inactive<br>file的active</p>
 </blockquote>
 <p>就是说，内存回收操作主要针对的就是内存中的文件页（file  cache）和匿名页。</p>
 <p>关于活跃（active）还是不活跃（inactive）的判断内核会使用lru算法进行处理并进行标记，我们这里不详细解释这个过程。</p>
 <p>整个扫描的过程分几个循环：<br>1.首先扫描每个zone上的cgroup组；</p>
 <p>2.然后再以cgroup的内存为单元进行page链表的扫描；</p>
 <p>3.内核会先扫描anon的active链表，将不频繁的放进inactive链表中，然后扫描inactive链表，将里面活跃的移回active中；</p>
-<p><img src="/img/lianbiao.PNG" alt="Alt text"></p>
+<p><img src="/img/swap解读/lianbiao.PNG" alt="Alt text"></p>
 <p>4.进行swap的时候，先对inactive的页进行换出；</p>
 <p>5.如果是file的文件映射page页，则判断其是否为脏数据，如果是脏数据就写回，不是脏数据可以直接释放。</p>
 <p>这样看来，<strong>内存回收这个行为会对两种内存的使用进行回收</strong>:</p>
@@ -87,7 +87,7 @@
 <p>分析代码会发现，Linux内核对这部分逻辑的实现代码在<strong>get_scan_count()</strong>这个方法中，这个方法被<strong>shrink_lruvec()</strong>调用。</p>
 <p>get_sacn_count()就是处理上述逻辑的，swappiness是它所需要的一个参数，这个参数实际上是指导内核在清空内存的时候，是更倾向于清空file-backed内存还是更倾向于进行匿名页的交换的。</p>
 <p>当然，这只是个倾向性，是指在两个都够用的情况下，更愿意用哪个，如果不够用了，那么该交换还是要交换。</p>
-<p><strong>简单看一下get_sacn_count()函数的处理部分代码，其中关于swappiness的第一个处理是：</strong><br><img src="/img/swappiness.PNG" alt="Alt text"><br>这里注释的很清楚：</p>
+<p><strong>简单看一下get_sacn_count()函数的处理部分代码，其中关于swappiness的第一个处理是：</strong><br><img src="/img/swap解读/swappiness.PNG" alt="Alt text"><br>这里注释的很清楚：</p>
 <p>1.如果swappiness设置为100，那么匿名页和文件将用同样的优先级进行回收。</p>
 <p>很明显，使用清空文件的方式将有利于减轻内存回收时可能造成的IO压力。</p>
 <p>因为如果file-backed中的数据不是脏数据的话，那么可以不用写回，这样就没有IO发生，而一旦进行交换，就一定会造成IO。</p>
@@ -97,7 +97,7 @@
 <p>我们在此要明确的概念是：swappiness的值是用来控制内存回收时，回收的匿名页更多一些还是回收的file cache更多一些。</p>
 <p>3.swappiness设置为0的话，是不是内核就根本不会进行swap了呢？这个答案也是否定的。</p>
 <p>首先是内存真的不够用的时候，该swap的话还是要swap。</p>
-<p>其次在内核中还有一个逻辑会导致直接使用swap，<strong>内核代码</strong>是这样处理的：<br><img src="/img/kukel_swappiness.PNG" alt="Alt text"><br>这里的逻辑是说，如果触发的是全局回收，并且zonefile + zonefree &lt;= high_wmark_pages(zone)条件成立时，就将scan_balance这个标记置为SCAN_ANON。</p>
+<p>其次在内核中还有一个逻辑会导致直接使用swap，<strong>内核代码</strong>是这样处理的：<br><img src="/img/swap解读/kukel_swappiness.PNG" alt="Alt text"><br>这里的逻辑是说，如果触发的是全局回收，并且zonefile + zonefree &lt;= high_wmark_pages(zone)条件成立时，就将scan_balance这个标记置为SCAN_ANON。</p>
 <p>后续处理scan_balance的时候，如果它的值是SCAN_ANON，则一定会进行针对匿名页的swap操作。</p>
 <p>要理解这个行为，我们首先要搞清楚什么是高水位标记（high_wmark_pages）。</p>
 <h1 id="3、kswapd什么时候会进行swap操作？">3、kswapd什么时候会进行swap操作？</h1><p>我们回到kswapd周期检查和直接内存回收的两种内存回收机制。</p>
