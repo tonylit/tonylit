@@ -4,7 +4,7 @@
   <subtitle><![CDATA[今年lebron绝逼夺冠，bie跟我急!]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2016-05-18T05:37:27.000Z</updated>
+  <updated>2016-06-06T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -13,6 +13,205 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[linux swap解读]]></title>
+    <link href="http://tonylit.me/2016/06/06/swap%E8%A7%A3%E8%AF%BB/"/>
+    <id>http://tonylit.me/2016/06/06/swap解读/</id>
+    <published>2016-06-06T03:37:27.000Z</published>
+    <updated>2016-06-06T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>之前遇到过线上swap导致io频繁的问题，当时运维人员调整的swappiness参数，解决了问题。一直对swap一知半解，今天看到公众号推送一篇关于swap的好文章，主要内容：<strong>swap、swappiness及kswapd原理，swap分区优先级</strong><br>在此转载一下。<br>【转自】<a href="http://mp.weixin.qq.com/s?__biz=MzA4Nzg5Nzc5OA==&amp;mid=2651660097&amp;idx=1&amp;sn=a3d38e3af2c9d8d431c46fe7680b428d&amp;scene=0#wechat_redirect" target="_blank" rel="external">Linux SWAP 深度解读</a><br><a id="more"></a></p>
+<h1 id="概述">概述</h1><p>本文讨论的swap基于Linux4.4内核代码。Linux内存管理是一套非常复杂的系统，而swap只是其中一个很小的处理逻辑。<br>希望本文能让读者了解Linux对swap的使用大概是什么样子。阅读完本文，应该可以帮你解决以下问题：</p>
+<blockquote>
+<p>1、swap到底是干嘛的？<br>2、swappiness到底是用来调节什么的？<br>3、kswapd什么时候会进行swap操作？<br>4、什么是内存水位标记？<br>5、swap分区的优先级（priority）有啥用？</p>
+</blockquote>
+<h1 id="1、什么是SWAP，到底是干嘛的？">1、什么是SWAP，到底是干嘛的？</h1><p>我们一般所说的swap，指的是一个交换分区或文件。在Linux上可以使用swapon -s命令查看当前系统上正在使用的交换空间有哪些，以及相关信息：<br><img src="/img/swapon.PNG" alt="Alt text"><br>从功能上讲，交换分区主要是在内存不够用的时候，将部分内存上的数据交换到swap空间上，以便让系统不会因内存不够用而导致oom或者更致命的情况出现。</p>
+<p>所以，当内存使用存在压力，开始触发内存回收的行为时，就可能会使用swap空间。</p>
+<p>内核对swap的使用实际上是跟内存回收行为紧密结合的。那么关于内存回收和swap的关系，我们需要思考以下几个问题：</p>
+<blockquote>
+<p>1.为什么要进行内存回收？<br>2.哪些内存可能会被回收呢？<br>3.回收的过程中什么时候会进行交换呢？<br>4.具体怎么交换？</p>
+</blockquote>
+<p>下面我们就从这些问题出发，一个一个进行分析。</p>
+<h2 id="为什么要进行内存回收？">为什么要进行内存回收？</h2><p>内核之所以要进行内存回收，主要原因有两个：</p>
+<blockquote>
+<p>1.内核需要为任何时刻突发到来的内存申请提供足够的内存。所以一般情况下保证有足够的free空间对于内核来说是必要的。</p>
+<p>另外，Linux内核使用cache的策略虽然是不用白不用，内核会使用内存中的page cache对部分文件进行缓存，以便提升文件的读写效率。</p>
+<p>所以内核有必要设计一个周期性回收内存的机制，以便cache的使用和其他相关内存的使用不至于让系统的剩余内存长期处于很少的状态。</p>
+<p>2.当真的有大于空闲内存的申请到来的时候，会触发强制内存回收</p>
+</blockquote>
+<p>所以，<strong>内核在应对这两类回收的需求下，分别实现了两种不同的机制</strong>：</p>
+<p> 一个是使用<strong>kswapd进程对内存进行周期检查</strong>，以保证平常状态下剩余内存尽可能够用。</p>
+<p> 另一个是<strong>直接内存回收（directpagereclaim）</strong>，就是当内存分配时没有空闲内存可以满足要求时，触发直接内存回收。</p>
+<p>这两种内存回收的触发路径不同：<br>一个是由内核进程kswapd直接调用内存回收的逻辑进行内存回收；</p>
+<blockquote>
+<p>参见mm/vmscan.c中的<a href="http://www.kerneltravel.net/kernel-book/%E7%AC%AC%E5%85%AD%E7%AB%A0%20Linux%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/6.6.2.htm" target="_blank" rel="external">kswapd()主逻辑</a></p>
+</blockquote>
+<p>另一个是内存申请的时候进入slow path的内存申请逻辑进行回收。</p>
+<blockquote>
+<p>参见内核代码中的mm/page_alloc.c中的<a href="http://www.linuxidc.com/Linux/2012-01/51157.htm" target="_blank" rel="external">__alloc_pages_slowpath方法</a></p>
+</blockquote>
+<p>这两个方法中实际进行内存回收的过程殊途同归，最终都是调用shrink_zone()方法进行针对每个zone的内存页缩减。</p>
+<p>这个方法中会再调用shrink_lruvec()这个方法对每个组织页的链表进程检查。找到这个线索之后，我们就可以清晰的看到内存回收操作究竟针对的page有哪些了。</p>
+<blockquote>
+<p>这些链表主要定义在mm/vmscan.c一个enum中：<br><img src="/img/lru.PNG" alt="Alt text"><br>根据这个enum可以看到，内存回收主要需要进行扫描的链表有如下4个：<br>anon的inactive<br>anon的active<br>file的inactive<br>file的active</p>
+</blockquote>
+<p>就是说，内存回收操作主要针对的就是内存中的文件页（file  cache）和匿名页。</p>
+<p>关于活跃（active）还是不活跃（inactive）的判断内核会使用lru算法进行处理并进行标记，我们这里不详细解释这个过程。</p>
+<p>整个扫描的过程分几个循环：<br>1.首先扫描每个zone上的cgroup组；</p>
+<p>2.然后再以cgroup的内存为单元进行page链表的扫描；</p>
+<p>3.内核会先扫描anon的active链表，将不频繁的放进inactive链表中，然后扫描inactive链表，将里面活跃的移回active中；</p>
+<p><img src="/img/lianbiao.PNG" alt="Alt text"></p>
+<p>4.进行swap的时候，先对inactive的页进行换出；</p>
+<p>5.如果是file的文件映射page页，则判断其是否为脏数据，如果是脏数据就写回，不是脏数据可以直接释放。</p>
+<p>这样看来，<strong>内存回收这个行为会对两种内存的使用进行回收</strong>:</p>
+<blockquote>
+<p>一种是anon的匿名页内存，主要回收手段是swap；</p>
+<p>另一种是file-backed的文件映射页，主要的释放手段是写回和清空。</p>
+</blockquote>
+<p>因为针对filebased的内存，没必要进行交换，其数据原本就在硬盘上，回收这部分内存只要在有脏数据时写回，并清空内存就可以了，以后有需要再从对应的文件读回来。</p>
+<p>内存对匿名页和文件缓存一共用了四条链表进行组织，回收过程主要是针对这四条链表进行扫描和操作。</p>
+<h1 id="2、swappiness到底是用来调节什么的？">2、swappiness到底是用来调节什么的？</h1><p>很多人应该都知道/proc/sys/vm/swappiness这个文件，是个可以用来调整跟swap相关的参数。这个文件的默认值是60，可以的取值范围是0-100。</p>
+<blockquote>
+<p>这很容易给大家一个暗示：我是个百分比哦！</p>
+</blockquote>
+<p>那么这个文件具体到底代表什么意思呢？我们先来看一下说明：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">======</span><br><span class="line">swappiness</span><br><span class="line"></span><br><span class="line">This control <span class="keyword">is</span> used <span class="keyword">to</span> define how aggressive <span class="keyword">the</span> kernel will swap memory pages. Higher values will increase agressiveness, lower values decrease <span class="keyword">the</span> amount <span class="keyword">of</span> swap.</span><br><span class="line"></span><br><span class="line">A value <span class="keyword">of</span> <span class="number">0</span> instructs <span class="keyword">the</span> kernel <span class="keyword">not</span> <span class="keyword">to</span> initiate swap <span class="keyword">until</span> <span class="keyword">the</span> amount <span class="keyword">of</span> free <span class="keyword">and</span> <span class="type">file</span>-backed pages <span class="keyword">is</span> <span class="keyword">less than</span> <span class="keyword">the</span> high water mark <span class="keyword">in</span> a zone.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">The default value <span class="keyword">is</span> <span class="number">60.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">======</span><br></pre></td></tr></table></figure>
+<p>这个文件的值用来定义内核使用swap的积极程度：</p>
+<blockquote>
+<p>值越高，内核就会越积极的使用swap；<br>值越低，就会降低对swap的使用积极性。<br>如果这个值为0，那么内存在free和file-backed使用的页面总量小于高水位标记（high water mark）之前，不会发生交换。</p>
+</blockquote>
+<p>在这里我们可以理解file-backed这个词的含义了，实际上就是上文所说的文件映射页的大小。</p>
+<p><strong>我想应该主要考虑这样几个问题:</strong></p>
+<p>1.如果回收内存可以有两种途径（匿名页交换和file缓存清空），那么我应该考虑在本次回收的时候，什么情况下多进行file写回，什么情况下应该多进行swap交换。说白了就是平衡两种回收手段的使用，以达到最优。</p>
+<p>2.如果符合交换条件的内存较长，是不是可以不用全部交换出去？比如可以交换的内存有100M，但是目前只需要50M内存，实际只要交换50M就可以了，不用把能交换的都交换出去。</p>
+<p>分析代码会发现，Linux内核对这部分逻辑的实现代码在<strong>get_scan_count()</strong>这个方法中，这个方法被<strong>shrink_lruvec()</strong>调用。</p>
+<p>get_sacn_count()就是处理上述逻辑的，swappiness是它所需要的一个参数，这个参数实际上是指导内核在清空内存的时候，是更倾向于清空file-backed内存还是更倾向于进行匿名页的交换的。</p>
+<p>当然，这只是个倾向性，是指在两个都够用的情况下，更愿意用哪个，如果不够用了，那么该交换还是要交换。</p>
+<p><strong>简单看一下get_sacn_count()函数的处理部分代码，其中关于swappiness的第一个处理是：</strong><br><img src="/img/swappiness.PNG" alt="Alt text"><br>这里注释的很清楚：</p>
+<p>1.如果swappiness设置为100，那么匿名页和文件将用同样的优先级进行回收。</p>
+<p>很明显，使用清空文件的方式将有利于减轻内存回收时可能造成的IO压力。</p>
+<p>因为如果file-backed中的数据不是脏数据的话，那么可以不用写回，这样就没有IO发生，而一旦进行交换，就一定会造成IO。</p>
+<p>2.所以系统默认将swappiness的值设置为60，这样回收内存时，对file-backed的文件cache内存的清空比例会更大，内核将会更倾向于进行缓存清空而不是交换。</p>
+<p>这里的swappiness值如果是60，那么是不是说内核回收的时候，会按照60:140的比例去做相应的swap和清空file-backed的空间呢？并不是。</p>
+<p>在做这个比例计算的时候，内核还要参考当前内存使用的其他信息。对这里具体是怎么处理感兴趣的人，可以自己详细看get_sacn_count()的实现，本文就不多解释了。</p>
+<p>我们在此要明确的概念是：swappiness的值是用来控制内存回收时，回收的匿名页更多一些还是回收的file cache更多一些。</p>
+<p>3.swappiness设置为0的话，是不是内核就根本不会进行swap了呢？这个答案也是否定的。</p>
+<p>首先是内存真的不够用的时候，该swap的话还是要swap。</p>
+<p>其次在内核中还有一个逻辑会导致直接使用swap，<strong>内核代码</strong>是这样处理的：<br><img src="/img/kukel_swappiness.PNG" alt="Alt text"><br>这里的逻辑是说，如果触发的是全局回收，并且zonefile + zonefree &lt;= high_wmark_pages(zone)条件成立时，就将scan_balance这个标记置为SCAN_ANON。</p>
+<p>后续处理scan_balance的时候，如果它的值是SCAN_ANON，则一定会进行针对匿名页的swap操作。</p>
+<p>要理解这个行为，我们首先要搞清楚什么是高水位标记（high_wmark_pages）。</p>
+<h1 id="3、kswapd什么时候会进行swap操作？">3、kswapd什么时候会进行swap操作？</h1><p>我们回到kswapd周期检查和直接内存回收的两种内存回收机制。</p>
+<p><strong>直接内存回收</strong>比较好理解，当申请的内存大于剩余内存的时候，就会触发直接回收。</p>
+<p>那么kswapd进程在周期检查的时候触发回收的条件是什么呢？<br>还是从设计角度来看，kswapd进程要周期对内存进行检测，达到一定阈值的时候开始进行内存回收。</p>
+<p>这个所谓的阈值可以理解为内存目前的使用压力，就是说，虽然我们还有剩余内存，但是当剩余内存比较小的时候，就是内存压力较大的时候，就应该开始试图回收些内存了，这样才能保证系统尽可能的有足够的内存给突发的内存申请所使用。</p>
+<h1 id="4、什么是内存水位标记？(watermark)">4、什么是内存水位标记？(watermark)</h1><p><strong>那么如何描述内存使用的压力呢？</strong></p>
+<p>Linux内核使用水位标记（watermark）的概念来描述这个压力情况。</p>
+<p>Linux为内存的使用设置了三种内存水位标记:high、low、min。他们<strong>所标记的含义</strong>分别为：</p>
+<blockquote>
+<p>剩余内存在high以上表示内存剩余较多，目前内存使用压力不大；</p>
+<p>high-low的范围表示目前剩余内存存在一定压力；</p>
+<p>low-min表示内存开始有较大使用压力，剩余内存不多了；</p>
+<p>min是最小的水位标记，当剩余内存达到这个状态时，就说明内存面临很大压力。</p>
+<p>小于min这部分内存，内核是保留给特定情况下使用的，一般不会分配。</p>
+</blockquote>
+<p>内存回收行为就是基于剩余内存的水位标记进行决策的：</p>
+<p><strong>当系统剩余内存低于watermark[low]的时候，内核的kswapd开始起作用，进行内存回收。直到剩余内存达到watermark[high]的时候停止。</strong></p>
+<p><strong>如果内存消耗导致剩余内存达到了或超过了watermark[min]时，就会触发直接回收（direct reclaim）。</strong></p>
+<p>明白了水位标记的概念之后，zonefile + zonefree &lt;= high_wmark_pages(zone)这个公式就能理解了。</p>
+<p>这里的zonefile相当于内存中文件映射的总量，zonefree相当于剩余内存的总量。</p>
+<p>内核一般认为，如果zonefile还有的话，就可以尽量通过清空文件缓存获得部分内存，而不必只使用swap方式对anon的内存进行交换。</p>
+<p>整个判断的概念是说，在全局回收的状态下（有global_reclaim(sc)标记），如果当前的文件映射内存总量+剩余内存总量的值评估小于等于watermark[high]标记的时候，就可以进行直接swap了。</p>
+<p>这样是为了防止进入cache陷阱，具体描述可以见代码注释。</p>
+<p>这个判断对系统的影响是，<strong>swappiness设置为0时，有剩余内存的情况下也可能发生交换。</strong></p>
+<p><strong>那么watermark相关值是如何计算的呢？</strong></p>
+<p>所有的内存watermark标记都是根据当前内存总大小和一个可调参数进行运算得来的，这个参数是：/proc/sys/vm/min_free_kbytes</p>
+<blockquote>
+<p>首先这个参数本身决定了系统中每个zone的watermark[min]的值大小。</p>
+<p>然后内核根据min的大小并参考每个zone的内存大小分别算出每个zone的low水位和high水位值。</p>
+</blockquote>
+<p>想了解具体逻辑可以参见源代码目录下的该文件：</p>
+<blockquote>
+<p>mm/page_alloc.c</p>
+</blockquote>
+<p>在系统中可以从/proc/zoneinfo文件中查看当前系统的相关的信息和使用情况。</p>
+<p>我们会发现以上内存管理的相关逻辑都是以zone为单位的，这里zone的含义是指内存的分区管理。</p>
+<p>Linux将内存分成多个区，主要有:</p>
+<blockquote>
+<p>直接访问区(DMA)<br>一般区(Normal)<br>高端内存区(HighMemory)</p>
+</blockquote>
+<p>内核对内存不同区域的访问因为硬件结构因素会有寻址和效率上的差别。如果在NUMA架构上，不同CPU所管理的内存也是不同的zone。</p>
+<h1 id="相关参数设置">相关参数设置</h1><p><strong>zone_reclaim_mode：</strong></p>
+<p>zone_reclaim_mode模式是在2.6版本后期开始加入内核的一种模式，可以用来管理当一个内存区域(zone)内部的内存耗尽时，是从其内部进行内存回收还是可以从其他zone进行回收的选项，我们可以通过<strong>/proc/sys/vm/zone_reclaim_mode</strong>文件对这个参数进行调整。</p>
+<p>在申请内存时(内核的get_page_from_freelist()方法中)，内核在当前zone内没有足够内存可用的情况下，会根据zone_reclaim_mode的设置来决策是从下一个zone找空闲内存还是在zone内部进行回收。这个值为0时表示可以从下一个zone找可用内存，非0表示在本地回收。</p>
+<p><strong>这个文件可以设置的值及其含义如下：</strong></p>
+<blockquote>
+<p>echo 0 &gt; /proc/sys/vm/zone_reclaim_mode：意味着关闭zone_reclaim模式，可以从其他zone或NUMA节点回收内存。</p>
+<p>echo 1 &gt; /proc/sys/vm/zone_reclaim_mode：表示打开zone_reclaim模式，这样内存回收只会发生在本地节点内。</p>
+<p>echo 2 &gt; /proc/sys/vm/zone_reclaim_mode：在本地回收内存时，可以将cache中的脏数据写回硬盘，以回收内存。</p>
+<p>echo 4 &gt; /proc/sys/vm/zone_reclaim_mode：可以用swap方式回收内存。</p>
+</blockquote>
+<p>不同的参数配置会在NUMA环境中对其他内存节点的内存使用产生不同的影响，大家可以根据自己的情况进行设置以优化你的应用。</p>
+<p>默认情况下，zone_reclaim模式是关闭的。这在很多应用场景下可以提高效率，比如文件服务器，或者依赖内存中cache比较多的应用场景。</p>
+<p>这样的场景对内存cache速度的依赖要高于进程进程本身对内存速度的依赖，所以我们宁可让内存从其他zone申请使用，也不愿意清本地cache。</p>
+<p>如果确定应用场景是内存需求大于缓存，而且尽量要避免内存访问跨越NUMA节点造成的性能下降的话，则可以打开zone_reclaim模式。</p>
+<p>此时页分配器会优先回收容易回收的可回收内存（主要是当前不用的page cache页），然后再回收其他内存。</p>
+<p>打开本地回收模式的写回可能会引发其他内存节点上的大量的脏数据写回处理。如果一个内存zone已经满了，那么脏数据的写回也会导致进程处理速度收到影响，产生处理瓶颈。</p>
+<p>这会降低某个内存节点相关的进程的性能，因为进程不再能够使用其他节点上的内存。但是会增加节点之间的隔离性，其他节点的相关进程运行将不会因为另一个节点上的内存回收导致性能下降。</p>
+<p>除非针对本地节点的内存限制策略或者cpuset配置有变化，对swap的限制会有效约束交换只发生在本地内存节点所管理的区域上。</p>
+<p><strong>min_unmapped_ratio：</strong></p>
+<p>这个参数只在NUMA架构的内核上生效。这个值表示NUMA上每个内存区域的pages总数的百分比。</p>
+<p>在zone_reclaim_mode模式下，只有当相关区域的内存使用达到这个百分比，才会发生区域内存回收。</p>
+<p>在zone_reclaim_mode设置为4的时候，内核会比较所有的file-backed和匿名映射页，包括swapcache占用的页以及tmpfs文件的总内存使用是否超过这个百分比。</p>
+<p>其他设置的情况下，只比较基于一般文件的未映射页，不考虑其他相关页。</p>
+<p><strong>page-cluster：</strong></p>
+<p>page-cluster是用来控制从swap空间换入数据的时候，一次连续读取的页数，这相当于对交换空间的预读。这里的连续是指在swap空间上的连续，而不是在内存地址上的连续。</p>
+<p>因为swap空间一般是在硬盘上，对硬盘设备的连续读取将减少磁头的寻址，提高读取效率。</p>
+<p>这个文件中设置的值是2的指数。就是说，如果设置为0，预读的swap页数是2的0次方，等于1页。如果设置为3，就是2的3次方，等于8页。</p>
+<p>同时，设置为0也意味着关闭预读功能。文件默认值为3。我们可以根据我们的系统负载状态来设置预读的页数大小。</p>
+<h1 id="5、swap分区的优先级（priority）有啥用？">5、swap分区的优先级（priority）有啥用？</h1><p>在使用多个swap分区或者文件的时候，还有一个优先级的概念（Priority）。</p>
+<p>在swapon的时候，我们可以使用-p参数指定相关swap空间的优先级，<strong>值越大优先级越高</strong>，可以指定的数字范围是－1到32767。</p>
+<p>内核在使用swap空间的时候总是先使用优先级高的空间，后使用优先级低的。</p>
+<p>当然如果把多个swap空间的优先级设置成一样的，那么两个swap空间将会以轮询方式并行进行使用。</p>
+<p>如果两个swap放在两个不同的硬盘上，相同的优先级可以起到类似RAID0的效果，增大swap的读写效率。</p>
+<p>另外，编程时使用mlock()也可以将指定的内存标记为不会换出，具体帮助可以参考man 2 mlock。</p>
+<h1 id="最后">最后</h1><p>关于swap的使用建议，针对不同负载状态的系统是不一样的。有时我们希望swap大一些，可以在内存不够用的时候不至于触发oom-killer导致某些关键进程被杀掉，比如数据库业务。</p>
+<p>也有时候我们希望不要swap，因为当大量进程爆发增长导致内存爆掉之后，会因为swap导致IO跑死，整个系统都卡住，无法登录，无法处理。</p>
+<p>这时候我们就希望不要swap，即使出现oom-killer也造成不了太大影响，但是不能允许服务器因为IO卡死像多米诺骨牌一样全部死机，而且无法登陆。跑cpu运算的无状态的apache就是类似这样的进程池架构的程序。</p>
+<p>所以：</p>
+<blockquote>
+<p>swap到底怎么用?<br>要还是不要？<br>设置大还是小？<br>相关参数应该如何配置？</p>
+</blockquote>
+<p>是要根据我们自己的生产环境的情况而定的。</p>
+<p>阅读完本文后希望大家可以明白一些swap的深层次知识。</p>
+<h1 id="Q&amp;A：">Q&amp;A：</h1><p><strong>1.一个内存剩余还比较大的系统中，是否有可能使用swap？</strong></p>
+<blockquote>
+<p>A: 有可能，如果运行中的某个阶段出发了这个条件”zonefile+zonefree&lt;=high_wmark_pages(zone)“，就可能会swap。</p>
+</blockquote>
+<p><strong>2.swappiness设置为0就相当于关闭swap么？</strong></p>
+<blockquote>
+<p>A: 不是的，关闭swap要使用swapoff命令。swappiness只是在内存发生回收操作的时候用来平衡cache回收和swap交换的一个参数，调整为0意味着，尽量通过清缓存来回收内存。</p>
+</blockquote>
+<p><strong>3.A: swappiness设置为100代表系统会尽量少用剩余内存而多使用swap么？</strong></p>
+<blockquote>
+<p>不是的，这个值设置为100表示内存发生回收时，从cache回收内存和swap交换的优先级一样。就是说，如果目前需求100M内存，那么较大机率会从cache中清除50M内存，再将匿名页换出50M，把回收到的内存给应用程序使用。但是这还要看cache中是否能有空间，以及swap是否可以交换50m。内核只是试图对它们平衡一些而已。</p>
+</blockquote>
+<p><strong>4.kswapd进程什么时候开始内存回收？</strong></p>
+<blockquote>
+<p>A: kswapd根据内存水位标记决定是否开始回收内存，如果标记达到low就开始回收，回收到剩余内存达到high标记为止。</p>
+</blockquote>
+<p><strong>5.如何查看当前系统的内存水位标记？</strong></p>
+<blockquote>
+<p>A: cat /proc/zoneinfo。</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>之前遇到过线上swap导致io频繁的问题，当时运维人员调整的swappiness参数，解决了问题。一直对swap一知半解，今天看到公众号推送一篇关于swap的好文章，主要内容：<strong>swap、swappiness及kswapd原理，swap分区优先级</strong><br>在此转载一下。<br>【转自】<a href="http://mp.weixin.qq.com/s?__biz=MzA4Nzg5Nzc5OA==&amp;mid=2651660097&amp;idx=1&amp;sn=a3d38e3af2c9d8d431c46fe7680b428d&amp;scene=0#wechat_redirect">Linux SWAP 深度解读</a><br>]]>
+    
+    </summary>
+    
+      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[ssh 免登陆]]></title>
