@@ -6,17 +6,17 @@
   
   <title>docker java时区设置 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="docker启动的时候通过-v /etc/localtime:/etc/localtime:ro ，123docker run -d &amp;gt;&amp;gt;$fn_docker --name $3_$1 -v /master/build/$1/$3/app/webroot/:/app/webroot/  \-v  /etc/localtime:/etc/localtime:ro  \docker.vem">
+  <meta name="description" content="docker启动的时候通过-v /etc/localtime:/etc/localtime:ro ，1docker run  -v  /etc/localtime:/etc/localtime:ro  focustest-centos5  /opt/ActivePython-2.7/bin/supervisord -c /opt/supervisor/supervisord.conf &amp;amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker java时区设置">
 <meta property="og:url" content="http://tonylit.me/2016/06/14/docker java时区设置/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="docker启动的时候通过-v /etc/localtime:/etc/localtime:ro ，123docker run -d &amp;gt;&amp;gt;$fn_docker --name $3_$1 -v /master/build/$1/$3/app/webroot/:/app/webroot/  \-v  /etc/localtime:/etc/localtime:ro  \docker.vem">
+<meta property="og:description" content="docker启动的时候通过-v /etc/localtime:/etc/localtime:ro ，1docker run  -v  /etc/localtime:/etc/localtime:ro  focustest-centos5  /opt/ActivePython-2.7/bin/supervisord -c /opt/supervisor/supervisord.conf &amp;amp;">
 <meta property="og:image" content="http://tonylit.me/img/time-8.PNG">
 <meta property="og:updated_time" content="2016-06-14T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker java时区设置">
-<meta name="twitter:description" content="docker启动的时候通过-v /etc/localtime:/etc/localtime:ro ，123docker run -d &amp;gt;&amp;gt;$fn_docker --name $3_$1 -v /master/build/$1/$3/app/webroot/:/app/webroot/  \-v  /etc/localtime:/etc/localtime:ro  \docker.vem">
+<meta name="twitter:description" content="docker启动的时候通过-v /etc/localtime:/etc/localtime:ro ，1docker run  -v  /etc/localtime:/etc/localtime:ro  focustest-centos5  /opt/ActivePython-2.7/bin/supervisord -c /opt/supervisor/supervisord.conf &amp;amp;">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -254,7 +254,7 @@
                                                         
                                                             
                                                                 
-                                                                            <p>docker启动的时候通过-v /etc/localtime:/etc/localtime:ro ，<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -d &gt;&gt;<span class="variable">$fn</span>_docker --name <span class="variable">$3</span><span class="number">_</span><span class="variable">$1</span> -v /master/build/<span class="variable">$1</span>/<span class="variable">$3</span>/app/webroot/:/app/webroot/  </span><br><span class="line">\-v  /etc/localtime:/etc/localtime:ro  </span><br><span class="line">\docker.vemic.com:<span class="number">5000</span>/focustest-centos5:<span class="variable">$docker</span>_version  /opt/ActivePython-<span class="number">2.7</span>/bin/supervisord -c /opt/supervisor/supervisord.conf &amp;</span><br></pre></td></tr></table></figure></p>
+                                                                            <p>docker启动的时候通过-v /etc/localtime:/etc/localtime:ro ，<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run  -v  <span class="regexp">/etc/</span><span class="string">localtime:</span><span class="regexp">/etc/</span><span class="string">localtime:</span>ro  focustest-centos5  <span class="regexp">/opt/</span>ActivePython-<span class="number">2.7</span><span class="regexp">/bin/</span>supervisord -c <span class="regexp">/opt/</span>supervisor/supervisord.conf &amp;</span><br></pre></td></tr></table></figure></p>
 <p>容器内的系统时间确实跟宿主机的一样了，</p>
 <p>但是在docker中启动resin，发现resin日志里的时间和系统时间差8个小时…..<br><img src="/img/time-8.PNG" alt="Alt text"></p>
 <a id="more"></a>
