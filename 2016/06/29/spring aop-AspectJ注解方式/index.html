@@ -269,8 +269,11 @@
 <blockquote>
 <p>前置通知(before advice)：在切入点之前执行。<br>后置通知(after returning advice)：在切入点执行完成后，执行通知。<br>环绕通知(around advice)：包围切入点，调用方法前后完成自定义行为。<br>异常通知(after throwing advice)：在切入点抛出异常后，执行通知</p>
 </blockquote>
+<hr>
 <h1 id="Spring_AOP环境">Spring AOP环境</h1><p>使用Spring AOP需要在项目中导入除了spring jar包之外，还有aspectjweaver.jar，aopalliance.jar ，asm.jar 和cglib.jar</p>
+<hr>
 <h1 id="AspectJ注解方式实例">AspectJ注解方式实例</h1><p>比较常用的是xmz和注解的方式，注解的优劣势不提，用起来很方便，可读性更好，写起来也顺手。<br>这里写了个demo~</p>
+<hr>
 <h2 id="spring配置文件配置aop">spring配置文件配置aop</h2><p>在配置文件中增加aop的支持：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 启动对@AspectJ注解的支持 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="title">aop:aspectj-autoproxy</span> <span class="attribute">proxy-target-class</span>=<span class="value">"true"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 <p>最好是放在DispatcherServlet下面的servlet.xml中，不然有可能会出现问题。我这里是配在context.xml中的，还好没出错。<br><strong>web.xml配置：</strong><br><img src="/img/apring-aop/webxml.PNG" alt="Alt text"><br><strong>context.xml配置：</strong><br><img src="/img/apring-aop/contextxml.PNG" alt="Alt text"></p>
