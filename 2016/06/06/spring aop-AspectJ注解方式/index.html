@@ -4,33 +4,24 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>淘淘的博客</title>
+  <title>spring aop-AspectJ注解方式 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="title: spring aop-AspectJ注解方式date: 2016-06-06 11:37:27updated    : 2016-06-06 13:37:27tags:
-- java
-categories: 
-项目中没有用到spring的aop，最近在写监控逻辑的时候，发现要写大量的日志逻辑，太烦！决定用一用aop，顺便学习~">
+  <meta name="description" content="项目中没有用到spring的aop，最近在写监控逻辑的时候，发现要写大量的日志逻辑，太烦！决定用一用aop，顺便学习~">
 <meta property="og:type" content="article">
-<meta property="og:title" content="淘淘的博客">
-<meta property="og:url" content="http://tonylit.me/2016/06/29/spring aop-AspectJ注解方式/index.html">
+<meta property="og:title" content="spring aop-AspectJ注解方式">
+<meta property="og:url" content="http://tonylit.me/2016/06/06/spring aop-AspectJ注解方式/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="title: spring aop-AspectJ注解方式date: 2016-06-06 11:37:27updated    : 2016-06-06 13:37:27tags:
-- java
-categories: 
-项目中没有用到spring的aop，最近在写监控逻辑的时候，发现要写大量的日志逻辑，太烦！决定用一用aop，顺便学习~">
+<meta property="og:description" content="项目中没有用到spring的aop，最近在写监控逻辑的时候，发现要写大量的日志逻辑，太烦！决定用一用aop，顺便学习~">
 <meta property="og:image" content="http://tonylit.me/img/apring-aop/webxml.PNG">
 <meta property="og:image" content="http://tonylit.me/img/apring-aop/contextxml.PNG">
 <meta property="og:image" content="http://tonylit.me/img/apring-aop/项目结构.PNG">
 <meta property="og:image" content="http://tonylit.me/img/apring-aop/测试类.PNG">
 <meta property="og:image" content="http://tonylit.me/img/apring-aop/项目结构2.PNG">
 <meta property="og:image" content="http://tonylit.me/img/apring-aop/result.PNG">
-<meta property="og:updated_time" content="2016-06-29T11:04:34.507Z">
+<meta property="og:updated_time" content="2016-06-06T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="淘淘的博客">
-<meta name="twitter:description" content="title: spring aop-AspectJ注解方式date: 2016-06-06 11:37:27updated    : 2016-06-06 13:37:27tags:
-- java
-categories: 
-项目中没有用到spring的aop，最近在写监控逻辑的时候，发现要写大量的日志逻辑，太烦！决定用一用aop，顺便学习~">
+<meta name="twitter:title" content="spring aop-AspectJ注解方式">
+<meta name="twitter:description" content="项目中没有用到spring的aop，最近在写监控逻辑的时候，发现要写大量的日志逻辑，太烦！决定用一用aop，顺便学习~">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -136,7 +127,7 @@ categories:
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/lebron-james/" style="font-size: 10px;">-lebron james</a> <a href="/tags/Jmeter/" style="font-size: 12.5px;">Jmeter</a> <a href="/tags/Jprofiler/" style="font-size: 10px;">Jprofiler</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/kafka/" style="font-size: 12.5px;">kafka</a> <a href="/tags/lebron-james/" style="font-size: 10px;">lebron james</a> <a href="/tags/life/" style="font-size: 12.5px;">life</a> <a href="/tags/loadrunner/" style="font-size: 15px;">loadrunner</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/work/" style="font-size: 17.5px;">work</a> <a href="/tags/前端性能/" style="font-size: 10px;">前端性能</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a> <a href="/tags/网络攻击/" style="font-size: 10px;">网络攻击</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+						<a href="/tags/lebron-james/" style="font-size: 10px;">-lebron james</a> <a href="/tags/Jmeter/" style="font-size: 12px;">Jmeter</a> <a href="/tags/Jprofiler/" style="font-size: 10px;">Jprofiler</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/java/" style="font-size: 16px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/kafka/" style="font-size: 12px;">kafka</a> <a href="/tags/lebron-james/" style="font-size: 10px;">lebron james</a> <a href="/tags/life/" style="font-size: 12px;">life</a> <a href="/tags/loadrunner/" style="font-size: 14px;">loadrunner</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/work/" style="font-size: 18px;">work</a> <a href="/tags/前端性能/" style="font-size: 10px;">前端性能</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a> <a href="/tags/网络攻击/" style="font-size: 10px;">网络攻击</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
 					</div>
 				</section>
 				
@@ -222,8 +213,8 @@ categories:
     </script>
     
         <div class="article-meta">
-            <a href="/2016/06/29/spring aop-AspectJ注解方式/" class="article-date">
-  	<time datetime="2016-06-29T11:04:34.507Z" itemprop="datePublished">2016-06-29</time>
+            <a href="/2016/06/06/spring aop-AspectJ注解方式/" class="article-date">
+  	<time datetime="2016-06-06T03:37:27.000Z" itemprop="datePublished">2016-06-06</time>
 </a>
 
         </div>
@@ -233,6 +224,30 @@ categories:
                     <input type="hidden" class="isFancy" />
                     
                         
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      spring aop-AspectJ注解方式
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+	</div>
+
+
+                                        
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
                                         <div class="article-entry" itemprop="articleBody">
                                             
                                                     <!--02-->
@@ -244,10 +259,8 @@ categories:
                                                         
                                                             
                                                                 
-                                                                            <p>title: spring aop-AspectJ注解方式<br>date: 2016-06-06 11:37:27<br>updated    : 2016-06-06 13:37:27<br>tags:</p>
-<pre><code><span class="bullet">- </span>java
-</code></pre><p>categories: </p>
-<p>项目中没有用到spring的aop，最近在写监控逻辑的时候，发现要写大量的日志逻辑，太烦！<br>决定用一用aop，顺便学习~<br><a id="more"></a></p>
+                                                                            <p>项目中没有用到spring的aop，最近在写监控逻辑的时候，发现要写大量的日志逻辑，太烦！<br>决定用一用aop，顺便学习~</p>
+<a id="more"></a>
 <h1 id="术语">术语</h1><p>说实话，这些术语开始看的时候根本看不懂，先了解下，写个aop的demo后再回头看看就很好理解了。</p>
 <blockquote>
 <p>切面(aspect)：用来切插业务方法的类。<br>连接点(joinpoint)：是切面类和业务类的连接点，其实就是封装了业务方法的一些基本属性，作为通知的参数来解析。<br>通知(advice)：在切面类中，声明对业务方法做额外处理的方法。<br>切入点(pointcut)：业务类中指定的方法，作为切面切入的点。其实就是指定某个方法作为切面切的地方。<br>目标对象(target object)：被代理对象。<br>AOP代理(aop proxy)：代理对象。</p>
@@ -303,9 +316,18 @@ categories:
                         
 <nav id="article-nav">
   
+    <a href="/2016/06/14/docker java时区设置/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          docker java时区设置
+        
+      </div>
+    </a>
   
-    <a href="/2016/06/27/骑士夺冠/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">我骑夺冠</div>
+  
+    <a href="/2016/06/06/swap解读/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">linux swap解读</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -315,7 +337,7 @@ categories:
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-spring aop-AspectJ注解方式" data-title="" data-url="http://tonylit.me/2016/06/29/spring aop-AspectJ注解方式/"></div>
+                                    <div class="ds-thread" data-thread-key="post-spring aop-AspectJ注解方式" data-title="spring aop-AspectJ注解方式" data-url="http://tonylit.me/2016/06/06/spring aop-AspectJ注解方式/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">
