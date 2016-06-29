@@ -4,6 +4,23 @@
 
     
   <url>
+    <loc>http://tonylit.me/2016/06/29/spring%20aop-AspectJ%E6%B3%A8%E8%A7%A3%E6%96%B9%E5%BC%8F/</loc>
+    <lastmod>2016-06-29T05:37:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>spring aop-AspectJ注解方式</title>
+        <pubTime>2016-06-29T03:37:27.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://tonylit.me/2016/06/27/%E9%AA%91%E5%A3%AB%E5%A4%BA%E5%86%A0/</loc>
     <lastmod>2016-06-27T05:37:27.000Z</lastmod>
     <data>
@@ -29,23 +46,6 @@
         <pubTime>2016-06-14T03:37:27.000Z</pubTime>
         
         <tag>docker</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://tonylit.me/2016/06/06/spring%20aop-AspectJ%E6%B3%A8%E8%A7%A3%E6%96%B9%E5%BC%8F/</loc>
-    <lastmod>2016-06-06T05:37:27.000Z</lastmod>
-    <data>
-        <display>
-        <title>spring aop-AspectJ注解方式</title>
-        <pubTime>2016-06-06T03:37:27.000Z</pubTime>
-        
-        <tag>java</tag>
          
          
            
