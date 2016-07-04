@@ -4,17 +4,28 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>Archives: 2016 | 淘淘的博客</title>
+  <title>淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="技术,性能,生活,互联网">
-<meta property="og:type" content="website">
+  <meta name="description" content="title: 修改docker存储大小和位置date: 2016-07-04 11:37:27updated    : 2016-07-04 13:37:27tags:
+- docker
+categories: 
+刚开始使用docker的时候没有注意系统分区，根目录磁盘分小了，分了50G。centos7 docker默认使用的devicemapper存储，默认大小是100G，导致容器多的时候存储不">
+<meta property="og:type" content="article">
 <meta property="og:title" content="淘淘的博客">
-<meta property="og:url" content="http://tonylit.me/archives/2016/page/3/index.html">
+<meta property="og:url" content="http://tonylit.me/2016/07/04/修改docker存储大小和位置/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="技术,性能,生活,互联网">
+<meta property="og:description" content="title: 修改docker存储大小和位置date: 2016-07-04 11:37:27updated    : 2016-07-04 13:37:27tags:
+- docker
+categories: 
+刚开始使用docker的时候没有注意系统分区，根目录磁盘分小了，分了50G。centos7 docker默认使用的devicemapper存储，默认大小是100G，导致容器多的时候存储不">
+<meta property="og:image" content="http://tonylit.me/img/devicemapper.PNG">
+<meta property="og:updated_time" content="2016-07-04T11:13:03.035Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="淘淘的博客">
-<meta name="twitter:description" content="技术,性能,生活,互联网">
+<meta name="twitter:description" content="title: 修改docker存储大小和位置date: 2016-07-04 11:37:27updated    : 2016-07-04 13:37:27tags:
+- docker
+categories: 
+刚开始使用docker的时候没有注意系统分区，根目录磁盘分小了，分了50G。centos7 docker默认使用的devicemapper存储，默认大小是100G，导致容器多的时候存储不">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -192,307 +203,126 @@
 高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
 </div>
 
-      <div class="body-wrap">
-  
-  
+      <div class="body-wrap"><article id="post-修改docker存储大小和位置" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/29/docker-weave网络互连/" class="archive-article-date">
-  	<time datetime="2016-03-29T03:37:27.000Z" itemprop="datePublished">Mar 29</time>
+        <div class="article-meta">
+            <a href="/2016/07/04/修改docker存储大小和位置/" class="article-date">
+  	<time datetime="2016-07-04T11:13:03.035Z" itemprop="datePublished">2016-07-04</time>
 </a>
 
         </div>
-    	 
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#存储需求"><span class="toc-number">1.</span> <span class="toc-text">存储需求</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#解决方案"><span class="toc-number">2.</span> <span class="toc-text">解决方案</span></a></li></ol>
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p>title: 修改docker存储大小和位置<br>date: 2016-07-04 11:37:27<br>updated    : 2016-07-04 13:37:27<br>tags:</p>
+<pre><code><span class="bullet">- </span>docker
+</code></pre><p>categories: </p>
+<p>刚开始使用docker的时候没有注意系统分区，根目录磁盘分小了，分了50G。<br>centos7 docker默认使用的devicemapper存储，默认大小是100G，导致容器多的时候存储不够。<br><a id="more"></a></p>
+<h1 id="存储需求">存储需求</h1><p>1.增大devicemapper loop data的存储大小<br>2.把存储的位置放到/home目录下</p>
+<h1 id="解决方案">解决方案</h1><p>很简单，修改docker的启动参数，重启即可<br>修改/lib/systemd/system/docker.service</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ExecStart=/usr/bin/docker daemon --graph=/home/lib/docker --storage-driver=devicemapper --storage-opt dm.fs=ext4 --storage-opt dm.loopdatasize=<span class="number">100</span>G --storage-opt dm.loopmetadatasize=<span class="number">8</span>G --insecure-registry=docker.vemic.com:<span class="number">5000</span> -H <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">2375</span> -H fd:<span class="comment">//</span></span><br></pre></td></tr></table></figure>
+<p>重启docker，ok了<br><img src="/img/devicemapper.PNG" alt="Alt text"></p>
+
+                                                                                
+                                        </div>
+                                        
+            </div>
+            
+                <div class="bdsharebuttonbox" style="margin-top:10px;margin-left:30px;float:left;">
+                    <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                    <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                    <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
+                    <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
+                    <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                    <a href="#" class="bds_more" data-cmd="more"></a>
+                </div>
+                <script>
+                    window._bd_share_config = {
+                        "common": {
+                            "bdSnsKey": {},
+                            "bdText": "",
+                            "bdMini": "1",
+                            "bdMiniList": false,
+                            "bdStyle": "2",
+                            "bdSize": "16"
+                        },
+                        "share": {}
+                    };
+                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/29/docker-weave网络互连/">使用weave实现docker多宿主机互联</a>
-    </h1>
   
+    <a href="/2016/06/29/spring aop-AspectJ注解方式/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">spring aop-AspectJ注解方式</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
-	</div>
-
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-修改docker存储大小和位置" data-title="" data-url="http://tonylit.me/2016/07/04/修改docker存储大小和位置/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "tonylit"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
 </article>
 
-  
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/29/docker_pull_https_error/" class="archive-article-date">
-  	<time datetime="2016-03-29T03:37:27.000Z" itemprop="datePublished">Mar 29</time>
-</a>
+-->
+<!--
 
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/29/docker_pull_https_error/">docker pull关于https的报错处理</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
-	</div>
-
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/22/docker四种网络模式/" class="archive-article-date">
-  	<time datetime="2016-03-22T03:37:27.000Z" itemprop="datePublished">Mar 22</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/22/docker四种网络模式/">docker网络学习</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
-	</div>
-
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/15/spring quartz配置/" class="archive-article-date">
-  	<time datetime="2016-03-15T03:37:27.000Z" itemprop="datePublished">Mar 15</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/15/spring quartz配置/">spring quartz执行定时任务</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-	</div>
-
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/12/java多线程的40个问题/" class="archive-article-date">
-  	<time datetime="2016-03-12T03:37:27.000Z" itemprop="datePublished">Mar 12</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/12/java多线程的40个问题/">40个Java多线程问题总结</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-	</div>
-
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/09/docker-compose/" class="archive-article-date">
-  	<time datetime="2016-03-09T03:37:27.000Z" itemprop="datePublished">Mar 9</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/09/docker-compose/">docker-compose</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
-	</div>
-
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/08/docker-run/" class="archive-article-date">
-  	<time datetime="2016-03-08T03:37:27.000Z" itemprop="datePublished">Mar 8</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/08/docker-run/">docker run</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
-	</div>
-
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/01/docker-enter/" class="archive-article-date">
-  	<time datetime="2016-03-01T03:37:27.000Z" itemprop="datePublished">Mar 1</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/01/docker-enter/">使用docker-enter进入docker容器</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
-	</div>
-
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2016/page/2/">&laquo; Prev</a><a class="page-number" href="/archives/2016/">1</a><a class="page-number" href="/archives/2016/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/2016/page/4/">4</a><a class="extend next" rel="next" href="/archives/2016/page/4/">Next &raquo;</a>
-    </nav>
-  
-
+-->
 
 </div>
       <!--<footer id="footer">

@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://tonylit.me/2016/07/04/%E4%BF%AE%E6%94%B9docker%E5%AD%98%E5%82%A8%E5%A4%A7%E5%B0%8F%E5%92%8C%E4%BD%8D%E7%BD%AE/</loc>
+    <lastmod>2016-07-04T11:13:03.035Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://tonylit.me/2016/06/29/spring%20aop-AspectJ%E6%B3%A8%E8%A7%A3%E6%96%B9%E5%BC%8F/</loc>
     <lastmod>2016-06-29T05:37:27.000Z</lastmod>
   </url>
@@ -77,12 +82,12 @@
   </url>
   
   <url>
-    <loc>http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/</loc>
+    <loc>http://tonylit.me/2016/03/29/docker_pull_https_error/</loc>
     <lastmod>2016-03-29T05:37:27.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://tonylit.me/2016/03/29/docker_pull_https_error/</loc>
+    <loc>http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/</loc>
     <lastmod>2016-03-29T05:37:27.000Z</lastmod>
   </url>
   
@@ -157,12 +162,12 @@
   </url>
   
   <url>
-    <loc>http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/</loc>
+    <loc>http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2015-12-22T05:37:27.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/</loc>
+    <loc>http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/</loc>
     <lastmod>2015-12-22T05:37:27.000Z</lastmod>
   </url>
   
@@ -187,12 +192,12 @@
   </url>
   
   <url>
-    <loc>http://tonylit.me/2015/12/16/javamelody%E7%9B%91%E6%8E%A7java%E5%BA%94%E7%94%A8/</loc>
+    <loc>http://tonylit.me/2015/12/16/soupui%E6%8E%A5%E5%8F%A3%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</loc>
     <lastmod>2015-12-16T05:37:27.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://tonylit.me/2015/12/16/soupui%E6%8E%A5%E5%8F%A3%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</loc>
+    <loc>http://tonylit.me/2015/12/16/javamelody%E7%9B%91%E6%8E%A7java%E5%BA%94%E7%94%A8/</loc>
     <lastmod>2015-12-16T05:37:27.000Z</lastmod>
   </url>
   
@@ -247,12 +252,12 @@
   </url>
   
   <url>
-    <loc>http://tonylit.me/2015/11/24/docker/</loc>
+    <loc>http://tonylit.me/2015/11/24/kafka%E4%B8%8Ecountdownlatch/</loc>
     <lastmod>2015-11-24T05:37:27.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://tonylit.me/2015/11/24/kafka%E4%B8%8Ecountdownlatch/</loc>
+    <loc>http://tonylit.me/2015/11/24/docker/</loc>
     <lastmod>2015-11-24T05:37:27.000Z</lastmod>
   </url>
   
@@ -327,32 +332,7 @@
   </url>
   
   <url>
-    <loc>http://tonylit.me/js/motion_fallback.js</loc>
-    <lastmod>2015-10-26T17:43:18.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://tonylit.me/js/fancy-box.js</loc>
-    <lastmod>2015-10-26T17:43:18.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://tonylit.me/js/motion_global.js</loc>
-    <lastmod>2015-10-26T17:43:18.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://tonylit.me/js/search-toggle.js</loc>
-    <lastmod>2015-10-26T17:43:18.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://tonylit.me/js/lazyload.js</loc>
-    <lastmod>2015-10-26T17:43:18.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://tonylit.me/js/helpers.js</loc>
+    <loc>http://tonylit.me/js/ua-parser.min.js</loc>
     <lastmod>2015-10-26T17:43:18.000Z</lastmod>
   </url>
   
@@ -362,7 +342,32 @@
   </url>
   
   <url>
-    <loc>http://tonylit.me/js/ua-parser.min.js</loc>
+    <loc>http://tonylit.me/js/motion_global.js</loc>
+    <lastmod>2015-10-26T17:43:18.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://tonylit.me/js/motion_fallback.js</loc>
+    <lastmod>2015-10-26T17:43:18.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://tonylit.me/js/lazyload.js</loc>
+    <lastmod>2015-10-26T17:43:18.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://tonylit.me/js/search-toggle.js</loc>
+    <lastmod>2015-10-26T17:43:18.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://tonylit.me/js/fancy-box.js</loc>
+    <lastmod>2015-10-26T17:43:18.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://tonylit.me/js/helpers.js</loc>
     <lastmod>2015-10-26T17:43:18.000Z</lastmod>
   </url>
   
