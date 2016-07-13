@@ -4,28 +4,19 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>淘淘的博客</title>
+  <title>修改docker loop-lvm存储大小和位置 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="title: 修改docker loop-lvm存储大小和位置date: 2016-07-04 11:37:27updated    : 2016-07-04 13:37:27tags:
-- docker
-categories: 
-刚开始使用docker的时候没有注意系统分区，根目录磁盘分小了，分了50G。centos7 docker默认使用的devicemapper loop-lvm存储，默认大">
+  <meta name="description" content="刚开始使用docker的时候没有注意系统分区，根目录磁盘分小了，分了50G。centos7 docker默认使用的devicemapper loop-lvm存储，默认大小是100G，导致容器多的时候存储不够。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="淘淘的博客">
-<meta property="og:url" content="http://tonylit.me/2016/07/13/修改docker loop-lvm存储大小和位置/index.html">
+<meta property="og:title" content="修改docker loop-lvm存储大小和位置">
+<meta property="og:url" content="http://tonylit.me/2016/07/04/修改docker loop-lvm存储大小和位置/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="title: 修改docker loop-lvm存储大小和位置date: 2016-07-04 11:37:27updated    : 2016-07-04 13:37:27tags:
-- docker
-categories: 
-刚开始使用docker的时候没有注意系统分区，根目录磁盘分小了，分了50G。centos7 docker默认使用的devicemapper loop-lvm存储，默认大">
+<meta property="og:description" content="刚开始使用docker的时候没有注意系统分区，根目录磁盘分小了，分了50G。centos7 docker默认使用的devicemapper loop-lvm存储，默认大小是100G，导致容器多的时候存储不够。">
 <meta property="og:image" content="http://tonylit.me/img/devicemapper.PNG">
-<meta property="og:updated_time" content="2016-07-13T14:04:25.601Z">
+<meta property="og:updated_time" content="2016-07-04T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="淘淘的博客">
-<meta name="twitter:description" content="title: 修改docker loop-lvm存储大小和位置date: 2016-07-04 11:37:27updated    : 2016-07-04 13:37:27tags:
-- docker
-categories: 
-刚开始使用docker的时候没有注意系统分区，根目录磁盘分小了，分了50G。centos7 docker默认使用的devicemapper loop-lvm存储，默认大">
+<meta name="twitter:title" content="修改docker loop-lvm存储大小和位置">
+<meta name="twitter:description" content="刚开始使用docker的时候没有注意系统分区，根目录磁盘分小了，分了50G。centos7 docker默认使用的devicemapper loop-lvm存储，默认大小是100G，导致容器多的时候存储不够。">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -131,7 +122,7 @@ categories:
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/lebron-james/" style="font-size: 10px;">-lebron james</a> <a href="/tags/Jmeter/" style="font-size: 12px;">Jmeter</a> <a href="/tags/Jprofiler/" style="font-size: 10px;">Jprofiler</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/java/" style="font-size: 16px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/kafka/" style="font-size: 12px;">kafka</a> <a href="/tags/lebron-james/" style="font-size: 10px;">lebron james</a> <a href="/tags/life/" style="font-size: 12px;">life</a> <a href="/tags/loadrunner/" style="font-size: 14px;">loadrunner</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/work/" style="font-size: 18px;">work</a> <a href="/tags/前端性能/" style="font-size: 10px;">前端性能</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a> <a href="/tags/网络攻击/" style="font-size: 10px;">网络攻击</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+						<a href="/tags/lebron-james/" style="font-size: 10px;">-lebron james</a> <a href="/tags/Jmeter/" style="font-size: 11.67px;">Jmeter</a> <a href="/tags/Jprofiler/" style="font-size: 10px;">Jprofiler</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/kafka/" style="font-size: 11.67px;">kafka</a> <a href="/tags/lebron-james/" style="font-size: 10px;">lebron james</a> <a href="/tags/life/" style="font-size: 11.67px;">life</a> <a href="/tags/loadrunner/" style="font-size: 13.33px;">loadrunner</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/work/" style="font-size: 16.67px;">work</a> <a href="/tags/前端性能/" style="font-size: 10px;">前端性能</a> <a href="/tags/性能/" style="font-size: 18.33px;">性能</a> <a href="/tags/网络攻击/" style="font-size: 10px;">网络攻击</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
 					</div>
 				</section>
 				
@@ -217,8 +208,8 @@ categories:
     </script>
     
         <div class="article-meta">
-            <a href="/2016/07/13/修改docker loop-lvm存储大小和位置/" class="article-date">
-  	<time datetime="2016-07-13T14:04:25.601Z" itemprop="datePublished">2016-07-13</time>
+            <a href="/2016/07/04/修改docker loop-lvm存储大小和位置/" class="article-date">
+  	<time datetime="2016-07-04T03:37:27.000Z" itemprop="datePublished">2016-07-04</time>
 </a>
 
         </div>
@@ -228,6 +219,30 @@ categories:
                     <input type="hidden" class="isFancy" />
                     
                         
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      修改docker loop-lvm存储大小和位置
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+	</div>
+
+
+                                        
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
                                         <div class="article-entry" itemprop="articleBody">
                                             
                                                     <!--02-->
@@ -239,10 +254,7 @@ categories:
                                                         
                                                             
                                                                 
-                                                                            <p>title: 修改docker loop-lvm存储大小和位置<br>date: 2016-07-04 11:37:27<br>updated    : 2016-07-04 13:37:27<br>tags:</p>
-<pre><code><span class="bullet">- </span>docker
-</code></pre><p>categories: </p>
-<p>刚开始使用docker的时候没有注意系统分区，根目录磁盘分小了，分了50G。<br>centos7 docker默认使用的devicemapper loop-lvm存储，默认大小是100G，导致容器多的时候存储不够。<br><a id="more"></a></p>
+                                                                            <p>刚开始使用docker的时候没有注意系统分区，根目录磁盘分小了，分了50G。<br>centos7 docker默认使用的devicemapper loop-lvm存储，默认大小是100G，导致容器多的时候存储不够。<br><a id="more"></a></p>
 <h1 id="存储需求">存储需求</h1><p>1.增大devicemapper loop data的存储大小<br>2.把存储的位置放到/home目录下</p>
 <h1 id="解决方案">解决方案</h1><p>很简单，修改docker的启动参数，重启即可<br>修改/lib/systemd/system/docker.service</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ExecStart=/usr/bin/docker daemon --graph=/home/lib/docker --storage-driver=devicemapper --storage-opt dm.fs=ext4 --storage-opt dm.loopdatasize=<span class="number">100</span>G --storage-opt dm.loopmetadatasize=<span class="number">8</span>G --insecure-registry=docker.vemic.com:<span class="number">5000</span> -H <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">2375</span> -H fd:<span class="comment">//</span></span><br></pre></td></tr></table></figure>
@@ -292,7 +304,7 @@ categories:
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-修改docker loop-lvm存储大小和位置" data-title="" data-url="http://tonylit.me/2016/07/13/修改docker loop-lvm存储大小和位置/"></div>
+                                    <div class="ds-thread" data-thread-key="post-修改docker loop-lvm存储大小和位置" data-title="修改docker loop-lvm存储大小和位置" data-url="http://tonylit.me/2016/07/04/修改docker loop-lvm存储大小和位置/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">

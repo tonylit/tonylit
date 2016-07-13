@@ -4,7 +4,7 @@
   <subtitle><![CDATA[今年lebron绝逼夺冠，bie跟我急!]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2016-07-13T14:04:25.601Z</updated>
+  <updated>2016-07-04T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -15,27 +15,23 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="http://tonylit.me/2016/07/13/%E4%BF%AE%E6%94%B9docker%20loop-lvm%E5%AD%98%E5%82%A8%E5%A4%A7%E5%B0%8F%E5%92%8C%E4%BD%8D%E7%BD%AE/"/>
-    <id>http://tonylit.me/2016/07/13/修改docker loop-lvm存储大小和位置/</id>
-    <published>2016-07-13T14:04:25.601Z</published>
-    <updated>2016-07-13T14:04:25.601Z</updated>
-    <content type="html"><![CDATA[<p>title: 修改docker loop-lvm存储大小和位置<br>date: 2016-07-04 11:37:27<br>updated    : 2016-07-04 13:37:27<br>tags:</p>
-<pre><code><span class="bullet">- </span>docker
-</code></pre><p>categories: </p>
-<p>刚开始使用docker的时候没有注意系统分区，根目录磁盘分小了，分了50G。<br>centos7 docker默认使用的devicemapper loop-lvm存储，默认大小是100G，导致容器多的时候存储不够。<br><a id="more"></a></p>
+    <title><![CDATA[修改docker loop-lvm存储大小和位置]]></title>
+    <link href="http://tonylit.me/2016/07/04/%E4%BF%AE%E6%94%B9docker%20loop-lvm%E5%AD%98%E5%82%A8%E5%A4%A7%E5%B0%8F%E5%92%8C%E4%BD%8D%E7%BD%AE/"/>
+    <id>http://tonylit.me/2016/07/04/修改docker loop-lvm存储大小和位置/</id>
+    <published>2016-07-04T03:37:27.000Z</published>
+    <updated>2016-07-04T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>刚开始使用docker的时候没有注意系统分区，根目录磁盘分小了，分了50G。<br>centos7 docker默认使用的devicemapper loop-lvm存储，默认大小是100G，导致容器多的时候存储不够。<br><a id="more"></a></p>
 <h1 id="存储需求">存储需求</h1><p>1.增大devicemapper loop data的存储大小<br>2.把存储的位置放到/home目录下</p>
 <h1 id="解决方案">解决方案</h1><p>很简单，修改docker的启动参数，重启即可<br>修改/lib/systemd/system/docker.service</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ExecStart=/usr/bin/docker daemon --graph=/home/lib/docker --storage-driver=devicemapper --storage-opt dm.fs=ext4 --storage-opt dm.loopdatasize=<span class="number">100</span>G --storage-opt dm.loopmetadatasize=<span class="number">8</span>G --insecure-registry=docker.vemic.com:<span class="number">5000</span> -H <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">2375</span> -H fd:<span class="comment">//</span></span><br></pre></td></tr></table></figure>
 <p>重启docker，ok了<br><img src="/img/devicemapper.PNG" alt="Alt text"></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>title: 修改docker loop-lvm存储大小和位置<br>date: 2016-07-04 11:37:27<br>updated    : 2016-07-04 13:37:27<br>tags:</p>
-<pre><code><span class="bullet">- </span>docker
-</code></pre><p>categories: </p>
-<p>刚开始使用docker的时候没有注意系统分区，根目录磁盘分小了，分了50G。<br>centos7 docker默认使用的devicemapper loop-lvm存储，默认大小是100G，导致容器多的时候存储不够。<br>]]>
+    <![CDATA[<p>刚开始使用docker的时候没有注意系统分区，根目录磁盘分小了，分了50G。<br>centos7 docker默认使用的devicemapper loop-lvm存储，默认大小是100G，导致容器多的时候存储不够。<br>]]>
     
     </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   
