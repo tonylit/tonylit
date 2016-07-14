@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://tonylit.me/2016/07/14/jmagick%E5%AE%89%E8%A3%85jdk%E6%8A%A5%E9%94%99%E5%A4%84%E7%90%86/</loc>
+    <lastmod>2016-07-14T05:37:27.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://tonylit.me/2016/07/04/%E4%BF%AE%E6%94%B9docker%20loop-lvm%E5%AD%98%E5%82%A8%E5%A4%A7%E5%B0%8F%E5%92%8C%E4%BD%8D%E7%BD%AE/</loc>
     <lastmod>2016-07-04T05:37:27.000Z</lastmod>
   </url>
@@ -27,12 +32,12 @@
   </url>
   
   <url>
-    <loc>http://tonylit.me/2016/05/18/scp%E5%92%8Crsync%E4%BC%A0%E8%BE%93%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83/</loc>
+    <loc>http://tonylit.me/2016/05/18/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/</loc>
     <lastmod>2016-05-18T05:37:27.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://tonylit.me/2016/05/18/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/</loc>
+    <loc>http://tonylit.me/2016/05/18/scp%E5%92%8Crsync%E4%BC%A0%E8%BE%93%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83/</loc>
     <lastmod>2016-05-18T05:37:27.000Z</lastmod>
   </url>
   
@@ -42,12 +47,12 @@
   </url>
   
   <url>
-    <loc>http://tonylit.me/2016/04/22/supervisor%E7%AE%A1%E7%90%86docker%E8%BF%9B%E7%A8%8B/</loc>
+    <loc>http://tonylit.me/2016/04/22/%E5%A6%82%E4%BD%95%E4%B8%8D%E8%BE%93%E5%87%BAdocker%E6%97%A5%E5%BF%97%E5%88%B0%E6%8E%A7%E5%88%B6%E5%8F%B0/</loc>
     <lastmod>2016-04-22T05:37:27.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://tonylit.me/2016/04/22/%E5%A6%82%E4%BD%95%E4%B8%8D%E8%BE%93%E5%87%BAdocker%E6%97%A5%E5%BF%97%E5%88%B0%E6%8E%A7%E5%88%B6%E5%8F%B0/</loc>
+    <loc>http://tonylit.me/2016/04/22/supervisor%E7%AE%A1%E7%90%86docker%E8%BF%9B%E7%A8%8B/</loc>
     <lastmod>2016-04-22T05:37:27.000Z</lastmod>
   </url>
   
@@ -82,12 +87,12 @@
   </url>
   
   <url>
-    <loc>http://tonylit.me/2016/03/29/docker_pull_https_error/</loc>
+    <loc>http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/</loc>
     <lastmod>2016-03-29T05:37:27.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/</loc>
+    <loc>http://tonylit.me/2016/03/29/docker_pull_https_error/</loc>
     <lastmod>2016-03-29T05:37:27.000Z</lastmod>
   </url>
   
@@ -162,12 +167,12 @@
   </url>
   
   <url>
-    <loc>http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/</loc>
+    <loc>http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/</loc>
     <lastmod>2015-12-22T05:37:27.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/</loc>
+    <loc>http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2015-12-22T05:37:27.000Z</lastmod>
   </url>
   
