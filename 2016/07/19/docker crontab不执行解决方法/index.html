@@ -4,23 +4,18 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>使用weave实现docker多宿主机互联 | 淘淘的博客</title>
+  <title>docker crontab不执行解决方法 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="使用weave实现docker多宿主机互联">
+  <meta name="description" content="centos镜像，在该镜像中没有安装crond，通过yum安装成功后，crontab没有生效。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用weave实现docker多宿主机互联">
-<meta property="og:url" content="http://tonylit.me/2016/03/29/docker-weave网络互连/index.html">
+<meta property="og:title" content="docker crontab不执行解决方法">
+<meta property="og:url" content="http://tonylit.me/2016/07/19/docker crontab不执行解决方法/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="使用weave实现docker多宿主机互联">
-<meta property="og:image" content="http://tonylit.me/img/docker-weave/weave图.PNG">
-<meta property="og:image" content="http://tonylit.me/img/docker-weave/weave launch.PNG">
-<meta property="og:image" content="http://tonylit.me/img/docker-weave/weave镜像文件.PNG">
-<meta property="og:image" content="http://tonylit.me/img/docker-weave/weave容器.PNG">
-<meta property="og:image" content="http://tonylit.me/img/docker-weave/weave网桥.PNG">
-<meta property="og:updated_time" content="2016-03-29T05:37:27.000Z">
+<meta property="og:description" content="centos镜像，在该镜像中没有安装crond，通过yum安装成功后，crontab没有生效。">
+<meta property="og:updated_time" content="2016-07-19T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用weave实现docker多宿主机互联">
-<meta name="twitter:description" content="使用weave实现docker多宿主机互联">
+<meta name="twitter:title" content="docker crontab不执行解决方法">
+<meta name="twitter:description" content="centos镜像，在该镜像中没有安装crond，通过yum安装成功后，crontab没有生效。">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -198,7 +193,7 @@
 高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
 </div>
 
-      <div class="body-wrap"><article id="post-docker-weave网络互连" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-docker crontab不执行解决方法" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -212,8 +207,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2016/03/29/docker-weave网络互连/" class="article-date">
-  	<time datetime="2016-03-29T03:37:27.000Z" itemprop="datePublished">2016-03-29</time>
+            <a href="/2016/07/19/docker crontab不执行解决方法/" class="article-date">
+  	<time datetime="2016-07-19T03:37:27.000Z" itemprop="datePublished">2016-07-19</time>
 </a>
 
         </div>
@@ -227,7 +222,7 @@
                                 
   
     <h1 class="article-title" itemprop="name">
-      使用weave实现docker多宿主机互联
+      docker crontab不执行解决方法
     </h1>
   
 
@@ -252,28 +247,16 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境准备"><span class="toc-number">1.</span> <span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装weave"><span class="toc-number">2.</span> <span class="toc-text">安装weave</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#启动weave"><span class="toc-number">3.</span> <span class="toc-text">启动weave</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#连接不同主机"><span class="toc-number">4.</span> <span class="toc-text">连接不同主机</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#通过weave启动容器"><span class="toc-number">5.</span> <span class="toc-text">通过weave启动容器</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#解决办法："><span class="toc-number">1.</span> <span class="toc-text">解决办法：</span></a></li></ol>
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <p>使用weave实现docker多宿主机互联<br><a id="more"></a><br>weave是编织的意思，这里指的是建立一个虚拟的网络，将不同主机上的docker容器连接起来<br><img src="/img/docker-weave/weave图.PNG" alt="Alt text"><br>weave的实现原理如下图：</p>
-<h1 id="环境准备">环境准备</h1><p>两台装有docker的物理机<br>192.168.1.111<br>192.168.1.113</p>
-<h1 id="安装weave">安装weave</h1><p>从github上下载二进制文件安装</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># sudo wget -O <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>weave https:<span class="comment">//raw.githubusercontent.com/zettio/weave/master/weave</span></span><br><span class="line"># sudo chmod a+x <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>weave</span><br></pre></td></tr></table></figure>
-<h1 id="启动weave">启动weave</h1><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># weave launch</span></span><br><span class="line">Unable <span class="keyword">to</span> find image <span class="string">'zettio/weave'</span> locally</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<p><img src="/img/docker-weave/weave launch.PNG" alt="Alt text"></p>
-<p>其实下载了三个镜像文件，并且启动了3个容器<br><img src="/img/docker-weave/weave镜像文件.PNG" alt="Alt text"><br><img src="/img/docker-weave/weave容器.PNG" alt="Alt text"></p>
-<p>此时会发现有两个网桥，一个是Docker默认生成的，另一个是Weave生成的<br><img src="/img/docker-weave/weave网桥.PNG" alt="Alt text"></p>
-<h1 id="连接不同主机">连接不同主机</h1><p>主机B要连接到主机A，则需要在weave launch 后面加上A的ip<br>在B的主机上</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># weave launch <span class="number">192.168</span><span class="number">.1</span><span class="number">.111</span></span></span><br></pre></td></tr></table></figure>
-<h1 id="通过weave启动容器">通过weave启动容器</h1><p>可以使用如下方式启动</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">weave run <span class="number">192.168</span><span class="number">.1</span><span class="number">.2</span>/<span class="number">24</span> -ti centos /bin/bash</span><br></pre></td></tr></table></figure>
-<p>网上有一个比较好的做法：将启动后容器的id赋给c2变量</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># c2=$(weave run <span class="number">192.168</span><span class="number">.1</span><span class="number">.2</span>/<span class="number">24</span> -ti centos /bin/bash)</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># docker-enter c2</span></span><br></pre></td></tr></table></figure>
-<p>OK，两个主机上的容器可以互联了</p>
-
+                                                                            <p>centos镜像，在该镜像中没有安装crond，通过yum安装成功后，crontab没有生效。</p>
+<a id="more"></a>
+<h1 id="解决办法：">解决办法：</h1><p>修改/etc/pam.d/crond文件，将其中的required改为sufficient即可。</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># The PAM configuration file for the cron daemon</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">auth       sufficient pam_env.so</span><br><span class="line">auth       sufficient   pam_rootok.so</span><br><span class="line">auth       <span class="built_in">include</span>    <span class="keyword">system</span>-auth</span><br><span class="line">account    sufficient   pam_access.so</span><br><span class="line">account    <span class="built_in">include</span>    <span class="keyword">system</span>-auth</span><br><span class="line">session    sufficient   pam_loginuid.so</span><br><span class="line">session    <span class="built_in">include</span>    <span class="keyword">system</span>-auth</span><br></pre></td></tr></table></figure>
                                                                                 
                                         </div>
                                         
@@ -306,18 +289,18 @@
                         
 <nav id="article-nav">
   
-    <a href="/2016/04/02/docker远程连接/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/07/19/docker容器时间修改-通过时区偏移量/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          Docker 远程访问
+          docker容器时间修改-通过时区偏移量
         
       </div>
     </a>
   
   
-    <a href="/2016/03/29/docker_pull_https_error/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">docker pull关于https的报错处理</div>
+    <a href="/2016/07/14/jmagick安装jdk报错处理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">jmagick安装-jdk版本问题</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -327,7 +310,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-docker-weave网络互连" data-title="使用weave实现docker多宿主机互联" data-url="http://tonylit.me/2016/03/29/docker-weave网络互连/"></div>
+                                    <div class="ds-thread" data-thread-key="post-docker crontab不执行解决方法" data-title="docker crontab不执行解决方法" data-url="http://tonylit.me/2016/07/19/docker crontab不执行解决方法/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">

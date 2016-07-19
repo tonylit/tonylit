@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content=""/>
+  
+  <title>docker容器时间修改-通过时区偏移量 | 淘淘的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker容器时间修改-通过时区偏移量">
+<meta property="og:url" content="http://tonylit.me/2016/07/19/docker容器时间修改-通过时区偏移量/index.html">
+<meta property="og:site_name" content="淘淘的博客">
+<meta property="og:description" content="我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。">
+<meta property="og:updated_time" content="2016-07-19T05:37:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="docker容器时间修改-通过时区偏移量">
+<meta name="twitter:description" content="我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。">
+  
+    <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/leaves.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script src="http://tonylit.me//js/jquery.nicescroll.js"></script>
+
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+<form class="search" method="get" accept-charset="utf-8">
+			<input type="text" id="chillax-search-input" class="st-search-input_my" maxlength="30" placeholder="search" />
+		</form>
+
+
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/c.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/" class="alluraregular">tonyli</a></h1>
+		</hgroup>
+        <!--
+		
+		<p class="header-subtitle">今年lebron绝逼夺冠，bie跟我急!</p>
+		
+        -->
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/work">工作日志</a></li>
+				        
+							<li><a href="/tags/life">点滴生活</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/lebron-james/" style="font-size: 10px;">-lebron james</a> <a href="/tags/Jmeter/" style="font-size: 12px;">Jmeter</a> <a href="/tags/Jprofiler/" style="font-size: 10px;">Jprofiler</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/java/" style="font-size: 16px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/kafka/" style="font-size: 12px;">kafka</a> <a href="/tags/lebron-james/" style="font-size: 10px;">lebron james</a> <a href="/tags/life/" style="font-size: 12px;">life</a> <a href="/tags/loadrunner/" style="font-size: 14px;">loadrunner</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/work/" style="font-size: 18px;">work</a> <a href="/tags/前端性能/" style="font-size: 10px;">前端性能</a> <a href="/tags/性能/" style="font-size: 18px;">性能</a> <a href="/tags/网络攻击/" style="font-size: 10px;">网络攻击</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+					</div>
+				</section>
+				
+
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">科比：他来湖人.或者我去骑士.就这么简单 麦迪：我希望更正一下我之前说的话.如果詹姆斯是我的队友... 凯文杜兰特：我永远在追赶他的背影 保罗：我人生最大的两个愿望.一是为基德打替补.二是为詹姆斯奉献助攻 艾弗森：他才是答案。 迈克尔.乔丹：我很幸运，当他进入NBA的时候，我已经退役了！</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tonyli</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/c.jpg" class="js-avatar">
+				<hgroup>
+				  <h1 class="header-author">tonyli</h1>
+				</hgroup>
+			</div>
+			
+			<p class="header-subtitle">今年lebron绝逼夺冠，bie跟我急!</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/work">工作日志</a></li>
+		        
+					<li><a href="/tags/life">点滴生活</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+
+	  <div class="recent">
+高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
+</div>
+
+      <div class="body-wrap"><article id="post-docker容器时间修改-通过时区偏移量" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2016/07/19/docker容器时间修改-通过时区偏移量/" class="article-date">
+  	<time datetime="2016-07-19T03:37:27.000Z" itemprop="datePublished">2016-07-19</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      docker容器时间修改-通过时区偏移量
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+	</div>
+
+
+                                        
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p>我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。<br>如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。<br>but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。<br><a id="more"></a><br>这边写了个脚本，date.sh<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> != <span class="number">2</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">         <span class="built_in">echo</span> <span class="string">"Please input two parameter,like  '2016-05-20 12:00' "</span></span><br><span class="line">         <span class="built_in">exit</span> <span class="number">200</span>;</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#check /etc/profile exits 'export TZ' environment,if exits ,delete</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">checkProfile</span></span>()&#123;</span><br><span class="line">  <span class="built_in">return</span>Str=`grep -ri <span class="string">'export TZ'</span> /etc/profile`</span><br><span class="line">  <span class="keyword">if</span> [ <span class="string">"<span class="variable">$returnStr</span>"</span> !=  <span class="string">""</span>  ]</span><br><span class="line">   <span class="keyword">then</span></span><br><span class="line">     sed -i <span class="operator">-e</span> <span class="string">'/export TZ/d'</span>  /etc/profile</span><br><span class="line">       </span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line">checkProfile</span><br><span class="line"><span class="comment">#check time format</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">isValidDate</span></span>()&#123;  </span><br><span class="line">    date <span class="operator">-d</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="string">"+%F"</span>|grep -q <span class="string">"<span class="variable">$1</span>"</span> <span class="number">2</span>&gt;/dev/null </span><br><span class="line">    <span class="keyword">if</span> [ $? = <span class="number">0</span> ]; <span class="keyword">then</span>  </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"input:"</span> <span class="variable">$1</span> <span class="variable">$2</span> </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Time format is not correct ,please input like '2016-05-20 12:00' "</span> </span><br><span class="line">    <span class="keyword">fi</span>  </span><br><span class="line">&#125;</span><br><span class="line">isValidDate <span class="variable">$1</span> <span class="variable">$2</span></span><br><span class="line">CURTIME=`date <span class="string">"+%Y-%m-%d %H:%M"</span> `;</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"now:"</span> <span class="variable">$CURTIME</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">timeExport</span></span>()&#123;</span><br><span class="line">    <span class="keyword">if</span> [ <span class="string">"<span class="variable">$2</span>"</span> == <span class="number">1</span> ]</span><br><span class="line">     <span class="keyword">then</span></span><br><span class="line">     timeFormat=`awk <span class="string">'BEGIN&#123;printf "%.2f\n",'</span><span class="variable">$1</span><span class="string">'/3600&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$1</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeFormat</span></span><br><span class="line">     hour=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line">     mins=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     minm=`awk <span class="string">'BEGIN&#123;printf "%.0f\n",0.'</span><span class="variable">$mins</span><span class="string">'*60&#125;'</span>`</span><br><span class="line">     timeRetrunHour=`expr <span class="variable">$hour</span> + <span class="number">8</span>`</span><br><span class="line">      </span><br><span class="line">     <span class="comment">###分钟计算</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"input min:"</span><span class="variable">$3</span></span><br><span class="line">     inputmin=`<span class="built_in">echo</span> <span class="variable">$3</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     nowmin=`date |awk <span class="string">'&#123;print $4&#125;'</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$nowmin</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$inputmin</span></span><br><span class="line">     <span class="keyword">if</span> [ <span class="string">"<span class="variable">$nowmin</span>"</span> <span class="operator">-gt</span> <span class="string">"<span class="variable">$inputmin</span>"</span> ]</span><br><span class="line">      <span class="keyword">then</span> </span><br><span class="line">       <span class="built_in">let</span> hour=<span class="variable">$hour</span>-<span class="number">1</span></span><br><span class="line">     <span class="keyword">fi</span></span><br><span class="line">       </span><br><span class="line">     timeRetrunTime=<span class="variable">$timeRetrunHour</span>:<span class="variable">$minm</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"export TZ=RPC-<span class="variable">$timeRetrunTime</span>"</span>     </span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">       <span class="keyword">if</span> [ <span class="string">"<span class="variable">$2</span>"</span> == <span class="number">2</span> ]</span><br><span class="line">        <span class="keyword">then</span></span><br><span class="line">     timeFormat=`awk <span class="string">'BEGIN&#123;printf "%.2f\n",'</span><span class="variable">$1</span><span class="string">'/3600&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$1</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeFormat</span></span><br><span class="line">     hour=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line">     mins=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     minm=`awk <span class="string">'BEGIN&#123;printf "%.0f\n",0.'</span><span class="variable">$mins</span><span class="string">'*60&#125;'</span>`</span><br><span class="line">     <span class="built_in">let</span> timeRetrunHour=<span class="variable">$hour</span>-<span class="number">8</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeRetrunHour</span></span><br><span class="line">          <span class="comment">###分钟计算</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"input min:"</span><span class="variable">$3</span></span><br><span class="line">     inputmin=`<span class="built_in">echo</span> <span class="variable">$3</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     nowmin=`date |awk <span class="string">'&#123;print $4&#125;'</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$nowmin</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$inputmin</span></span><br><span class="line">     <span class="keyword">if</span> [ <span class="string">"<span class="variable">$nowmin</span>"</span> <span class="operator">-gt</span> <span class="string">"<span class="variable">$inputmin</span>"</span> ]</span><br><span class="line">      <span class="keyword">then</span> </span><br><span class="line">       <span class="built_in">let</span> hour=<span class="variable">$hour</span>-<span class="number">1</span></span><br><span class="line">     <span class="keyword">fi</span> </span><br><span class="line">     timeRetrunTime=<span class="variable">$timeRetrunHour</span>:<span class="variable">$minm</span></span><br><span class="line">          <span class="keyword">if</span> [ <span class="string">"<span class="variable">$timeRetrunHour</span>"</span> <span class="operator">-lt</span> <span class="number">0</span> ]</span><br><span class="line">        <span class="keyword">then</span></span><br><span class="line">           <span class="built_in">echo</span> <span class="string">"export TZ=RPC-<span class="variable">$&#123;timeRetrunTime#-&#125;</span>"</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">           <span class="built_in">echo</span> <span class="string">"export TZ=RPC+<span class="variable">$timeRetrunTime</span>"</span></span><br><span class="line">         <span class="keyword">fi</span></span><br><span class="line">     <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">Sys_data=`date <span class="operator">-d</span>  <span class="string">"<span class="variable">$CURTIME</span>"</span> +%s`    <span class="comment">#把当前时间转化为Linux时间</span></span><br><span class="line">In_data=`date <span class="operator">-d</span>  <span class="string">"<span class="variable">$1</span> <span class="variable">$2</span>"</span> +%s`</span><br><span class="line">  <span class="keyword">if</span> [ <span class="variable">$In_data</span> -ge <span class="variable">$Sys_data</span> ]</span><br><span class="line">   <span class="keyword">then</span></span><br><span class="line">    interval=`expr <span class="variable">$In_data</span> - <span class="variable">$Sys_data</span>`  <span class="comment">#计算2个时间的差</span></span><br><span class="line">    timeExport <span class="variable">$interval</span> <span class="number">1</span> <span class="variable">$2</span></span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">    interval=`expr  <span class="variable">$Sys_data</span> - <span class="variable">$In_data</span>`  </span><br><span class="line">    timeExport <span class="variable">$interval</span> <span class="number">2</span> <span class="variable">$2</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$interval</span></span><br></pre></td></tr></table></figure></p>
+<p>然后手动执行输出的结果：<br>export TZ=xxxx</p>
+
+                                                                                
+                                        </div>
+                                        
+            </div>
+            
+                <div class="bdsharebuttonbox" style="margin-top:10px;margin-left:30px;float:left;">
+                    <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                    <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                    <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
+                    <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
+                    <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                    <a href="#" class="bds_more" data-cmd="more"></a>
+                </div>
+                <script>
+                    window._bd_share_config = {
+                        "common": {
+                            "bdSnsKey": {},
+                            "bdText": "",
+                            "bdMini": "1",
+                            "bdMiniList": false,
+                            "bdStyle": "2",
+                            "bdSize": "16"
+                        },
+                        "share": {}
+                    };
+                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
+  
+  
+    <a href="/2016/07/19/docker crontab不执行解决方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">docker crontab不执行解决方法</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-docker容器时间修改-通过时区偏移量" data-title="docker容器时间修改-通过时区偏移量" data-url="http://tonylit.me/2016/07/19/docker容器时间修改-通过时区偏移量/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "tonylit"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
+</article>
+
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+    
+-->
+<!--
+
+-->
+
+</div>
+      <!--<footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 tonyli
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+    
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+   
+  </div>
+</footer>-->
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/prefixfree.js" type="text/javascript"></script>
+<script src="/js/require-2.1.20.js" type="text/javascript"></script>
+<script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
+    <a title="返回顶部" style="opacity: 100%;">
+        <img src="/img/scrollup.png" />
+    </a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+
+  </div>
+</body>
+</html>
