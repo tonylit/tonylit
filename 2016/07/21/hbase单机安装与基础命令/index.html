@@ -4,20 +4,18 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>全球黑客撕逼，蓝翔又在毕业考试吗？ | 淘淘的博客</title>
+  <title>hbase单机安装与基础命令 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前段时间全球黑客大战，在norse上看了一下世界地图，中国真是亮了，当然外行只能看看热闹~世界地图上不时闪烁亮点，发射光波，攻击其他地域。每一次这样的闪烁表明某个地区施行了一次攻击附上两个网络攻击的监控网站，有兴趣的mark下~norse  和 cybermap">
+  <meta name="description" content="hbase单机安装与基础命令环境：Centos5.11Jdk1.7Hbase：1.2.2">
 <meta property="og:type" content="article">
-<meta property="og:title" content="全球黑客撕逼，蓝翔又在毕业考试吗？">
-<meta property="og:url" content="http://tonylit.me/2015/11/18/全球黑客撕逼，蓝翔又在毕业考试吗？/index.html">
+<meta property="og:title" content="hbase单机安装与基础命令">
+<meta property="og:url" content="http://tonylit.me/2016/07/21/hbase单机安装与基础命令/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="前段时间全球黑客大战，在norse上看了一下世界地图，中国真是亮了，当然外行只能看看热闹~世界地图上不时闪烁亮点，发射光波，攻击其他地域。每一次这样的闪烁表明某个地区施行了一次攻击附上两个网络攻击的监控网站，有兴趣的mark下~norse  和 cybermap">
-<meta property="og:image" content="http://tonylit.me/img/norse.gif">
-<meta property="og:image" content="http://tonylit.me/img/norse-attrack.jpg">
-<meta property="og:updated_time" content="2015-11-18T05:37:27.000Z">
+<meta property="og:description" content="hbase单机安装与基础命令环境：Centos5.11Jdk1.7Hbase：1.2.2">
+<meta property="og:updated_time" content="2016-07-21T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="全球黑客撕逼，蓝翔又在毕业考试吗？">
-<meta name="twitter:description" content="前段时间全球黑客大战，在norse上看了一下世界地图，中国真是亮了，当然外行只能看看热闹~世界地图上不时闪烁亮点，发射光波，攻击其他地域。每一次这样的闪烁表明某个地区施行了一次攻击附上两个网络攻击的监控网站，有兴趣的mark下~norse  和 cybermap">
+<meta name="twitter:title" content="hbase单机安装与基础命令">
+<meta name="twitter:description" content="hbase单机安装与基础命令环境：Centos5.11Jdk1.7Hbase：1.2.2">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -195,7 +193,7 @@
 高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
 </div>
 
-      <div class="body-wrap"><article id="post-全球黑客撕逼，蓝翔又在毕业考试吗？" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-hbase单机安装与基础命令" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -209,8 +207,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2015/11/18/全球黑客撕逼，蓝翔又在毕业考试吗？/" class="article-date">
-  	<time datetime="2015-11-18T03:37:27.000Z" itemprop="datePublished">2015-11-18</time>
+            <a href="/2016/07/21/hbase单机安装与基础命令/" class="article-date">
+  	<time datetime="2016-07-21T03:37:27.000Z" itemprop="datePublished">2016-07-21</time>
 </a>
 
         </div>
@@ -224,7 +222,7 @@
                                 
   
     <h1 class="article-title" itemprop="name">
-      全球黑客撕逼，蓝翔又在毕业考试吗？
+      hbase单机安装与基础命令
     </h1>
   
 
@@ -234,7 +232,7 @@
                                 <div class="article-info article-info-post">
                                     
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络攻击/">网络攻击</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li></ul>
 	</div>
 
 
@@ -249,15 +247,26 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#hbase下载"><span class="toc-number">1.</span> <span class="toc-text">hbase下载</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置安装"><span class="toc-number">2.</span> <span class="toc-text">配置安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#启动hbase"><span class="toc-number">3.</span> <span class="toc-text">启动hbase</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#hbase常用shell命令"><span class="toc-number">4.</span> <span class="toc-text">hbase常用shell命令</span></a></li></ol>
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <p>前段时间全球黑客大战，在norse上看了一下世界地图，中国真是亮了，当然外行只能看看热闹~<br>世界地图上不时闪烁亮点，发射光波，攻击其他地域。每一次这样的闪烁表明某个地区施行了一次攻击<br><img src="/img/norse.gif" alt="Alt text"><br>附上两个网络攻击的监控网站，有兴趣的mark下~<br><a href="http://map.norsecorp.com/" target="_blank" rel="external">norse</a>  和 <a href="https://cybermap.kaspersky.com/" target="_blank" rel="external">cybermap</a></p>
-<a id="more"></a>
-<p><img src="/img/norse-attrack.jpg" alt="Alt text"></p>
+                                                                            <p>hbase单机安装与基础命令<br><strong>环境：</strong><br>Centos5.11<br>Jdk1.7<br>Hbase：1.2.2<br><a id="more"></a></p>
+<h1 id="hbase下载">hbase下载</h1><p><a href="http://apache.fayea.com/hbase/" target="_blank" rel="external">http://apache.fayea.com/hbase/</a><br>这里下载的最新版1.2.2的，注意不要下载带有src的（源码）</p>
+<h1 id="配置安装">配置安装</h1><p>1.放到机器上，解压缩，这里将其放在/app/目录下<br>2.配置hbase环境变量<br>修改/etc/profile文件增加环境变量</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export HBASE_HOME=/app/hbase-<span class="number">1.2</span>.<span class="number">2</span></span><br><span class="line">export PATH=<span class="variable">$PATH</span>:<span class="variable">$HBASE</span>_HOME/bin</span><br></pre></td></tr></table></figure>
+<p>记得：source /etc/profile<br>3.修改hbase目录下，/conf/hbase-env.sh</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> HBASE_MANAGES_ZK=<span class="literal">true</span></span><br><span class="line"><span class="keyword">export</span> JAVA_HOME=/opt/jdk1<span class="number">.7</span><span class="number">.0</span>_40/</span><br></pre></td></tr></table></figure>
+<p>4.配置/conf/hbase-site.xml增加以下内容</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.rootdir<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">value</span>&gt;</span>file:///app/hbase-1.2.2/hbase-tmp<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="启动hbase">启动hbase</h1><p>hbase/bin目录下：<br>start-hbase.sh</p>
+<p>打开浏览器访问localhost:16010/master-status，可以看到hbase的一些状态信息</p>
+<h1 id="hbase常用shell命令">hbase常用shell命令</h1><p>在/bin 目录下 执行  hbase shell 即可进入hbase命令行：</p>
+<blockquote>
+<p><strong>alter</strong>    修改列族（column family）模式<br><strong>count</strong>    统计表中行的数量<br><strong>create</strong>    创建表:create ‘member’,’member_id’,’address’,’info’<br><strong>describe</strong>    显示表相关的详细信息 describe member<br><strong>delete</strong>    删除指定对象的值（可以为表，行，列对应的值，另外也可以指定时间戳的值）<br><strong>deleteall    </strong>删除指定行的所有元素值<br><strong>disable</strong>    使表无效<br><strong>drop</strong>    删除表<br><strong>enable</strong>    使表有效<br><strong>exists</strong>    测试表是否存在<br><strong>exit    </strong>退出hbase shell<br><strong>get</strong>    获取行或单元（cell）的值 get ‘member’,’xueba’<br><strong>incr</strong>    增加指定表，行或列的值<br><strong>list</strong>    列出hbase中存在的所有表<br><strong>put</strong>    向指向的表单元添加值 put ‘member’,’xueba’,’info:age’,’25’<br><strong>tools</strong>    列出hbase所支持的工具<br><strong>scan</strong>    通过对表的扫描来获取对用的值<br><strong>status</strong>    返回hbase集群的状态信息<br><strong>shutdown</strong>    关闭hbase集群（与exit不同）<br><strong>truncate</strong>    重新创建指定表  truncate ‘member’<br><strong>version</strong>    返回hbase版本信息</p>
+</blockquote>
 
                                                                                 
                                         </div>
@@ -291,18 +300,9 @@
                         
 <nav id="article-nav">
   
-    <a href="/2015/11/19/kafka入门/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          kafka入门
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/11/14/性能分析过程/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">性能分析过程</div>
+    <a href="/2016/07/19/docker容器时间修改-通过时区偏移量/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">docker容器时间修改-通过时区偏移量</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -312,7 +312,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-全球黑客撕逼，蓝翔又在毕业考试吗？" data-title="全球黑客撕逼，蓝翔又在毕业考试吗？" data-url="http://tonylit.me/2015/11/18/全球黑客撕逼，蓝翔又在毕业考试吗？/"></div>
+                                    <div class="ds-thread" data-thread-key="post-hbase单机安装与基础命令" data-title="hbase单机安装与基础命令" data-url="http://tonylit.me/2016/07/21/hbase单机安装与基础命令/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">
