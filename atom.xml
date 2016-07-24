@@ -192,7 +192,7 @@
     
     </summary>
     
-      <category term="-lebron james" scheme="http://tonylit.me/tags/lebron-james/"/>
+      <category term="lebron james" scheme="http://tonylit.me/tags/lebron-james/"/>
     
   </entry>
   
@@ -1994,9 +1994,7 @@
     
     </summary>
     
-      <category term="Jprofiler" scheme="http://tonylit.me/tags/Jprofiler/"/>
-    
-      <category term="jvm" scheme="http://tonylit.me/tags/jvm/"/>
+      <category term="java" scheme="http://tonylit.me/tags/java/"/>
     
   </entry>
   
