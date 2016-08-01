@@ -25,8 +25,8 @@
 <hr>
 <h1 id="scala_eclipse_IDE安装">scala eclipse IDE安装</h1><p>有eclipse的，可以直接安装scala的插件就行了，这里安装整套ide环境。</p>
 <h2 id="下载scala_eclipse_IDE和scala">下载scala eclipse IDE和scala</h2><p>目前最新版本4.4.1，scala版本2.11.8，我们下载对应的版本（顺便说一句：scala2+以上需要jdk1.7版本支持，如果使用的jdk1.6，可以下载scala1+版本）<br><strong>Download Scala IDE for Eclipse：</strong><br><a href="http://scala-ide.org/download/sdk.html" target="_blank" rel="external">http://scala-ide.org/download/sdk.html</a><br><strong>SCALA 2.11.8</strong><br><a href="http://www.scala-lang.org/download/2.11.8.html" target="_blank" rel="external">http://www.scala-lang.org/download/2.11.8.html</a></p>
-<h2 id="安装">安装</h2><p>1.确认安装了对应的jdk版本</p>
-<ol>
+<h2 id="安装">安装</h2><ol>
+<li>确认安装了对应的jdk版本</li>
 <li>Scala IDE for Eclipse，直接解压缩就行了</li>
 <li>scala-2.11.8.msi 直接安装，next-&gt;next-&gt;ok<br>安装完成 cmd，输入scala -version验证一下<br><img src="/img/scala eclipse环境搭建/scala-version.PNG" alt="Alt text"></li>
 </ol>
