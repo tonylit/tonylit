@@ -4,7 +4,7 @@
   <subtitle><![CDATA[今年lebron绝逼夺冠，bie跟我急!]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2016-07-28T05:37:27.000Z</updated>
+  <updated>2016-08-01T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -13,6 +13,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[scala eclipse环境搭建]]></title>
+    <link href="http://tonylit.me/2016/08/01/scala%20eclipse%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    <id>http://tonylit.me/2016/08/01/scala eclipse环境搭建/</id>
+    <published>2016-08-01T03:37:27.000Z</published>
+    <updated>2016-08-01T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>scala的ide有不少，这里选择了eclipse</p>
+<a id="more"></a>
+<hr>
+<h1 id="scala_eclipse_IDE安装">scala eclipse IDE安装</h1><p>有eclipse的，可以直接安装scala的插件就行了，这里安装整套ide环境。</p>
+<h2 id="下载scala_eclipse_IDE和scala">下载scala eclipse IDE和scala</h2><p>目前最新版本4.4.1，scala版本2.11.8，我们下载对应的版本（顺便说一句：scala2+以上需要jdk1.7版本支持，如果使用的jdk1.6，可以下载scala1+版本）<br><strong>Download Scala IDE for Eclipse：</strong><br><a href="http://scala-ide.org/download/sdk.html" target="_blank" rel="external">http://scala-ide.org/download/sdk.html</a><br><strong>SCALA 2.11.8</strong><br><a href="http://www.scala-lang.org/download/2.11.8.html" target="_blank" rel="external">http://www.scala-lang.org/download/2.11.8.html</a></p>
+<h2 id="安装">安装</h2><p>1.确认安装了对应的jdk版本</p>
+<ol>
+<li>Scala IDE for Eclipse，直接解压缩就行了</li>
+<li>scala-2.11.8.msi 直接安装，next-&gt;next-&gt;ok<br>安装完成 cmd，输入scala -version验证一下<br><img src="/img/scala eclipse环境搭建/scala-version.PNG" alt="Alt text"></li>
+</ol>
+<p>以上就安装完了，很简单。</p>
+<hr>
+<h1 id="写一个hello_world">写一个hello world</h1><p>1.打开eclipse，新建一个scala project<br>2.在项目中新建一个scala object<br><img src="/img/scala eclipse环境搭建/scala project.PNG" alt="Alt text"><br>3.写一个main方法，输出hello world</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">package com.test.gatling</span><br><span class="line"></span><br><span class="line">object test &#123;</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(args: Array[String])</span>:</span> Unit = &#123;</span><br><span class="line">    println(<span class="string">"hello world"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.右键-&gt;run as-&gt;scala application<br><img src="/img/scala eclipse环境搭建/hello-world.PNG" alt="Alt text"></p>
+<hr>
+<h1 id="基础语法学习">基础语法学习</h1><p><a href="http://www.yiibai.com/scala/" target="_blank" rel="external">http://www.yiibai.com/scala/</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>scala的ide有不少，这里选择了eclipse</p>]]>
+    
+    </summary>
+    
+      <category term="scala" scheme="http://tonylit.me/tags/scala/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[spring ibatis多数据源]]></title>
@@ -446,29 +479,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[rsync和scp传输时间比较]]></title>
-    <link href="http://tonylit.me/2016/05/18/scp%E5%92%8Crsync%E4%BC%A0%E8%BE%93%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83/"/>
-    <id>http://tonylit.me/2016/05/18/scp和rsync传输速度比较/</id>
-    <published>2016-05-18T03:37:27.000Z</published>
-    <updated>2016-05-18T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br><a id="more"></a><br>传输一个3.2G的文件，里面杂七杂八的图片、小文件、大文件、视频….</p>
-<h1 id="rsync传输">rsync传输</h1><p>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">rsync -avr --progress --delete /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
-<h2 id="第一次传输：">第一次传输：</h2><p><strong>时间：58s</strong></p>
-<h2 id="第二次传输：">第二次传输：</h2><p><strong>时间：1s</strong></p>
-<p>#scp传输<br>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">scp -r /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
-<p><strong>时间：511s</strong></p>
-<h1 id="结论：">结论：</h1><p>rsync的传输速度比scp快很多</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br>]]>
-    
-    </summary>
-    
-      <category term="work" scheme="http://tonylit.me/tags/work/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[ssh 免登陆]]></title>
     <link href="http://tonylit.me/2016/05/18/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/"/>
     <id>http://tonylit.me/2016/05/18/ssh免密码登录/</id>
@@ -489,6 +499,29 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>配置A服务器ssh无密码登陆到B服务器<br>]]>
+    
+    </summary>
+    
+      <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[rsync和scp传输时间比较]]></title>
+    <link href="http://tonylit.me/2016/05/18/scp%E5%92%8Crsync%E4%BC%A0%E8%BE%93%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83/"/>
+    <id>http://tonylit.me/2016/05/18/scp和rsync传输速度比较/</id>
+    <published>2016-05-18T03:37:27.000Z</published>
+    <updated>2016-05-18T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br><a id="more"></a><br>传输一个3.2G的文件，里面杂七杂八的图片、小文件、大文件、视频….</p>
+<h1 id="rsync传输">rsync传输</h1><p>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">rsync -avr --progress --delete /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
+<h2 id="第一次传输：">第一次传输：</h2><p><strong>时间：58s</strong></p>
+<h2 id="第二次传输：">第二次传输：</h2><p><strong>时间：1s</strong></p>
+<p>#scp传输<br>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">scp -r /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
+<p><strong>时间：511s</strong></p>
+<h1 id="结论：">结论：</h1><p>rsync的传输速度比scp快很多</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br>]]>
     
     </summary>
     
