@@ -20,7 +20,7 @@
     <id>http://tonylit.me/2016/08/02/Gatling入门/</id>
     <published>2016-08-02T03:37:27.000Z</published>
     <updated>2016-08-02T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>Gatling作为一款开源的性能测试工具，慢慢走入人们视野，很多公司使用Jenkins+gatling做自动化性能测试，它拥有强大的API支持和完善的HTML报表，使用起来比较容易。</p>
+    <content type="html"><![CDATA[<p>Gatling作为一款开源的性能测试工具，慢慢走入人们视野，很多公司使用Jenkins+gatling做自动化性能测试，<br>它拥有强大的API支持和完善的HTML报表，使用起来比较容易。</p>
 <a id="more"></a>
 <hr>
 <h1 id="Gatling简介">Gatling简介</h1><p>Gatling的Scala基础封装是基于Akka编程的，它是非阻塞异步编程模型，可以高效执行并有极高的容错率。</p>
@@ -34,8 +34,8 @@
 <h1 id="scala环境准备">scala环境准备</h1><p>gatling脚本使用的scala，需要学习的api不多，如果对java比较了解的话，学习起来很简单。<br><a href="http://tonylit.me/2016/08/01/scala%20eclipse%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">scala环境准备</a></p>
 <hr>
 <h1 id="Gatling目录结构">Gatling目录结构</h1><p><img src="/img/gatling入门/项目结构.PNG" alt="Alt text"></p>
-<h2 id="Recorder-bat_和_gatling-bat">Recorder.bat 和 gatling.bat</h2><p> Recorder.bat和gatling.bat一个用来录脚本，一个用来执行脚本。它们也提供了linux版本.sh。<br>Recorder是个桥接在浏览器和web服务器之间的代理，如果浏览器通过它访问网络时，它能记下浏览器的访问轨迹。 Reocrder提供了UI界面，让配置和执行变得简单。 同时，Recoder也是一个scala代码的生成器，它能把访问轨迹记录成scala代码。</p>
-<p>Gatling.bat是一个包含了编译，执行scala代码的脚本，它提供了一些参数供使用者指定执行的细节（比如JVM_OPTS）,运行它可以选择需要执行的scala代码，创建非阻塞的线程模型执行压力测试。 </p>
+<h2 id="Recorder-bat_和_gatling-bat">Recorder.bat 和 gatling.bat</h2><p> Recorder.bat和gatling.bat一个用来录脚本，一个用来执行脚本。它们也提供了linux版本.sh。<br>Recorder是个桥接在浏览器和web服务器之间的代理，如果浏览器通过它访问网络时，它能记下浏览器的访问轨迹。<br>Reocrder提供了UI界面，让配置和执行变得简单。 同时，Recoder也是一个scala代码的生成器，它能把访问轨迹记录成scala代码。</p>
+<p>Gatling.bat是一个包含了编译，执行scala代码的脚本，它提供了一些参数供使用者指定执行的细节（比如JVM_OPTS）,<br>运行它可以选择需要执行的scala代码，创建非阻塞的线程模型执行压力测试。 </p>
 <hr>
 <h1 id="录制脚本">录制脚本</h1><p> 使用Recorder.bat录制脚本，过LR或者badboy的不会陌生</p>
 <h2 id="启动Recorder">启动Recorder</h2><p><img src="/img/gatling入门/Recorder.png" alt="Alt text"></p>
@@ -52,7 +52,7 @@
 <p>到reslut目录下面，查看HTML报错<br><img src="/img/gatling入门/report.PNG" alt="Alt text"></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>Gatling作为一款开源的性能测试工具，慢慢走入人们视野，很多公司使用Jenkins+gatling做自动化性能测试，它拥有强大的API支持和完善的HTML报表，使用起来比较容易。</p>]]>
+    <![CDATA[<p>Gatling作为一款开源的性能测试工具，慢慢走入人们视野，很多公司使用Jenkins+gatling做自动化性能测试，<br>它拥有强大的API支持和完善的HTML报表，使用起来比较容易。</p>]]>
     
     </summary>
     
