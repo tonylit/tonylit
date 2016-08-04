@@ -4,7 +4,7 @@
   <subtitle><![CDATA[今年lebron绝逼夺冠，bie跟我急!]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2016-08-02T05:37:27.000Z</updated>
+  <updated>2016-08-04T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -16,10 +16,10 @@
   
   <entry>
     <title><![CDATA[性能测试指南]]></title>
-    <link href="http://tonylit.me/2016/08/02/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%8C%87%E5%8D%97/"/>
-    <id>http://tonylit.me/2016/08/02/性能测试指南/</id>
-    <published>2016-08-02T03:37:27.000Z</published>
-    <updated>2016-08-02T05:37:27.000Z</updated>
+    <link href="http://tonylit.me/2016/08/04/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%8C%87%E5%8D%97/"/>
+    <id>http://tonylit.me/2016/08/04/性能测试指南/</id>
+    <published>2016-08-04T03:37:27.000Z</published>
+    <updated>2016-08-04T05:37:27.000Z</updated>
     <content type="html"><![CDATA[<p>平时做性能测试工作，经常拜读其他业务性能著作，taobao的白皮书，京东的性能测试指南等，常常翻阅，有所感悟，在此整理一番，以备后用。</p>
 <a id="more"></a>
 <hr>
