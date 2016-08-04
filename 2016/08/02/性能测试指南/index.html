@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content=""/>
+  
+  <title>性能测试指南 | 淘淘的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="平时做性能测试工作，经常拜读其他业务性能著作，taobao的白皮书，京东的性能测试指南等，常常翻阅，有所感悟，在此整理一番，以备后用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="性能测试指南">
+<meta property="og:url" content="http://tonylit.me/2016/08/02/性能测试指南/index.html">
+<meta property="og:site_name" content="淘淘的博客">
+<meta property="og:description" content="平时做性能测试工作，经常拜读其他业务性能著作，taobao的白皮书，京东的性能测试指南等，常常翻阅，有所感悟，在此整理一番，以备后用。">
+<meta property="og:image" content="http://tonylit.me/img/性能测试指南/性能测试类型.PNG">
+<meta property="og:image" content="http://tonylit.me/img/性能测试指南/性能测试流程.png">
+<meta property="og:image" content="http://tonylit.me/img/性能测试指南/taobao-分布图.PNG">
+<meta property="og:image" content="http://tonylit.me/img/性能测试指南/taobao-分布图2.PNG">
+<meta property="og:image" content="http://tonylit.me/img/性能测试指南/淘宝-分布图3.PNG">
+<meta property="og:image" content="http://tonylit.me/img/性能测试指南/taobao-分布图.PNG">
+<meta property="og:image" content="http://tonylit.me/img/性能测试指南/jd-分布图.PNG">
+<meta property="og:image" content="http://tonylit.me/./容量测试.PNG">
+<meta property="og:image" content="http://tonylit.me/img/性能测试指南/拓扑图.png">
+<meta property="og:image" content="http://tonylit.me/img/性能测试指南/虚拟机配置.PNG">
+<meta property="og:image" content="http://tonylit.me/img/性能测试指南/堆参数解释.PNG">
+<meta property="og:image" content="http://tonylit.me/img/性能测试指南/前端检测.PNG">
+<meta property="og:updated_time" content="2016-08-02T05:37:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="性能测试指南">
+<meta name="twitter:description" content="平时做性能测试工作，经常拜读其他业务性能著作，taobao的白皮书，京东的性能测试指南等，常常翻阅，有所感悟，在此整理一番，以备后用。">
+  
+    <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/leaves.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script src="http://tonylit.me//js/jquery.nicescroll.js"></script>
+
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+<form class="search" method="get" accept-charset="utf-8">
+			<input type="text" id="chillax-search-input" class="st-search-input_my" maxlength="30" placeholder="search" />
+		</form>
+
+
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/c.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/" class="alluraregular">tonyli</a></h1>
+		</hgroup>
+        <!--
+		
+		<p class="header-subtitle">今年lebron绝逼夺冠，bie跟我急!</p>
+		
+        -->
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/work">工作日志</a></li>
+				        
+							<li><a href="/tags/life">点滴生活</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Gatling/" style="font-size: 10px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.67px;">Jmeter</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/kafka/" style="font-size: 11.67px;">kafka</a> <a href="/tags/lebron-james/" style="font-size: 11.67px;">lebron james</a> <a href="/tags/life/" style="font-size: 11.67px;">life</a> <a href="/tags/loadrunner/" style="font-size: 13.33px;">loadrunner</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/work/" style="font-size: 16.67px;">work</a> <a href="/tags/前端性能/" style="font-size: 10px;">前端性能</a> <a href="/tags/性能/" style="font-size: 18.33px;">性能</a> <a href="/tags/网络攻击/" style="font-size: 10px;">网络攻击</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+					</div>
+				</section>
+				
+
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">科比：他来湖人.或者我去骑士.就这么简单 麦迪：我希望更正一下我之前说的话.如果詹姆斯是我的队友... 凯文杜兰特：我永远在追赶他的背影 保罗：我人生最大的两个愿望.一是为基德打替补.二是为詹姆斯奉献助攻 艾弗森：他才是答案。 迈克尔.乔丹：我很幸运，当他进入NBA的时候，我已经退役了！</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tonyli</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/c.jpg" class="js-avatar">
+				<hgroup>
+				  <h1 class="header-author">tonyli</h1>
+				</hgroup>
+			</div>
+			
+			<p class="header-subtitle">今年lebron绝逼夺冠，bie跟我急!</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/work">工作日志</a></li>
+		        
+					<li><a href="/tags/life">点滴生活</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+
+	  <div class="recent">
+高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
+</div>
+
+      <div class="body-wrap"><article id="post-性能测试指南" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2016/08/02/性能测试指南/" class="article-date">
+  	<time datetime="2016-08-02T03:37:27.000Z" itemprop="datePublished">2016-08-02</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      性能测试指南
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+	</div>
+
+
+                                        
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#引言"><span class="toc-number">1.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#性能测试的概念"><span class="toc-number">2.</span> <span class="toc-text">性能测试的概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#术语"><span class="toc-number">3.</span> <span class="toc-text">术语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#并发用户数"><span class="toc-number">3.0.1.</span> <span class="toc-text">并发用户数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#响应时间"><span class="toc-number">3.0.2.</span> <span class="toc-text">响应时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#吞吐量"><span class="toc-number">3.0.3.</span> <span class="toc-text">吞吐量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#每秒处理事务数(TPS)"><span class="toc-number">3.0.4.</span> <span class="toc-text">每秒处理事务数(TPS)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#点击率"><span class="toc-number">3.0.5.</span> <span class="toc-text">点击率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事务成功率"><span class="toc-number">3.0.6.</span> <span class="toc-text">事务成功率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#并发"><span class="toc-number">3.0.7.</span> <span class="toc-text">并发</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#性能测试类型"><span class="toc-number">4.</span> <span class="toc-text">性能测试类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#性能测试"><span class="toc-number">4.1.</span> <span class="toc-text">性能测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#负载测试"><span class="toc-number">4.2.</span> <span class="toc-text">负载测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#压力测试"><span class="toc-number">4.3.</span> <span class="toc-text">压力测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#稳定性测试"><span class="toc-number">4.4.</span> <span class="toc-text">稳定性测试</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#性能测试基本流程"><span class="toc-number">5.</span> <span class="toc-text">性能测试基本流程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#性能需求分析"><span class="toc-number">5.1.</span> <span class="toc-text">性能需求分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#性能需求评估"><span class="toc-number">5.1.1.</span> <span class="toc-text">性能需求评估</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#性能测试准备"><span class="toc-number">5.2.</span> <span class="toc-text">性能测试准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#执行性能测试"><span class="toc-number">5.3.</span> <span class="toc-text">执行性能测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结果分析与性能调优"><span class="toc-number">5.4.</span> <span class="toc-text">结果分析与性能调优</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#性能报告与总结"><span class="toc-number">5.5.</span> <span class="toc-text">性能报告与总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#性能测试模型"><span class="toc-number">6.</span> <span class="toc-text">性能测试模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#taobao性能模型分析"><span class="toc-number">6.1.</span> <span class="toc-text">taobao性能模型分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PV->TPS转换模型"><span class="toc-number">6.1.1.</span> <span class="toc-text">PV->TPS转换模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TPS->并发用户数"><span class="toc-number">6.1.2.</span> <span class="toc-text">TPS->并发用户数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网银在线性能模型分析"><span class="toc-number">6.2.</span> <span class="toc-text">网银在线性能模型分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TPS计算公式"><span class="toc-number">6.2.1.</span> <span class="toc-text">TPS计算公式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#我们的性能测试模型"><span class="toc-number">6.3.</span> <span class="toc-text">我们的性能测试模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#环境搭建"><span class="toc-number">7.</span> <span class="toc-text">环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#按容量配比机器"><span class="toc-number">7.1.</span> <span class="toc-text">按容量配比机器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#依据拓扑图准备机器资源"><span class="toc-number">7.2.</span> <span class="toc-text">依据拓扑图准备机器资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#搭建应用环境"><span class="toc-number">7.3.</span> <span class="toc-text">搭建应用环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据准备"><span class="toc-number">7.4.</span> <span class="toc-text">数据准备</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#压力工具选择"><span class="toc-number">8.</span> <span class="toc-text">压力工具选择</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#性能分析"><span class="toc-number">9.</span> <span class="toc-text">性能分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常见性能问题参考"><span class="toc-number">9.1.</span> <span class="toc-text">常见性能问题参考</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#性能调优"><span class="toc-number">10.</span> <span class="toc-text">性能调优</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#性能调优目标与策略"><span class="toc-number">10.1.</span> <span class="toc-text">性能调优目标与策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调优的基本步骤"><span class="toc-number">10.2.</span> <span class="toc-text">调优的基本步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置项性能调优参考"><span class="toc-number">10.3.</span> <span class="toc-text">配置项性能调优参考</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux系统调优"><span class="toc-number">10.3.1.</span> <span class="toc-text">Linux系统调优</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JVM_调优"><span class="toc-number">10.3.2.</span> <span class="toc-text">JVM 调优</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nginx_调优"><span class="toc-number">10.3.3.</span> <span class="toc-text">Nginx 调优</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQLInnoDB调优"><span class="toc-number">10.3.4.</span> <span class="toc-text">MySQLInnoDB调优</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基础指标"><span class="toc-number">11.</span> <span class="toc-text">基础指标</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#响应时间-1"><span class="toc-number">11.1.</span> <span class="toc-text">响应时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事务成功率-1"><span class="toc-number">11.2.</span> <span class="toc-text">事务成功率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#负载机的资源利用率"><span class="toc-number">11.3.</span> <span class="toc-text">负载机的资源利用率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用服务器硬件性能指标"><span class="toc-number">11.4.</span> <span class="toc-text">应用服务器硬件性能指标</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#性能监控"><span class="toc-number">12.</span> <span class="toc-text">性能监控</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#JVM监控工具"><span class="toc-number">12.1.</span> <span class="toc-text">JVM监控工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jvisualvm"><span class="toc-number">12.1.1.</span> <span class="toc-text">jvisualvm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jinfo"><span class="toc-number">12.1.2.</span> <span class="toc-text">jinfo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jstack"><span class="toc-number">12.1.3.</span> <span class="toc-text">jstack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jmap"><span class="toc-number">12.1.4.</span> <span class="toc-text">jmap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jprofile"><span class="toc-number">12.1.5.</span> <span class="toc-text">jprofile</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#linux命令监控"><span class="toc-number">12.2.</span> <span class="toc-text">linux命令监控</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nmon"><span class="toc-number">12.3.</span> <span class="toc-text">nmon</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据库分析与诊断工具"><span class="toc-number">13.</span> <span class="toc-text">数据库分析与诊断工具</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#oracle"><span class="toc-number">13.1.</span> <span class="toc-text">oracle</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#前端性能测试"><span class="toc-number">14.</span> <span class="toc-text">前端性能测试</span></a></li></ol>
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p>平时做性能测试工作，经常拜读其他业务性能著作，taobao的白皮书，京东的性能测试指南等，常常翻阅，有所感悟，在此整理一番，以备后用。</p>
+<a id="more"></a>
+<hr>
+<h1 id="引言">引言</h1><p>性能测试指南的目的在于授人以渔而不是授人以鱼，通过在此指引下，能够独立完成性能测试，掌握性能测试过程中所需要的工具、技能、方法等。积累相关的性能测试经验，并提升测试人员自身的技能。</p>
+<hr>
+<h1 id="性能测试的概念">性能测试的概念</h1><p>在正常、峰值以及异常负载条件下，测试系统的各项性能指标。<br>通过自动化的测试工具模拟进行。</p>
+<h1 id="术语">术语</h1><h3 id="并发用户数">并发用户数</h3><p>在同一时刻与服务器进行了交互的在线用户数量</p>
+<h3 id="响应时间">响应时间</h3><p>客户发出请求到得到响应的整个过程的时间。一般他可以分为三部分：呈现时间，数据传输时间和系统处理时间</p>
+<h3 id="吞吐量">吞吐量</h3><p>一次性能测试过程中网络上传输的数据量的总和</p>
+<h3 id="每秒处理事务数(TPS)">每秒处理事务数(TPS)</h3><p>每秒钟系统能够处理事务或交易的数量，它是衡量系统处理能力的重要指标。</p>
+<h3 id="点击率">点击率</h3><p>点击率可以看做是TPS的一种特定情况。每秒钟用户向web服务器提交的HTTP请求数。</p>
+<h3 id="事务成功率">事务成功率</h3><p>本次测试中出现成功的事务数量/事务的总数</p>
+<h3 id="并发">并发</h3><p><strong>并发分为狭义和广义两类。</strong><br>狭义的并发，即<strong>所有的用户在同一时刻做同一件事情或操作</strong>，这种操作一般针对同一类型的业务，或者所有用户进行完全一样的操作，比如双11的秒杀活动，目的是测试数据库和程序对并发操作的处理。<br>广义的并发，即<strong>多个用户对系统发出了请求或者进行了操作，但是这些请求或操作可以是不同的</strong>。对整个系统而言，仍然有很多用户同时进行操作，大多数场景都是广义并发，比较接近用户在系统上的操作行为。<br>做性能测试时，一般先做广义并发，再做狭义并发。</p>
+<hr>
+<h1 id="性能测试类型">性能测试类型</h1><p>在做性能测试之前，需要明白以下4中测试类型。</p>
+<blockquote>
+<p>1.性能测试。<br>2.负载测试。<br>3.压力测试。<br>4.稳定性测试。</p>
+</blockquote>
+<p>我们的系统随着单位时间流量的不断增长，压力不断增大，服务器资源会不断被消耗，TPS值会因为这些因素而发生变化，而且符合一定的规律。（建议看看<a href="http://www.cnblogs.com/jackei/archive/2006/11/20/565527.html" target="_blank" rel="external">理发师模型</a>）<br><img src="/img/性能测试指南/性能测试类型.PNG" alt="Alt text"></p>
+<blockquote>
+<p>a点：性能期望值<br>b点：高于期望，系统资源处于临界点(eg.cpu 50%,load:cpu*0.7)<br>c点：高于期望，性能处于拐点<br>d点：超过负载，资源不够用，系统处于崩溃</p>
+</blockquote>
+<h2 id="性能测试">性能测试</h2><p>a点到b点之间的系统性能</p>
+<p><strong>简述：</strong><br>性能测试是指通过模拟生产运行的业务压力量和使用场景组合，测试系统的性能是否满足生产性能要求。<br><strong>目的：</strong><br>验证系统是否有其要求达到的能力。<br><strong>特点：</strong><br>对系统性能已经有了解的前提，对需求有明确的目标，并在已经确定的环境下进行的。<br><strong>关注点及产出</strong><br>关注的是系统性能是否和具体的性能需求相一致，而当系统性能超过性能需求的时候，系统的表现并不是测试人员关心的重点。</p>
+<h2 id="负载测试">负载测试</h2><p>b点的系统性能</p>
+<p><strong>简述：</strong><br>狭义的负载测试，是指对系统不断地增加压力或增加一定压力下的持续时间，直到系统的某项或多项性能指标达到安全临界值，例如某种资源已经达到饱和状态等。<br><strong>目的:</strong><br>找到系统处理能力的极限。了解系统的性能容量，或是配合性能调优来使用。<br><strong>关注点及产出</strong><br>1.得出线下系统最有TPS。<br>2.得出线下系统最有TPS时系统资源利用率。<br>3.得出线下系统极限并发数。</p>
+<h2 id="压力测试">压力测试</h2><p>b点到d点之间</p>
+<p><strong>简述：</strong><br>是指超过安全负载的情况下，对系统不断施加压力，是通过确定一个系统的瓶颈或不能接收用户请求的性能点，来获得系统能提供的最大服务级别的测试<br><strong>目的：</strong><br>检查系统处于大压力性能下时，应用的表现。<br><strong>特点：</strong><br>一般通过模拟负载等方法，使得系统的资源使用达到较高的水平。<br><strong>关注点及产出</strong><br>发现功能测试不能发现的非功能性缺陷。<br>1.得出线下系统崩溃点的TPS。<br>2.得出线下系统崩溃时资源使用率<br>3.得出线下系统极限并发数</p>
+<h2 id="稳定性测试">稳定性测试</h2><p>c点的系统性能</p>
+<p><strong>简述：</strong><br>在给系统加载到性能拐点（tps最大值）情况下，使系统运行一段时间（一般为4小时），以此检测系统是否稳定。<br><strong>目的：</strong><br>主要目的是验证是否支持长期稳定的运行。<br><strong>关注点及产出</strong><br>关注系统稳定性。<br>得出系统稳定状态下的资源利用、连接池、TPS、响应时间、DB健康情况等数据。</p>
+<hr>
+<h1 id="性能测试基本流程">性能测试基本流程</h1><p>性能测试工作开展流程，见图：<br><img src="/img/性能测试指南/性能测试流程.png" alt="Alt text"></p>
+<h2 id="性能需求分析">性能需求分析</h2><p>性能需求分析是整个性能测试工作开展的基础，如果连性能的需求都没弄清楚，后面的性能测试工具以及执行就无从谈起了。<br>在这一阶段，性能测试人员需要与项目人员进行沟通，同时收集各种项目资料，对系统进行分析，确认测试的目标。并将其转化为可衡量的具体性能指标。</p>
+<h3 id="性能需求评估">性能需求评估</h3><p>项目组人员对性能测试业务点没有很好的概念，判断是否进行性能测试可以从以下几个方面进行思考：</p>
+<blockquote>
+<ol>
+<li>从业务角度来分析。<br>如果一个项目上去后使用的人数比较多，量比较大，就有做性能测试的必要，反之，如果一个项目上线后，没有几个人在用，无论系统多大，设计如何复杂，并发性的性能测试是没有必要做的，前期可以否决。</li>
+<li>从系统架构角度来分析。<br>如果一个系统采用的框架是老的系统框架，只是在此框架上增加一些应用，其实是没有必要做性能测试。如果一个系统采用的是一种新的框架，可以考虑做负载测试。</li>
+<li>从实时性角度来分析。<br>如果一个项目要求某个功能的响应时间，这个有作并发测试的可能性，在大并发量的场景下，查看这个功能的响应时间。</li>
+<li>从数据库角度分析。<br>很多情况下，性能测试是大数据量的并发访问、修改数据库，而瓶颈在于连接数据库池的数量，而非数据库本身的负载、吞吐能力。这时，可以结合DBA的建议，来决定是否来做性能测试。</li>
+</ol>
+</blockquote>
+<p>如果要进行性能测试，接下来我们就需要确定相应的性能点。主要从以下 4 个维度进行确定：</p>
+<blockquote>
+<ol>
+<li>关键业务。<br>首要维度，是确定被测项目是否属于关键业务，有哪些主要的业务逻辑点，特别是跟交易相关的功能点。</li>
+<li>日请求量。<br>如果日请求量很高，系统压力很大，而且又是关键业务，该项目需要做性能测试；而且其关键业务点，可以被确定为性能点。</li>
+<li>逻辑复杂度。<br>如果一个主要业务的日请求量不高，但是逻辑很复杂，则也需要通过性能测试。原因是，在分布式方式的调用中，当某一个环节响应较慢，就会影响到其它环节，造成雪崩效应。</li>
+<li>运营推广计划。<br>未雨绸缪、防患于未然、降低运营风险是性能测试的主要目标。被测系统的性能不仅能满足当前压力，更需要满足未来一定时间段内的压力。因此，事先了解运营推广计划，对性能点的制定有很大的作用。<br>例如，运营计划做活动，要求系统每天能支撑多少 PV、多少 UV，或者一个季度后，需要能支撑多大的访问量等等数据。<br>5.其它<br>例如，当一个功能点不满足以上 4 个维度，但又属于内存高消耗、CPU高消耗时，也可列入性能测试点行列。</li>
+</ol>
+</blockquote>
+<p><strong>最终，需要明确以下几点：</strong><br>1.测试业务点，细化到每一步骤<br>2.测试环境搭建（项目组提供还是性能测试人员搭建），测试环境与正式版按比例配置，配置文件同正式版<br>3.测试指标：TPS、并发用户数、响应时间等<br>4.测试数据，按正式版配比，参数化数据至少为并发数的2倍，由项目组准备数据<br>5.测试类型确定：至少做性能测试和稳定性测试，其他测试类型需要确认。<br>6.测试时间点</p>
+<h2 id="性能测试准备">性能测试准备</h2><p>主要包括：设计场景，根据场景编写程序、编写脚本、准备测试环境，构造测试数据，环境预调优等；<br>测试数据的设计也是一个重点且容易出问题的地方。生成测试数据量达到未来预期数量只是最基础的一步，更需要考虑的是数据的分布是否合理，需要仔细的确认程序中使用到的各种查询条件，这些重点列的数值要尽可能的模拟真实的数据分布， 否则测试的结果可能是无效的。<br>预调优指根据系统的特点和团队的经验，提前对系统的各个方面做一些优化调整，避免测试执行过程中的无谓返工。比如一个高并发的系统，10000人在线，连接池和线程池的配置还用默认的，显然是会测出问题的。</p>
+<h2 id="执行性能测试">执行性能测试</h2><p>执行阶段工作主要包含两个方面的内容：一是执行测试用例模型，包括执行脚本和场景；其次测试过程监控，包括测试结果、记录性能指标和性能计数器的值</p>
+<h2 id="结果分析与性能调优">结果分析与性能调优</h2><p>发现问题或者性能指标达不到预期，及时的分析定位，处理后重复测试过程。性能问题通常是相互关联相互影响的，表面上看到的现象很可能不是根本问题，而是另一处出现问题后引起的反应。这就要求监控收集数据时要全面，从多方面多个角度去判断定位。调优的过程其实也是一种平衡的过程，在系统的多个方面达到一个平衡即可。</p>
+<h2 id="性能报告与总结">性能报告与总结</h2><p>编写性能测试报告，阐明性能测试目标、性能结果、测试环境、数据构造规则、遇到的问题和解决办法等。并对此次性能测试经验进行总结与沉淀。</p>
+<p>   上面所有内容中，如果排除技术上的问题，性能测试中最难做好的，就是<strong>用户模型的分析</strong>。它直接决定了压力测试场景是否能够有效的模拟真实世界压力，而正是这种对真实压力的模拟，才使性能测试有了更大的意义。可以说，性能测试做到一定程度，差距就体现在了模型建立上。<br>　　至于性能问题的分析、定位或者调优，很大程度是一种技术积累，需要多方面的专业知识。</p>
+<hr>
+<h1 id="性能测试模型">性能测试模型</h1><p>以下引用taobao和网银在线模型分析方法，基本思路都一样。</p>
+<h2 id="taobao性能模型分析">taobao性能模型分析</h2><p><strong>PV计算模型</strong><br>为了让性能测试的PV计算更接近生产线真实情况，利用现有最新的数据得出性能测试PV的计算公式。<br>首先，通过<a href="http://monitor.taobao.com采集现有数据，下图所示的是任意选择一天得到的分布图，" target="_blank" rel="external">http://monitor.taobao.com采集现有数据，下图所示的是任意选择一天得到的分布图，</a> 6:00AM到次日的6:00AM，共24小时。<br><img src="/img/性能测试指南/taobao-分布图.PNG" alt="Alt text"></p>
+<p>经过长期监控，发现任何一天的分布图都与上图类似，故将这种分布视为整个淘宝网的浏览量分布。<br>其次，进行数据统计：为了和目前真实情况更接近，选择最近一段时间的数据分布来做样本，记录下系统能够监控到的最短时间间隔的数据，考察其值的走势，并且找出每一天的最大值，抽样出每个时刻的值与当天最大值的比例，以此比例值的趋势，得出数据分布趋势，如下图所示：<br>监控系统最精确可以采集到每3分钟的数据，一天24小时可以采集到480个点<br><img src="/img/性能测试指南/taobao-分布图2.PNG" alt="Alt text"></p>
+<p>采用微积分思想，将每个时间点视为一个矩形，可以通过求和的方式求出整个分布图的面积，如下图所示：<br><img src="/img/性能测试指南/淘宝-分布图3.PNG" alt="Alt text"></p>
+<p><strong>根据80/20原理</strong>，找出占据总体面积80%所用的时间，再计算出平均PV量。<br>选择尽可能大的点计算出占据总体80%的面积，发现点的个数是240，那么意味着此时间长度为总时间长度的50%，则<strong>80/20原则在此可以转换成80/50原则</strong>，则有<br>每台服务器每秒平均PV量 = (80%<em>总PV)/(24</em>60<em>60</em>(240/480))/服务器数量。<br>整理后得：<strong>每台服务器每秒平均PV量 = (1.6<em>总PV)/ (24</em>60*60) /服务器数量</strong>。进而计算出占总面积80%的PV平均值与整个图中的最高峰值的比，可以得出<strong>最高峰的PV量是1.2倍的平均PV量</strong>。<br>即          每台服务器每秒高峰PV量 = (1.2<em>1.6</em>总PV)/(24<em>60</em>60) /服务器数量。<br>整理后得：          <strong>每台服务器每秒高峰PV量= (1.92<em>总PV)/(24</em>60*60) /服务器数量</strong>。</p>
+<h3 id="PV-&gt;TPS转换模型">PV-&gt;TPS转换模型</h3><p>为了使PV在性能测试环境下可量化，根据PV的概念，通过以下方式将其转换成TPS。</p>
+<blockquote>
+<p>1.性能测试脚本中，只保留与性能点相关的内容，异步处理的，保留多个请求，从而确保压力目标。<br>2.在执行场景中，不模拟浏览器缓存，确保每次请求都到达应用服务器，使得LoadRunner的一个请求等同于一个PV。<br>3.在执行场景中，每次迭代，都模拟一个新用户，而且清除用户缓存信息，确保每个用户每次发送请求都是全新的。</p>
+</blockquote>
+<p>结论：通过以上三步，将PV转化成性能测试工具可识别的TPS。换言之，1PV=1TPS。</p>
+<h3 id="TPS-&gt;并发用户数">TPS-&gt;并发用户数</h3><p>根据公式：并发用户数=TPS/响应时间，项目组给出响应时间，然后计算出并发用户。</p>
+<h2 id="网银在线性能模型分析">网银在线性能模型分析</h2><p>根据支付宝订单数来做建模demo：</p>
+<p>双11当天，支付宝的订单数是1.8亿笔，意味着每小时订单数达到1.8亿 / 24 = 750万笔，也意味着每秒订单数达到750万 / 3600 = <strong>2083笔</strong>。</p>
+<p>首先，让我们先来看看吞吐率指标（TPS），假设支付宝有100台前置服务器，分到每台机器就是每秒处理订单2083笔 / 100 = 20笔。</p>
+<p>这是不是意味着只要单台服务器的性能达到<strong>20 tps</strong>，我们的线上服务就足以支撑每天1.8亿的交易量呢？<br>答案<strong>显然不是</strong>。</p>
+<p>我们先来看看淘宝网每天交易量分布图：<br><img src="/img/性能测试指南/taobao-分布图.PNG" alt="Alt text"></p>
+<p>可以看到，交易量并不是24小时平均分布的，从早上8点开始到晚上12点才是交易量发生的主要时间段，也就是说实际上每天只有2/3的时间（16小时）才是有效时间。我们的性能指标应该调整到20tps * 150% = 30tps。</p>
+<p>即使是16个小时中，交易量也不是平均的，在午饭和晚饭时间会出现两个波谷，晚上8点到11点之间是一天的最高峰。最高峰大约是平均值的1.2倍，如果我们不想损失掉高峰时期的交易量的话，我们的吞吐率指标需要再上调到30tps * 1.2 = 36tps。</p>
+<p>以上只是一个普通日子的交易量分布情况，如果有某些重大活动事件，比如限时抢购、定时秒杀等活动，那么我们很可能在短时间承受几倍甚至十几倍的压力。如下图是京东某年某活动当天的交易量分布图：<br><img src="/img/性能测试指南/jd-分布图.PNG" alt="Alt text"><br>总体交易量是<strong>平日的几倍到十几倍</strong>，交易量从零点开始就达到一个小高峰，凌晨2点后逐渐降到冰点，早上8点又开始了一天的持续热度，下午7点出现一个小波谷紧接着就迎来了晚上11点左右的最高峰。对于这种特别庞大的活动我们需要提前做好性能预案，以往的数据就是我们最好的参考。</p>
+<p>通常来讲，我们对于系统的性能要求在每天高峰时期的1.5倍到4倍，如果按2倍计算，那么我们的吞吐率指标就继续上调到 36tps <em> 2 = <em>*72tps</em></em>。</p>
+<p>好了，单台服务器的性能达标了72tps。但是100台服务器加起来就能承载 72tps * 100 = 7200tps吗？ </p>
+<p>比较难，这依赖于我们的负载均衡算法。假设我们有一个还不错的算法，但也不能保证长时间绝对的公平，所以单台服务器还需要做好压力波动的缓冲，如果按1.5倍计算，这样我们的指标又要上调到72tps<em>150% = <em>*98tps</em></em>。</p>
+<p>这里，我们已经把对单台服务器的性能指标从20tps逐渐上调到近100tps，是原来的5倍。当然这里还远没有结束。这1.8亿笔只是单一的下单操作的PV，假设用户每下单一笔，需要伴随着10次查询，3次提交，那么我们的服务器需要再评估其他或查询或提交的性能。假设这些其他附带请求的压力总和可能还得增大5倍，即达到98tps <em> 5 = <em>*500tps</em></em>。</p>
+<h3 id="TPS计算公式">TPS计算公式</h3><p>线下单机基线TPS =线上日均交易量 / 86400 / 机器数 <em> 160% </em> F </p>
+<blockquote>
+<p>注：86400为一天的秒数。<br>注：假设硬件软件环境条件大致相同。<br>注：F为影响因子，默认为1 。</p>
+</blockquote>
+<p>关键系数160%的由来，简单点讲就是在每天约50%的时间里完成了80%的工作，80% / 50% = 160%。</p>
+<p>该公式还只是最简单场景的抽象，真实的情况可能会很复杂（详见前面的数据示例分析），不过作为线下基线TPS来讲具备很重要的参考意义。</p>
+<p>线下基线TPS代表着为了达到线上的交易量，我们线下至少应该满足的性能指标。我们在做性能测试和评估的时候，基线TPS是一定要体现并首先要达到的目标。</p>
+<p>影响因子F是一个经验值，也是需要不断调优的，线上与线下的软硬件环境不同都会导致F值的变化，甚至不同的业务线可以有不同的值。当我们的性能沙箱建立、性能闭环成型之后，会更加稳定下来。</p>
+<h2 id="我们的性能测试模型">我们的性能测试模型</h2><p>从上面taobai和网银在线的模型分析过程，总结下来：</p>
+<p><strong>1.线上pv数据统计</strong><br>数据可以找产品人员或者BI人员，爬虫的数据也包括在内。<br><strong>2.根据pv分布图计算基线TPS</strong><br>先按照8/2原则，20%的时间完成80%的事务，找出80%所用的时间，调整8/2比例（8/3，8/4，8/5…..）。<br>单机基线TPS=线上PV总量 <em>80%/ 86400</em>20% / 机器数 。（20%按照实际数值）<br><strong>3.计算峰值tps</strong><br>计算出占总面积80%的PV平均值与整个图中的最高峰值的比，比如taobao是1.2倍<br>TPS=TPS基线<em>1.2<br>通常来讲，我们对于系统的性能要求在每天高峰时期的2倍，那么我们的TPS=TPS基线</em>1.2<em>2<br>即，**最终TPS=（线上PV总量 </em>80%/ 86400<em>20% / 机器数） </em> 1.2 <em>2*</em></p>
+<hr>
+<h1 id="环境搭建">环境搭建</h1><p>环境搭建最理想的情况：<br>拓扑图同线上，软硬件资源同线上，数据同线上。<br>但是基本上不可能有这种资源。我们需要按照线上的环境部署情况按比例缩减。</p>
+<h2 id="按容量配比机器">按容量配比机器</h2><p>比如线上6台机器，实际没有这么多机器资源，可不可以按照1：1缩减，缩减为2台机器，相应的流量也缩减3倍。<br>需要做容量规划的测试<br><img src="./容量测试.PNG" alt="Alt text"><br>上图是根据xyz的机器配比做的容量规则，可以看到：机器数量跟并发用户数基本是整倍数增加，我们可以看做是1:1的增加，即并发用户增加一倍，机器数量增加一台。<br>结论：一般情况，可以按照1：1缩减。</p>
+<h2 id="依据拓扑图准备机器资源">依据拓扑图准备机器资源</h2><p>按照线上机器缩减的配比准备拓扑图和机器，<br><img src="/img/性能测试指南/拓扑图.png" alt="Alt text"></p>
+<p>服务器配置：</p>
+<blockquote>
+<p>Cpu：8核（4*2）  Intel(R) Xeon(R) CPU           E5620  @ 2.40GHz<br>内存：8G<br>磁盘：30G</p>
+</blockquote>
+<h2 id="搭建应用环境">搭建应用环境</h2><p>web服务器，应用服务器、中间件、数据库跟线上的版本和配置保持一致，可以跟运维要配置文件。</p>
+<h2 id="数据准备">数据准备</h2><p>基础数据从线上导入，保证数据量的充分性，参数化的数据（比如账号密码），需要至少准备并发用户数的2倍，用于模拟缓存。</p>
+<hr>
+<h1 id="压力工具选择">压力工具选择</h1><p>常用的性能测试工具有：loadrunner11 ，jmeter，gatling ，apache ab，按需选择。<br>多数情况下使用的是loadrunner。</p>
+<p>自动化性能测试可以采用：<br>Jenkins+ansible+Gatling的方式。</p>
+<hr>
+<h1 id="性能分析">性能分析</h1><p>##分析思路：<br><a href="http://tonylit.me/2015/11/14/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E8%BF%87%E7%A8%8B/">分析过程</a><br>在分布式架构下，性能瓶颈分析也变得相对困难。针对不同的应用系统、不同的测试目标、不同的性能关注点，根据性能指标的表现，采用“拆分问题，隔离分析”的方法进行分析，即逐步定位、从外到内、从表及里、逐层分解、隔离排除。<br>可按以下顺序：</p>
+<blockquote>
+<p>日志分析—&gt;服务器硬件瓶颈—〉网络瓶颈（对局域网，可以不考虑）—〉服务器操作系统瓶颈（参数配置）—〉中间件瓶颈（参数配置，web服务器等）—〉数据库及应用瓶颈（SQL语句、数据库设计、业务逻辑、算法等）。</p>
+</blockquote>
+<p>基于上述思想的指导，在具体执行层面，可以参考如下分析过程：</p>
+<blockquote>
+<ol>
+<li>先看CPU利用率，如果CPU利用率不高，但是系统的Throughput和Latency上不去了，这说明我们的程序并没有忙于计算，而是忙于别的一些事，比如IO。（另外，CPU的利用率还要看内核态的和用户态的，内核态的一上去了，整个系统的性能就下来了。而对于多核CPU来说，CPU 0是相当关键的，如果CPU 0的负载高，那么会影响其它核的性能，因为CPU各核间是需要有调度的，这靠CPU0完成）</li>
+<li>然后，我们可以看一下IO大不大，IO和CPU一般是反着来的，CPU利用率高则IO不大，IO大则CPU就小。关于IO，我们要看三个事，一个是磁盘文件IO，一个是驱动程序的IO（如：网卡），一个是内存换页率。这三个事都会影响系统性能。</li>
+<li>然后，查看一下网络带宽使用情况，在Linux下，你可以使用iftop，iptraf，ntop，tcpdump这些命令来查看。</li>
+<li>如果CPU不高，IO不高，内存使用不高，网络带宽使用不高。但是系统的性能上不去。这说明你的程序有问题，比如，你的程序被阻塞了。可能是因为等那个锁，可能是因为等某个资源，或者是在切换上下文。</li>
+</ol>
+</blockquote>
+<p>通过了解操作系统的性能，我们才知道性能的问题，比如：带宽不够，内存不够，TCP缓冲区不够，等等，很多时候，不需要调整程序的，只需要调整一下硬件或操作系统的配置就可以了。</p>
+<h2 id="常见性能问题参考">常见性能问题参考</h2><p><strong>操作系统类</strong>    </p>
+<blockquote>
+<p>Sys的CPU使用率过高<br>User的CPU使用率过高，持续大于80%以上<br>可用物理内存不足导致内存溢出<br> 磁盘空间不足导致交易处理失败，性能下降<br>TCP/IP连接数限制导致用户请求失败<br>磁盘IO使用比较繁忙，持续大于70%</p>
+</blockquote>
+<p><strong>中间件类</strong>    </p>
+<blockquote>
+<p>常用主流中间件：Tomcat、apache、nginx、Weblogic、Jboss等<br>线程不回收导致溢出，引发宕机<br>数据库连接池不释放导致溢出<br>JVM内存参数设置不合理，新生代过大或偏小,永久代设置过小，导致栈溢出<br>其它问题</p>
+</blockquote>
+<p><strong>应用程序类</strong>    </p>
+<blockquote>
+<p>程序响应时间超长<br>JAVA程序内存溢出，内存中存放大量数据对象<br>JAVA程序循环嵌套过多，过于精细的查询条件，子查询间等待超时<br>程序中存在死循环引起线程死锁，导致CPU使用率达到100%<br>某些返回结果未定义处理方式，导致线程等待，不释放，CPU使用率高</p>
+</blockquote>
+<p><strong>数据库类</strong>    </p>
+<blockquote>
+<p>SGA分配不合理，需要具体情况具体分析<br>使用全表扫描<br>对于查询业务比较多的表，未建立索引，或建立的索引不合理，在索引列上使用IS NULL和IS NOT NULL<br>存在数据库死锁导致数据库连接超时或不释放。<br>存在过于复杂的计算，导致CPU、内存和IO使用率较高。<br>数据库读写过于频繁，导致IO使用率比较高</p>
+</blockquote>
+<p><strong>其他问题</strong>    </p>
+<blockquote>
+<p>网络问题，被测试环境网络环境小于100M<br>客户端问题等等</p>
+</blockquote>
+<hr>
+<h1 id="性能调优">性能调优</h1><p>调优这块需要大量的知识积累以及多方面的配合。</p>
+<h2 id="性能调优目标与策略">性能调优目标与策略</h2><p>性能优化的目标不外乎两个：1.时间性能：减小系统执行的时间；2.空间性能：减小系统占用的空间。</p>
+<p><strong>用空间换时间</strong><br>各种cache如CPU L1/L2/RAM到硬盘，都是用空间来换时间的策略。这样策略基本上是把计算的过程一步一步的保存或缓存下来，这样就不用每次用的时候都要再计算一遍，比如数据缓冲，CDN，等。这样的策略还表现为冗余数据，比如数据镜象，负载均衡什么的。</p>
+<p><strong>用时间换空间</strong><br>有时候，少量的空间可能性能会更好，比如网络传输，如果有一些压缩数据的算法，这样的算法其实很耗时，但是因为瓶颈在网络传输，所以用时间来换空间反而能省时间。</p>
+<p><strong>简化代码</strong><br>最高效的程序就是不执行任何代码的程序，所以，代码越少性能就越高。如：减少循环的层数，减少递归，在循环中少声明变量，少做分配和释放内存的操作，尽量把循环体内的表达式抽到循环外，条件表达的中的多个条件判断的次序，尽量在程序启动时把一些东西准备好，注意函数调用的开销（栈上开销），注意面向对象语言中临时对象的开销，小心使用异常，等等。</p>
+<h2 id="调优的基本步骤">调优的基本步骤</h2><p>找出主要的瓶颈，首先解决最容易的，再重复测试。<br>一次修改一个瓶颈，不要对不需要的地方进行调优.</p>
+<h2 id="配置项性能调优参考">配置项性能调优参考</h2><p>下面的推荐调优配置都是基于下面的机器配置<br><img src="/img/性能测试指南/虚拟机配置.PNG" alt="Alt text"></p>
+<h3 id="Linux系统调优">Linux系统调优</h3><p><strong>Linux limit 配置修改</strong></p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">修改limit 配置文件，提高linux 本身最大限制，都是在文件最后添加，如果有则是修改</span><br><span class="line"> vi /etc/security/limits.<span class="keyword">conf</span>    </span><br><span class="line"><span class="comment">*   soft nproc   102400000</span></span><br><span class="line"><span class="comment">*   hard nproc   102400000</span></span><br><span class="line"><span class="comment">*   soft nofile  1048576</span></span><br><span class="line"><span class="comment">*   hard nofile  1048576</span></span><br><span class="line"></span><br><span class="line">vi  /etc/security/limits.<span class="keyword">d</span>/90-nproc.<span class="keyword">conf</span></span><br><span class="line"><span class="comment">*   soft nproc   102400000</span></span><br><span class="line"><span class="comment">*   hard nproc   102400000</span></span><br><span class="line"><span class="comment">*   soft nofile  1048576</span></span><br><span class="line"><span class="comment">*   hard nofile  1048576</span></span><br><span class="line"></span><br><span class="line">重启生效</span><br><span class="line">service sshd restart</span><br><span class="line"></span><br><span class="line">为每个普通用户修改limit 限制(经过尝试，两台虚拟机最大的)：</span><br><span class="line">vi  /etc/profile</span><br><span class="line">ulimit -<span class="keyword">u</span> 102400000</span><br><span class="line">ulimit -<span class="keyword">n</span> 1048576</span><br><span class="line">ulimit -<span class="keyword">d</span> unlimited</span><br><span class="line">ulimit -<span class="keyword">m</span> unlimited</span><br><span class="line">ulimit -s unlimited</span><br><span class="line">ulimit -t unlimited</span><br><span class="line">ulimit -v unlimited</span><br><span class="line">ulimit -c unlimited</span><br></pre></td></tr></table></figure>
+<p><strong>TCP linux 内核参数设置</strong></p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">修改配置文件  /etc/sysctl.<span class="keyword">conf</span></span><br><span class="line"> vi /etc/sysctl.<span class="keyword">conf</span></span><br><span class="line"># Controls the <span class="keyword">use</span> of TCP syncookies</span><br><span class="line"><span class="keyword">net</span>.ipv4.tcp_syncookies = 1</span><br><span class="line"><span class="keyword">net</span>.ipv4.tcp_tw_reuse = 1</span><br><span class="line"><span class="keyword">net</span>.ipv4.tcp_tw_recycle = 1</span><br><span class="line"><span class="keyword">net</span>.ipv4.tcp_fin_timeout = 5</span><br><span class="line"></span><br><span class="line"><span class="keyword">net</span>.ipv4.tcp_keepalive_time = 1200</span><br><span class="line"><span class="keyword">net</span>.ipv4.ip_local_port_range = 10000 65000</span><br><span class="line"><span class="keyword">net</span>.ipv4.tcp_max_syn_backlog = 262144</span><br><span class="line"><span class="keyword">net</span>.core.netdev_max_backlog = 262144 </span><br><span class="line"><span class="keyword">net</span>.ipv4.tcp_max_tw_buckets = 5000</span><br><span class="line"></span><br><span class="line">生效(执行会报错，需要执行中间两个命令)</span><br><span class="line">/sbin/sysctl -p</span><br><span class="line">modprobe bridge</span><br><span class="line">lsmod|grep bridge</span><br><span class="line">/sbin/sysctl –p</span><br></pre></td></tr></table></figure>
+<h3 id="JVM_调优">JVM 调优</h3><p>推荐参数：</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAV<span class="built_in">A_ARGS</span>=<span class="string">" -J-Djava.util.logging.manager=com.caucho.log.LogManagerImpl   -J-Dfile.encoding=UTF-8 -J-d64 -J-server -J-Djava.awt.headless=true  -Xms2500m -Xmx2500m -Xmn1100m -XX:PermSize=250m -XX:MaxPermSize=250m -Xss2m  -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection  -XX:CMSMaxAbortablePrecleanTime=5000 -XX:CMSInitiatingOccupancyFraction=85  -XX:+DisableExplicitGC  -XX:+CMSClassUnloadingEnabled  -J-Xloggc:/var/log/gc_product.log -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintTenuringDistribution  -Djava.net.preferIPv4Stack=true -XX:+UseCompressedOops -XX:+UseCMSInitiatingOccupancyOnly -XX:MaxTenuringThreshold=8 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp "</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/性能测试指南/堆参数解释.PNG" alt="Alt text"></p>
+<h3 id="Nginx_调优">Nginx 调优</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">worker_processes <span class="number">8</span>;</span><br><span class="line">nginx进程数，建议按照cpu数目来指定，一般为它的倍数, <span class="number">2</span>倍左右比较合适。</span><br><span class="line"></span><br><span class="line">worker_cpu_affinity <span class="number">00000001</span> <span class="number">00000010</span> <span class="number">00000100</span> <span class="number">00001000</span> <span class="number">00000001</span> <span class="number">00000010</span> <span class="number">00000100</span> <span class="number">00001000</span>;</span><br><span class="line">为每个进程分配cpu，上例中将<span class="number">8</span>个进程分配到<span class="number">4</span>个cpu，当然可以写多个，或者将一个进程分配到多个cpu。</span><br><span class="line"></span><br><span class="line">worker_rlimit_nofile <span class="number">102400</span>;</span><br><span class="line">这个指令是指当一个nginx进程打开的最多文件描述符数目，理论值应该是最多打开文件数（ulimit -n）与nginx进程数相除，但是nginx分配请求并不是那么均匀，所以最好与ulimit -n的值保持一致。</span><br><span class="line"></span><br><span class="line">use epoll;</span><br><span class="line">使用epoll的I/O模型， epoll 是 linux 内核对AIO的实现。</span><br><span class="line"></span><br><span class="line">worker_connections <span class="number">102400</span>;</span><br><span class="line">每个进程允许的最多连接数，理论上每台nginx服务器的最大连接数为worker_processes*worker_connections。</span><br><span class="line"></span><br><span class="line">keepalive_timeout <span class="number">60</span>;</span><br><span class="line">keepalive超时时间。</span><br><span class="line"></span><br><span class="line">client_header_buffer_size <span class="number">4</span>k;</span><br><span class="line">客户端请求头部的缓冲区大小，这个可以根据你的系统分页大小来设置，一般一个请求的头部大小不会超过<span class="number">1</span>k，不过由于一般系统分页都要大于<span class="number">1</span>k，所以这里设置为分页大小。分页大小可以用命令getconf PAGESIZE取得。</span><br><span class="line"></span><br><span class="line">open_file_cache max=<span class="number">102400</span> inactive=<span class="number">20</span>s;</span><br><span class="line">这个将为打开文件指定缓存，默认是没有启用的，max指定缓存数量，建议和打开文件数一致，inactive是指经过多长时间文件没被请求后删除缓存。</span><br><span class="line"></span><br><span class="line">open_file_cache_valid <span class="number">30</span>s;</span><br><span class="line">这个是指多长时间检查一次缓存的有效信息。</span><br><span class="line"></span><br><span class="line">open_file_cache_min_uses <span class="number">1</span>;</span><br><span class="line">open_file_cache指令中的inactive参数时间内文件的最少使用次数，如果超过这个数字，文件描述符一直是在缓存中打开的，如上例，如果有一个文件在inactive时间内一次没被使用，它将被移除。</span><br></pre></td></tr></table></figure>
+<h3 id="MySQLInnoDB调优">MySQLInnoDB调优</h3><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#如果将back_log设定到比你操作系统限制更高的值,将会没有效果, </span></span><br><span class="line"><span class="preprocessor">#对应 Linux tcp 内核参数中的net.core.netdev_max_backlog</span></span><br><span class="line">back_log = <span class="number">30000</span> </span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># MySQL 服务所允许的同时会话数的上限</span></span><br><span class="line">max_connections = <span class="number">3000</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 每个客户端连接最大的错误允许数量</span></span><br><span class="line">max_connect_errors = <span class="number">30</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 所有线程所打开表的数量</span></span><br><span class="line">table_cache = <span class="number">4096</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 允许外部文件级别的锁. 打开文件锁会对性能造成负面影响</span></span><br><span class="line"><span class="preprocessor">#external-locking</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 服务所能处理的请求包的最大大小以及服务所能处理的最大的请求大小</span></span><br><span class="line">max_allowed_packet = <span class="number">32</span>M</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 在一个事务中binlog为了记录SQL状态所持有的cache大小</span></span><br><span class="line">binlog_cache_size = <span class="number">4</span>M</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 独立的内存表所允许的最大容量.</span></span><br><span class="line">max_heap_table_size = <span class="number">128</span>M</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 排序缓冲被用来处理类似ORDER BY以及GROUP BY队列所引起的排序</span></span><br><span class="line">sort_buffer_size = <span class="number">16</span>M</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 此缓冲被使用来优化全联合(full JOINs 不带索引的联合).</span></span><br><span class="line">join_buffer_size = <span class="number">16</span>M</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 我们在cache中保留多少线程用于重用</span></span><br><span class="line">thread_cache_size = <span class="number">16</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 此值只对于支持 thread_concurrency() 函数的系统有意义( 例如Sun Solaris) # 推荐 [CPU数量]*(2~4) 来作为thread_concurrency的值</span></span><br><span class="line">thread_concurrency = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 查询缓冲常被用来缓冲 SELECT 的结果并且在下一次同样查询的时候不再执行直接返回结果</span></span><br><span class="line">query_cache_size = <span class="number">128</span>M</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 此设置用来保护查询缓冲,防止一个极大的结果集将其他所有的查询结果都覆盖.</span></span><br><span class="line">query_cache_limit = <span class="number">4</span>M</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 被全文检索索引的最小的字长.</span></span><br><span class="line">ft_min_word_len = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 线程使用的堆大小. 此容量的内存在每次连接时被预留.</span></span><br><span class="line">thread_stack = <span class="number">512</span>K</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="基础指标">基础指标</h1><h2 id="响应时间-1">响应时间</h2><blockquote>
+<p>后端核心服务响应时间不超过100ms<br>后端一般服务响应时间不超过300ms<br>前端用户页面加载时间不超过3s</p>
+</blockquote>
+<p>这里是指平均响应时间。但性能测试报告必须给出最大、最小、平均、方差等数值。</p>
+<h2 id="事务成功率-1">事务成功率</h2><blockquote>
+<p>一般为：99.7%~99.9% ，千分之一到千分之三，根据业务类型来。<br>交易型的事务在万分之一。</p>
+</blockquote>
+<h2 id="负载机的资源利用率">负载机的资源利用率</h2><blockquote>
+<p>cpu%&lt;50%<br>内存&lt;80%<br>network&lt;30%,高了容易丢包<br>disk的忙闲&lt;50%<br>disk的空间&lt;90%，高了会碎片整理</p>
+</blockquote>
+<h2 id="应用服务器硬件性能指标">应用服务器硬件性能指标</h2><blockquote>
+<p>TotalCPU%&lt;75%<br>sysCPU%&lt;30%<br>load average&lt;5<br>wio%&lt;40%<br>network%&lt;30%<br>mem%&lt;80%~90%<br>disk%busy&lt;60%<br>disk queueing &lt;5<br>disk usage&lt;90%</p>
+</blockquote>
+<hr>
+<h1 id="性能监控">性能监控</h1><h2 id="JVM监控工具">JVM监控工具</h2><h3 id="jvisualvm">jvisualvm</h3><p>java自带的工具，在jdk的bin目录下，使用方法：<br> 1.到jdk的bin目录下，新建文件jstatd.all.policy<br> 2.编辑文件：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> <span class="operator"><span class="keyword">grant</span> codebase <span class="string">"file:$JAVA_HOME/lib/tools.jar"</span> &#123;</span><br><span class="line"> permission <span class="keyword">java</span>.<span class="keyword">security</span>.AllPermission;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>3.启动：jstatd -J-Djava.security.policy=jstatd.all.policy  -J-Djava.rmi.server.hostname=192.168.43.22<br>4.打开jvisualvm，连接remote</p>
+<h3 id="jinfo">jinfo</h3><p>观察运行中的java程序的运行环境参数：参数包括Java System属性和JVM命令行参数<br>实例：jinfo 2083<br>其中2083就是java进程id号，可以用jps得到这个id号</p>
+<h3 id="jstack">jstack</h3><p>可以观察到jvm中当前所有线程的运行情况和线程当前状态<br>例： jstack 2083</p>
+<h3 id="jmap">jmap</h3><p>观察运行中的jvm物理内存的占用情况。<br>参数如下：<br>-heap：打印jvm heap的情况<br>-histo：打印jvm heap的直方图。其输出信息包括类名，对象数量，对象占用大小。<br>-histo：live ：同上，但是只答应存活对象的情况<br>-permstat：打印permanent generation heap情况</p>
+<p>命令使用：<br>jmap -heap 2083<br>可以观察到New Generation（Eden Space，From Space，To Space）,<br>tenured generation,Perm Generation的内存使用情况<br>生成 dump 文件：<br>jmap -dump:format=b,file=heap.bin 16113</p>
+<h3 id="jprofile">jprofile</h3><p>jprofile使用，<a href="http://tonylit.me/2015/11/25/Jprofiler%E5%AE%89%E8%A3%85/">安装教程</a></p>
+<h2 id="linux命令监控">linux命令监控</h2><p>top  ：查看进程活动状态以及一些系统状况<br>vmstat ：  查看系统状态、硬件和系统信息等<br>iostat ：   查看CPU 负载，硬盘状况<br>sar  ：   综合工具，查看系统状况<br>mpstat  ：   查看多处理器状况<br>netstat  ： 查看网络状况<br>iptraf  ：   实时网络状况监测<br>tcpdump  ： 抓取网络数据包，详细分析<br>tcptrace  ：   数据包分析工具<br>netperf ：   网络带宽工具<br>dstat ：   综合工具，综合了 vmstat, iostat, ifstat, netstat ：等多个信息</p>
+<h2 id="nmon">nmon</h2><p><a href="http://tonylit.me/2015/12/17/%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7-nmon%E4%BD%BF%E7%94%A8/">nmon使用</a></p>
+<p>##　文件句柄数查看及修改<br>ulimit –a：查看所有限制值<br>ulimit –n：单个进程能够打开的最大文件句柄数量<br>lsof -n | awk ‘{print $2}’ | sort | uniq -c | sort –nr：查看进程打开的句柄数，其中第一列是打开的文件句柄数量，第二列是进程号<br>lsof –n | grep process_name：查看某进程打开了哪些句柄<br>lsof +d ./：查看当前目录下各文件被什么进程占用<br>ulimit -SHn 65535：即时修改限制数，重启失效<br>永久修改办法：<br>1、修改文件：/etc/security/limits.conf，添加：</p>
+<ul>
+<li>soft nofile 32768 #限制单个进程最大文件句柄数（到达此限制时系统报警）</li>
+<li>hard nofile 65536 #限制单个进程最大文件句柄数（到达此限制时系统报错）<br>2、修改文件：/etc/sysctl.conf，在文件中添加：<br>fs.file-max=655350 #限制整个系统最大文件句柄数<br>3、修改完成后，执行如下命令：<br>sbin/sysctl -p<br>使配置生效</li>
+</ul>
+<h1 id="数据库分析与诊断工具">数据库分析与诊断工具</h1><h2 id="oracle">oracle</h2><p>oracle的可以直接<a href="http://tonylit.me/2015/11/13/%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E4%B8%8E%E5%88%86%E6%9E%90-%E6%95%B0%E6%8D%AE%E5%BA%93/">看awr和addm报告</a>就行了</p>
+<hr>
+<h1 id="前端性能测试">前端性能测试</h1><p>基本上使用yslow或者firebug自带的网络监控工具即可。<br><a href="http://tonylit.me/2015/10/14/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">自动化前端性能监控</a>可以通过selenium+showslow+yslow来做。</p>
+<p>线上的可以使用公司自己的前端监控平台：<br>焦点检测：<a href="http://www.focusmonitor.com/" target="_blank" rel="external">http://www.focusmonitor.com/</a><br>Probe：<a href="http://192.168.28.137:9500/" target="_blank" rel="external">http://192.168.28.137:9500/</a><br>BetterCode：<a href="http://192.168.28.137:9100/" target="_blank" rel="external">http://192.168.28.137:9100/</a><br><img src="/img/性能测试指南/前端检测.PNG" alt="Alt text"></p>
+
+                                                                                
+                                        </div>
+                                        
+            </div>
+            
+                <div class="bdsharebuttonbox" style="margin-top:10px;margin-left:30px;float:left;">
+                    <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                    <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                    <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
+                    <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
+                    <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                    <a href="#" class="bds_more" data-cmd="more"></a>
+                </div>
+                <script>
+                    window._bd_share_config = {
+                        "common": {
+                            "bdSnsKey": {},
+                            "bdText": "",
+                            "bdMini": "1",
+                            "bdMiniList": false,
+                            "bdStyle": "2",
+                            "bdSize": "16"
+                        },
+                        "share": {}
+                    };
+                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
+  
+  
+    <a href="/2016/08/02/Gatling入门/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Gatling 入门</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-性能测试指南" data-title="性能测试指南" data-url="http://tonylit.me/2016/08/02/性能测试指南/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "tonylit"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
+</article>
+
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+    
+-->
+<!--
+
+-->
+
+</div>
+      <!--<footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 tonyli
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+    
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+   
+  </div>
+</footer>-->
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/prefixfree.js" type="text/javascript"></script>
+<script src="/js/require-2.1.20.js" type="text/javascript"></script>
+<script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
+    <a title="返回顶部" style="opacity: 100%;">
+        <img src="/img/scrollup.png" />
+    </a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+
+  </div>
+</body>
+</html>
