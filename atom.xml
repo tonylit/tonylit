@@ -202,7 +202,7 @@
 <h3 id="jprofile">jprofile</h3><p>jprofile使用，<a href="http://tonylit.me/2015/11/25/Jprofiler%E5%AE%89%E8%A3%85/">安装教程</a></p>
 <h2 id="linux命令监控">linux命令监控</h2><p>top  ：查看进程活动状态以及一些系统状况<br>vmstat ：  查看系统状态、硬件和系统信息等<br>iostat ：   查看CPU 负载，硬盘状况<br>sar  ：   综合工具，查看系统状况<br>mpstat  ：   查看多处理器状况<br>netstat  ： 查看网络状况<br>iptraf  ：   实时网络状况监测<br>tcpdump  ： 抓取网络数据包，详细分析<br>tcptrace  ：   数据包分析工具<br>netperf ：   网络带宽工具<br>dstat ：   综合工具，综合了 vmstat, iostat, ifstat, netstat ：等多个信息</p>
 <h2 id="nmon">nmon</h2><p><a href="http://tonylit.me/2015/12/17/%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7-nmon%E4%BD%BF%E7%94%A8/">nmon使用</a></p>
-<p>##　文件句柄数查看及修改<br>ulimit –a：查看所有限制值<br>ulimit –n：单个进程能够打开的最大文件句柄数量<br>lsof -n | awk ‘{print $2}’ | sort | uniq -c | sort –nr：查看进程打开的句柄数，其中第一列是打开的文件句柄数量，第二列是进程号<br>lsof –n | grep process_name：查看某进程打开了哪些句柄<br>lsof +d ./：查看当前目录下各文件被什么进程占用<br>ulimit -SHn 65535：即时修改限制数，重启失效<br>永久修改办法：<br>1、修改文件：/etc/security/limits.conf，添加：</p>
+<h2 id="文件句柄数查看及修改">文件句柄数查看及修改</h2><p>ulimit –a：查看所有限制值<br>ulimit –n：单个进程能够打开的最大文件句柄数量<br>lsof -n | awk ‘{print $2}’ | sort | uniq -c | sort –nr：查看进程打开的句柄数，其中第一列是打开的文件句柄数量，第二列是进程号<br>lsof –n | grep process_name：查看某进程打开了哪些句柄<br>lsof +d ./：查看当前目录下各文件被什么进程占用<br>ulimit -SHn 65535：即时修改限制数，重启失效<br>永久修改办法：<br>1、修改文件：/etc/security/limits.conf，添加：</p>
 <ul>
 <li>soft nofile 32768 #限制单个进程最大文件句柄数（到达此限制时系统报警）</li>
 <li>hard nofile 65536 #限制单个进程最大文件句柄数（到达此限制时系统报错）<br>2、修改文件：/etc/sysctl.conf，在文件中添加：<br>fs.file-max=655350 #限制整个系统最大文件句柄数<br>3、修改完成后，执行如下命令：<br>sbin/sysctl -p<br>使配置生效</li>
