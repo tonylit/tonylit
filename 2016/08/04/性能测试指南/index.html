@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://tonylit.me/img/性能测试指南/淘宝-分布图3.PNG">
 <meta property="og:image" content="http://tonylit.me/img/性能测试指南/taobao-分布图.PNG">
 <meta property="og:image" content="http://tonylit.me/img/性能测试指南/jd-分布图.PNG">
-<meta property="og:image" content="http://tonylit.me/./容量测试.PNG">
+<meta property="og:image" content="http://tonylit.me/img/性能测试指南/容量测试.PNG">
 <meta property="og:image" content="http://tonylit.me/img/性能测试指南/拓扑图.png">
 <meta property="og:image" content="http://tonylit.me/img/性能测试指南/虚拟机配置.PNG">
 <meta property="og:image" content="http://tonylit.me/img/性能测试指南/堆参数解释.PNG">
@@ -359,7 +359,7 @@
 <p><strong>1.线上pv数据统计</strong><br>数据可以找产品人员或者BI人员，爬虫的数据也包括在内。<br><strong>2.根据pv分布图计算基线TPS</strong><br>先按照8/2原则，20%的时间完成80%的事务，找出80%所用的时间，调整8/2比例（8/3，8/4，8/5…..）。<br>单机基线TPS=线上PV总量 <em>80%/ 86400</em>20% / 机器数 。（20%按照实际数值）<br><strong>3.计算峰值tps</strong><br>计算出占总面积80%的PV平均值与整个图中的最高峰值的比，比如taobao是1.2倍<br>TPS=TPS基线<em>1.2<br>通常来讲，我们对于系统的性能要求在每天高峰时期的2倍，那么我们的TPS=TPS基线</em>1.2<em>2<br>即，** 最终TPS=（线上PV总量 </em>80%/ 86400<em>20% / 机器数） </em> 1.2 <em>2 *</em></p>
 <hr>
 <h1 id="环境搭建">环境搭建</h1><p>环境搭建最理想的情况：<br>拓扑图同线上，软硬件资源同线上，数据同线上。<br>但是基本上不可能有这种资源。我们需要按照线上的环境部署情况按比例缩减。</p>
-<h2 id="按容量配比机器">按容量配比机器</h2><p>比如线上6台机器，实际没有这么多机器资源，可不可以按照1：1缩减，缩减为2台机器，相应的流量也缩减3倍。<br>需要做容量规划的测试<br><img src="./容量测试.PNG" alt="Alt text"><br>上图是根据xyz的机器配比做的容量规则，可以看到：机器数量跟并发用户数基本是整倍数增加，我们可以看做是1:1的增加，即并发用户增加一倍，机器数量增加一台。<br>结论：一般情况，可以按照1：1缩减。</p>
+<h2 id="按容量配比机器">按容量配比机器</h2><p>比如线上6台机器，实际没有这么多机器资源，可不可以按照1：1缩减，缩减为2台机器，相应的流量也缩减3倍。<br>需要做容量规划的测试<br><img src="/img/性能测试指南/容量测试.PNG" alt="Alt text"><br>上图是根据xyz的机器配比做的容量规则，可以看到：机器数量跟并发用户数基本是整倍数增加，我们可以看做是1:1的增加，即并发用户增加一倍，机器数量增加一台。<br>结论：一般情况，可以按照1：1缩减。</p>
 <h2 id="依据拓扑图准备机器资源">依据拓扑图准备机器资源</h2><p>按照线上机器缩减的配比准备拓扑图和机器，<br><img src="/img/性能测试指南/拓扑图.png" alt="Alt text"></p>
 <p>服务器配置：</p>
 <blockquote>
