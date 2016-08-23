@@ -20,26 +20,26 @@
     <id>http://tonylit.me/2016/08/23/docker overlayfs/</id>
     <published>2016-08-23T03:37:27.000Z</published>
     <updated>2016-08-23T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>������centos7.2��3.18�����ں˰汾��docker1.12</p>
+    <content type="html"><![CDATA[<p>环境：centos7.2，3.18以上内核版本，docker1.12</p>
 <a id="more"></a>
-<p>�ں�3.18���µ������ɣ�3.10��˵Ҳ��overlay��������һ���¶���</p>
-<h1 id="�����ں˵�3-18����">�����ں˵�3.18����</h1><ol>
+<p>内核3.18以下的升级吧，3.10虽说也有overlay，但不是一回事儿。</p>
+<h1 id="升级内核到3-18以上">升级内核到3.18以上</h1><ol>
 <li>rpm –import <a href="https://www.elrepo.org/RPM-GPG-KEY-elrepo.org" target="_blank" rel="external">https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</a></li>
 <li>rpm -Uvh <a href="http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm" target="_blank" rel="external">http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm</a></li>
 <li>yum –enablerepo=elrepo-kernel install  kernel-ml-devel kernel-ml -y</li>
 <li>grub2-set-default 0</li>
 <li>reboot</li>
 </ol>
-<p>������ȷ�����ں˰汾�Ƿ��ɹ�������</p>
-<h1 id="docker����">docker����</h1><p>��/lib/systemd/system/docker.service �����ļ����޸Ĵ洢��ʽ��</p>
+<p>重启好确认下内核版本是否成功升级。</p>
+<h1 id="docker配置">docker配置</h1><p>在/lib/systemd/system/docker.service 配置文件中修改存储方式：</p>
 <blockquote>
 <p>ExecStart=/usr/bin/docker daemon  –storage-driver=overlay  –insecure-registry=docker.vemic.com -H 0.0.0.0:2375 -H fd://</p>
 </blockquote>
-<p>����docker<br><img src="/img/overlayfs.PNG" alt="Alt text"></p>
-<p>�洢λ�ã�/var/lib/docker/overlay</p>
+<p>重启docker<br><img src="/img/overlayfs.PNG" alt="Alt text"></p>
+<p>存储位置：/var/lib/docker/overlay</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>������centos7.2��3.18�����ں˰汾��docker1.12</p>]]>
+    <![CDATA[<p>环境：centos7.2，3.18以上内核版本，docker1.12</p>]]>
     
     </summary>
     
