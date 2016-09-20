@@ -6,17 +6,17 @@
   
   <title>docker-possible memory allocation deadlock in kmem_alloc | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="有几台宿主机使用的devicemapper存储，io经常blocked，负载一直飙升。查看/var./log/messages 日志发现报错：">
+  <meta name="description" content="有几台宿主机使用的devicemapper存储，io经常blocked，负载一直飙升。查看/var/log/messages 日志发现报错：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker-possible memory allocation deadlock in kmem_alloc">
 <meta property="og:url" content="http://tonylit.me/2016/09/20/docker-io-blocked/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="有几台宿主机使用的devicemapper存储，io经常blocked，负载一直飙升。查看/var./log/messages 日志发现报错：">
+<meta property="og:description" content="有几台宿主机使用的devicemapper存储，io经常blocked，负载一直飙升。查看/var/log/messages 日志发现报错：">
 <meta property="og:image" content="http://tonylit.me/img/xfs-blocked.PNG">
 <meta property="og:updated_time" content="2016-09-20T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker-possible memory allocation deadlock in kmem_alloc">
-<meta name="twitter:description" content="有几台宿主机使用的devicemapper存储，io经常blocked，负载一直飙升。查看/var./log/messages 日志发现报错：">
+<meta name="twitter:description" content="有几台宿主机使用的devicemapper存储，io经常blocked，负载一直飙升。查看/var/log/messages 日志发现报错：">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -254,7 +254,7 @@
                                                         
                                                             
                                                                 
-                                                                            <p>有几台宿主机使用的devicemapper存储，io经常blocked，负载一直飙升。<br>查看/var./log/messages 日志发现报错：<br><img src="/img/xfs-blocked.PNG" alt="Alt text"></p>
+                                                                            <p>有几台宿主机使用的devicemapper存储，io经常blocked，负载一直飙升。<br>查看/var/log/messages 日志发现报错：<br><img src="/img/xfs-blocked.PNG" alt="Alt text"></p>
 <a id="more"></a>
 <h1 id="解决方法:">解决方法:</h1><p>echo 3 &gt; /proc/sys/vm/drop_caches</p>
 
