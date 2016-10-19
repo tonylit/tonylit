@@ -257,7 +257,7 @@
                                                         
                                                             
                                                                 
-                                                                            <p>平时我们做的压力测试，很难去模拟线上复杂的真实流量，尤其里面混杂着各种奇异的异常流量。所以，线下压的好好的系统，上线后可能就雪崩了。<br>tcpcopy可以解决以上问题， tcpcopy是一种流量的实时复制工具，可以将线上的流量引到测试环境上做测试。<br> 当然， tcpcopy也可以回放tcpdump的流量包。</p>
+                                                                            <p>平时我们做的压力测试，很难去模拟线上复杂的真实流量，尤其里面混杂着各种奇异的异常流量。<br>所以，线下压的好好的系统，上线后可能就雪崩了。<br>tcpcopy可以解决以上问题， tcpcopy是一种流量的实时复制工具，可以将线上的流量引到测试环境上做测试。<br> 当然， tcpcopy也可以回放tcpdump的流量包。</p>
 <a id="more"></a>
 <h1 id="tcpcopy介绍">tcpcopy介绍</h1><p>由网易的<a href="https://github.com/wangbin579/tcpcopy" target="_blank" rel="external">wangbin</a>开发和维护，目前为1.0版本。<br>推荐使用最新的1.0版本，虽然配置稍微麻烦一些，但是有很多好处(具体参见：<a href="https://github.com/wangbin579/tcpcopy" target="_blank" rel="external">https://github.com/wangbin579/tcpcopy</a>)<br>整体工作流程：<br><img src="/img/tcpcopy/流程图.PNG" alt="Alt text"></p>
 <h1 id="安装">安装</h1><h2 id="准备三台机器：A,B,C">准备三台机器：A,B,C</h2><p>A:192.168.42.162，作为线上服务器，安装tcpcopy<br>B:192.168.42.164，作为测试服务器<br>C:192.168.42.166，作为辅助服务器，安装intercept</p>
