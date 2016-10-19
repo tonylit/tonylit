@@ -4,20 +4,22 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>高级性能测试工程师成长计划 | 淘淘的博客</title>
+  <title>tcpcopy1.0使用 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="公司实施了【工程师成长计划】，部门主管结合我所在职级和岗位（中级性能测试工程师），给出了成长计划，罗列出一些需要提升的技术方向。">
+  <meta name="description" content="平时我们做的压力测试，很难去模拟线上复杂的真实流量，尤其里面混杂着各种奇异的异常流量。所以，线下压的好好的系统，上线后可能就雪崩了。tcpcopy可以解决以上问题， tcpcopy是一种流量的实时复制工具，可以将线上的流量引到测试环境上做测试。 当然， tcpcopy也可以回放tcpdump的流量包。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="高级性能测试工程师成长计划">
-<meta property="og:url" content="http://tonylit.me/2016/10/12/工程师成长计划/index.html">
+<meta property="og:title" content="tcpcopy1.0使用">
+<meta property="og:url" content="http://tonylit.me/2016/10/19/tcpcopy/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="公司实施了【工程师成长计划】，部门主管结合我所在职级和岗位（中级性能测试工程师），给出了成长计划，罗列出一些需要提升的技术方向。">
-<meta property="og:image" content="http://tonylit.me/img/工程师成长计划/成长计划1.PNG">
-<meta property="og:image" content="http://tonylit.me/img/工程师成长计划/成长计划2.PNG">
-<meta property="og:updated_time" content="2016-10-12T05:37:27.000Z">
+<meta property="og:description" content="平时我们做的压力测试，很难去模拟线上复杂的真实流量，尤其里面混杂着各种奇异的异常流量。所以，线下压的好好的系统，上线后可能就雪崩了。tcpcopy可以解决以上问题， tcpcopy是一种流量的实时复制工具，可以将线上的流量引到测试环境上做测试。 当然， tcpcopy也可以回放tcpdump的流量包。">
+<meta property="og:image" content="http://tonylit.me/img/tcpcopy/流程图.PNG">
+<meta property="og:image" content="http://tonylit.me/img/tcpcopy/tcpcopy.png">
+<meta property="og:image" content="http://tonylit.me/img/tcpcopy/apache.PNG">
+<meta property="og:image" content="http://tonylit.me/img/tcpcopy/tcpdump回放.PNG">
+<meta property="og:updated_time" content="2016-10-19T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="高级性能测试工程师成长计划">
-<meta name="twitter:description" content="公司实施了【工程师成长计划】，部门主管结合我所在职级和岗位（中级性能测试工程师），给出了成长计划，罗列出一些需要提升的技术方向。">
+<meta name="twitter:title" content="tcpcopy1.0使用">
+<meta name="twitter:description" content="平时我们做的压力测试，很难去模拟线上复杂的真实流量，尤其里面混杂着各种奇异的异常流量。所以，线下压的好好的系统，上线后可能就雪崩了。tcpcopy可以解决以上问题， tcpcopy是一种流量的实时复制工具，可以将线上的流量引到测试环境上做测试。 当然， tcpcopy也可以回放tcpdump的流量包。">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -195,7 +197,7 @@
 高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
 </div>
 
-      <div class="body-wrap"><article id="post-工程师成长计划" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-tcpcopy" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -209,8 +211,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2016/10/12/工程师成长计划/" class="article-date">
-  	<time datetime="2016-10-12T03:37:27.000Z" itemprop="datePublished">2016-10-12</time>
+            <a href="/2016/10/19/tcpcopy/" class="article-date">
+  	<time datetime="2016-10-19T03:37:27.000Z" itemprop="datePublished">2016-10-19</time>
 </a>
 
         </div>
@@ -224,7 +226,7 @@
                                 
   
     <h1 class="article-title" itemprop="name">
-      高级性能测试工程师成长计划
+      tcpcopy1.0使用
     </h1>
   
 
@@ -234,7 +236,7 @@
                                 <div class="article-info article-info-post">
                                     
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
 	</div>
 
 
@@ -249,19 +251,59 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#成长计划列表:"><span class="toc-number">1.</span> <span class="toc-text">成长计划列表:</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#tcpcopy介绍"><span class="toc-number">1.</span> <span class="toc-text">tcpcopy介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装"><span class="toc-number">2.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备三台机器：A,B,C"><span class="toc-number">2.1.</span> <span class="toc-text">准备三台机器：A,B,C</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在C机器上安装intercept"><span class="toc-number">3.</span> <span class="toc-text">在C机器上安装intercept</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在A机器安装tcpcopy"><span class="toc-number">4.</span> <span class="toc-text">在A机器安装tcpcopy</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在B机器上配置路由信息"><span class="toc-number">5.</span> <span class="toc-text">在B机器上配置路由信息</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试一下："><span class="toc-number">6.</span> <span class="toc-text">测试一下：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用tcpdump的cap包，导入流量"><span class="toc-number">7.</span> <span class="toc-text">使用tcpdump的cap包，导入流量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tcpdump_获取pcap"><span class="toc-number">7.1.</span> <span class="toc-text">tcpdump 获取pcap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回放"><span class="toc-number">7.2.</span> <span class="toc-text">回放</span></a></li></ol></li></ol>
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <p>公司实施了【<strong>工程师成长计划</strong>】，<br>部门主管结合我所在职级和岗位（中级性能测试工程师），给出了成长计划，罗列出一些需要提升的技术方向。</p>
+                                                                            <p>平时我们做的压力测试，很难去模拟线上复杂的真实流量，尤其里面混杂着各种奇异的异常流量。所以，线下压的好好的系统，上线后可能就雪崩了。<br>tcpcopy可以解决以上问题， tcpcopy是一种流量的实时复制工具，可以将线上的流量引到测试环境上做测试。<br> 当然， tcpcopy也可以回放tcpdump的流量包。</p>
 <a id="more"></a>
-<h1 id="成长计划列表:">成长计划列表:</h1><p>注：</p>
+<h1 id="tcpcopy介绍">tcpcopy介绍</h1><p>由网易的<a href="https://github.com/wangbin579/tcpcopy" target="_blank" rel="external">wangbin</a>开发和维护，目前为1.0版本。<br>推荐使用最新的1.0版本，虽然配置稍微麻烦一些，但是有很多好处(具体参见：<a href="https://github.com/wangbin579/tcpcopy" target="_blank" rel="external">https://github.com/wangbin579/tcpcopy</a>)<br>整体工作流程：<br><img src="/img/tcpcopy/流程图.PNG" alt="Alt text"></p>
+<h1 id="安装">安装</h1><h2 id="准备三台机器：A,B,C">准备三台机器：A,B,C</h2><p>A:192.168.42.162，作为线上服务器，安装tcpcopy<br>B:192.168.42.164，作为测试服务器<br>C:192.168.42.166，作为辅助服务器，安装intercept</p>
+<p><strong>整体流程</strong>：在192.168.42.162上运行tcpcopy把线上流量拷贝到192.168.42.164，在192.168.42.164上我们通过路由将应答转向<br>192.168.42.166，在192.168.42.164上把应答丢弃。<br><img src="/img/tcpcopy/tcpcopy.png" alt="Alt text"><br>再简单解释一下工作原理：</p>
 <blockquote>
-<p>超出，表示完全满足该要求，已经不需要刻意去培养相关能力，甚至可作为讲师给他人答疑/培训<br>达到，表示满足基本要求，可根据需要去提升相关能力<br>有差距，表示不满足该要求，需要尽快提升</p>
+<p>TCPcopy 从数据链路层 copy 端口请求，然后更改目的 ip 和目的端口。<br>将修改过的数据包传送给数据链路层，并且保持 tcp 连接请求。<br>通过数据链路层从 online server 发送到 test server。<br>在数据链路层解封装后到达 nginx 响应的服务端口。<br>等用户请求的数据返回结果后，回包走数据链路层。<br>通过数据链路层将返回的结果从 test server 发送到 assistant server。注：test server 只有一条默认路由指向 assistant server。<br>数据到达 assistant server 后被 intercept 进程截获。<br>过滤相关信息将请求状态发送给 online server 的 tcpcopy，关闭 tcp 连接。</p>
 </blockquote>
-<p><img src="/img/工程师成长计划/成长计划1.PNG" alt="Alt text"><br><img src="/img/工程师成长计划/成长计划2.PNG" alt="Alt text"></p>
+<h1 id="在C机器上安装intercept">在C机器上安装intercept</h1><blockquote>
+<p>wget <a href="https://github.com/session-replay-tools/intercept/archive/1.0.0.tar.gz" target="_blank" rel="external">https://github.com/session-replay-tools/intercept/archive/1.0.0.tar.gz</a> -O intercept-1.0.0.tar.gz</p>
+</blockquote>
+<p>centos6以上版本直接安装依赖包：<br>yum -y install libpcap-devel<br>centos5版本上需要卸载低版本的libpcap-devel-0.9.4-15.el5</p>
+<blockquote>
+<p>yum remove libpcap<br>wget <a href="http://www.tcpdump.org/release/libpcap-1.4.0.tar.gz" target="_blank" rel="external">http://www.tcpdump.org/release/libpcap-1.4.0.tar.gz</a><br>tar zxvf libpcap-1.4.0.tar.gz<br>cd libpcap-1.4.0<br>./configure<br>make<br>make install</p>
+<p>tar zxvf intercept-1.0.0.tar.gz<br>cd intercept-1.0.0<br>./configure （默认raw socket方式抓包）<br>make &amp;&amp; make install</p>
+</blockquote>
+<p>安装完成，启动intercept</p>
+<blockquote>
+<p>/usr/local/intercept/sbin/intercept -i eth1 -l intercept.log -P /var/run/intercept.pid -F ‘tcp and src port 80’ -d<br>指令说明：<br>-i 监控网卡接口<br>-l 记录日志<br>-F 监控的协议和端口<br>-P 记录pid<br>-d 以daemon形式运行<br>其他参数可以通过/usr/local/intercept/sbin/intercept -h查看</p>
+</blockquote>
+<p>成功运行后可以观察到的网路连接状态：</p>
+<blockquote>
+<p>netstat -anp |grep 36524</p>
+</blockquote>
+<h1 id="在A机器安装tcpcopy">在A机器安装tcpcopy</h1><blockquote>
+<p>wget <a href="https://github.com/session-replay-tools/tcpcopy/archive/1.0.0.tar.gz" target="_blank" rel="external">https://github.com/session-replay-tools/tcpcopy/archive/1.0.0.tar.gz</a> -O tcpcopy-1.0.0.tar.gz<br>yum -y install libpcap-devel<br>tar zxvf tcpcopy-1.0.0.tar.gz<br>cd tcpcopy-1.0.0<br>./configure （默认raw socket方式抓包）<br>make<br> make install</p>
+</blockquote>
+<p>安装完成，运行tcpcopy</p>
+<blockquote>
+<p>/usr/local/tcpcopy/sbin/tcpcopy -x 80-192.168.42.164:80 -s 192.168.42.166 -c 10.10.10.x -d -C 4 -l tcpcopy.log -P /var/run/tcpcopy.pid</p>
+</blockquote>
+<p>指令说明：</p>
+<blockquote>
+<p>-x 80-192.168.0.230:80将本机上80端口的流量复制到192.168.0.230（测试服务器）的80端口<br>-s指定intercept进程所在的服务器192.168.0.219。（丢包服务器）<br>-c修改请求的host地址为10.10.10.x，以便在230测试服务器上设置路由（设置路由是为了将应答转向丢219包服务器）<br>-C 开启4个进程<br>-d 以daemon形式运行<br>-l 记录日志<br>-P 记录pid<br>其他参数可以通过<br>/usr/local/tcpcopy/sbin/tcpcopy -h查看</p>
+</blockquote>
+<p>运行 tcpcopy 客户端，有几种可选方式：<br>/usr/local/tcpcopy/sbin/tcpcopy -x 80-192.168.42.164:80 -s 192.168.42.166 -d       #全流量复制<br>/usr/local/tcpcopy/sbin/tcpcopy -x 80-192.168.42.164:80 -s 192.168.42.166 -r 20 -d  #复制20%的流量<br>/usr/local/tcpcopy/sbin/tcpcopy -x 80-192.168.42.164:80 -s 192.168.42.166 -n 2 -d    #放大2倍流量</p>
+<h1 id="在B机器上配置路由信息">在B机器上配置路由信息</h1><p>在测试机器上需要配置一条路由信息</p>
+<blockquote>
+<p>route add -net 10.10.10.0 netmask 255.255.255.0 gw 192.168.42.166</p>
+</blockquote>
+<h1 id="测试一下：">测试一下：</h1><p>我们在线上机器上启动apache：80端口，B机器上也启动apache:80端口，访问线上机器：<br><img src="/img/tcpcopy/apache.PNG" alt="Alt text"></p>
+<h1 id="使用tcpdump的cap包，导入流量">使用tcpdump的cap包，导入流量</h1><p>很多情况下我们不能实时导线上流量，需要借助tcpdump先将流量保存下来，然后进行回放。<br><img src="/img/tcpcopy/tcpdump回放.PNG" alt="Alt text"></p>
+<h2 id="tcpdump_获取pcap">tcpdump 获取pcap</h2><p>tcpdump -i eth0 -w online.pcap tcp and port 80 </p>
+<blockquote>
+<p>-i eth0:eth0为网卡，获取方式可在liunx系统下执行ifconfig查看所有的网卡，选取需要的那个。<br>-w online.pcap:为获取pcap文件进行回放，可设置路径，e.g. -w /home/user/test.pcap<br>tcp and port 80:截获端口为80的tcp请求，也可添加udp请求，和更改服务端口80，e.g. tcp and port 16001<br>-s 0:默认的话，tcpdump只显示部分数据包，-s snaplen是控制包长度的，默认是68字节，-s 0 则为全部字节，在使用过程中，如果添加-s则回放时会出现错误。可不使用该参数</p>
+</blockquote>
+<h2 id="回放">回放</h2><p>/usr/local/tcpcopy/sbin/tcpcopy -x 80-192.168.42.164:80 -s 192.168.42.166  -i /home/user/test.pcap</p>
 
                                                                                 
                                         </div>
@@ -295,18 +337,9 @@
                         
 <nav id="article-nav">
   
-    <a href="/2016/10/12/测试环境的docker实践/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          测试环境的docker实践
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/09/20/docker-io-blocked/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">docker-possible memory allocation deadlock in kmem_alloc</div>
+    <a href="/2016/10/12/测试环境的docker实践/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">测试环境的docker实践</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -316,7 +349,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-工程师成长计划" data-title="高级性能测试工程师成长计划" data-url="http://tonylit.me/2016/10/12/工程师成长计划/"></div>
+                                    <div class="ds-thread" data-thread-key="post-tcpcopy" data-title="tcpcopy1.0使用" data-url="http://tonylit.me/2016/10/19/tcpcopy/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">
