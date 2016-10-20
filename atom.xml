@@ -24,7 +24,7 @@
 <a id="more"></a>
 <h1 id="tcpcopy介绍">tcpcopy介绍</h1><p>由网易的<a href="https://github.com/wangbin579/tcpcopy" target="_blank" rel="external">wangbin</a>开发和维护，目前为1.0版本。<br>推荐使用最新的1.0版本，虽然配置稍微麻烦一些，但是有很多好处(具体参见：<a href="https://github.com/wangbin579/tcpcopy" target="_blank" rel="external">https://github.com/wangbin579/tcpcopy</a>)<br>整体工作流程：<br><img src="/img/tcpcopy/流程图.PNG" alt="Alt text"></p>
 <h1 id="安装">安装</h1><h2 id="准备三台机器：A,B,C">准备三台机器：A,B,C</h2><p>A:192.168.42.162，作为线上服务器，安装tcpcopy<br>B:192.168.42.164，作为测试服务器<br>C:192.168.42.166，作为辅助服务器，安装intercept</p>
-<p><strong>整体流程</strong>：在192.168.42.162上运行tcpcopy把线上流量拷贝到192.168.42.164，在192.168.42.164上我们通过路由将应答转向<br>192.168.42.166，在192.168.42.164上把应答丢弃。<br><img src="/img/tcpcopy/tcpcopy.png" alt="Alt text"><br>再简单解释一下工作原理：</p>
+<p><strong>整体流程</strong>：在192.168.42.162上运行tcpcopy把线上流量拷贝到192.168.42.164，在192.168.42.164上我们通过路由将应答转向<br>192.168.42.166，在192.168.42.166上把应答丢弃。<br><img src="/img/tcpcopy/tcpcopy.png" alt="Alt text"><br>再简单解释一下工作原理：</p>
 <blockquote>
 <p>TCPcopy 从数据链路层 copy 端口请求，然后更改目的 ip 和目的端口。<br>将修改过的数据包传送给数据链路层，并且保持 tcp 连接请求。<br>通过数据链路层从 online server 发送到 test server。<br>在数据链路层解封装后到达 nginx 响应的服务端口。<br>等用户请求的数据返回结果后，回包走数据链路层。<br>通过数据链路层将返回的结果从 test server 发送到 assistant server。注：test server 只有一条默认路由指向 assistant server。<br>数据到达 assistant server 后被 intercept 进程截获。<br>过滤相关信息将请求状态发送给 online server 的 tcpcopy，关闭 tcp 连接。</p>
 </blockquote>
