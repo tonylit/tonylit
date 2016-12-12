@@ -4,7 +4,7 @@
   <subtitle><![CDATA[今年lebron绝逼夺冠，bie跟我急!]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2016-11-16T05:37:27.000Z</updated>
+  <updated>2016-12-12T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -13,6 +13,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[线程堆栈监控页面]]></title>
+    <link href="http://tonylit.me/2016/12/12/%E7%BA%BF%E7%A8%8B%E5%A0%86%E6%A0%88%E7%9B%91%E6%8E%A7%E9%A1%B5%E9%9D%A2/"/>
+    <id>http://tonylit.me/2016/12/12/线程堆栈监控页面/</id>
+    <published>2016-12-12T03:37:27.000Z</published>
+    <updated>2016-12-12T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>jdk1.5以后，java.lang.Thread类提供了getAllStackTraces() 方法，<br>来获取jvm中所有线程的stackTraceElement对象信息；<strong>其实就是jstack的功能</strong>。<br>我们可以写成一个页面，用浏览器来查看线程堆栈信息，有些时候会比较方便。</p>
+<a id="more"></a>
+<h1 id="查看StaceTraceElement的JSP页面">查看StaceTraceElement的JSP页面</h1><figure class="highlight mojolicious"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">   </span>&lt;%<span class="perl"><span class="variable">@page</span> language=<span class="string">"java"</span> contentType=<span class="string">"text/html; charset=GBK"</span></span>%&gt;<span class="xml"></span><br><span class="line"></span>&lt;%<span class="perl">@ taglib prefix=<span class="string">"c"</span> uri=<span class="string">"http://java.sun.com/jsp/jstl/core"</span></span>%&gt;<span class="xml"></span><br><span class="line"></span>&lt;%<span class="perl">@ taglib prefix=<span class="string">"fmt"</span> uri=<span class="string">"http://java.sun.com/jsp/jstl/fmt"</span></span>%&gt;<span class="xml"></span><br><span class="line"></span>&lt;%<span class="perl">@ taglib prefix=<span class="string">"fn"</span> uri=<span class="string">"http://java.sun.com/jsp/jstl/functions"</span></span>%&gt;<span class="xml"></span><br><span class="line"></span>&lt;%<span class="perl">@ page isELIgnored=<span class="string">"false"</span></span>%&gt;<span class="xml"></span><br><span class="line"></span>&lt;%<span class="perl">@ page import=<span class="string">"java.util.Map"</span> </span>%&gt;<span class="xml"></span><br><span class="line"><span class="doctype">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">title</span>&gt;</span> Server Thread Strace Info<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">pre</span>&gt;</span></span><br><span class="line"></span>&lt;%<span class="perl"></span><br><span class="line"><span class="keyword">for</span> (Map.Entry&lt;Thread , StackTraceElement[]&gt; stackTrace : Thread.getAllStackTraces().entrySet())&#123;</span><br><span class="line">    Thread thread = (Thread)stackTrace.getKey();</span><br><span class="line">    StackTraceElement[] stack = (StackTraceElement[])stackTrace.getValue();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(thread.equals(Thread.currentThread()))&#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    out.<span class="keyword">print</span>(<span class="string">"\n Thread:"</span>+thread.getName()+<span class="string">"\n"</span>);</span><br><span class="line">    <span class="keyword">for</span>(StackTraceElement element:stack)&#123;</span><br><span class="line">        out.<span class="keyword">print</span>(<span class="string">"\t"</span>+element+<span class="string">"\n"</span>);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span>%&gt;<span class="xml"></span><br><span class="line"><span class="tag">&lt;/<span class="title">pre</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/StraceTraceElement.PNG" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>jdk1.5以后，java.lang.Thread类提供了getAllStackTraces() 方法，<br>来获取jvm中所有线程的stackTraceElement对象信息；<strong>其实就是jstack的功能</strong>。<br>我们可以写成一个页面，用浏览器来查看线程堆栈信息，有些时候会比较方便。</p>]]>
+    
+    </summary>
+    
+      <category term="java" scheme="http://tonylit.me/tags/java/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[网络带宽瓶颈导致tps上不去]]></title>
@@ -94,7 +114,7 @@
 </blockquote>
 <p>指令说明：</p>
 <blockquote>
-<p>-x 80-192.168.0.230:80将本机上80端口的流量复制到192.168.0.230（测试服务器）的80端口<br>-s指定intercept进程所在的服务器192.168.0.219。（丢包服务器）<br>-c修改请求的host地址为10.10.10.x，以便在230测试服务器上设置路由（设置路由是为了将应答转向丢219包服务器）<br>-C 开启4个进程<br>-d 以daemon形式运行<br>-l 记录日志<br>-P 记录pid<br>其他参数可以通过<br>/usr/local/tcpcopy/sbin/tcpcopy -h查看</p>
+<p>-x 80-192.168.42.164:80将本机上80端口的流量复制到192.168.42.164（测试服务器）的80端口<br>-s指定intercept进程所在的服务器192.168.42.166。（丢包服务器）<br>-c修改请求的host地址为10.10.10.x，以便在164测试服务器上设置路由（设置路由是为了将应答转向丢166包服务器）<br>-C 开启4个进程<br>-d 以daemon形式运行<br>-l 记录日志<br>-P 记录pid<br>其他参数可以通过<br>/usr/local/tcpcopy/sbin/tcpcopy -h查看</p>
 </blockquote>
 <p>运行 tcpcopy 客户端，有几种可选方式：<br>/usr/local/tcpcopy/sbin/tcpcopy -x 80-192.168.42.164:80 -s 192.168.42.166 -d       #全流量复制<br>/usr/local/tcpcopy/sbin/tcpcopy -x 80-192.168.42.164:80 -s 192.168.42.166 -r 20 -d  #复制20%的流量<br>/usr/local/tcpcopy/sbin/tcpcopy -x 80-192.168.42.164:80 -s 192.168.42.166 -n 2 -d    #放大2倍流量</p>
 <h1 id="在B机器上配置路由信息">在B机器上配置路由信息</h1><p>在测试机器上需要配置一条路由信息</p>
@@ -119,6 +139,26 @@
   </entry>
   
   <entry>
+    <title><![CDATA[测试环境的docker实践]]></title>
+    <link href="http://tonylit.me/2016/10/12/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E7%9A%84docker%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://tonylit.me/2016/10/12/测试环境的docker实践/</id>
+    <published>2016-10-12T03:37:27.000Z</published>
+    <updated>2016-10-12T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>
+<a id="more"></a>
+<p>技术委员会也很有心，给出了分享后的反馈。<br><img src="/img/测试环境的docker实践/得分.PNG" alt="Alt text"></p>
+<h2 id="演讲内容">演讲内容</h2><p><img src="/img/测试环境的docker实践/幻灯片1.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片2.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片3.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片4.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片5.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片6.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片7.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片8.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片9.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片10.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片11.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片12.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片13.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片14.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片15.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片16.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片17.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片18.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片19.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片20.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片21.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片22.jpg" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[高级性能测试工程师成长计划]]></title>
     <link href="http://tonylit.me/2016/10/12/%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/"/>
     <id>http://tonylit.me/2016/10/12/工程师成长计划/</id>
@@ -138,26 +178,6 @@
     </summary>
     
       <category term="work" scheme="http://tonylit.me/tags/work/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[测试环境的docker实践]]></title>
-    <link href="http://tonylit.me/2016/10/12/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E7%9A%84docker%E5%AE%9E%E8%B7%B5/"/>
-    <id>http://tonylit.me/2016/10/12/测试环境的docker实践/</id>
-    <published>2016-10-12T03:37:27.000Z</published>
-    <updated>2016-10-12T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>
-<a id="more"></a>
-<p>技术委员会也很有心，给出了分享后的反馈。<br><img src="/img/测试环境的docker实践/得分.PNG" alt="Alt text"></p>
-<h2 id="演讲内容">演讲内容</h2><p><img src="/img/测试环境的docker实践/幻灯片1.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片2.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片3.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片4.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片5.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片6.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片7.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片8.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片9.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片10.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片11.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片12.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片13.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片14.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片15.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片16.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片17.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片18.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片19.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片20.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片21.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片22.jpg" alt="Alt text"></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   
@@ -214,35 +234,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[docker network 网络设置]]></title>
-    <link href="http://tonylit.me/2016/08/15/docker%20network%20%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE/"/>
-    <id>http://tonylit.me/2016/08/15/docker network 网络设置/</id>
-    <published>2016-08-15T03:37:27.000Z</published>
-    <updated>2016-08-15T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>
-<a id="more"></a>
-<p>使用docker network(1.9以后新特性)解决该问题。</p>
-<h1 id="新建docker网桥：">新建docker网桥：</h1><blockquote>
-<p>docker network create –subnet=192.168.42.0/24 -d=bridge   –gateway=192.168.42.3  mynetwork</p>
-</blockquote>
-<h1 id="启动网桥并把网卡桥接上">启动网桥并把网卡桥接上</h1><blockquote>
-<p>ifconfig   br-353aab8b89f2  up 0<br>brctl   addif  br-353aab8b89f2 eth1</p>
-</blockquote>
-<h1 id="docker启动时指定ip和网桥">docker启动时指定ip和网桥</h1><blockquote>
-<p>docker  run -it –rm  –ip=192.168.42.130  –net=mynetwork  docker.vemic.com/focustest/centos5:6.18 /bin/bash</p>
-</blockquote>
-<p>以上就可以了，不再需要pipework修改网络。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[使用strace定位性能问题]]></title>
     <link href="http://tonylit.me/2016/08/15/%E4%BD%BF%E7%94%A8strace%E5%AE%9A%E4%BD%8D%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/"/>
     <id>http://tonylit.me/2016/08/15/使用strace定位性能问题/</id>
@@ -275,6 +266,35 @@
     </summary>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[docker network 网络设置]]></title>
+    <link href="http://tonylit.me/2016/08/15/docker%20network%20%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE/"/>
+    <id>http://tonylit.me/2016/08/15/docker network 网络设置/</id>
+    <published>2016-08-15T03:37:27.000Z</published>
+    <updated>2016-08-15T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>
+<a id="more"></a>
+<p>使用docker network(1.9以后新特性)解决该问题。</p>
+<h1 id="新建docker网桥：">新建docker网桥：</h1><blockquote>
+<p>docker network create –subnet=192.168.42.0/24 -d=bridge   –gateway=192.168.42.3  mynetwork</p>
+</blockquote>
+<h1 id="启动网桥并把网卡桥接上">启动网桥并把网卡桥接上</h1><blockquote>
+<p>ifconfig   br-353aab8b89f2  up 0<br>brctl   addif  br-353aab8b89f2 eth1</p>
+</blockquote>
+<h1 id="docker启动时指定ip和网桥">docker启动时指定ip和网桥</h1><blockquote>
+<p>docker  run -it –rm  –ip=192.168.42.130  –net=mynetwork  docker.vemic.com/focustest/centos5:6.18 /bin/bash</p>
+</blockquote>
+<p>以上就可以了，不再需要pipework修改网络。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   
@@ -1396,32 +1416,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[docker pull关于https的报错处理]]></title>
-    <link href="http://tonylit.me/2016/03/29/docker_pull_https_error/"/>
-    <id>http://tonylit.me/2016/03/29/docker_pull_https_error/</id>
-    <published>2016-03-29T03:37:27.000Z</published>
-    <updated>2016-03-29T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>
-<a id="more"></a>
-<p>网上很多解决方法都是Ubuntu系统的，centos7 docker的配置文件真是难找。</p>
-<h1 id="修改docker配置文件">修改docker配置文件</h1><p>刚开始修改/etc/sysconfig/docker文件，加入–insecure-registry docker.vemic.com:5000，没启作用。<br>起作用的配置如下修改：<br>vi /usr/lib/systemd/system/docker.service</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[Unit]</span></span><br><span class="line"><span class="setting">Description=<span class="value">Docker Application Container Engine</span></span></span><br><span class="line"><span class="comment">##这里讲https-&gt;http</span></span><br><span class="line"><span class="setting">Documentation=<span class="value">http://docs.docker.com</span></span></span><br><span class="line"><span class="setting">After=<span class="value">network.target docker.socket</span></span></span><br><span class="line"><span class="setting">Requires=<span class="value">docker.socket</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Service]</span></span><br><span class="line"><span class="comment">##这里加入-d  --insecure-registry docker.vemic.com:5000</span></span><br><span class="line"><span class="setting">ExecStart=<span class="value">/usr/bin/docker -d  --insecure-registry docker.vemic.com:<span class="number">5000</span> -H fd:// <span class="variable">$OPTIONS</span> <span class="variable">$DOCKER_STORAGE_OPTIONS</span>  </span></span></span><br><span class="line"><span class="setting">MountFlags=<span class="value">slave</span></span></span><br><span class="line"><span class="setting">LimitNOFILE=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitNPROC=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitCORE=<span class="value">infinity</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Install]</span></span><br><span class="line"><span class="setting">WantedBy=<span class="value">multi-user.target</span></span></span><br></pre></td></tr></table></figure>
-<p>以上修改后重启docker</p>
-<blockquote>
-<p>service docker restart<br>systemctl daemon-reload</p>
-</blockquote>
-<p>OK了</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[使用weave实现docker多宿主机互联]]></title>
     <link href="http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/"/>
     <id>http://tonylit.me/2016/03/29/docker-weave网络互连/</id>
@@ -1445,6 +1439,32 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>使用weave实现docker多宿主机互联<br>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[docker pull关于https的报错处理]]></title>
+    <link href="http://tonylit.me/2016/03/29/docker_pull_https_error/"/>
+    <id>http://tonylit.me/2016/03/29/docker_pull_https_error/</id>
+    <published>2016-03-29T03:37:27.000Z</published>
+    <updated>2016-03-29T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>
+<a id="more"></a>
+<p>网上很多解决方法都是Ubuntu系统的，centos7 docker的配置文件真是难找。</p>
+<h1 id="修改docker配置文件">修改docker配置文件</h1><p>刚开始修改/etc/sysconfig/docker文件，加入–insecure-registry docker.vemic.com:5000，没启作用。<br>起作用的配置如下修改：<br>vi /usr/lib/systemd/system/docker.service</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[Unit]</span></span><br><span class="line"><span class="setting">Description=<span class="value">Docker Application Container Engine</span></span></span><br><span class="line"><span class="comment">##这里讲https-&gt;http</span></span><br><span class="line"><span class="setting">Documentation=<span class="value">http://docs.docker.com</span></span></span><br><span class="line"><span class="setting">After=<span class="value">network.target docker.socket</span></span></span><br><span class="line"><span class="setting">Requires=<span class="value">docker.socket</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Service]</span></span><br><span class="line"><span class="comment">##这里加入-d  --insecure-registry docker.vemic.com:5000</span></span><br><span class="line"><span class="setting">ExecStart=<span class="value">/usr/bin/docker -d  --insecure-registry docker.vemic.com:<span class="number">5000</span> -H fd:// <span class="variable">$OPTIONS</span> <span class="variable">$DOCKER_STORAGE_OPTIONS</span>  </span></span></span><br><span class="line"><span class="setting">MountFlags=<span class="value">slave</span></span></span><br><span class="line"><span class="setting">LimitNOFILE=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitNPROC=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitCORE=<span class="value">infinity</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Install]</span></span><br><span class="line"><span class="setting">WantedBy=<span class="value">multi-user.target</span></span></span><br></pre></td></tr></table></figure>
+<p>以上修改后重启docker</p>
+<blockquote>
+<p>service docker restart<br>systemctl daemon-reload</p>
+</blockquote>
+<p>OK了</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>]]>
     
     </summary>
     

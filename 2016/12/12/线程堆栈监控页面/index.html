@@ -4,20 +4,19 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>高级性能测试工程师成长计划 | 淘淘的博客</title>
+  <title>线程堆栈监控页面 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="公司实施了【工程师成长计划】，部门主管结合我所在职级和岗位（中级性能测试工程师），给出了成长计划，罗列出一些需要提升的技术方向。">
+  <meta name="description" content="jdk1.5以后，java.lang.Thread类提供了getAllStackTraces() 方法，来获取jvm中所有线程的stackTraceElement对象信息；其实就是jstack的功能。我们可以写成一个页面，用浏览器来查看线程堆栈信息，有些时候会比较方便。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="高级性能测试工程师成长计划">
-<meta property="og:url" content="http://tonylit.me/2016/10/12/工程师成长计划/index.html">
+<meta property="og:title" content="线程堆栈监控页面">
+<meta property="og:url" content="http://tonylit.me/2016/12/12/线程堆栈监控页面/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="公司实施了【工程师成长计划】，部门主管结合我所在职级和岗位（中级性能测试工程师），给出了成长计划，罗列出一些需要提升的技术方向。">
-<meta property="og:image" content="http://tonylit.me/img/工程师成长计划/成长计划1.PNG">
-<meta property="og:image" content="http://tonylit.me/img/工程师成长计划/成长计划2.PNG">
-<meta property="og:updated_time" content="2016-10-12T05:37:27.000Z">
+<meta property="og:description" content="jdk1.5以后，java.lang.Thread类提供了getAllStackTraces() 方法，来获取jvm中所有线程的stackTraceElement对象信息；其实就是jstack的功能。我们可以写成一个页面，用浏览器来查看线程堆栈信息，有些时候会比较方便。">
+<meta property="og:image" content="http://tonylit.me/img/StraceTraceElement.PNG">
+<meta property="og:updated_time" content="2016-12-12T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="高级性能测试工程师成长计划">
-<meta name="twitter:description" content="公司实施了【工程师成长计划】，部门主管结合我所在职级和岗位（中级性能测试工程师），给出了成长计划，罗列出一些需要提升的技术方向。">
+<meta name="twitter:title" content="线程堆栈监控页面">
+<meta name="twitter:description" content="jdk1.5以后，java.lang.Thread类提供了getAllStackTraces() 方法，来获取jvm中所有线程的stackTraceElement对象信息；其实就是jstack的功能。我们可以写成一个页面，用浏览器来查看线程堆栈信息，有些时候会比较方便。">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -195,7 +194,7 @@
 高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
 </div>
 
-      <div class="body-wrap"><article id="post-工程师成长计划" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-线程堆栈监控页面" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -209,8 +208,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2016/10/12/工程师成长计划/" class="article-date">
-  	<time datetime="2016-10-12T03:37:27.000Z" itemprop="datePublished">2016-10-12</time>
+            <a href="/2016/12/12/线程堆栈监控页面/" class="article-date">
+  	<time datetime="2016-12-12T03:37:27.000Z" itemprop="datePublished">2016-12-12</time>
 </a>
 
         </div>
@@ -224,7 +223,7 @@
                                 
   
     <h1 class="article-title" itemprop="name">
-      高级性能测试工程师成长计划
+      线程堆栈监控页面
     </h1>
   
 
@@ -234,7 +233,7 @@
                                 <div class="article-info article-info-post">
                                     
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
 	</div>
 
 
@@ -249,19 +248,16 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#成长计划列表:"><span class="toc-number">1.</span> <span class="toc-text">成长计划列表:</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#查看StaceTraceElement的JSP页面"><span class="toc-number">1.</span> <span class="toc-text">查看StaceTraceElement的JSP页面</span></a></li></ol>
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <p>公司实施了【<strong>工程师成长计划</strong>】，<br>部门主管结合我所在职级和岗位（中级性能测试工程师），给出了成长计划，罗列出一些需要提升的技术方向。</p>
+                                                                            <p>jdk1.5以后，java.lang.Thread类提供了getAllStackTraces() 方法，<br>来获取jvm中所有线程的stackTraceElement对象信息；<strong>其实就是jstack的功能</strong>。<br>我们可以写成一个页面，用浏览器来查看线程堆栈信息，有些时候会比较方便。</p>
 <a id="more"></a>
-<h1 id="成长计划列表:">成长计划列表:</h1><p>注：</p>
-<blockquote>
-<p>超出，表示完全满足该要求，已经不需要刻意去培养相关能力，甚至可作为讲师给他人答疑/培训<br>达到，表示满足基本要求，可根据需要去提升相关能力<br>有差距，表示不满足该要求，需要尽快提升</p>
-</blockquote>
-<p><img src="/img/工程师成长计划/成长计划1.PNG" alt="Alt text"><br><img src="/img/工程师成长计划/成长计划2.PNG" alt="Alt text"></p>
+<h1 id="查看StaceTraceElement的JSP页面">查看StaceTraceElement的JSP页面</h1><figure class="highlight mojolicious"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">   </span>&lt;%<span class="perl"><span class="variable">@page</span> language=<span class="string">"java"</span> contentType=<span class="string">"text/html; charset=GBK"</span></span>%&gt;<span class="xml"></span><br><span class="line"></span>&lt;%<span class="perl">@ taglib prefix=<span class="string">"c"</span> uri=<span class="string">"http://java.sun.com/jsp/jstl/core"</span></span>%&gt;<span class="xml"></span><br><span class="line"></span>&lt;%<span class="perl">@ taglib prefix=<span class="string">"fmt"</span> uri=<span class="string">"http://java.sun.com/jsp/jstl/fmt"</span></span>%&gt;<span class="xml"></span><br><span class="line"></span>&lt;%<span class="perl">@ taglib prefix=<span class="string">"fn"</span> uri=<span class="string">"http://java.sun.com/jsp/jstl/functions"</span></span>%&gt;<span class="xml"></span><br><span class="line"></span>&lt;%<span class="perl">@ page isELIgnored=<span class="string">"false"</span></span>%&gt;<span class="xml"></span><br><span class="line"></span>&lt;%<span class="perl">@ page import=<span class="string">"java.util.Map"</span> </span>%&gt;<span class="xml"></span><br><span class="line"><span class="doctype">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">title</span>&gt;</span> Server Thread Strace Info<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">pre</span>&gt;</span></span><br><span class="line"></span>&lt;%<span class="perl"></span><br><span class="line"><span class="keyword">for</span> (Map.Entry&lt;Thread , StackTraceElement[]&gt; stackTrace : Thread.getAllStackTraces().entrySet())&#123;</span><br><span class="line">    Thread thread = (Thread)stackTrace.getKey();</span><br><span class="line">    StackTraceElement[] stack = (StackTraceElement[])stackTrace.getValue();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(thread.equals(Thread.currentThread()))&#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    out.<span class="keyword">print</span>(<span class="string">"\n Thread:"</span>+thread.getName()+<span class="string">"\n"</span>);</span><br><span class="line">    <span class="keyword">for</span>(StackTraceElement element:stack)&#123;</span><br><span class="line">        out.<span class="keyword">print</span>(<span class="string">"\t"</span>+element+<span class="string">"\n"</span>);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span>%&gt;<span class="xml"></span><br><span class="line"><span class="tag">&lt;/<span class="title">pre</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/StraceTraceElement.PNG" alt="Alt text"></p>
 
                                                                                 
                                         </div>
@@ -295,18 +291,9 @@
                         
 <nav id="article-nav">
   
-    <a href="/2016/10/12/测试环境的docker实践/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          测试环境的docker实践
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/09/20/docker-io-blocked/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">docker-possible memory allocation deadlock in kmem_alloc</div>
+    <a href="/2016/11/16/网络带宽瓶颈导致tps上不去/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">网络带宽瓶颈导致tps上不去</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -316,7 +303,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-工程师成长计划" data-title="高级性能测试工程师成长计划" data-url="http://tonylit.me/2016/10/12/工程师成长计划/"></div>
+                                    <div class="ds-thread" data-thread-key="post-线程堆栈监控页面" data-title="线程堆栈监控页面" data-url="http://tonylit.me/2016/12/12/线程堆栈监控页面/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">
