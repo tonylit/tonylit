@@ -60,7 +60,7 @@
 <p>现在的商业虚拟机都采用这种收集算法来回收年轻代。<br>有研究表明，新生代中的对象70%~95%都是“朝生夕死”，并不需要按照1：1的比例来划分内存空间。<br>比如Hotspot虚拟机的年轻代，分为eden区和survivor区（s1+s0），默认的比例大小是8:1，<br>也就是每次年轻代中可用的内存空间是整个年轻代容量的90%（80%+10%），只有10%的内存会被浪费。</p>
 <h2 id="标记-整理算法（Mark-Compact）">标记-整理算法（Mark-Compact）</h2><p>“标记-整理”算法中，标记过程和“标记-清除”算法中的“标记”过程一样，<br>但后续的动作不是直接清理不用的对象，而是将所有存活的对象都移动到一端，然后直接清理掉端边界以外的内存。</p>
 <p><img src="/img/garbage_collection/mark-compact-gc.PNG" alt="Alt text"></p>
-<h3 id="分代收集算法（Generational_Collection）">分代收集算法（Generational Collection）</h3><p>就是年轻代和年老代使用不同的算法进行组合。<br>年轻代中对象的存活率低，采用复制算法；<br>年老代中对象的存活率高，采用“标记-清理”或者“标记-整理算法”；</p>
+<h2 id="分代收集算法（Generational_Collection）">分代收集算法（Generational Collection）</h2><p>就是年轻代和年老代使用不同的算法进行组合。<br>年轻代中对象的存活率低，采用复制算法；<br>年老代中对象的存活率高，采用“标记-清理”或者“标记-整理算法”；</p>
 <hr>
 <h1 id="垃圾收集器">垃圾收集器</h1><p>上面整理了几种垃圾收集算法只能算是内存回收的方法论，<br><strong>具体的垃圾收集器就是内存回收的具体实现</strong>。</p>
 <p>对应Hotspot虚拟机，我们使用的垃圾收集器大概有7种：</p>
@@ -76,8 +76,7 @@
 <p>CMS最受欢迎：<br><img src="/img/garbage_collection/垃圾收集器使用比例.PNG" alt="Alt text"></p>
 <hr>
 <h2 id="概念理解：">概念理解：</h2><p>以下概念都是gc中经常遇到的，需要了解清楚。</p>
-<p>###　stop-the-world（STW）</p>
-<p>STW意味着 JVM 因为要执行GC而停止了用户应用程序的执行。</p>
+<h3 id="stop-the-world（STW）">stop-the-world（STW）</h3><p>STW意味着 JVM 因为要执行GC而停止了用户应用程序的执行。</p>
 <p>STW任何一种GC算法中发生，GC优化很多时候就是指减少Stop-the-world发生的时间。</p>
 <h3 id="并行和并发">并行和并发</h3><p>并行（Parallel）：左手写字、右手画画一起做，这叫并行。</p>
 <p>并发（Concurrent）：左手写完字，然后右手再画画，这叫并发。</p>
