@@ -20,6 +20,7 @@
 <meta property="og:image" content="http://tonylit.me/img/garbage_collection/copy-gc.PNG">
 <meta property="og:image" content="http://tonylit.me/img/garbage_collection/mark-compact-gc.PNG">
 <meta property="og:image" content="http://tonylit.me/img/garbage_collection/gc-type.PNG">
+<meta property="og:image" content="http://tonylit.me/img/garbage_collection/collection-parameter.PNG">
 <meta property="og:image" content="http://tonylit.me/img/garbage_collection/垃圾收集器使用比例.PNG">
 <meta property="og:image" content="http://tonylit.me/img/garbage_collection/serial-gc.PNG">
 <meta property="og:image" content="http://tonylit.me/img/garbage_collection/parnew-gc.PNG">
@@ -301,8 +302,9 @@
 </blockquote>
 <p>根据年轻代和年老代对象的存活情况，以及每种收集器特点，选择不同的收集器进行组合。</p>
 <p><img src="/img/garbage_collection/gc-type.PNG" alt="Alt text"><br>如果两个收集器之间存在连线，说明它们可以搭配使用。</p>
+<p><img src="/img/garbage_collection/collection-parameter.PNG" alt="Alt text"></p>
 <p>2013年的时候，Plumbr公司对垃圾收集器使用情况做了<a href="JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%BD%BF%E7%94%A8%E8%B0%83%E6%9F%A5%EF%BC%9ACMS%E6%9C%80%E5%8F%97%E6%AC%A2%E8%BF%8E">一次调查研究</a></p>
-<p>CMS最受欢迎：<br><img src="/img/garbage_collection/垃圾收集器使用比例.PNG" alt="Alt text"></p>
+<p>CMS最受欢迎，我们公司大多数项目使用的也是CMS（B2B，低停顿）<br><img src="/img/garbage_collection/垃圾收集器使用比例.PNG" alt="Alt text"></p>
 <hr>
 <h2 id="概念理解：">概念理解：</h2><p>以下概念都是gc中经常遇到的，需要了解清楚。</p>
 <h3 id="stop-the-world（STW）">stop-the-world（STW）</h3><p>STW意味着 JVM 因为要执行GC而停止了用户应用程序的执行。</p>
