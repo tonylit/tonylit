@@ -4,16 +4,18 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>JVM GC组合测试 | 淘淘的博客</title>
+  <title>GC combination test and tuning in practice | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="不同的垃圾收集器对系统有不同的性能表现，没有哪种垃圾收集器可以完美匹配所有系统。
-生产环境中需要针对不同的应用系统，进行不断的测试，尽可能选择适当的垃圾回收器与gc参数。所以，对于某个业务系统来说，没有最佳的GC组合，只有最合适的GC组合。">
+生产环境中需要针对不同的应用系统，进行不断的测试，尽可能选择适当的垃圾回收器与gc参数。
+所以，对于某个业务系统来说，没有最佳的GC组合，只有最合适的GC组合。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JVM GC组合测试">
-<meta property="og:url" content="http://tonylit.me/2017/01/03/JVM GC组合测试/index.html">
+<meta property="og:title" content="GC combination test and tuning in practice">
+<meta property="og:url" content="http://tonylit.me/2016/12/27/JVM GC组合测试/index.html">
 <meta property="og:site_name" content="淘淘的博客">
 <meta property="og:description" content="不同的垃圾收集器对系统有不同的性能表现，没有哪种垃圾收集器可以完美匹配所有系统。
-生产环境中需要针对不同的应用系统，进行不断的测试，尽可能选择适当的垃圾回收器与gc参数。所以，对于某个业务系统来说，没有最佳的GC组合，只有最合适的GC组合。">
+生产环境中需要针对不同的应用系统，进行不断的测试，尽可能选择适当的垃圾回收器与gc参数。
+所以，对于某个业务系统来说，没有最佳的GC组合，只有最合适的GC组合。">
 <meta property="og:image" content="http://tonylit.me/img/JVM_GC组合/collection-parameter.PNG">
 <meta property="og:image" content="http://tonylit.me/img/JVM_GC组合/本地机器参数.PNG">
 <meta property="og:image" content="http://tonylit.me/img/JVM_GC组合/serial-heap.PNG">
@@ -33,6 +35,7 @@
 <meta property="og:image" content="http://tonylit.me/img/JVM_GC组合/parallel-qps.PNG">
 <meta property="og:image" content="http://tonylit.me/img/JVM_GC组合/search-parallel-gc.PNG">
 <meta property="og:image" content="http://tonylit.me/img/JVM_GC组合/search-paraold-heap.PNG">
+<meta property="og:image" content="http://tonylit.me/img/JVM_GC组合/parallel_and_parallelold.PNG">
 <meta property="og:image" content="http://tonylit.me/img/JVM_GC组合/search-paraolg-qps.PNG">
 <meta property="og:image" content="http://tonylit.me/img/JVM_GC组合/search-parallelold-gc.PNG">
 <meta property="og:image" content="http://tonylit.me/img/JVM_GC组合/search-parnew-heap.PNG">
@@ -41,11 +44,12 @@
 <meta property="og:image" content="http://tonylit.me/img/JVM_GC组合/search-cms-heap.PNG">
 <meta property="og:image" content="http://tonylit.me/img/JVM_GC组合/cms-qps.PNG">
 <meta property="og:image" content="http://tonylit.me/img/JVM_GC组合/search-cms-gc.PNG">
-<meta property="og:updated_time" content="2017-01-03T05:37:27.000Z">
+<meta property="og:updated_time" content="2016-12-27T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JVM GC组合测试">
+<meta name="twitter:title" content="GC combination test and tuning in practice">
 <meta name="twitter:description" content="不同的垃圾收集器对系统有不同的性能表现，没有哪种垃圾收集器可以完美匹配所有系统。
-生产环境中需要针对不同的应用系统，进行不断的测试，尽可能选择适当的垃圾回收器与gc参数。所以，对于某个业务系统来说，没有最佳的GC组合，只有最合适的GC组合。">
+生产环境中需要针对不同的应用系统，进行不断的测试，尽可能选择适当的垃圾回收器与gc参数。
+所以，对于某个业务系统来说，没有最佳的GC组合，只有最合适的GC组合。">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -237,8 +241,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2017/01/03/JVM GC组合测试/" class="article-date">
-  	<time datetime="2017-01-03T03:37:27.000Z" itemprop="datePublished">2017-01-03</time>
+            <a href="/2016/12/27/JVM GC组合测试/" class="article-date">
+  	<time datetime="2016-12-27T03:37:27.000Z" itemprop="datePublished">2016-12-27</time>
 </a>
 
         </div>
@@ -252,7 +256,7 @@
                                 
   
     <h1 class="article-title" itemprop="name">
-      JVM GC组合测试
+      GC combination test and tuning in practice
     </h1>
   
 
@@ -277,14 +281,15 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JVM_GC组合方式"><span class="toc-number">1.</span> <span class="toc-text">JVM GC组合方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试一：内存分配回收方法执行"><span class="toc-number">2.</span> <span class="toc-text">测试一：内存分配回收方法执行</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#测试代码"><span class="toc-number">2.1.</span> <span class="toc-text">测试代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-XX:+UseSerialGC"><span class="toc-number">2.2.</span> <span class="toc-text">-XX:+UseSerialGC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-XX:+UseParallelGC"><span class="toc-number">2.3.</span> <span class="toc-text">-XX:+UseParallelGC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-XX:+UseParallelOldGC"><span class="toc-number">2.4.</span> <span class="toc-text">-XX:+UseParallelOldGC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-XX:+UseParNewGC"><span class="toc-number">2.5.</span> <span class="toc-text">-XX:+UseParNewGC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-XX:+UseConeMarkSweepGC"><span class="toc-number">2.6.</span> <span class="toc-text">-XX:+UseConeMarkSweepGC</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试二：搜索应用调用接口"><span class="toc-number">3.</span> <span class="toc-text">测试二：搜索应用调用接口</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#搜索系统机器及jdk情况"><span class="toc-number">3.1.</span> <span class="toc-text">搜索系统机器及jdk情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接口与测试脚本"><span class="toc-number">3.2.</span> <span class="toc-text">接口与测试脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-XX:+UseSerialGC-1"><span class="toc-number">3.3.</span> <span class="toc-text">-XX:+UseSerialGC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-XX:+UseParallelGC-1"><span class="toc-number">3.4.</span> <span class="toc-text">-XX:+UseParallelGC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-XX:+UseParNewGC-1"><span class="toc-number">3.5.</span> <span class="toc-text">-XX:+UseParNewGC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-XX:+UseConeMarkSweepGC-1"><span class="toc-number">3.6.</span> <span class="toc-text">-XX:+UseConeMarkSweepGC</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JVM_GC组合方式"><span class="toc-number">1.</span> <span class="toc-text">JVM GC组合方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试一：单个方法测试"><span class="toc-number">2.</span> <span class="toc-text">测试一：单个方法测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#测试代码"><span class="toc-number">2.1.</span> <span class="toc-text">测试代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-XX:+UseSerialGC"><span class="toc-number">2.2.</span> <span class="toc-text">-XX:+UseSerialGC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-XX:+UseParallelGC"><span class="toc-number">2.3.</span> <span class="toc-text">-XX:+UseParallelGC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-XX:+UseParallelOldGC"><span class="toc-number">2.4.</span> <span class="toc-text">-XX:+UseParallelOldGC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-XX:+UseParNewGC"><span class="toc-number">2.5.</span> <span class="toc-text">-XX:+UseParNewGC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-XX:+UseConeMarkSweepGC"><span class="toc-number">2.6.</span> <span class="toc-text">-XX:+UseConeMarkSweepGC</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试二：搜索应用调用接口"><span class="toc-number">3.</span> <span class="toc-text">测试二：搜索应用调用接口</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#搜索系统机器及jdk情况"><span class="toc-number">3.1.</span> <span class="toc-text">搜索系统机器及jdk情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接口与测试脚本"><span class="toc-number">3.2.</span> <span class="toc-text">接口与测试脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-XX:+UseSerialGC-1"><span class="toc-number">3.3.</span> <span class="toc-text">-XX:+UseSerialGC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-XX:+UseParallelGC-1"><span class="toc-number">3.4.</span> <span class="toc-text">-XX:+UseParallelGC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-XX:+UseParNewGC-1"><span class="toc-number">3.5.</span> <span class="toc-text">-XX:+UseParNewGC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-XX:+UseConeMarkSweepGC-1"><span class="toc-number">3.6.</span> <span class="toc-text">-XX:+UseConeMarkSweepGC</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#GC_tuning_in_practice"><span class="toc-number">4.</span> <span class="toc-text">GC tuning in practice</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#搜索应用现状"><span class="toc-number">4.1.</span> <span class="toc-text">搜索应用现状</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cms参数调整"><span class="toc-number">4.2.</span> <span class="toc-text">cms参数调整</span></a></li></ol></li></ol>
 </div>
 
                                                         
                                                             
                                                                 
                                                                             <p>不同的垃圾收集器对系统有不同的性能表现，没有哪种垃圾收集器可以完美匹配所有系统。</p>
-<p>生产环境中需要针对不同的应用系统，进行不断的测试，尽可能选择适当的垃圾回收器与gc参数。所以，对于某个业务系统来说，没有最佳的GC组合，只有最合适的GC组合。</p>
+<p>生产环境中需要针对不同的应用系统，进行不断的测试，尽可能选择适当的垃圾回收器与gc参数。</p>
+<p>所以，对于某个业务系统来说，没有最佳的GC组合，只有最合适的GC组合。</p>
 <a id="more"></a>
 <hr>
 <h1 id="JVM_GC组合方式">JVM GC组合方式</h1><p>Java的gc回收参数有XX:+UseSerialGC，XX:+UseConcMarkSweepGC，XX:+UseParNewGC，XX:+UseParallelGC，XX:+UseParallelOldGC等<br><img src="/img/JVM_GC组合/collection-parameter.PNG" alt="Alt text"></p>
@@ -297,7 +302,7 @@
 <p><strong>-XX:+UseParallelOldGC</strong><br>yong:并行回收GC<br>old:并行GC</p>
 <p>关于垃圾收集器基础知识，可以参考“<a href="http://tonylit.me/2016/12/07/%E6%B5%85%E8%B0%88JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">浅谈jvm垃圾收集器</a>”</p>
 <hr>
-<h1 id="测试一：内存分配回收方法执行">测试一：内存分配回收方法执行</h1><p>使用本地机器进行测试：<br>JVM: Java HotSpot(TM) Client VM (16.3-b01, mixed mode, sharing)<br>Java: version 1.6.0_20, vendor Sun Microsystems Inc.</p>
+<h1 id="测试一：单个方法测试">测试一：单个方法测试</h1><p>使用本地机器进行测试：<br>JVM: Java HotSpot(TM) Client VM (16.3-b01, mixed mode, sharing)<br>Java: version 1.6.0_20, vendor Sun Microsystems Inc.</p>
 <p>windows 7<br><img src="/img/JVM_GC组合/本地机器参数.PNG" alt="Alt text"></p>
 <h2 id="测试代码">测试代码</h2><p>每次分配 512*100B 空间，循环1W次。<br>固定参数：-Xmx512M -Xms512M，采用不同的垃圾回收器，输出程序运行所消耗的时间。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import java.util.HashMap;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * GCTimeTest.java</span><br><span class="line"> * </span><br><span class="line"> * @author lit</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> GCTimeTest &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> HashMap <span class="built_in">map</span> = <span class="keyword">new</span> HashMap();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> throws InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        Thread.sleep(<span class="number">60000</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">long</span> begintime = System.currentTimeMillis();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">map</span>.size() * <span class="number">512</span> / <span class="number">1024</span> / <span class="number">1024</span> &gt;= <span class="number">400</span>) &#123;</span><br><span class="line">                <span class="built_in">map</span>.clear();<span class="comment">// 保护内存不溢出</span></span><br><span class="line">            &#125;</span><br><span class="line">            byte[] b1;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">100</span>; j++) &#123;</span><br><span class="line">                b1 = <span class="keyword">new</span> byte[<span class="number">512</span>];</span><br><span class="line">                <span class="built_in">map</span>.put(System.nanoTime(), b1);<span class="comment">// 不断消耗内存</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> endtime = System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">"cost time:"</span> + (endtime - begintime));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -368,34 +373,37 @@
 <h2 id="-XX:+UseSerialGC-1">-XX:+UseSerialGC</h2><blockquote>
 <p>yong:串行GC<br>old:串行GC<br>VM arguments：-Xms1800m -Xmx1800m -Xmn800m -XX:PermSize=250m -XX:MaxPermSize=250m -Xss2m  -XX:+UseSerialGC  -J-Xloggc:/var/log/gc_product.log -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintTenuringDistribution<br><img src="/img/JVM_GC组合/search-serial-heap.PNG" alt="Alt text"></p>
 </blockquote>
-<p><strong>测试结果：</strong><br>QPS:797<br><img src="/img/JVM_GC组合/serial-qps.PNG" alt="Alt text"><br>[QPS波动，比较平稳]</p>
-<p><strong>Throughput  :  90.765%</strong></p>
+<p><strong>测试结果：</strong></p>
+<p><strong>QPS:</strong>797<br><img src="/img/JVM_GC组合/serial-qps.PNG" alt="Alt text"><br>[QPS波动，比较平稳]</p>
+<p><strong>Throughput  : </strong> 90.765%<br><strong>Latency:  </strong>Avg GC Time     26 ms ，Max GC Time     6 sec 650 ms<br><strong>GC total time：</strong>Minor GC total time    1 min 13 sec 58 ms，Full GC total time    1 min 930 ms</p>
 <p><strong>GC日志分析：</strong><br><img src="/img/JVM_GC组合/search-serial-gc.PNG" alt="Alt text"></p>
 <hr>
 <h2 id="-XX:+UseParallelGC-1">-XX:+UseParallelGC</h2><blockquote>
 <p>yong:串行GC<br>old:串行GC<br>VM arguments：-Xms1800m -Xmx1800m -Xmn800m -XX:PermSize=250m -XX:MaxPermSize=250m -Xss2m  -XX:+UseParallelGC -J-Xloggc:/var/log/gc_product.log -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintTenuringDistribution</p>
 </blockquote>
 <p><img src="/img/JVM_GC组合/search-parallel-heap.PNG" alt="Alt text"></p>
-<p><strong>测试结果：</strong><br>QPS:837<br><img src="/img/JVM_GC组合/parallel-qps.PNG" alt="Alt text"><br>[QPS波动，比较平稳]</p>
-<p><strong>Throughput  :  95.59%</strong></p>
+<p><strong>测试结果：</strong><br><strong>QPS:</strong>837<br><img src="/img/JVM_GC组合/parallel-qps.PNG" alt="Alt text"><br>[QPS波动，比较平稳]</p>
+<p><strong>Throughput  : </strong> 95.59%<br><strong>Latency:  </strong>Avg GC Time     16 ms，Max GC Time     5 sec 560 ms<br><strong>GC total time：</strong>Minor GC total time    52 sec 907 ms，Full GC total time    18 sec 99 ms</p>
 <p><strong>GC日志分析：</strong><br><img src="/img/JVM_GC组合/search-parallel-gc.PNG" alt="Alt text"></p>
 <hr>
 <p>##-XX:+UseParallelOldGC </p>
 <blockquote>
 <p>yong:串行GC<br>old:串行GC<br>VM arguments：-Xms1800m -Xmx1800m -Xmn800m -XX:PermSize=250m -XX:MaxPermSize=250m -Xss2m  -XX:+UseParallelOldGC  -J-Xloggc:/var/log/gc_product.log -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintTenuringDistribution<br><img src="/img/JVM_GC组合/search-paraold-heap.PNG" alt="Alt text"></p>
 </blockquote>
+<p>这边需要着重讲一下ParallelGC与ParallelOldGC 在jmap -heap命令的显示，<br>仔细看yong和old区generation显示的信息：<br><img src="/img/JVM_GC组合/parallel_and_parallelold.PNG" alt="Alt text"></p>
+<p>ParallelGC与ParallelOldGC 都这样显示的，原本以为ParallelGC的old也是并行收集，<br>但是看到下面的帖子才明白，ParallelGC的old区确实是串行收集，挺混乱的~<br><a href="http://hllvm.group.iteye.com/group/topic/27629" target="_blank" rel="external">http://hllvm.group.iteye.com/group/topic/27629</a></p>
 <p><strong>测试结果：</strong></p>
-<p>QPS:849<br><img src="/img/JVM_GC组合/search-paraolg-qps.PNG" alt="Alt text"></p>
+<p><strong>QPS:</strong>849<br><img src="/img/JVM_GC组合/search-paraolg-qps.PNG" alt="Alt text"></p>
 <p>[QPS波动，比较平稳]</p>
-<p><strong>Throughput  :  95.372%</strong></p>
+<p><strong>Throughput  : </strong> 95.372%<br><strong>Latency:  </strong>Avg GC Time     16 ms，Max GC Time     4 sec 830 ms<br><strong>GC total time：</strong>Minor GC total time    53 sec 857 ms，Full GC total time    16 sec 255 ms</p>
 <p><strong>GC日志分析：</strong><br><img src="/img/JVM_GC组合/search-parallelold-gc.PNG" alt="Alt text"></p>
 <hr>
 <h2 id="-XX:+UseParNewGC-1">-XX:+UseParNewGC</h2><blockquote>
 <p>yong:串行GC<br>old:串行GC<br>VM arguments：-Xms1800m -Xmx1800m -Xmn800m -XX:PermSize=250m -XX:MaxPermSize=250m -Xss2m  -XX:+UseParNewGC -J-Xloggc:/var/log/gc_product.log -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintTenuringDistribution<br><img src="/img/JVM_GC组合/search-parnew-heap.PNG" alt="Alt text"></p>
 </blockquote>
 <p><strong>测试结果：</strong></p>
-<p>QPS:781<br><img src="/img/JVM_GC组合/parnew-qps.PNG" alt="Alt text"><br>[QPS波动]</p>
-<p><strong>Throughput  :  89.839%</strong></p>
+<p><strong>QPS:</strong>781<br><img src="/img/JVM_GC组合/parnew-qps.PNG" alt="Alt text"><br>[QPS波动]</p>
+<p><strong>Throughput  : </strong> 89.839%<br><strong>Latency:  </strong>Avg GC Time     27 ms，Max GC Time     6 sec 540 ms<br><strong>GC total time：</strong>Minor GC total time    59 sec 257 ms，Full GC total time    1 min 24 sec 420 ms</p>
 <p><strong>GC日志分析：</strong><br><img src="/img/JVM_GC组合/search-parnew-gc.PNG" alt="Alt text"></p>
 <hr>
 <h2 id="-XX:+UseConeMarkSweepGC-1">-XX:+UseConeMarkSweepGC</h2><blockquote>
@@ -403,10 +411,85 @@
 </blockquote>
 <p><img src="/img/JVM_GC组合/search-cms-heap.PNG" alt="Alt text"></p>
 <p><strong>测试结果：</strong></p>
-<p><strong>QPS:746</strong><br><img src="/img/JVM_GC组合/cms-qps.PNG" alt="Alt text"><br>[QPS波动，很平稳]</p>
-<p><strong>Throughput  : 93.962%</strong></p>
+<p><strong>QPS:</strong>746<br><img src="/img/JVM_GC组合/cms-qps.PNG" alt="Alt text"><br>[QPS波动，很平稳]</p>
+<p><strong>Throughput  : </strong>93.962%<br><strong>Latency:  </strong>Avg GC Time     20 ms，Max GC Time     7 sec 400 ms<br><strong>GC total time：</strong>Minor GC total time    49 sec 118 ms，Full GC total time    48 sec 700 ms</p>
 <p><strong>GC日志分析：</strong><br><img src="/img/JVM_GC组合/search-cms-gc.PNG" alt="Alt text"></p>
 <hr>
+<p>把上面的测试结果汇总一下，重点关注Throughput  与 Latency：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">QPS</th>
+<th style="text-align:right">Throughput</th>
+<th style="text-align:right">Latency</th>
+<th style="text-align:right">GC total time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-XX:+UseSerialGC</td>
+<td style="text-align:center">797</td>
+<td style="text-align:right">90.765%</td>
+<td style="text-align:right">Avg GC Time 26ms ，Max GC Time     6sec650ms</td>
+<td style="text-align:right">Minor GC total time    1min13sec58ms，Full GC total time    1min930ms</td>
+</tr>
+<tr>
+<td>-XX:+UseParallelGC</td>
+<td style="text-align:center">837</td>
+<td style="text-align:right">95.59%</td>
+<td style="text-align:right">Avg GC Time     16ms，Max GC Time     5sec560ms</td>
+<td style="text-align:right">Minor GC total time    52 sec907ms，Full GC total time    18sec99ms</td>
+</tr>
+<tr>
+<td>-XX:+UseParallelOldGC</td>
+<td style="text-align:center">849</td>
+<td style="text-align:right">95.372%</td>
+<td style="text-align:right">Avg GC Time     16 ms，Max GC Time     4sec830ms</td>
+<td style="text-align:right">Minor GC total time    53 sec857ms，Full GC total time    16sec255ms</td>
+</tr>
+<tr>
+<td>-XX:+UseParNewGC</td>
+<td style="text-align:center">781</td>
+<td style="text-align:right">89.839%</td>
+<td style="text-align:right">Avg GC Time     27ms，Max GC Time     6sec540ms</td>
+<td style="text-align:right">Minor GC total time    59 sec257ms，Full GC total time    1 min24sec420ms</td>
+</tr>
+<tr>
+<td>-XX:+UseConeMarkSweepGC</td>
+<td style="text-align:center">746</td>
+<td style="text-align:right">93.962%</td>
+<td style="text-align:right">Avg GC Time 20ms，Max GC Time 7sec400ms</td>
+<td style="text-align:right">Minor GC total time    49 sec118ms，Full GC total time 48 sec700ms</td>
+</tr>
+</tbody>
+</table>
+<p>单从上面的测试结果来看，-XX:+UseParallelOldGC的效果最好。</p>
+<p>这只是一个简单的例子，gc收集器选择的过程远不止这些。</p>
+<hr>
+<h1 id="GC_tuning_in_practice">GC tuning in practice</h1><p>对于gc的优化，最好的结果就是不影响用户线程的执行，没有任何停顿，即Throughput  为100%，Latency为0。<br>但目前所有的垃圾收集器都做不到，之前听陈涛（《Hotspot实战》的作者）分享jvm故障诊断，他提到<strong>吞吐率&gt;99%</strong>、full gc 次数小于1算正常。<br>我们按照这个指标进行gc调整。</p>
+<p>例子还用上面搜索系统的例子。<br>搜索业务要求低停顿，CMS是以获取最短回收停顿时间为目标的收集器。</p>
+<p>G1也是低延迟的收集器，为啥不选择它？</p>
+<p>plumbr公司的测试结论（2013年的测试）：<br><a href="https://plumbr.eu/blog/garbage-collection/g1-vs-cms-vs-parallel-gc" target="_blank" rel="external">https://plumbr.eu/blog/garbage-collection/g1-vs-cms-vs-parallel-gc</a></p>
+<blockquote>
+<p>If I would dare to make such a conclusion, I would say that CMS is still the best “default” option to go with. G1 throughput is still so much worse that the improved latency is usually not worth it.</p>
+</blockquote>
+<p>推荐使用G1的场景</p>
+<blockquote>
+<p>G1垃圾收集器集中几种的应用场景是在应用程序有大内存并且要求极小的延迟的情况下，这意味着堆内存应该至少6G以上，稳定的可预测的停顿时间在0.5秒以下。 </p>
+<p>如果在使用CMS或者ParallelOldGC 垃圾收集器出现以下的情况时，切换G1垃圾收集器可以带来更好的效果： </p>
+<p>（1）Full GC 太长或者太频繁<br>（2）对象的分配内存空间率或者晋升频率差异很大<br>（3）追求更快的响应时间，当停顿时间大于0.5秒之1秒时 </p>
+<p>注意：如果你使用CMS或者ParallelOldGC 的gc时间可以接受，最好的方式仍然使用当前的GC垃圾收集器，<br>此外改为G1垃圾收集器，并不意味着，你就要一定升级到最新的JDK版本，当然如果可以的话，还是尽量使用当然最新最稳定的版本。</p>
+</blockquote>
+<p>结合plumbr的结论，和搜索应用内存使用情况（小于6G），我们暂时选择CMS来作为搜索系统的gc收集器。</p>
+<h2 id="搜索应用现状">搜索应用现状</h2><p>上面例子中cms的参数：</p>
+<blockquote>
+<p>VM arguments：-Xms1800m -Xmx1800m -Xmn800m -XX:PermSize=250m -XX:MaxPermSize=250m -Xss2m  -XX:+UseConcMarkSweepGC  -J-Xloggc:/var/log/gc_product.log -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintTenuringDistribution</p>
+</blockquote>
+<p>测试结果：<br><strong>Throughput  : </strong>93.962%<99% 153="" **full="" gc：**full="" gc="" count=""> 1 次<br>不符合我们的指标。</99%></p>
+<h2 id="cms参数调整">cms参数调整</h2><p>在调整参数之前，先仔细拜读一下R大的<a href="http://hllvm.group.iteye.com/group/topic/27945" target="_blank" rel="external">JVM调优的”标准参数”的各种陷阱</a>这篇文章。</p>
+<hr>
+<p>to be continue……</p>
 
                                                                                 
                                         </div>
@@ -440,9 +523,18 @@
                         
 <nav id="article-nav">
   
+    <a href="/2016/12/31/2016年终总结/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          2016年终总结
+        
+      </div>
+    </a>
   
-    <a href="/2016/12/31/2016年终总结/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">2016年终总结</div>
+  
+    <a href="/2016/12/12/线程堆栈监控页面/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">线程堆栈监控页面</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -452,7 +544,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-JVM GC组合测试" data-title="JVM GC组合测试" data-url="http://tonylit.me/2017/01/03/JVM GC组合测试/"></div>
+                                    <div class="ds-thread" data-thread-key="post-JVM GC组合测试" data-title="GC combination test and tuning in practice" data-url="http://tonylit.me/2016/12/27/JVM GC组合测试/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">

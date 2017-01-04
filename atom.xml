@@ -4,7 +4,7 @@
   <subtitle><![CDATA[今年lebron绝逼夺冠，bie跟我急!]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2017-01-03T05:37:27.000Z</updated>
+  <updated>2016-12-31T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -15,13 +15,50 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[JVM GC组合测试]]></title>
-    <link href="http://tonylit.me/2017/01/03/JVM%20GC%E7%BB%84%E5%90%88%E6%B5%8B%E8%AF%95/"/>
-    <id>http://tonylit.me/2017/01/03/JVM GC组合测试/</id>
-    <published>2017-01-03T03:37:27.000Z</published>
-    <updated>2017-01-03T05:37:27.000Z</updated>
+    <title><![CDATA[2016年终总结]]></title>
+    <link href="http://tonylit.me/2016/12/31/2016%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
+    <id>http://tonylit.me/2016/12/31/2016年终总结/</id>
+    <published>2016-12-31T03:37:27.000Z</published>
+    <updated>2016-12-31T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>转眼又是一年，今年的工作与学习节奏比较紧凑，有一些工作上的产出和成绩，也有不少学习收获。</p>
+<p>2016年工作总结如下：<br><a id="more"></a></p>
+<hr>
+<h1 id="工作内容">工作内容</h1><p>今年的工作内容比较饱和，主要分为两块：项目组性能测试支持与测试环境维护工作。工作的重点在测试环境维护-docker替代vmware虚拟机的改版上。</p>
+<h2 id="测试环境发布系统维护">测试环境发布系统维护</h2><p>1.搭建新应用43个。其中MIC前台项目10个，OSS项目1个，跨境项目组24个,XYZ项目组8个。<br>Docker发布系统上线后，XYZ重新接入环境发布系统中，新增并调整XYZ发布应用，发布过程中加入git与nginx相关操作,并在发布逻辑上做了相应调整。<br>2.测试环境问题处理。相比于15年,这块的工作量减少很多，多数环境问题集中在应用编译失败与服务化应用之间调用失败问题这两块。<br>3.Docker替代vmware虚拟机的改版。2015年10月份的时候萌生使用docker虚拟化技术优化测试环境发布系统的想法，但一直都没有实质性的进展。<br>今年年初开始着手Docker的研究并在7月底完成Docker系统的切换，将Docker落地；缩短了60%的测试版本发布时间也优化了测试环境维护工作。<br>整个工作包括：</p>
+<blockquote>
+<p>(1).docker的网络模型、存储引擎、调度规则预研及可行性分析<br>(2).搭建docker运行环境及调度规则的研发<br>(3).新老系统的切换与数据迁移<br>(4).测试应用报错日志的收集与提醒功能</p>
+</blockquote>
+<h2 id="项目组性能测试支持">项目组性能测试支持</h2><p>今年共有21项性能测试支持工作。包括：MIC事业部：12项；百卓事业部：2项；技术支持中心：3项；新一站事业部：3项。<br>MIC事业部的性能测试支持最多，大多是单功能的性能测试；xyz的性能测试规模较大，包括全站与上万并发的性能测试。<br>整体来看，性能测试的主要工作量在测试脚本编写与性能问题定位、调优上。<br>测试工具方面除了loadrunner和jmeter，今年新加入gatling性能测试工具。<br>性能问题定位方面涉及到数据库，网络瓶颈，jvm，线程堆栈，操作系统堆栈等方面。</p>
+<p><strong>性能测试任务list：</strong><br>归属事业部    测试内容    接口人    归属项目经理    时间<br>百卓网事业部 研发部    大买家系统性能测试    于利奎    佟星龙    3-4~3-11<br>百卓网事业部 研发部    优采企业版https接口升级性能测试    吉永鹏    杨星    12-15~12-22<br>百卓网事业部 研发部    cn性能优化效果性能测试    于利奎    佟星龙    5-18~5-25<br>MIC    mlan qp词搜索压力测试    张丽    张丽    12月26日<br>MIC    mic秒杀活动性能测试    赵宏梅    柏嵩    3月11日<br>MIC    nginx down掉性能测试支持    褚一凡    褚一凡    5月24日<br>MIC    多语言高负载性能测试    张丽    张丽    2-26~3-4<br>MIC    分布式追踪系统性能测试    王亚军    王亚军    5月4日<br>MIC    图片下载功能性能测试支持    周海燕    蔡松山    4-27~5-4<br>MIC    mic suggesut系统性能测试-搜索    李晶晶    李仁勇    2016/7/14，8-8<br>MIC    销售系统资源预定性能测试    刘俊    韩国明    8-3~8-5<br>MIC    mic灰度发布性能测试    褚一凡    褚一凡    8-22~8-25,8-29~8-30<br>MIC    mic询盘索引性能测试    毛欢    贺晟    8-31~9-21<br>MIC    mic suggesu系统2期性能测试-搜索    李晶晶    李仁勇    9月28日<br>MIC    跨境万花筒项目性能测试    蔡文    梁彪    10-31~11-7<br>技术支持中心 系统开发部    考试系统性能测试（阶段一）    董伟    陆鹰    6-14~6-23<br>技术支持中心 系统开发部    考试系统性能测试（阶段二）    董伟    陆鹰    7-6~7-12<br>技术支持中心 系统开发部    问卷调查性能测试    尤正环    陆鹰    8-15~8-23<br>新一站    10倍流量性能测试    于文倩    周晔    4-14~4-20<br>新一站    xyz省验收性能测试    于文倩    周晔    3-16~4~1<br>新一站    xyz淘宝店铺订单压测    于文倩    周晔    11-8~11-15</p>
+<h2 id="参加焦点技术大会">参加焦点技术大会</h2><p>参加第四届焦点技术大会， 分享主题：“测试环境的docker实践”。</p>
+<hr>
+<h1 id="工作业绩">工作业绩</h1><p>回顾全年的工作,在性能测试与测试环境维护上有一些工作业绩。<br><strong>性能测试方面：</strong><br>21次性能测试支持，覆盖公司大多事业部，保证被测系统符合性能指标。完成xyz省级验收性能测试，配合xyz顺利完成验收工作。<br><strong>测试环境维护方面：</strong><br>170个应用，450台环境机器，每天近200次应用发布，为测试人员提供良好的测试环境支持。<br>独立承担环境发布系统docker替代vmware虚拟机的改版，缩短60%测试版本发布时间，提高测试工作效率。<br><strong>创新方面：</strong><br>2016年3季度创新-鼓励奖，主题：使用docker部署测试环境。</p>
+<hr>
+<h1 id="成长和进步">成长和进步</h1><p><strong>测试环境维护方面：</strong><br>在docker的学习与应用上下了很多功夫，对docker技能的掌握与使用上有很大提高。<br><strong>性能测试方面：</strong><br>对大规模的性能测试有一些工作实践，对大规模场景的设计、测试脚本的开发、性能测试工具的使用上有所提升。在性能瓶颈的分析方面，对数据库，硬件资源，jvm，线程堆栈，操作系统堆栈等方面，可以对这些方面的问题做分析并定位到具体问题，相比于15年在性能问题解决能力方面有很大提升。</p>
+<hr>
+<h1 id="不足和差距">不足和差距</h1><p>无知者无畏，有些时候，知道的多了，反而少了说话的底气。<br>今年的工作与学习，很多方面都深入了进去，才发现自己缺失的知识和技能太多，比预想的还要多的多。在Docker的网络性能、调度算法、管理等方面还有很多不懂的地方。对jvm调优、多线程变成、操作系统、硬件知识等方面目前只能算是知道皮毛，还需要深入学习。<br>对语言的表达以及交流分享方面，用词不准确，逻辑性不够强，思考的问题深度不够，仍然需要不断去学习，锻炼。 </p>
+<hr>
+<h1 id="2016年规划">2016年规划</h1><p><strong>工作方面：</strong><br>搭建自动化性能测试平台。其实今年就打算做这方面的工作，但对这方面知识的掌握还有很大欠缺。希望明年可以逐步的将性能测试平台做起来。<br> <strong>学习方面：</strong><br>深入学习jvm、多线程、IO编程，加强这些方面的编程与调优能力。<br>学习python语言并运用到工作中。<br>学习linux内核与硬件知识，加强自己技术的深度与广度 。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>转眼又是一年，今年的工作与学习节奏比较紧凑，有一些工作上的产出和成绩，也有不少学习收获。</p>
+<p>2016年工作总结如下：<br>]]>
+    
+    </summary>
+    
+      <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[GC combination test and tuning in practice]]></title>
+    <link href="http://tonylit.me/2016/12/27/JVM%20GC%E7%BB%84%E5%90%88%E6%B5%8B%E8%AF%95/"/>
+    <id>http://tonylit.me/2016/12/27/JVM GC组合测试/</id>
+    <published>2016-12-27T03:37:27.000Z</published>
+    <updated>2016-12-27T05:37:27.000Z</updated>
     <content type="html"><![CDATA[<p>不同的垃圾收集器对系统有不同的性能表现，没有哪种垃圾收集器可以完美匹配所有系统。</p>
-<p>生产环境中需要针对不同的应用系统，进行不断的测试，尽可能选择适当的垃圾回收器与gc参数。所以，对于某个业务系统来说，没有最佳的GC组合，只有最合适的GC组合。</p>
+<p>生产环境中需要针对不同的应用系统，进行不断的测试，尽可能选择适当的垃圾回收器与gc参数。</p>
+<p>所以，对于某个业务系统来说，没有最佳的GC组合，只有最合适的GC组合。</p>
 <a id="more"></a>
 <hr>
 <h1 id="JVM_GC组合方式">JVM GC组合方式</h1><p>Java的gc回收参数有XX:+UseSerialGC，XX:+UseConcMarkSweepGC，XX:+UseParNewGC，XX:+UseParallelGC，XX:+UseParallelOldGC等<br><img src="/img/JVM_GC组合/collection-parameter.PNG" alt="Alt text"></p>
@@ -34,7 +71,7 @@
 <p><strong>-XX:+UseParallelOldGC</strong><br>yong:并行回收GC<br>old:并行GC</p>
 <p>关于垃圾收集器基础知识，可以参考“<a href="http://tonylit.me/2016/12/07/%E6%B5%85%E8%B0%88JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">浅谈jvm垃圾收集器</a>”</p>
 <hr>
-<h1 id="测试一：内存分配回收方法执行">测试一：内存分配回收方法执行</h1><p>使用本地机器进行测试：<br>JVM: Java HotSpot(TM) Client VM (16.3-b01, mixed mode, sharing)<br>Java: version 1.6.0_20, vendor Sun Microsystems Inc.</p>
+<h1 id="测试一：单个方法测试">测试一：单个方法测试</h1><p>使用本地机器进行测试：<br>JVM: Java HotSpot(TM) Client VM (16.3-b01, mixed mode, sharing)<br>Java: version 1.6.0_20, vendor Sun Microsystems Inc.</p>
 <p>windows 7<br><img src="/img/JVM_GC组合/本地机器参数.PNG" alt="Alt text"></p>
 <h2 id="测试代码">测试代码</h2><p>每次分配 512*100B 空间，循环1W次。<br>固定参数：-Xmx512M -Xms512M，采用不同的垃圾回收器，输出程序运行所消耗的时间。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import java.util.HashMap;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * GCTimeTest.java</span><br><span class="line"> * </span><br><span class="line"> * @author lit</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> GCTimeTest &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> HashMap <span class="built_in">map</span> = <span class="keyword">new</span> HashMap();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> throws InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        Thread.sleep(<span class="number">60000</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">long</span> begintime = System.currentTimeMillis();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">map</span>.size() * <span class="number">512</span> / <span class="number">1024</span> / <span class="number">1024</span> &gt;= <span class="number">400</span>) &#123;</span><br><span class="line">                <span class="built_in">map</span>.clear();<span class="comment">// 保护内存不溢出</span></span><br><span class="line">            &#125;</span><br><span class="line">            byte[] b1;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">100</span>; j++) &#123;</span><br><span class="line">                b1 = <span class="keyword">new</span> byte[<span class="number">512</span>];</span><br><span class="line">                <span class="built_in">map</span>.put(System.nanoTime(), b1);<span class="comment">// 不断消耗内存</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> endtime = System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">"cost time:"</span> + (endtime - begintime));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -105,34 +142,37 @@
 <h2 id="-XX:+UseSerialGC-1">-XX:+UseSerialGC</h2><blockquote>
 <p>yong:串行GC<br>old:串行GC<br>VM arguments：-Xms1800m -Xmx1800m -Xmn800m -XX:PermSize=250m -XX:MaxPermSize=250m -Xss2m  -XX:+UseSerialGC  -J-Xloggc:/var/log/gc_product.log -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintTenuringDistribution<br><img src="/img/JVM_GC组合/search-serial-heap.PNG" alt="Alt text"></p>
 </blockquote>
-<p><strong>测试结果：</strong><br>QPS:797<br><img src="/img/JVM_GC组合/serial-qps.PNG" alt="Alt text"><br>[QPS波动，比较平稳]</p>
-<p><strong>Throughput  :  90.765%</strong></p>
+<p><strong>测试结果：</strong></p>
+<p><strong>QPS:</strong>797<br><img src="/img/JVM_GC组合/serial-qps.PNG" alt="Alt text"><br>[QPS波动，比较平稳]</p>
+<p><strong>Throughput  : </strong> 90.765%<br><strong>Latency:  </strong>Avg GC Time     26 ms ，Max GC Time     6 sec 650 ms<br><strong>GC total time：</strong>Minor GC total time    1 min 13 sec 58 ms，Full GC total time    1 min 930 ms</p>
 <p><strong>GC日志分析：</strong><br><img src="/img/JVM_GC组合/search-serial-gc.PNG" alt="Alt text"></p>
 <hr>
 <h2 id="-XX:+UseParallelGC-1">-XX:+UseParallelGC</h2><blockquote>
 <p>yong:串行GC<br>old:串行GC<br>VM arguments：-Xms1800m -Xmx1800m -Xmn800m -XX:PermSize=250m -XX:MaxPermSize=250m -Xss2m  -XX:+UseParallelGC -J-Xloggc:/var/log/gc_product.log -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintTenuringDistribution</p>
 </blockquote>
 <p><img src="/img/JVM_GC组合/search-parallel-heap.PNG" alt="Alt text"></p>
-<p><strong>测试结果：</strong><br>QPS:837<br><img src="/img/JVM_GC组合/parallel-qps.PNG" alt="Alt text"><br>[QPS波动，比较平稳]</p>
-<p><strong>Throughput  :  95.59%</strong></p>
+<p><strong>测试结果：</strong><br><strong>QPS:</strong>837<br><img src="/img/JVM_GC组合/parallel-qps.PNG" alt="Alt text"><br>[QPS波动，比较平稳]</p>
+<p><strong>Throughput  : </strong> 95.59%<br><strong>Latency:  </strong>Avg GC Time     16 ms，Max GC Time     5 sec 560 ms<br><strong>GC total time：</strong>Minor GC total time    52 sec 907 ms，Full GC total time    18 sec 99 ms</p>
 <p><strong>GC日志分析：</strong><br><img src="/img/JVM_GC组合/search-parallel-gc.PNG" alt="Alt text"></p>
 <hr>
 <p>##-XX:+UseParallelOldGC </p>
 <blockquote>
 <p>yong:串行GC<br>old:串行GC<br>VM arguments：-Xms1800m -Xmx1800m -Xmn800m -XX:PermSize=250m -XX:MaxPermSize=250m -Xss2m  -XX:+UseParallelOldGC  -J-Xloggc:/var/log/gc_product.log -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintTenuringDistribution<br><img src="/img/JVM_GC组合/search-paraold-heap.PNG" alt="Alt text"></p>
 </blockquote>
+<p>这边需要着重讲一下ParallelGC与ParallelOldGC 在jmap -heap命令的显示，<br>仔细看yong和old区generation显示的信息：<br><img src="/img/JVM_GC组合/parallel_and_parallelold.PNG" alt="Alt text"></p>
+<p>ParallelGC与ParallelOldGC 都这样显示的，原本以为ParallelGC的old也是并行收集，<br>但是看到下面的帖子才明白，ParallelGC的old区确实是串行收集，挺混乱的~<br><a href="http://hllvm.group.iteye.com/group/topic/27629" target="_blank" rel="external">http://hllvm.group.iteye.com/group/topic/27629</a></p>
 <p><strong>测试结果：</strong></p>
-<p>QPS:849<br><img src="/img/JVM_GC组合/search-paraolg-qps.PNG" alt="Alt text"></p>
+<p><strong>QPS:</strong>849<br><img src="/img/JVM_GC组合/search-paraolg-qps.PNG" alt="Alt text"></p>
 <p>[QPS波动，比较平稳]</p>
-<p><strong>Throughput  :  95.372%</strong></p>
+<p><strong>Throughput  : </strong> 95.372%<br><strong>Latency:  </strong>Avg GC Time     16 ms，Max GC Time     4 sec 830 ms<br><strong>GC total time：</strong>Minor GC total time    53 sec 857 ms，Full GC total time    16 sec 255 ms</p>
 <p><strong>GC日志分析：</strong><br><img src="/img/JVM_GC组合/search-parallelold-gc.PNG" alt="Alt text"></p>
 <hr>
 <h2 id="-XX:+UseParNewGC-1">-XX:+UseParNewGC</h2><blockquote>
 <p>yong:串行GC<br>old:串行GC<br>VM arguments：-Xms1800m -Xmx1800m -Xmn800m -XX:PermSize=250m -XX:MaxPermSize=250m -Xss2m  -XX:+UseParNewGC -J-Xloggc:/var/log/gc_product.log -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintTenuringDistribution<br><img src="/img/JVM_GC组合/search-parnew-heap.PNG" alt="Alt text"></p>
 </blockquote>
 <p><strong>测试结果：</strong></p>
-<p>QPS:781<br><img src="/img/JVM_GC组合/parnew-qps.PNG" alt="Alt text"><br>[QPS波动]</p>
-<p><strong>Throughput  :  89.839%</strong></p>
+<p><strong>QPS:</strong>781<br><img src="/img/JVM_GC组合/parnew-qps.PNG" alt="Alt text"><br>[QPS波动]</p>
+<p><strong>Throughput  : </strong> 89.839%<br><strong>Latency:  </strong>Avg GC Time     27 ms，Max GC Time     6 sec 540 ms<br><strong>GC total time：</strong>Minor GC total time    59 sec 257 ms，Full GC total time    1 min 24 sec 420 ms</p>
 <p><strong>GC日志分析：</strong><br><img src="/img/JVM_GC组合/search-parnew-gc.PNG" alt="Alt text"></p>
 <hr>
 <h2 id="-XX:+UseConeMarkSweepGC-1">-XX:+UseConeMarkSweepGC</h2><blockquote>
@@ -140,54 +180,94 @@
 </blockquote>
 <p><img src="/img/JVM_GC组合/search-cms-heap.PNG" alt="Alt text"></p>
 <p><strong>测试结果：</strong></p>
-<p><strong>QPS:746</strong><br><img src="/img/JVM_GC组合/cms-qps.PNG" alt="Alt text"><br>[QPS波动，很平稳]</p>
-<p><strong>Throughput  : 93.962%</strong></p>
+<p><strong>QPS:</strong>746<br><img src="/img/JVM_GC组合/cms-qps.PNG" alt="Alt text"><br>[QPS波动，很平稳]</p>
+<p><strong>Throughput  : </strong>93.962%<br><strong>Latency:  </strong>Avg GC Time     20 ms，Max GC Time     7 sec 400 ms<br><strong>GC total time：</strong>Minor GC total time    49 sec 118 ms，Full GC total time    48 sec 700 ms</p>
 <p><strong>GC日志分析：</strong><br><img src="/img/JVM_GC组合/search-cms-gc.PNG" alt="Alt text"></p>
 <hr>
+<p>把上面的测试结果汇总一下，重点关注Throughput  与 Latency：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">QPS</th>
+<th style="text-align:right">Throughput</th>
+<th style="text-align:right">Latency</th>
+<th style="text-align:right">GC total time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-XX:+UseSerialGC</td>
+<td style="text-align:center">797</td>
+<td style="text-align:right">90.765%</td>
+<td style="text-align:right">Avg GC Time 26ms ，Max GC Time     6sec650ms</td>
+<td style="text-align:right">Minor GC total time    1min13sec58ms，Full GC total time    1min930ms</td>
+</tr>
+<tr>
+<td>-XX:+UseParallelGC</td>
+<td style="text-align:center">837</td>
+<td style="text-align:right">95.59%</td>
+<td style="text-align:right">Avg GC Time     16ms，Max GC Time     5sec560ms</td>
+<td style="text-align:right">Minor GC total time    52 sec907ms，Full GC total time    18sec99ms</td>
+</tr>
+<tr>
+<td>-XX:+UseParallelOldGC</td>
+<td style="text-align:center">849</td>
+<td style="text-align:right">95.372%</td>
+<td style="text-align:right">Avg GC Time     16 ms，Max GC Time     4sec830ms</td>
+<td style="text-align:right">Minor GC total time    53 sec857ms，Full GC total time    16sec255ms</td>
+</tr>
+<tr>
+<td>-XX:+UseParNewGC</td>
+<td style="text-align:center">781</td>
+<td style="text-align:right">89.839%</td>
+<td style="text-align:right">Avg GC Time     27ms，Max GC Time     6sec540ms</td>
+<td style="text-align:right">Minor GC total time    59 sec257ms，Full GC total time    1 min24sec420ms</td>
+</tr>
+<tr>
+<td>-XX:+UseConeMarkSweepGC</td>
+<td style="text-align:center">746</td>
+<td style="text-align:right">93.962%</td>
+<td style="text-align:right">Avg GC Time 20ms，Max GC Time 7sec400ms</td>
+<td style="text-align:right">Minor GC total time    49 sec118ms，Full GC total time 48 sec700ms</td>
+</tr>
+</tbody>
+</table>
+<p>单从上面的测试结果来看，-XX:+UseParallelOldGC的效果最好。</p>
+<p>这只是一个简单的例子，gc收集器选择的过程远不止这些。</p>
+<hr>
+<h1 id="GC_tuning_in_practice">GC tuning in practice</h1><p>对于gc的优化，最好的结果就是不影响用户线程的执行，没有任何停顿，即Throughput  为100%，Latency为0。<br>但目前所有的垃圾收集器都做不到，之前听陈涛（《Hotspot实战》的作者）分享jvm故障诊断，他提到<strong>吞吐率&gt;99%</strong>、full gc 次数小于1算正常。<br>我们按照这个指标进行gc调整。</p>
+<p>例子还用上面搜索系统的例子。<br>搜索业务要求低停顿，CMS是以获取最短回收停顿时间为目标的收集器。</p>
+<p>G1也是低延迟的收集器，为啥不选择它？</p>
+<p>plumbr公司的测试结论（2013年的测试）：<br><a href="https://plumbr.eu/blog/garbage-collection/g1-vs-cms-vs-parallel-gc" target="_blank" rel="external">https://plumbr.eu/blog/garbage-collection/g1-vs-cms-vs-parallel-gc</a></p>
+<blockquote>
+<p>If I would dare to make such a conclusion, I would say that CMS is still the best “default” option to go with. G1 throughput is still so much worse that the improved latency is usually not worth it.</p>
+</blockquote>
+<p>推荐使用G1的场景</p>
+<blockquote>
+<p>G1垃圾收集器集中几种的应用场景是在应用程序有大内存并且要求极小的延迟的情况下，这意味着堆内存应该至少6G以上，稳定的可预测的停顿时间在0.5秒以下。 </p>
+<p>如果在使用CMS或者ParallelOldGC 垃圾收集器出现以下的情况时，切换G1垃圾收集器可以带来更好的效果： </p>
+<p>（1）Full GC 太长或者太频繁<br>（2）对象的分配内存空间率或者晋升频率差异很大<br>（3）追求更快的响应时间，当停顿时间大于0.5秒之1秒时 </p>
+<p>注意：如果你使用CMS或者ParallelOldGC 的gc时间可以接受，最好的方式仍然使用当前的GC垃圾收集器，<br>此外改为G1垃圾收集器，并不意味着，你就要一定升级到最新的JDK版本，当然如果可以的话，还是尽量使用当然最新最稳定的版本。</p>
+</blockquote>
+<p>结合plumbr的结论，和搜索应用内存使用情况（小于6G），我们暂时选择CMS来作为搜索系统的gc收集器。</p>
+<h2 id="搜索应用现状">搜索应用现状</h2><p>上面例子中cms的参数：</p>
+<blockquote>
+<p>VM arguments：-Xms1800m -Xmx1800m -Xmn800m -XX:PermSize=250m -XX:MaxPermSize=250m -Xss2m  -XX:+UseConcMarkSweepGC  -J-Xloggc:/var/log/gc_product.log -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintTenuringDistribution</p>
+</blockquote>
+<p>测试结果：<br><strong>Throughput  : </strong>93.962%<99% 153="" **full="" gc：**full="" gc="" count=""> 1 次<br>不符合我们的指标。</99%></p>
+<h2 id="cms参数调整">cms参数调整</h2><p>在调整参数之前，先仔细拜读一下R大的<a href="http://hllvm.group.iteye.com/group/topic/27945" target="_blank" rel="external">JVM调优的”标准参数”的各种陷阱</a>这篇文章。</p>
+<hr>
+<p>to be continue……</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>不同的垃圾收集器对系统有不同的性能表现，没有哪种垃圾收集器可以完美匹配所有系统。</p>
-<p>生产环境中需要针对不同的应用系统，进行不断的测试，尽可能选择适当的垃圾回收器与gc参数。所以，对于某个业务系统来说，没有最佳的GC组合，只有最合适的GC组合。</p>]]>
+<p>生产环境中需要针对不同的应用系统，进行不断的测试，尽可能选择适当的垃圾回收器与gc参数。</p>
+<p>所以，对于某个业务系统来说，没有最佳的GC组合，只有最合适的GC组合。</p>]]>
     
     </summary>
     
       <category term="java" scheme="http://tonylit.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[2016年终总结]]></title>
-    <link href="http://tonylit.me/2016/12/31/2016%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
-    <id>http://tonylit.me/2016/12/31/2016年终总结/</id>
-    <published>2016-12-31T03:37:27.000Z</published>
-    <updated>2016-12-31T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>转眼又是一年，今年的工作与学习节奏比较紧凑，有一些工作上的产出和成绩，也有不少学习收获。</p>
-<p>2016年工作总结如下：<br><a id="more"></a></p>
-<hr>
-<h1 id="工作内容">工作内容</h1><p>今年的工作内容比较饱和，主要分为两块：项目组性能测试支持与测试环境维护工作。工作的重点在测试环境维护-docker替代vmware虚拟机的改版上。</p>
-<h2 id="测试环境发布系统维护">测试环境发布系统维护</h2><p>1.搭建新应用43个。其中MIC前台项目10个，OSS项目1个，跨境项目组24个,XYZ项目组8个。<br>Docker发布系统上线后，XYZ重新接入环境发布系统中，新增并调整XYZ发布应用，发布过程中加入git与nginx相关操作,并在发布逻辑上做了相应调整。<br>2.测试环境问题处理。相比于15年,这块的工作量减少很多，多数环境问题集中在应用编译失败与服务化应用之间调用失败问题这两块。<br>3.Docker替代vmware虚拟机的改版。2015年10月份的时候萌生使用docker虚拟化技术优化测试环境发布系统的想法，但一直都没有实质性的进展。<br>今年年初开始着手Docker的研究并在7月底完成Docker系统的切换，将Docker落地；缩短了60%的测试版本发布时间也优化了测试环境维护工作。<br>整个工作包括：</p>
-<blockquote>
-<p>(1).docker的网络模型、存储引擎、调度规则预研及可行性分析<br>(2).搭建docker运行环境及调度规则的研发<br>(3).新老系统的切换与数据迁移<br>(4).测试应用报错日志的收集与提醒功能</p>
-</blockquote>
-<h2 id="项目组性能测试支持">项目组性能测试支持</h2><p>今年共有21项性能测试支持工作。包括：MIC事业部：12项；百卓事业部：2项；技术支持中心：3项；新一站事业部：3项。<br>MIC事业部的性能测试支持最多，大多是单功能的性能测试；xyz的性能测试规模较大，包括全站与上万并发的性能测试。<br>整体来看，性能测试的主要工作量在测试脚本编写与性能问题定位、调优上。<br>测试工具方面除了loadrunner和jmeter，今年新加入gatling性能测试工具。<br>性能问题定位方面涉及到数据库，网络瓶颈，jvm，线程堆栈，操作系统堆栈等方面。</p>
-<p><strong>性能测试任务list：</strong><br>归属事业部    测试内容    接口人    归属项目经理    时间<br>百卓网事业部 研发部    大买家系统性能测试    于利奎    佟星龙    3-4~3-11<br>百卓网事业部 研发部    优采企业版https接口升级性能测试    吉永鹏    杨星    12-15~12-22<br>百卓网事业部 研发部    cn性能优化效果性能测试    于利奎    佟星龙    5-18~5-25<br>MIC    mlan qp词搜索压力测试    张丽    张丽    12月26日<br>MIC    mic秒杀活动性能测试    赵宏梅    柏嵩    3月11日<br>MIC    nginx down掉性能测试支持    褚一凡    褚一凡    5月24日<br>MIC    多语言高负载性能测试    张丽    张丽    2-26~3-4<br>MIC    分布式追踪系统性能测试    王亚军    王亚军    5月4日<br>MIC    图片下载功能性能测试支持    周海燕    蔡松山    4-27~5-4<br>MIC    mic suggesut系统性能测试-搜索    李晶晶    李仁勇    2016/7/14，8-8<br>MIC    销售系统资源预定性能测试    刘俊    韩国明    8-3~8-5<br>MIC    mic灰度发布性能测试    褚一凡    褚一凡    8-22~8-25,8-29~8-30<br>MIC    mic询盘索引性能测试    毛欢    贺晟    8-31~9-21<br>MIC    mic suggesu系统2期性能测试-搜索    李晶晶    李仁勇    9月28日<br>MIC    跨境万花筒项目性能测试    蔡文    梁彪    10-31~11-7<br>技术支持中心 系统开发部    考试系统性能测试（阶段一）    董伟    陆鹰    6-14~6-23<br>技术支持中心 系统开发部    考试系统性能测试（阶段二）    董伟    陆鹰    7-6~7-12<br>技术支持中心 系统开发部    问卷调查性能测试    尤正环    陆鹰    8-15~8-23<br>新一站    10倍流量性能测试    于文倩    周晔    4-14~4-20<br>新一站    xyz省验收性能测试    于文倩    周晔    3-16~4~1<br>新一站    xyz淘宝店铺订单压测    于文倩    周晔    11-8~11-15</p>
-<h2 id="参加焦点技术大会">参加焦点技术大会</h2><p>参加第四届焦点技术大会， 分享主题：“测试环境的docker实践”。</p>
-<hr>
-<h1 id="工作业绩">工作业绩</h1><p>回顾全年的工作,在性能测试与测试环境维护上有一些工作业绩。<br><strong>性能测试方面：</strong><br>21次性能测试支持，覆盖公司大多事业部，保证被测系统符合性能指标。完成xyz省级验收性能测试，配合xyz顺利完成验收工作。<br><strong>测试环境维护方面：</strong><br>170个应用，450台环境机器，每天近200次应用发布，为测试人员提供良好的测试环境支持。<br>独立承担环境发布系统docker替代vmware虚拟机的改版，缩短60%测试版本发布时间，提高测试工作效率。<br><strong>创新方面：</strong><br>2016年3季度创新-鼓励奖，主题：使用docker部署测试环境。</p>
-<hr>
-<h1 id="成长和进步">成长和进步</h1><p><strong>测试环境维护方面：</strong><br>在docker的学习与应用上下了很多功夫，对docker技能的掌握与使用上有很大提高。<br><strong>性能测试方面：</strong><br>对大规模的性能测试有一些工作实践，对大规模场景的设计、测试脚本的开发、性能测试工具的使用上有所提升。在性能瓶颈的分析方面，对数据库，硬件资源，jvm，线程堆栈，操作系统堆栈等方面，可以对这些方面的问题做分析并定位到具体问题，相比于15年在性能问题解决能力方面有很大提升。</p>
-<hr>
-<h1 id="不足和差距">不足和差距</h1><p>无知者无畏，有些时候，知道的多了，反而少了说话的底气。<br>今年的工作与学习，很多方面都深入了进去，才发现自己缺失的知识和技能太多，比预想的还要多的多。在Docker的网络性能、调度算法、管理等方面还有很多不懂的地方。对jvm调优、多线程变成、操作系统、硬件知识等方面目前只能算是知道皮毛，还需要深入学习。<br>对语言的表达以及交流分享方面，用词不准确，逻辑性不够强，思考的问题深度不够，仍然需要不断去学习，锻炼。 </p>
-<hr>
-<h1 id="2016年规划">2016年规划</h1><p><strong>工作方面：</strong><br>搭建自动化性能测试平台。其实今年就打算做这方面的工作，但对这方面知识的掌握还有很大欠缺。希望明年可以逐步的将性能测试平台做起来。<br> <strong>学习方面：</strong><br>深入学习jvm、多线程、IO编程，加强这些方面的编程与调优能力。<br>学习python语言并运用到工作中。<br>学习linux内核与硬件知识，加强自己技术的深度与广度 。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>转眼又是一年，今年的工作与学习节奏比较紧凑，有一些工作上的产出和成绩，也有不少学习收获。</p>
-<p>2016年工作总结如下：<br>]]>
-    
-    </summary>
-    
-      <category term="work" scheme="http://tonylit.me/tags/work/"/>
     
   </entry>
   
