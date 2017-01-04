@@ -326,7 +326,6 @@
 </blockquote>
 <p>根据年轻代和年老代对象的存活情况，以及每种收集器特点，选择不同的收集器进行组合。</p>
 <p><img src="/img/garbage_collection/gc-type.PNG" alt="Alt text"><br>如果两个收集器之间存在连线，说明它们可以搭配使用。</p>
-<p><img src="/img/garbage_collection/collection-parameter.PNG" alt="Alt text"></p>
 <p>2013年的时候，Plumbr公司对垃圾收集器使用情况做了<a href="https://plumbr.eu/blog/garbage-collection/what-garbage-collector-are-you-using" target="_blank" rel="external">一次调查研究</a></p>
 <p>CMS最受欢迎，我们公司大多数项目使用的也是CMS（B2B，低停顿）<br><img src="/img/garbage_collection/垃圾收集器使用比例.PNG" alt="Alt text"></p>
 <hr>
