@@ -236,7 +236,7 @@
 <p>单从上面的测试结果来看，-XX:+UseParallelOldGC的效果最好。</p>
 <p>这只是一个简单的例子，gc收集器选择的过程远不止这些。</p>
 <hr>
-<h1 id="GC_tuning_in_practice">GC tuning in practice</h1><p>对于gc的优化，最好的结果就是不影响用户线程的执行，没有任何停顿，即Throughput  为100%，Latency为0。<br>但目前所有的垃圾收集器都做不到，之前听陈涛（《Hotspot实战》的作者）分享jvm故障诊断，他提到<strong>吞吐率&gt;99%</strong>、full gc 次数小于1算正常。<br>我们按照这个指标进行gc调整。</p>
+<h1 id="GC_tuning_in_practice">GC tuning in practice</h1><p>对于gc的优化，最好的结果就是不影响用户线程的执行，没有任何停顿，即Throughput  为100%，Latency为0。<br>但目前所有的垃圾收集器都做不到，之前听陈涛（《Hotspot实战》的作者）分享jvm故障诊断，他提到<strong>吞吐率&gt;99%、full gc 次数小于1算正常</strong>。<br>我们按照这个指标进行gc调整。</p>
 <p>例子还用上面搜索系统的例子。<br>搜索业务要求低停顿，CMS是以获取最短回收停顿时间为目标的收集器。</p>
 <p>G1也是低延迟的收集器，为啥不选择它？</p>
 <p>plumbr公司的测试结论（2013年的测试）：<br><a href="https://plumbr.eu/blog/garbage-collection/g1-vs-cms-vs-parallel-gc" target="_blank" rel="external">https://plumbr.eu/blog/garbage-collection/g1-vs-cms-vs-parallel-gc</a></p>
