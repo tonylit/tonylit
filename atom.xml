@@ -255,8 +255,17 @@
 <blockquote>
 <p>VM arguments：-Xms1800m -Xmx1800m -Xmn800m -XX:PermSize=250m -XX:MaxPermSize=250m -Xss2m  -XX:+UseConcMarkSweepGC  -J-Xloggc:/var/log/gc_product.log -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintTenuringDistribution</p>
 </blockquote>
-<p>测试结果：<br><strong>Throughput  : </strong>93.962%<99% 153="" **full="" gc：**full="" gc="" count=""> 1 次<br>不符合我们的指标。</99%></p>
+<p>测试结果：<br><strong>Throughput  : </strong> 93.962%&lt;99% </p>
+<p><strong>full gc：</strong> Full GC Count    153 &gt; 1 次</p>
+<p>不符合我们的指标。</p>
 <h2 id="cms参数调整">cms参数调整</h2><p>在调整参数之前，先仔细拜读一下R大的<a href="http://hllvm.group.iteye.com/group/topic/27945" target="_blank" rel="external">JVM调优的”标准参数”的各种陷阱</a>这篇文章。</p>
+<h3 id="常用参数说明">常用参数说明</h3><p>####-XX:+PrintFlagsFinal<br>当你在网上兴冲冲找到一个可优化的参数时，先用-XX: +PrintFlagsFinal看看，它可能已经默认打开了。<br>JDK7与JDK8，甚至JDK7中的不同版本，有些参数默认值都不一样，<strong>所以不要轻信网上任何文章，一切以生产环境同版本的JDK打出来的为准</strong>。</p>
+<h4 id="-XX:+DisableExplicitGC与-XX+ExplicitGCInvokesConcurrent">-XX:+DisableExplicitGC与-XX+ExplicitGCInvokesConcurrent</h4><p><strong>-XX:+DisableExplicitGC：</strong><br>用来禁止system.gc对gc的触发，加上后system.gc（）将不会触发gc。<br>System.gc()的默认效果是引发一次stop-the-world的full GC，对整个GC堆做收集。</p>
+<p>为啥要用这个参数呢？<br>最主要的原因是为了防止某些手贱的同学在代码里到处写System.gc()的调用而干扰了程序的正常运行；<br>也有些时候这些调用是在某些库或框架里写的，改不了它们的代码但又不想被这些调用干扰也会用这参数。</p>
+<p>开启这个参数会有什么坑？<br>比如Netty中的NIO，使用的是direct memory（不在gc回收范围内），经常、反复的申请DirectByteBuffer，这时候对内存的回收不调用System.gc()的话，会oom。</p>
+<p><strong>-XX+ExplicitGCInvokesConcurrent</strong><br>该参数只能配合CMS使用，System.gc()还是会触发GC的，只不过不是触发一个完全stop-the-world的full GC，而是一次并发GC周期（只在ygc和两个remark阶段停顿）。</p>
+<p><strong>结论：使用-XX:+ExplicitGCInvokesConcurrent，不要用-XX:+DisableExplicitGC</strong></p>
+<p>使用JDK6u23之前的版本，这里有个bug，可以升级JDK版本解决<br><a href="http://bugs.sun.com/view_bug.do?bug_id=6919638" target="_blank" rel="external">6919638 CMS: ExplicitGCInvokesConcurrent misinteracts with gc locker</a> </p>
 <hr>
 <p>to be continue……</p>
 ]]></content>
