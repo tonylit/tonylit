@@ -4,20 +4,21 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>JavaMelody监控java应用 | 淘淘的博客</title>
+  <title>GC Tuning In Practice | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="公司里大多都是java项目，之前监控一直用jprofiler，最近在论坛上发现JavaMelody这个监控神器，真是眼前一亮！">
+  <meta name="description" content="对于gc的优化，最好的结果就是不影响用户线程的执行，没有任何停顿，即Throughput  为100%，Latency为0。但目前所有的垃圾收集器都做不到。
+决定JVM性能的属性：1. 吞吐量（Throughput  ）；2. 延时（latency）；之前听陈涛（《Hotspot实战》的作者）分享jvm故障诊断，他提到吞吐率&amp;gt;99%、full gc 次数小于1算正常；">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaMelody监控java应用">
-<meta property="og:url" content="http://tonylit.me/2015/12/16/javamelody监控java应用/index.html">
+<meta property="og:title" content="GC Tuning In Practice">
+<meta property="og:url" content="http://tonylit.me/2017/01/24/GC Tuning In Practice/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="公司里大多都是java项目，之前监控一直用jprofiler，最近在论坛上发现JavaMelody这个监控神器，真是眼前一亮！">
-<meta property="og:image" content="http://tonylit.me/img/javamelody/javamelody_1.jpg">
-<meta property="og:image" content="http://tonylit.me/img/javamelody/javamelody.PNG">
-<meta property="og:updated_time" content="2015-12-16T05:37:27.000Z">
+<meta property="og:description" content="对于gc的优化，最好的结果就是不影响用户线程的执行，没有任何停顿，即Throughput  为100%，Latency为0。但目前所有的垃圾收集器都做不到。
+决定JVM性能的属性：1. 吞吐量（Throughput  ）；2. 延时（latency）；之前听陈涛（《Hotspot实战》的作者）分享jvm故障诊断，他提到吞吐率&amp;gt;99%、full gc 次数小于1算正常；">
+<meta property="og:updated_time" content="2017-01-24T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaMelody监控java应用">
-<meta name="twitter:description" content="公司里大多都是java项目，之前监控一直用jprofiler，最近在论坛上发现JavaMelody这个监控神器，真是眼前一亮！">
+<meta name="twitter:title" content="GC Tuning In Practice">
+<meta name="twitter:description" content="对于gc的优化，最好的结果就是不影响用户线程的执行，没有任何停顿，即Throughput  为100%，Latency为0。但目前所有的垃圾收集器都做不到。
+决定JVM性能的属性：1. 吞吐量（Throughput  ）；2. 延时（latency）；之前听陈涛（《Hotspot实战》的作者）分享jvm故障诊断，他提到吞吐率&amp;gt;99%、full gc 次数小于1算正常；">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -195,7 +196,7 @@
 高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
 </div>
 
-      <div class="body-wrap"><article id="post-javamelody监控java应用" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-GC Tuning In Practice" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -209,8 +210,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2015/12/16/javamelody监控java应用/" class="article-date">
-  	<time datetime="2015-12-16T03:37:27.000Z" itemprop="datePublished">2015-12-16</time>
+            <a href="/2017/01/24/GC Tuning In Practice/" class="article-date">
+  	<time datetime="2017-01-24T03:37:27.000Z" itemprop="datePublished">2017-01-24</time>
 </a>
 
         </div>
@@ -224,7 +225,7 @@
                                 
   
     <h1 class="article-title" itemprop="name">
-      JavaMelody监控java应用
+      GC Tuning In Practice
     </h1>
   
 
@@ -234,7 +235,7 @@
                                 <div class="article-info article-info-post">
                                     
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
 	</div>
 
 
@@ -249,20 +250,41 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaMelody介绍"><span class="toc-number">1.</span> <span class="toc-text">JavaMelody介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#监控配置"><span class="toc-number">2.</span> <span class="toc-text">监控配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#下载一个javamelody-1-58-0-zip_解压开来"><span class="toc-number">2.1.</span> <span class="toc-text">下载一个javamelody-1.58.0.zip 解压开来</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置web-xml"><span class="toc-number">3.</span> <span class="toc-text">配置web.xml</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#重启应用，完成配置"><span class="toc-number">4.</span> <span class="toc-text">重启应用，完成配置</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#搜索系统机器及jdk情况"><span class="toc-number">1.</span> <span class="toc-text">搜索系统机器及jdk情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jvm参数配置："><span class="toc-number">2.</span> <span class="toc-text">jvm参数配置：</span></a></li></ol>
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <p>公司里大多都是java项目，之前监控一直用jprofiler，最近在论坛上发现JavaMelody这个监控神器，真是眼前一亮！<br><img src="/img/javamelody/javamelody_1.jpg" alt="Alt text"></p>
+                                                                            <p>对于gc的优化，最好的结果就是不影响用户线程的执行，没有任何停顿，即Throughput  为100%，Latency为0。<br>但目前所有的垃圾收集器都做不到。</p>
+<p>决定JVM性能的属性：1. 吞吐量（Throughput  ）；2. 延时（latency）；之前听陈涛（《Hotspot实战》的作者）分享jvm故障诊断，他提到<strong>吞吐率&gt;99%</strong>、full gc 次数小于1算正常；</p>
 <a id="more"></a>
-<h1 id="JavaMelody介绍">JavaMelody介绍</h1><p>JavaMelody 能够监测Java或Java EE应用程序服务器，并以图表的方式显示：Java内存和Java  CPU使用情况，用户Session数量，JDBC连接数，和http请求、sql请求、jsp页面与业务接口方法（EJB3、Spring、 Guice）的执行数量，平均执行时间，错误百分比等。图表可以按天，周，月，年或自定义时间段查看。</p>
-<h1 id="监控配置">监控配置</h1><p>今天先介绍怎样简单的做项目监控，与spring或者Struts集成先不谈。<br>你需要做的只是拷贝两个jar包，添加10行xml的代码就OK了。</p>
-<h2 id="下载一个javamelody-1-58-0-zip_解压开来">下载一个javamelody-1.58.0.zip 解压开来</h2><p>下载地址在github上，<a href="https://github.com/javamelody/javamelody/releases，现在的最新版本是1.58，下载javamelody-1.58.0.zip" target="_blank" rel="external">https://github.com/javamelody/javamelody/releases，现在的最新版本是1.58，下载javamelody-1.58.0.zip</a><br>解压开，将里面的javamelody.jar和jrobin-1.5.9.1.jar拷贝到项目WEB-INF下的lib中。</p>
-<h1 id="配置web-xml">配置web.xml</h1><p>在web.xml中添加配置：</p>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">&lt;filter&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="variable">&lt;filter-name&gt;</span>monitoring<span class="variable">&lt;/filter-name&gt;</span></span><br><span class="line">      <span class="variable">&lt;filter-class&gt;</span>net.bull.javamelody.MonitoringFilter<span class="variable">&lt;/filter-class&gt;</span></span><br><span class="line"><span class="variable">&lt;/filter&gt;</span></span><br><span class="line"><span class="variable">&lt;filter-mapping&gt;</span></span><br><span class="line">       <span class="variable">&lt;filter-name&gt;</span>monitoring<span class="variable">&lt;/filter-name&gt;</span></span><br><span class="line">       <span class="variable">&lt;url-pattern&gt;</span>/<span class="keyword">*</span><span class="variable">&lt;/url-pattern&gt;</span></span><br><span class="line"><span class="variable">&lt;/filter-mapping&gt;</span></span><br><span class="line"><span class="variable">&lt;listener&gt;</span></span><br><span class="line">       <span class="variable">&lt;listener-class&gt;</span>net.bull.javamelody.SessionListener<span class="variable">&lt;/listener-class&gt;</span></span><br><span class="line"><span class="variable">&lt;/listener&gt;</span></span><br></pre></td></tr></table></figure>
-<h1 id="重启应用，完成配置">重启应用，完成配置</h1><p>现在就可以启动应用服务器打开网址查看监控效果了。网址：http://<host>/monitoring<br>如：<a href="http://192.168.43.103:82/monitoring" target="_blank" rel="external">http://192.168.43.103:82/monitoring</a><br><img src="/img/javamelody/javamelody.PNG" alt="Alt text"></host></p>
+<hr>
+<p>下面对搜索系统的核心业务做压力测试，以此例子进行gc调优实践。</p>
+<h2 id="搜索系统机器及jdk情况">搜索系统机器及jdk情况</h2><p>CPU: 8核 Intel(R) Xeon(R) CPU           E5410  @ 2.33GHz<br>MEM: 10G</p>
+<p><strong>JDK版本：</strong></p>
+<blockquote>
+<p>java version “1.7.0_40”<br>Java(TM) SE Runtime Environment (build 1.7.0_40-b43)<br>Java HotSpot(TM) 64-Bit Server VM (build 24.0-b56, mixed mode)</p>
+</blockquote>
+<hr>
+<h2 id="jvm参数配置：">jvm参数配置：</h2><blockquote>
+</blockquote>
+<p>测试结果：<br><strong>Throughput  : </strong>93.962%<99% 153="" **full="" gc：**full="" gc="" count=""> 1 次<br>不符合我们的指标。</99%></p>
+<p>例子还用上面搜索系统的例子，基础数据量调整到生产环境的量（1200W）<br>搜索业务要求低停顿，CMS是以获取最短回收停顿时间为目标的收集器。</p>
+<p>G1也是低延迟的收集器，为啥不选择它？</p>
+<p>plumbr公司的测试结论（2013年的测试）：<br><a href="https://plumbr.eu/blog/garbage-collection/g1-vs-cms-vs-parallel-gc" target="_blank" rel="external">https://plumbr.eu/blog/garbage-collection/g1-vs-cms-vs-parallel-gc</a></p>
+<blockquote>
+<p>If I would dare to make such a conclusion, I would say that CMS is still the best “default” option to go with. G1 throughput is still so much worse that the improved latency is usually not worth it.</p>
+</blockquote>
+<p>推荐使用G1的场景</p>
+<blockquote>
+<p>G1垃圾收集器集中几种的应用场景是在应用程序有大内存并且要求极小的延迟的情况下，这意味着堆内存应该至少6G以上，稳定的可预测的停顿时间在0.5秒以下。 </p>
+<p>如果在使用CMS或者ParallelOldGC 垃圾收集器出现以下的情况时，切换G1垃圾收集器可以带来更好的效果： </p>
+<p>（1）Full GC 太长或者太频繁<br>（2）对象的分配内存空间率或者晋升频率差异很大<br>（3）追求更快的响应时间，当停顿时间大于0.5秒之1秒时 </p>
+<p>注意：如果你使用CMS或者ParallelOldGC 的gc时间可以接受，最好的方式仍然使用当前的GC垃圾收集器，<br>此外改为G1垃圾收集器，并不意味着，你就要一定升级到最新的JDK版本，当然如果可以的话，还是尽量使用当然最新最稳定的版本。</p>
+</blockquote>
+<p>结合plumbr的结论，和搜索应用内存使用情况（小于6G），我们暂时选择CMS来作为搜索系统的gc收集器。</p>
+<p>to be continue……</p>
 
                                                                                 
                                         </div>
@@ -296,18 +318,18 @@
                         
 <nav id="article-nav">
   
-    <a href="/2015/12/17/系统监控-nmon使用/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/01/24/JVM 配置参数整理/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          系统监控-nmon使用
+          JVM 配置参数整理
         
       </div>
     </a>
   
   
-    <a href="/2015/12/16/jenkins+maven+jmeter性能自动化实践/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">jenkins+maven+jmeter 性能自动化实践</div>
+    <a href="/2016/12/27/GC combination test/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">GC combination test</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -317,7 +339,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-javamelody监控java应用" data-title="JavaMelody监控java应用" data-url="http://tonylit.me/2015/12/16/javamelody监控java应用/"></div>
+                                    <div class="ds-thread" data-thread-key="post-GC Tuning In Practice" data-title="GC Tuning In Practice" data-url="http://tonylit.me/2017/01/24/GC Tuning In Practice/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">

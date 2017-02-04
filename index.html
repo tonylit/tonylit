@@ -328,7 +328,7 @@
 
 
   
-    <article id="post-JVM GC组合测试" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-JVM 配置参数整理" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -342,7 +342,165 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2016/12/27/JVM GC组合测试/" class="article-date">
+            <a href="/2017/01/24/JVM 配置参数整理/" class="article-date">
+  	<time datetime="2017-01-24T03:37:27.000Z" itemprop="datePublished">2017-01-24</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/24/JVM 配置参数整理/">JVM 配置参数整理</a>
+    </h1>
+  
+
+
+                            </header>
+                            
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+
+                                                
+                                                                
+                                                                    <h1 id="-XX:+PrintFlagsFinal">-XX:+PrintFlagsFinal</h1><p>当你在网上兴冲冲找到一个可优化的参数时，先用-XX: +PrintFlagsFinal看看，它可能已经默认打开了。<br>JDK7与JDK8，甚至JDK7中的不同版本，有些参数默认值都不一样，<strong>所以不要轻信网上任何文章，一切以生产环境同版本的JDK打出来的为准</strong>。</p>
+<p>另外，可以先看一下R大的<a href="http://hllvm.group.iteye.com/group/topic/27945">JVM调优的”标准参数”的各种陷阱</a>这篇文章。</p>
+                                                                        
+                                        </div>
+                                        
+                                            <div class="article-info article-info-index">
+                                                
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+	</div>
+
+
+                                                    
+
+                                                        
+                                                            <p class="article-more-link">
+                                                                <a  href="/2017/01/24/JVM 配置参数整理/#more">More >></a>
+                                                            </p>
+                                                            
+                                                                <div class="clearfix"></div>
+                                            </div>
+                                            
+            </div>
+            
+                    
+                                <!-- 多说评论框 start -->
+                                
+</article>
+
+<!--
+
+-->
+<!--
+
+-->
+
+  
+    <article id="post-GC Tuning In Practice" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2017/01/24/GC Tuning In Practice/" class="article-date">
+  	<time datetime="2017-01-24T03:37:27.000Z" itemprop="datePublished">2017-01-24</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/24/GC Tuning In Practice/">GC Tuning In Practice</a>
+    </h1>
+  
+
+
+                            </header>
+                            
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+
+                                                
+                                                                
+                                                                    <p>对于gc的优化，最好的结果就是不影响用户线程的执行，没有任何停顿，即Throughput  为100%，Latency为0。<br>但目前所有的垃圾收集器都做不到。</p>
+<p>决定JVM性能的属性：1. 吞吐量（Throughput  ）；2. 延时（latency）；之前听陈涛（《Hotspot实战》的作者）分享jvm故障诊断，他提到<strong>吞吐率&gt;99%</strong>、full gc 次数小于1算正常；</p>
+                                                                        
+                                        </div>
+                                        
+                                            <div class="article-info article-info-index">
+                                                
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+	</div>
+
+
+                                                    
+
+                                                        
+                                                            <p class="article-more-link">
+                                                                <a  href="/2017/01/24/GC Tuning In Practice/#more">More >></a>
+                                                            </p>
+                                                            
+                                                                <div class="clearfix"></div>
+                                            </div>
+                                            
+            </div>
+            
+                    
+                                <!-- 多说评论框 start -->
+                                
+</article>
+
+<!--
+
+-->
+<!--
+
+-->
+
+  
+    <article id="post-GC combination test" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2016/12/27/GC combination test/" class="article-date">
   	<time datetime="2016-12-27T03:37:27.000Z" itemprop="datePublished">2016-12-27</time>
 </a>
 
@@ -357,7 +515,7 @@
                                 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/27/JVM GC组合测试/">GC combination test and tuning in practice</a>
+      <a class="article-title" href="/2016/12/27/GC combination test/">GC combination test</a>
     </h1>
   
 
@@ -387,7 +545,7 @@
 
                                                         
                                                             <p class="article-more-link">
-                                                                <a  href="/2016/12/27/JVM GC组合测试/#more">More >></a>
+                                                                <a  href="/2016/12/27/GC combination test/#more">More >></a>
                                                             </p>
                                                             
                                                                 <div class="clearfix"></div>
@@ -781,162 +939,6 @@
                                                         
                                                             <p class="article-more-link">
                                                                 <a  href="/2016/11/16/网络带宽瓶颈导致tps上不去/#more">More >></a>
-                                                            </p>
-                                                            
-                                                                <div class="clearfix"></div>
-                                            </div>
-                                            
-            </div>
-            
-                    
-                                <!-- 多说评论框 start -->
-                                
-</article>
-
-<!--
-
--->
-<!--
-
--->
-
-  
-    <article id="post-tcpcopy" class="article article-type-post" itemscope itemprop="blogPost">
-    <script>
-        $("html").niceScroll({
-            cursorcolor: "#2a2929",
-            cursoropacitymax: 1,
-            touchbehavior: false,
-            cursorwidth: "6px",
-            cursorborder: "5",
-            cursorborderradius: "0px",
-            autohidemode: true
-        });
-    </script>
-    
-        <div class="article-meta">
-            <a href="/2016/10/19/tcpcopy/" class="article-date">
-  	<time datetime="2016-10-19T03:37:27.000Z" itemprop="datePublished">2016-10-19</time>
-</a>
-
-        </div>
-        
-            <div class="article-inner">
-                
-                    <input type="hidden" class="isFancy" />
-                    
-                        
-                            <header class="article-header">
-                                
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/19/tcpcopy/">tcpcopy1.0使用</a>
-    </h1>
-  
-
-
-                            </header>
-                            
-                                    
-                                        <div class="article-entry" itemprop="articleBody">
-                                            
-
-                                                
-                                                                
-                                                                    <p>平时我们做的压力测试，很难去模拟线上复杂的真实流量，尤其里面混杂着各种奇异的异常流量。<br>所以，线下压的好好的系统，上线后可能就雪崩了。<br>tcpcopy可以解决以上问题， tcpcopy是一种流量的实时复制工具，可以将线上的流量引到测试环境上做测试。<br> 当然， tcpcopy也可以回放tcpdump的流量包。</p>
-                                                                        
-                                        </div>
-                                        
-                                            <div class="article-info article-info-index">
-                                                
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
-	</div>
-
-
-                                                    
-
-                                                        
-                                                            <p class="article-more-link">
-                                                                <a  href="/2016/10/19/tcpcopy/#more">More >></a>
-                                                            </p>
-                                                            
-                                                                <div class="clearfix"></div>
-                                            </div>
-                                            
-            </div>
-            
-                    
-                                <!-- 多说评论框 start -->
-                                
-</article>
-
-<!--
-
--->
-<!--
-
--->
-
-  
-    <article id="post-测试环境的docker实践" class="article article-type-post" itemscope itemprop="blogPost">
-    <script>
-        $("html").niceScroll({
-            cursorcolor: "#2a2929",
-            cursoropacitymax: 1,
-            touchbehavior: false,
-            cursorwidth: "6px",
-            cursorborder: "5",
-            cursorborderradius: "0px",
-            autohidemode: true
-        });
-    </script>
-    
-        <div class="article-meta">
-            <a href="/2016/10/12/测试环境的docker实践/" class="article-date">
-  	<time datetime="2016-10-12T03:37:27.000Z" itemprop="datePublished">2016-10-12</time>
-</a>
-
-        </div>
-        
-            <div class="article-inner">
-                
-                    <input type="hidden" class="isFancy" />
-                    
-                        
-                            <header class="article-header">
-                                
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/12/测试环境的docker实践/">测试环境的docker实践</a>
-    </h1>
-  
-
-
-                            </header>
-                            
-                                    
-                                        <div class="article-entry" itemprop="articleBody">
-                                            
-
-                                                
-                                                                
-                                                                    <p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>
-                                                                        
-                                        </div>
-                                        
-                                            <div class="article-info article-info-index">
-                                                
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
-	</div>
-
-
-                                                    
-
-                                                        
-                                                            <p class="article-more-link">
-                                                                <a  href="/2016/10/12/测试环境的docker实践/#more">More >></a>
                                                             </p>
                                                             
                                                                 <div class="clearfix"></div>

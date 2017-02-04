@@ -4,20 +4,21 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>JavaMelody监控java应用 | 淘淘的博客</title>
+  <title>JVM 配置参数整理 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="公司里大多都是java项目，之前监控一直用jprofiler，最近在论坛上发现JavaMelody这个监控神器，真是眼前一亮！">
+  <meta name="description" content="-XX:+PrintFlagsFinal当你在网上兴冲冲找到一个可优化的参数时，先用-XX: +PrintFlagsFinal看看，它可能已经默认打开了。JDK7与JDK8，甚至JDK7中的不同版本，有些参数默认值都不一样，所以不要轻信网上任何文章，一切以生产环境同版本的JDK打出来的为准。
+另外，可以先看一下R大的JVM调优的”标准参数”的各种陷阱这篇文章。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaMelody监控java应用">
-<meta property="og:url" content="http://tonylit.me/2015/12/16/javamelody监控java应用/index.html">
+<meta property="og:title" content="JVM 配置参数整理">
+<meta property="og:url" content="http://tonylit.me/2017/01/24/JVM 配置参数整理/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="公司里大多都是java项目，之前监控一直用jprofiler，最近在论坛上发现JavaMelody这个监控神器，真是眼前一亮！">
-<meta property="og:image" content="http://tonylit.me/img/javamelody/javamelody_1.jpg">
-<meta property="og:image" content="http://tonylit.me/img/javamelody/javamelody.PNG">
-<meta property="og:updated_time" content="2015-12-16T05:37:27.000Z">
+<meta property="og:description" content="-XX:+PrintFlagsFinal当你在网上兴冲冲找到一个可优化的参数时，先用-XX: +PrintFlagsFinal看看，它可能已经默认打开了。JDK7与JDK8，甚至JDK7中的不同版本，有些参数默认值都不一样，所以不要轻信网上任何文章，一切以生产环境同版本的JDK打出来的为准。
+另外，可以先看一下R大的JVM调优的”标准参数”的各种陷阱这篇文章。">
+<meta property="og:updated_time" content="2017-01-24T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaMelody监控java应用">
-<meta name="twitter:description" content="公司里大多都是java项目，之前监控一直用jprofiler，最近在论坛上发现JavaMelody这个监控神器，真是眼前一亮！">
+<meta name="twitter:title" content="JVM 配置参数整理">
+<meta name="twitter:description" content="-XX:+PrintFlagsFinal当你在网上兴冲冲找到一个可优化的参数时，先用-XX: +PrintFlagsFinal看看，它可能已经默认打开了。JDK7与JDK8，甚至JDK7中的不同版本，有些参数默认值都不一样，所以不要轻信网上任何文章，一切以生产环境同版本的JDK打出来的为准。
+另外，可以先看一下R大的JVM调优的”标准参数”的各种陷阱这篇文章。">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -195,7 +196,7 @@
 高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
 </div>
 
-      <div class="body-wrap"><article id="post-javamelody监控java应用" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-JVM 配置参数整理" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -209,8 +210,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2015/12/16/javamelody监控java应用/" class="article-date">
-  	<time datetime="2015-12-16T03:37:27.000Z" itemprop="datePublished">2015-12-16</time>
+            <a href="/2017/01/24/JVM 配置参数整理/" class="article-date">
+  	<time datetime="2017-01-24T03:37:27.000Z" itemprop="datePublished">2017-01-24</time>
 </a>
 
         </div>
@@ -224,7 +225,7 @@
                                 
   
     <h1 class="article-title" itemprop="name">
-      JavaMelody监控java应用
+      JVM 配置参数整理
     </h1>
   
 
@@ -234,7 +235,7 @@
                                 <div class="article-info article-info-post">
                                     
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
 	</div>
 
 
@@ -249,20 +250,35 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaMelody介绍"><span class="toc-number">1.</span> <span class="toc-text">JavaMelody介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#监控配置"><span class="toc-number">2.</span> <span class="toc-text">监控配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#下载一个javamelody-1-58-0-zip_解压开来"><span class="toc-number">2.1.</span> <span class="toc-text">下载一个javamelody-1.58.0.zip 解压开来</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置web-xml"><span class="toc-number">3.</span> <span class="toc-text">配置web.xml</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#重启应用，完成配置"><span class="toc-number">4.</span> <span class="toc-text">重启应用，完成配置</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#-XX:+PrintFlagsFinal"><span class="toc-number">1.</span> <span class="toc-text">-XX:+PrintFlagsFinal</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常用参数说明"><span class="toc-number">2.</span> <span class="toc-text">常用参数说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#全局参数"><span class="toc-number">2.1.</span> <span class="toc-text">全局参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#-Xms_-Xmx"><span class="toc-number">2.1.1.</span> <span class="toc-text">-Xms -Xmx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-XX:+DisableExplicitGC与-XX+ExplicitGCInvokesConcurrent"><span class="toc-number">2.1.2.</span> <span class="toc-text">-XX:+DisableExplicitGC与-XX+ExplicitGCInvokesConcurrent</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#监控参数"><span class="toc-number">2.2.</span> <span class="toc-text">监控参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#eden区参数"><span class="toc-number">2.3.</span> <span class="toc-text">eden区参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#survivor区参数"><span class="toc-number">2.4.</span> <span class="toc-text">survivor区参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#old区参数"><span class="toc-number">2.5.</span> <span class="toc-text">old区参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#perm区参数"><span class="toc-number">2.6.</span> <span class="toc-text">perm区参数</span></a></li></ol></li></ol>
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <p>公司里大多都是java项目，之前监控一直用jprofiler，最近在论坛上发现JavaMelody这个监控神器，真是眼前一亮！<br><img src="/img/javamelody/javamelody_1.jpg" alt="Alt text"></p>
+                                                                            <h1 id="-XX:+PrintFlagsFinal">-XX:+PrintFlagsFinal</h1><p>当你在网上兴冲冲找到一个可优化的参数时，先用-XX: +PrintFlagsFinal看看，它可能已经默认打开了。<br>JDK7与JDK8，甚至JDK7中的不同版本，有些参数默认值都不一样，<strong>所以不要轻信网上任何文章，一切以生产环境同版本的JDK打出来的为准</strong>。</p>
+<p>另外，可以先看一下R大的<a href="http://hllvm.group.iteye.com/group/topic/27945" target="_blank" rel="external">JVM调优的”标准参数”的各种陷阱</a>这篇文章。</p>
 <a id="more"></a>
-<h1 id="JavaMelody介绍">JavaMelody介绍</h1><p>JavaMelody 能够监测Java或Java EE应用程序服务器，并以图表的方式显示：Java内存和Java  CPU使用情况，用户Session数量，JDBC连接数，和http请求、sql请求、jsp页面与业务接口方法（EJB3、Spring、 Guice）的执行数量，平均执行时间，错误百分比等。图表可以按天，周，月，年或自定义时间段查看。</p>
-<h1 id="监控配置">监控配置</h1><p>今天先介绍怎样简单的做项目监控，与spring或者Struts集成先不谈。<br>你需要做的只是拷贝两个jar包，添加10行xml的代码就OK了。</p>
-<h2 id="下载一个javamelody-1-58-0-zip_解压开来">下载一个javamelody-1.58.0.zip 解压开来</h2><p>下载地址在github上，<a href="https://github.com/javamelody/javamelody/releases，现在的最新版本是1.58，下载javamelody-1.58.0.zip" target="_blank" rel="external">https://github.com/javamelody/javamelody/releases，现在的最新版本是1.58，下载javamelody-1.58.0.zip</a><br>解压开，将里面的javamelody.jar和jrobin-1.5.9.1.jar拷贝到项目WEB-INF下的lib中。</p>
-<h1 id="配置web-xml">配置web.xml</h1><p>在web.xml中添加配置：</p>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">&lt;filter&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="variable">&lt;filter-name&gt;</span>monitoring<span class="variable">&lt;/filter-name&gt;</span></span><br><span class="line">      <span class="variable">&lt;filter-class&gt;</span>net.bull.javamelody.MonitoringFilter<span class="variable">&lt;/filter-class&gt;</span></span><br><span class="line"><span class="variable">&lt;/filter&gt;</span></span><br><span class="line"><span class="variable">&lt;filter-mapping&gt;</span></span><br><span class="line">       <span class="variable">&lt;filter-name&gt;</span>monitoring<span class="variable">&lt;/filter-name&gt;</span></span><br><span class="line">       <span class="variable">&lt;url-pattern&gt;</span>/<span class="keyword">*</span><span class="variable">&lt;/url-pattern&gt;</span></span><br><span class="line"><span class="variable">&lt;/filter-mapping&gt;</span></span><br><span class="line"><span class="variable">&lt;listener&gt;</span></span><br><span class="line">       <span class="variable">&lt;listener-class&gt;</span>net.bull.javamelody.SessionListener<span class="variable">&lt;/listener-class&gt;</span></span><br><span class="line"><span class="variable">&lt;/listener&gt;</span></span><br></pre></td></tr></table></figure>
-<h1 id="重启应用，完成配置">重启应用，完成配置</h1><p>现在就可以启动应用服务器打开网址查看监控效果了。网址：http://<host>/monitoring<br>如：<a href="http://192.168.43.103:82/monitoring" target="_blank" rel="external">http://192.168.43.103:82/monitoring</a><br><img src="/img/javamelody/javamelody.PNG" alt="Alt text"></host></p>
+<h1 id="常用参数说明">常用参数说明</h1><p>把参数分为全局参数，监控参数，eden区参数，survivor区参数，old区参数，perm区参数</p>
+<h2 id="全局参数">全局参数</h2><h3 id="-Xms_-Xmx">-Xms -Xmx</h3><p>-Xms 初始化堆大小，-Xmx 最大堆大小。默认空余堆内存小于40%，自动扩展到-Xmx的值。<br><strong>-Xms和-Xmx一般情况设置相同的值</strong>，避免扩展内存带来的损耗。</p>
+<p>单机部署server的情况下，-Xmx的设置建议在物理内存的1/2到2/3之间。<br> Java进程消耗的总内存肯定大于最大堆内存：</p>
+<blockquote>
+<p>java总内存=堆内存（Xmx）+ 方法区内存（MaxPermSize）+ 栈内存（Xss，包括虚拟机栈和本地方法栈）*线程数 + direct memory +  JNI代码 + 虚拟机和GC本身内存开销 </p>
+</blockquote>
+<p>留更多的内存提升系统容错性。</p>
+<hr>
+<h3 id="-XX:+DisableExplicitGC与-XX+ExplicitGCInvokesConcurrent">-XX:+DisableExplicitGC与-XX+ExplicitGCInvokesConcurrent</h3><p><strong>-XX:+DisableExplicitGC：</strong><br>用来禁止system.gc对gc的触发，加上后system.gc（）将不会触发gc。<br>System.gc()的默认效果是引发一次stop-the-world的full GC，对整个GC堆做收集。</p>
+<p>为啥要用这个参数呢？<br>最主要的原因是为了防止某些手贱的同学在代码里到处写System.gc()的调用而干扰了程序的正常运行；<br>也有些时候这些调用是在某些库或框架里写的，改不了它们的代码但又不想被这些调用干扰也会用这参数。</p>
+<p>开启这个参数会有什么坑？<br>比如Netty中的NIO，使用的是direct memory（不在gc回收范围内），经常、反复的申请DirectByteBuffer，这时候对内存的回收不调用System.gc()的话，会oom。</p>
+<p><strong>-XX+ExplicitGCInvokesConcurrent</strong><br>该参数只能配合CMS使用，System.gc()还是会触发GC的，只不过不是触发一个完全stop-the-world的full GC，而是一次并发GC周期（只在ygc和两个remark阶段停顿）。</p>
+<p><strong>结论：使用-XX:+ExplicitGCInvokesConcurrent，不要用-XX:+DisableExplicitGC</strong></p>
+<p>使用JDK6u23之前的版本，这里有个bug，可以升级JDK版本解决<br><a href="http://bugs.sun.com/view_bug.do?bug_id=6919638" target="_blank" rel="external">6919638 CMS: ExplicitGCInvokesConcurrent misinteracts with gc locker</a> </p>
+<hr>
+<h2 id="监控参数">监控参数</h2><hr>
+<h2 id="eden区参数">eden区参数</h2><hr>
+<h2 id="survivor区参数">survivor区参数</h2><hr>
+<h2 id="old区参数">old区参数</h2><hr>
+<h2 id="perm区参数">perm区参数</h2><hr>
 
                                                                                 
                                         </div>
@@ -296,18 +312,9 @@
                         
 <nav id="article-nav">
   
-    <a href="/2015/12/17/系统监控-nmon使用/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          系统监控-nmon使用
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/12/16/jenkins+maven+jmeter性能自动化实践/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">jenkins+maven+jmeter 性能自动化实践</div>
+    <a href="/2017/01/24/GC Tuning In Practice/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">GC Tuning In Practice</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -317,7 +324,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-javamelody监控java应用" data-title="JavaMelody监控java应用" data-url="http://tonylit.me/2015/12/16/javamelody监控java应用/"></div>
+                                    <div class="ds-thread" data-thread-key="post-JVM 配置参数整理" data-title="JVM 配置参数整理" data-url="http://tonylit.me/2017/01/24/JVM 配置参数整理/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">
