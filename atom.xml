@@ -20,7 +20,7 @@
     <id>http://tonylit.me/2017/02/22/loadrunner_https脚本/</id>
     <published>2017-02-22T03:37:27.000Z</published>
     <updated>2017-02-22T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>全站https好像已经成为互联网公司的主流，</p>
+    <content type="html"><![CDATA[<p>全站https已经成为互联网公司的主流，</p>
 <p>loadrunner对https的支持还算不错。</p>
 <a id="more"></a>
 <p>这里总结两种loadrunner https支持。</p>
@@ -47,7 +47,7 @@
 <p>注意   “CertIndex=1”, 如果没有的话，加上。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>全站https好像已经成为互联网公司的主流，</p>
+    <![CDATA[<p>全站https已经成为互联网公司的主流，</p>
 <p>loadrunner对https的支持还算不错。</p>]]>
     
     </summary>
