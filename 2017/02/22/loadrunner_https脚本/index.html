@@ -280,16 +280,9 @@ loadrunner对https的支持还算不错。">
 </ol>
 <p><img src="/img/loadrunner_https/ssl.PNG" alt="Alt text"></p>
 <ol>
-<li><p>开始录制，录制结束后会生成以下脚本</p>
-<p> web_set_certificate_ex(“CertFilePath=focuschina.PEM”, </p>
-<pre><code><span class="string">"CertFormat=PEM"</span>, 
-<span class="string">"KeyFilePath=focuschina.PEM"</span>, 
-<span class="string">"KeyFormat=PEM"</span>, 
-<span class="string">"Password=123456"</span>, 
- <span class="string">"CertIndex=1"</span>,
-LAST);
-</code></pre></li>
+<li>开始录制，录制结束后会生成以下脚本</li>
 </ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">web_<span class="built_in">set</span>_certificate_ex(<span class="string">"CertFilePath=focuschina.PEM"</span>, </span><br><span class="line">	<span class="string">"CertFormat=PEM"</span>, </span><br><span class="line">	<span class="string">"KeyFilePath=focuschina.PEM"</span>, </span><br><span class="line">	<span class="string">"KeyFormat=PEM"</span>, </span><br><span class="line">	<span class="string">"Password=123456"</span>, </span><br><span class="line">        <span class="string">"CertIndex=1"</span>,</span><br><span class="line">	LAST);</span><br></pre></td></tr></table></figure>
 <p>注意   “CertIndex=1”, 如果没有的话，加上。</p>
 
                                                                                 
