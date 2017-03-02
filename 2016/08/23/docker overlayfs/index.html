@@ -257,15 +257,7 @@
                                                                             <p>环境：centos7.2，3.18以上内核版本，docker1.12</p>
 <a id="more"></a>
 <p>内核3.18以下的升级吧，3.10虽说也有overlay，但不是一回事儿。</p>
-<h1 id="升级内核到3-18以上">升级内核到3.18以上</h1><blockquote>
-<ol>
-<li>rpm –import <a href="https://www.elrepo.org/RPM-GPG-KEY-elrepo.org" target="_blank" rel="external">https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</a></li>
-<li>rpm -Uvh <a href="http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm" target="_blank" rel="external">http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm</a></li>
-<li>yum –enablerepo=elrepo-kernel install  kernel-ml-devel kernel-ml -y</li>
-<li>grub2-set-default 0</li>
-<li>reboot</li>
-</ol>
-</blockquote>
+<h1 id="升级内核到3-18以上">升级内核到3.18以上</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> rpm --import https:<span class="comment">//www.elrepo.org/RPM-GPG-KEY-elrepo.org</span></span><br><span class="line"><span class="number">2.</span> rpm -Uvh http:<span class="comment">//www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm</span></span><br><span class="line"><span class="number">3.</span> yum --enablerepo=elrepo-kernel install  kernel-ml-devel kernel-ml -y</span><br><span class="line"><span class="number">4.</span> grub2-<span class="built_in">set</span>-<span class="keyword">default</span> <span class="number">0</span></span><br><span class="line"><span class="number">5.</span> reboot</span><br></pre></td></tr></table></figure>
 <p>重启好确认下内核版本是否成功升级。</p>
 <h1 id="docker配置">docker配置</h1><p>在/lib/systemd/system/docker.service 配置文件中修改存储方式：</p>
 <blockquote>
