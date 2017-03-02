@@ -6,19 +6,16 @@
   
   <title>JVM 配置参数整理 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="-XX:+PrintFlagsFinal当你在网上兴冲冲找到一个可优化的参数时，先用-XX: +PrintFlagsFinal看看，它可能已经默认打开了。JDK7与JDK8，甚至JDK7中的不同版本，有些参数默认值都不一样，所以不要轻信网上任何文章，一切以生产环境同版本的JDK打出来的为准。
-另外，可以先看一下R大的JVM调优的”标准参数”的各种陷阱这篇文章。">
+  <meta name="description" content="-XX:+PrintFlagsFinal当你在网上兴冲冲找到一个可优化的参数时，先用-XX: +PrintFlagsFinal看看，它可能已经默认打开了;不要轻信网上任何文章，一切以JDK打出来的为准。-XX:+PrintFlagsFinal显示所有可设置的参数及它们的值（ JDK 6 update 21开始才可以用），默认是不包括diagnostic或experimental系的。要在-XX:+">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM 配置参数整理">
 <meta property="og:url" content="http://tonylit.me/2017/01/24/JVM 配置参数整理/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="-XX:+PrintFlagsFinal当你在网上兴冲冲找到一个可优化的参数时，先用-XX: +PrintFlagsFinal看看，它可能已经默认打开了。JDK7与JDK8，甚至JDK7中的不同版本，有些参数默认值都不一样，所以不要轻信网上任何文章，一切以生产环境同版本的JDK打出来的为准。
-另外，可以先看一下R大的JVM调优的”标准参数”的各种陷阱这篇文章。">
+<meta property="og:description" content="-XX:+PrintFlagsFinal当你在网上兴冲冲找到一个可优化的参数时，先用-XX: +PrintFlagsFinal看看，它可能已经默认打开了;不要轻信网上任何文章，一切以JDK打出来的为准。-XX:+PrintFlagsFinal显示所有可设置的参数及它们的值（ JDK 6 update 21开始才可以用），默认是不包括diagnostic或experimental系的。要在-XX:+">
 <meta property="og:updated_time" content="2017-01-24T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM 配置参数整理">
-<meta name="twitter:description" content="-XX:+PrintFlagsFinal当你在网上兴冲冲找到一个可优化的参数时，先用-XX: +PrintFlagsFinal看看，它可能已经默认打开了。JDK7与JDK8，甚至JDK7中的不同版本，有些参数默认值都不一样，所以不要轻信网上任何文章，一切以生产环境同版本的JDK打出来的为准。
-另外，可以先看一下R大的JVM调优的”标准参数”的各种陷阱这篇文章。">
+<meta name="twitter:description" content="-XX:+PrintFlagsFinal当你在网上兴冲冲找到一个可优化的参数时，先用-XX: +PrintFlagsFinal看看，它可能已经默认打开了;不要轻信网上任何文章，一切以JDK打出来的为准。-XX:+PrintFlagsFinal显示所有可设置的参数及它们的值（ JDK 6 update 21开始才可以用），默认是不包括diagnostic或experimental系的。要在-XX:+">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -250,15 +247,20 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#-XX:+PrintFlagsFinal"><span class="toc-number">1.</span> <span class="toc-text">-XX:+PrintFlagsFinal</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常用参数说明"><span class="toc-number">2.</span> <span class="toc-text">常用参数说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#全局参数"><span class="toc-number">2.1.</span> <span class="toc-text">全局参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#-Xms_-Xmx"><span class="toc-number">2.1.1.</span> <span class="toc-text">-Xms -Xmx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-XX:+DisableExplicitGC与-XX+ExplicitGCInvokesConcurrent"><span class="toc-number">2.1.2.</span> <span class="toc-text">-XX:+DisableExplicitGC与-XX+ExplicitGCInvokesConcurrent</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#监控参数"><span class="toc-number">2.2.</span> <span class="toc-text">监控参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#eden区参数"><span class="toc-number">2.3.</span> <span class="toc-text">eden区参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#survivor区参数"><span class="toc-number">2.4.</span> <span class="toc-text">survivor区参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#old区参数"><span class="toc-number">2.5.</span> <span class="toc-text">old区参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#perm区参数"><span class="toc-number">2.6.</span> <span class="toc-text">perm区参数</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#-XX:+PrintFlagsFinal"><span class="toc-number">1.</span> <span class="toc-text">-XX:+PrintFlagsFinal</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查看jvm运行参数"><span class="toc-number">2.</span> <span class="toc-text">查看jvm运行参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常用参数说明"><span class="toc-number">3.</span> <span class="toc-text">常用参数说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#全局参数"><span class="toc-number">3.1.</span> <span class="toc-text">全局参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#-Xms_-Xmx"><span class="toc-number">3.1.1.</span> <span class="toc-text">-Xms -Xmx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-XX:+DisableExplicitGC与-XX+ExplicitGCInvokesConcurrent"><span class="toc-number">3.1.2.</span> <span class="toc-text">-XX:+DisableExplicitGC与-XX+ExplicitGCInvokesConcurrent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-XX:+UseAdaptiveSizePolicy"><span class="toc-number">3.1.3.</span> <span class="toc-text">-XX:+UseAdaptiveSizePolicy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-XX:CMSInitiatingOccupancyFraction"><span class="toc-number">3.1.4.</span> <span class="toc-text">-XX:CMSInitiatingOccupancyFraction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-XX:-ScavengeBeforeFullGC"><span class="toc-number">3.1.5.</span> <span class="toc-text">-XX:-ScavengeBeforeFullGC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#监控参数"><span class="toc-number">3.2.</span> <span class="toc-text">监控参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#-XX:HeapDumpPath"><span class="toc-number">3.2.1.</span> <span class="toc-text">-XX:HeapDumpPath</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-verbose:gc与-XX:+PrintGC"><span class="toc-number">3.2.2.</span> <span class="toc-text">-verbose:gc与-XX:+PrintGC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#eden区参数"><span class="toc-number">3.3.</span> <span class="toc-text">eden区参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#survivor区参数"><span class="toc-number">3.4.</span> <span class="toc-text">survivor区参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#old区参数"><span class="toc-number">3.5.</span> <span class="toc-text">old区参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#perm区参数"><span class="toc-number">3.6.</span> <span class="toc-text">perm区参数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考："><span class="toc-number">4.</span> <span class="toc-text">参考：</span></a></li></ol>
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <h1 id="-XX:+PrintFlagsFinal">-XX:+PrintFlagsFinal</h1><p>当你在网上兴冲冲找到一个可优化的参数时，先用-XX: +PrintFlagsFinal看看，它可能已经默认打开了。<br>JDK7与JDK8，甚至JDK7中的不同版本，有些参数默认值都不一样，<strong>所以不要轻信网上任何文章，一切以生产环境同版本的JDK打出来的为准</strong>。</p>
+                                                                            <h1 id="-XX:+PrintFlagsFinal">-XX:+PrintFlagsFinal</h1><p>当你在网上兴冲冲找到一个可优化的参数时，先用-XX: +PrintFlagsFinal看看，它可能已经默认打开了;<strong>不要轻信网上任何文章，一切以JDK打出来的为准</strong>。<br>-XX:+PrintFlagsFinal显示所有可设置的参数及它们的值（ JDK 6 update 21开始才可以用），默认是不包括diagnostic或experimental系的。<br>要在-XX:+PrintFlagsFinal的输出里看到这两种参数的信息，分别需要显式指定</p>
+<blockquote>
+<p>-XX:+UnlockDiagnosticVMOptions<br>-XX:+UnlockExperimentalVMOptions</p>
+</blockquote>
 <p>另外，可以先看一下R大的<a href="http://hllvm.group.iteye.com/group/topic/27945" target="_blank" rel="external">JVM调优的”标准参数”的各种陷阱</a>这篇文章。</p>
 <a id="more"></a>
+<h1 id="查看jvm运行参数">查看jvm运行参数</h1><p>jinfo -flags pid</p>
+<p>在JDK 7开始可以使用<strong><a href="https://segmentfault.com/a/1190000000470139" target="_blank" rel="external">jcmd</a></strong>，<br>jcmd pidVM.flags</p>
 <h1 id="常用参数说明">常用参数说明</h1><p>把参数分为全局参数，监控参数，eden区参数，survivor区参数，old区参数，perm区参数</p>
 <h2 id="全局参数">全局参数</h2><h3 id="-Xms_-Xmx">-Xms -Xmx</h3><p>-Xms 初始化堆大小，-Xmx 最大堆大小。默认空余堆内存小于40%，自动扩展到-Xmx的值。<br><strong>-Xms和-Xmx一般情况设置相同的值</strong>，避免扩展内存带来的损耗。</p>
 <p>单机部署server的情况下，-Xmx的设置建议在物理内存的1/2到2/3之间。<br> Java进程消耗的总内存肯定大于最大堆内存：</p>
@@ -273,12 +275,33 @@
 <p><strong>-XX+ExplicitGCInvokesConcurrent</strong><br>该参数只能配合CMS使用，System.gc()还是会触发GC的，只不过不是触发一个完全stop-the-world的full GC，而是一次并发GC周期（只在ygc和两个remark阶段停顿）。</p>
 <p><strong>结论：使用-XX:+ExplicitGCInvokesConcurrent，不要用-XX:+DisableExplicitGC</strong></p>
 <p>使用JDK6u23之前的版本，这里有个bug，可以升级JDK版本解决<br><a href="http://bugs.sun.com/view_bug.do?bug_id=6919638" target="_blank" rel="external">6919638 CMS: ExplicitGCInvokesConcurrent misinteracts with gc locker</a> </p>
+<h3 id="-XX:+UseAdaptiveSizePolicy">-XX:+UseAdaptiveSizePolicy</h3><p>自适应大小调整：根据对象分配以及存活率自动地对新生代Eden和Survivor空间进行调整以最优化对象老化频率。这种模式下，新生代大小、eden与survivor比例、晋升年老代的对象年龄等参数会被自动调整。</p>
+<p>只有Throughput收集器（ParallelOldGC，ParallelGC）才支持自适应大小调整，尝试在非Throughput收集器上启用或禁用自适应大小调整都不会有任何效果，即这种操作是空操作。</p>
+<p>即目前HotSpot VM上只有ParallelScavenge系的GC才可以配合-XX:+UseAdaptiveSizePolicy使用；也就是只有-XX:+UseParallelGC或者-XX:+UseParallelOldGC。<br>因此，在使用CMS的时候，不要使用该参数。</p>
+<p>###　-XX:ConcGCThreads</p>
+<p>CMS默认启动的并发线程数是（ParallelGCThreads+3）/4。</p>
+<p>当有4个并行线程时，有1个并发线程；当有5~8个并行线程时，有2个并发线程。</p>
+<p>ParallelGCThreads表示的是GC并行时使用的线程数，如果新生代使用ParNew，那么ParallelGCThreads也就是新生代GC线程数。默认情况下，当CPU数量小于8时，ParallelGCThreads的值就是CPU的数量，当CPU数量大于8时，ParallelGCThreads的值等于3+5*cpuCount/8。</p>
+<p>ParallelGCThreads = (ncpus &lt;= 8) ? ncpus : 3 + ((ncpus * 5) / 8)</p>
+<p>可以通过-XX:ConcGCThreads或者-XX:ParallelCMSThreads来指定。</p>
+<p>并发是指垃圾收集器和应用程序交替执行，并行是指应用程序停止，同时由多个线程一起执行GC。因此并行回收器不是并发的。因为并行回收器执行时，应用程序完全挂起，不存在交替执行的步骤。</p>
+<h3 id="-XX:CMSInitiatingOccupancyFraction">-XX:CMSInitiatingOccupancyFraction</h3><p>由于CMS收集器不是独占式的回收器，在CMS回收过程中，应用程序仍然在不停地工作。在应用程序工作过程中，又会不断产生垃圾。这些新垃圾在当前CMS回收过程中是无法清除的。同时，因为应用程序没有中断，所以在CMS回收过程中，还应该确保应用程序由足够的内存可用。因此，CMS回收器不会等待堆内存饱和时才进行垃圾回收，而是当堆内存使用率达到某一阈值时便开始进行回收，以确保应用程序在CMS工作中仍然有足够的空间支持应用程序运行。</p>
+<p>-XX:CMSInitiatingOccupancyFraction，默认为68，即当年老代的空间使用率达到68%时，会执行一次CMS回收。如果应用程序的内存使用率增长很快，在CMS的执行过程中，已经出现了内存不足，此时，CMS回收就会失败，虚拟机将启动SerialOld串行收集器进行垃圾回收。如果这样，应用程序将完全中断，直到垃圾回收完成，这时，应用程序的停顿时间可能会较长。</p>
+<p>因此，根据应用特点，可以对该值进行调优，如果内存增长缓慢，则可以设置一个稍大的值，大的阈值可以有效降低CMS的触发频率，减少年老代回收的次数可以较为明显地改善应用程序性能。</p>
+<p>反之，如果应用程序内存使用率增长很快，则应该降低这个阈值，以避免频繁触发年老代串行收集器。</p>
+<h3 id="-XX:-ScavengeBeforeFullGC">-XX:-ScavengeBeforeFullGC</h3><p>在使用吞吐量优先的垃圾回收器时（-XX:+UseParallelOldGC或-XX:+UseParallelGC），如果关闭-XX:-ScavengeBeforeFullGC，则hotspot vm在FullGC之前不会进行MinorGC，如果开启的话，FullGC之前会先进行MinorGC，分担一部分原本FullGC要做的工作，使得在这两次独立的GC之间java线程有机会得以运行，从而缩短最大停顿时间，但也拉长了整体的停顿时间。</p>
 <hr>
-<h2 id="监控参数">监控参数</h2><hr>
+<h2 id="监控参数">监控参数</h2><h3 id="-XX:HeapDumpPath">-XX:HeapDumpPath</h3><p>-XX:HeapDumpPath=/data/logs/heaperr.log.201504301631-XX:+HeapDumpOnOutOfMemoryError</p>
+<p>设置为动态参数的话：</p>
+<p>-XX:HeapDumpPath=/data/logs/heaperr-$(date +%Y%m%d-%H%M%S).log</p>
+<p>其中XX:HeapDumpPath可以设置为一个目录或者一个文件，这里指定文件。</p>
+<h3 id="-verbose:gc与-XX:+PrintGC">-verbose:gc与-XX:+PrintGC</h3><p>-XX:+PrintGC 与 -verbose:gc 的功能是一样的，区别在于-XX:+PrintGC是managable的，可以通过jinfo被开启或关闭。<br>另外，-XX:+PrintGCDetails 在启动脚本可以自动开启-XX:+PrintGC , 如果在命令行使用jinfo开启的话，不会自动开启-XX:+PrintGC</p>
+<hr>
 <h2 id="eden区参数">eden区参数</h2><hr>
 <h2 id="survivor区参数">survivor区参数</h2><hr>
 <h2 id="old区参数">old区参数</h2><hr>
 <h2 id="perm区参数">perm区参数</h2><hr>
+<h1 id="参考：">参考：</h1><p><a href="https://segmentfault.com/a/1190000004699398" target="_blank" rel="external">jvm参数备忘</a><br><a href="https://segmentfault.com/a/1190000005036183" target="_blank" rel="external">JVM参数陷阱</a></p>
 
                                                                                 
                                         </div>
