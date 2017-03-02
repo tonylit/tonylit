@@ -129,8 +129,7 @@
 <h3 id="-XX:+UseAdaptiveSizePolicy">-XX:+UseAdaptiveSizePolicy</h3><p>自适应大小调整：根据对象分配以及存活率自动地对新生代Eden和Survivor空间进行调整以最优化对象老化频率。这种模式下，新生代大小、eden与survivor比例、晋升年老代的对象年龄等参数会被自动调整。</p>
 <p>只有Throughput收集器（ParallelOldGC，ParallelGC）才支持自适应大小调整，尝试在非Throughput收集器上启用或禁用自适应大小调整都不会有任何效果，即这种操作是空操作。</p>
 <p>即目前HotSpot VM上只有ParallelScavenge系的GC才可以配合-XX:+UseAdaptiveSizePolicy使用；也就是只有-XX:+UseParallelGC或者-XX:+UseParallelOldGC。<br>因此，在使用CMS的时候，不要使用该参数。</p>
-<p>###　-XX:ConcGCThreads</p>
-<p>CMS默认启动的并发线程数是（ParallelGCThreads+3）/4。</p>
+<h3 id="-XX:ConcGCThreads">-XX:ConcGCThreads</h3><p>CMS默认启动的并发线程数是（ParallelGCThreads+3）/4。</p>
 <p>当有4个并行线程时，有1个并发线程；当有5~8个并行线程时，有2个并发线程。</p>
 <p>ParallelGCThreads表示的是GC并行时使用的线程数，如果新生代使用ParNew，那么ParallelGCThreads也就是新生代GC线程数。默认情况下，当CPU数量小于8时，ParallelGCThreads的值就是CPU的数量，当CPU数量大于8时，ParallelGCThreads的值等于3+5*cpuCount/8。</p>
 <p>ParallelGCThreads = (ncpus &lt;= 8) ? ncpus : 3 + ((ncpus * 5) / 8)</p>
