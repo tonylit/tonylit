@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content=""/>
+  
+  <title>nGrinder 介绍与安装 | 淘淘的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="nGrinder是基于Grinder开源项目，但由NHN公司的nGrinder开发团队进行了重新设计和完善（所以叫做nGrinder）。
+它是由一个controller和连接它的多个agent组成，用户可以通过web界面管理和控制测试，以及查看测试报告，controller会把测试分发到一个或多个agent去执行。用户可以设置使用多个进程和线程来并发的执行该脚本，而且在同一线程中，来重复不断的执行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nGrinder 介绍与安装">
+<meta property="og:url" content="http://tonylit.me/2017/03/23/ngrinder介绍与安装/index.html">
+<meta property="og:site_name" content="淘淘的博客">
+<meta property="og:description" content="nGrinder是基于Grinder开源项目，但由NHN公司的nGrinder开发团队进行了重新设计和完善（所以叫做nGrinder）。
+它是由一个controller和连接它的多个agent组成，用户可以通过web界面管理和控制测试，以及查看测试报告，controller会把测试分发到一个或多个agent去执行。用户可以设置使用多个进程和线程来并发的执行该脚本，而且在同一线程中，来重复不断的执行">
+<meta property="og:image" content="http://tonylit.me/img/ngrinder介绍与安装/ngriner架构图.PNG">
+<meta property="og:image" content="http://tonylit.me/img/ngrinder介绍与安装/ngrinder登录.PNG">
+<meta property="og:image" content="http://tonylit.me/img/ngrinder介绍与安装/agent.PNG">
+<meta property="og:image" content="http://tonylit.me/img/ngrinder介绍与安装/agent解压缩.PNG">
+<meta property="og:image" content="http://tonylit.me/img/ngrinder介绍与安装/agent启动.PNG">
+<meta property="og:image" content="http://tonylit.me/img/ngrinder介绍与安装/下载监控.PNG">
+<meta property="og:image" content="http://tonylit.me/img/ngrinder介绍与安装/monitor解压缩.PNG">
+<meta property="og:image" content="http://tonylit.me/img/ngrinder介绍与安装/monitor启动.PNG">
+<meta property="og:image" content="http://tonylit.me/img/ngrinder介绍与安装/第一步.PNG">
+<meta property="og:image" content="http://tonylit.me/img/ngrinder介绍与安装/第二步.PNG">
+<meta property="og:image" content="http://tonylit.me/img/ngrinder介绍与安装/第三步.PNG">
+<meta property="og:updated_time" content="2017-03-23T05:37:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="nGrinder 介绍与安装">
+<meta name="twitter:description" content="nGrinder是基于Grinder开源项目，但由NHN公司的nGrinder开发团队进行了重新设计和完善（所以叫做nGrinder）。
+它是由一个controller和连接它的多个agent组成，用户可以通过web界面管理和控制测试，以及查看测试报告，controller会把测试分发到一个或多个agent去执行。用户可以设置使用多个进程和线程来并发的执行该脚本，而且在同一线程中，来重复不断的执行">
+  
+    <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/leaves.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script src="http://tonylit.me//js/jquery.nicescroll.js"></script>
+
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+<form class="search" method="get" accept-charset="utf-8">
+			<input type="text" id="chillax-search-input" class="st-search-input_my" maxlength="30" placeholder="search" />
+		</form>
+
+
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/c.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/" class="alluraregular">tonyli</a></h1>
+		</hgroup>
+        <!--
+		
+		<p class="header-subtitle">今年lebron绝逼夺冠，bie跟我急!</p>
+		
+        -->
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/work">工作日志</a></li>
+				        
+							<li><a href="/tags/life">点滴生活</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Gatling/" style="font-size: 11.67px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.67px;">Jmeter</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 18.33px;">docker</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/kafka/" style="font-size: 11.67px;">kafka</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/loadrunner/" style="font-size: 13.33px;">loadrunner</a> <a href="/tags/nGrinder/" style="font-size: 10px;">nGrinder</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/work/" style="font-size: 16.67px;">work</a> <a href="/tags/前端性能/" style="font-size: 10px;">前端性能</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a>
+					</div>
+				</section>
+				
+
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">科比：他来湖人.或者我去骑士.就这么简单 麦迪：我希望更正一下我之前说的话.如果詹姆斯是我的队友... 凯文杜兰特：我永远在追赶他的背影 保罗：我人生最大的两个愿望.一是为基德打替补.二是为詹姆斯奉献助攻 艾弗森：他才是答案。 迈克尔.乔丹：我很幸运，当他进入NBA的时候，我已经退役了！</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tonyli</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/c.jpg" class="js-avatar">
+				<hgroup>
+				  <h1 class="header-author">tonyli</h1>
+				</hgroup>
+			</div>
+			
+			<p class="header-subtitle">今年lebron绝逼夺冠，bie跟我急!</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/work">工作日志</a></li>
+		        
+					<li><a href="/tags/life">点滴生活</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+
+	  <div class="recent">
+高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
+</div>
+
+      <div class="body-wrap"><article id="post-ngrinder介绍与安装" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2017/03/23/ngrinder介绍与安装/" class="article-date">
+  	<time datetime="2017-03-23T03:37:27.000Z" itemprop="datePublished">2017-03-23</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      nGrinder 介绍与安装
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nGrinder/">nGrinder</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+	</div>
+
+
+                                        
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#为什么选择nGrinder"><span class="toc-number">1.</span> <span class="toc-text">为什么选择nGrinder</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总体架构"><span class="toc-number">2.</span> <span class="toc-text">总体架构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ngrinder中文社区"><span class="toc-number">3.</span> <span class="toc-text">ngrinder中文社区</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nGrinder安装"><span class="toc-number">4.</span> <span class="toc-text">nGrinder安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#先决条件"><span class="toc-number">4.1.</span> <span class="toc-text">先决条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#下载nGrinder"><span class="toc-number">4.2.</span> <span class="toc-text">下载nGrinder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动nGrinder"><span class="toc-number">4.3.</span> <span class="toc-text">启动nGrinder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装agent"><span class="toc-number">4.4.</span> <span class="toc-text">安装agent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装monitor"><span class="toc-number">4.5.</span> <span class="toc-text">安装monitor</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装完测试"><span class="toc-number">5.</span> <span class="toc-text">安装完测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一步，编写测试脚本"><span class="toc-number">5.1.</span> <span class="toc-text">第一步，编写测试脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二步，场景设计"><span class="toc-number">5.2.</span> <span class="toc-text">第二步，场景设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三步，场景执行"><span class="toc-number">5.3.</span> <span class="toc-text">第三步，场景执行</span></a></li></ol></li></ol>
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p>nGrinder是基于Grinder开源项目，但由NHN公司的nGrinder开发团队进行了重新设计和完善（所以叫做nGrinder）。</p>
+<p>它是由一个controller和连接它的多个agent组成，用户可以通过web界面管理和控制测试，以及查看测试报告，controller会把测试分发到一个或多个agent去执行。用户可以设置使用多个进程和线程来并发的执行该脚本，而且在同一线程中，来重复不断的执行测试脚本，来模拟很多并发用户。</p>
+<p>nGrinder的测试是基于一个python的测试脚本，用户按照一定规则编写测试脚本以后，controller会将脚本以及需要的其他文件分发到agent，用Jython执行。并在执行过程中收集运行情况、响应时间、测试目标服务器的运行情况等。并保存这些数据生成运行报告，以供以后查看。</p>
+<a id="more"></a>
+<hr>
+<h1 id="为什么选择nGrinder">为什么选择nGrinder</h1><p> <strong>JMeter</strong><br>基于UI操作，容易上手，但是不具备编程能力。其次JMeter基于线程模拟数千用户几乎不可能。</p>
+<p><strong>Tsung</strong><br>基于Erlang，能模拟上千用户并且易于扩展。但是基于XML的DSL，描述场景能力弱，而且需要大量的数据处理才知道测试结果。</p>
+<p><strong>Locust</strong><br>基于python的gevent，能模拟百万个用户。但是需要对python有一定理解。</p>
+<p><strong>Loadrunner</strong><br>这个可以说是应用最多的一个，很方便，但是还是太重。往后的方向肯定是客户端工具逐步向平台化发展，所以loadrunner注定慢慢被淘汰（个人拙见）。而且不开源，扩展性不高，收费。</p>
+<p><strong>nGrinder</strong><br>单节点支持3000并发、支持分布式、可监控被测服务器、可录制脚本、开源、平台化。</p>
+<p>综上可以看出nGrindr还是有很多优势的。</p>
+<hr>
+<h1 id="总体架构">总体架构</h1><p><img src="/img/ngrinder介绍与安装/ngriner架构图.PNG" alt="Alt text"></p>
+<p>nGrinder 由两个主要的组件组成：</p>
+<p>Controller：</p>
+<blockquote>
+<p>提供性能测试的web接口。<br>协调测试进程。<br>整理和显示测试的统计结果<br>让用户创建和修改脚本。</p>
+</blockquote>
+<p>Agent:</p>
+<blockquote>
+<p>在代理服务器上加载运行测试进程和线程<br>监控目标机器的系统性能（例如：CPU/MEMORY）</p>
+</blockquote>
+<p>当 agent 启动时，它们试图连接到 controller，然后他们都附属在 AgentControllerServer 组件上。AgentControllerServer （可以看做为一个 agent 的池）管理当前 agent 池。每当用户开始性能测试时，一个新的 console 被创建，同时由 AgentControllerServer 提供所需数量的 agent。 SingleConsole (不是 Grinder 中的 Console ) 发送测试脚本和测试源码到多个指定的 agent , 同时开始控制测试流，直到测试结束。当测试完成后，所使用的 agents 归还给 AgentControllerServer ，以便在以后的其他测试中使用。 同样，SingleConsole 也会归还给 ConsoleManager 。</p>
+<p>nGrinder 和 Grinder 最大的区别在于 nGrinder 在 controller 中保持多个 console 实例 和 agent 。每个 console 都是独立的，所有 console 都可以同时运行。每当有需要时，许多 agent 可以提前被提前关联和分配。与 grinder 不同，nGrinder 最大化 agent 机器的利用率。</p>
+<hr>
+<h1 id="ngrinder中文社区">ngrinder中文社区</h1><p><a href="http://ngrinder.642.n7.nabble.com/ngrinder-user-cn-f114.html" target="_blank" rel="external">http://ngrinder.642.n7.nabble.com/ngrinder-user-cn-f114.html</a></p>
+<hr>
+<h1 id="nGrinder安装">nGrinder安装</h1><p>3台linux服务器：<br>192.168.42.164 部署controller<br>192.168.42.136 部署agent<br>192.168.42.32（被测应用机器）  部署monitor</p>
+<h2 id="先决条件">先决条件</h2><p>nGrinder是一个web应用(Controller)和Java应用(Agent, Monitor)的组合，需要安装JDK 1.6或更高的版本。</p>
+<p>nGrinder需要用到很多端口</p>
+<blockquote>
+<p>Agent : Any ==&gt; Controller : 16001<br>Agent : Any ==&gt; Controller : 12000 ~ 12000+(允许并发测试的数量)<br>Controller : Any ==&gt; Monitor : 13243<br>Controller ==&gt; Public user : 这取决于你的Tomcat的配置，默认为8080。</p>
+</blockquote>
+<h2 id="下载nGrinder">下载nGrinder</h2><p>目前最新的版本是ngrinder3.4.1<br><a href="https://github.com/naver/ngrinder/releases/download/ngrinder-3.4.1-20170131/ngrinder-controller-3.4.1.war" target="_blank" rel="external">https://github.com/naver/ngrinder/releases/download/ngrinder-3.4.1-20170131/ngrinder-controller-3.4.1.war</a></p>
+<h2 id="启动nGrinder">启动nGrinder</h2><p>建议使用tomcat，把war包放在tomcat的webapps文件夹下即可.<br>启动tomcat的时候在catalina.sh中加上jvm参数：</p>
+<blockquote>
+<p>JAVA_OPTS=”-Xms600m -Xmx1024m -XX:MaxPermSize=200m”  </p>
+</blockquote>
+<p>启动后，打开浏览器访问<a href="http://localhost:8080/ngrinder-controller-X.X" target="_blank" rel="external">http://localhost:8080/ngrinder-controller-X.X</a><br>X.X表示war包名称</p>
+<p>我这里问：<a href="http://192.168.42.164:8080/ngrinder-controller-3.4.1/login，登录名/密码：admin/admin" target="_blank" rel="external">http://192.168.42.164:8080/ngrinder-controller-3.4.1/login，登录名/密码：admin/admin</a></p>
+<p><img src="/img/ngrinder介绍与安装/ngrinder登录.PNG" alt="Alt text"></p>
+<h2 id="安装agent">安装agent</h2><p>agent在controller页面中直接下载<br><img src="/img/ngrinder介绍与安装/agent.PNG" alt="Alt text"></p>
+<blockquote>
+<p>因为使用的是admin帐号登录，下载的agents包中的配置可以分享给所有的用户使用。<br>如果你登录的是一个普通帐号，下载链接将变成“Download Private Agent” 下载的agents包中的配置只能当前用户使用</p>
+</blockquote>
+<p>下载后，把agent放在服务器上，解压<br><img src="/img/ngrinder介绍与安装/agent解压缩.PNG" alt="Alt text"></p>
+<p>启动前检查 ulimt -a ，调整配置让其运行更多的线程，执行bash run_agent.sh 启动agent。<br><img src="/img/ngrinder介绍与安装/agent启动.PNG" alt="Alt text"></p>
+<h2 id="安装monitor">安装monitor</h2><p>nGrinder的Monitor是agent的一个子集，用于收集系统相关数据(比如CPU, MEM and Network) </p>
+<p>agent在controller页面中直接下载<br><img src="/img/ngrinder介绍与安装/下载监控.PNG" alt="Alt text"></p>
+<p>下载后，把monitor放在服务器上，解压<br><img src="/img/ngrinder介绍与安装/monitor解压缩.PNG" alt="Alt text"></p>
+<p>执行bash run_monitor.sh启动monitor<br><img src="/img/ngrinder介绍与安装/monitor启动.PNG" alt="Alt text"></p>
+<h1 id="安装完测试">安装完测试</h1><p>nGrinder运行一个压力测试只需3步：</p>
+<ol>
+<li>编写测试脚本</li>
+<li>场景设计：配置并发用户数，执行时间，资源监控</li>
+<li>场景执行，结束后自动生成报告</li>
+</ol>
+<p>这里测试一个简单的get请求：<a href="http://192.168.42.32:82/sourcing/tradeservice/quotation-request.html" target="_blank" rel="external">http://192.168.42.32:82/sourcing/tradeservice/quotation-request.html</a></p>
+<h2 id="第一步，编写测试脚本">第一步，编写测试脚本</h2><p>登录ngrinder，输入url，点击开始测试<br><img src="/img/ngrinder介绍与安装/第一步.PNG" alt="Alt text"></p>
+<h2 id="第二步，场景设计">第二步，场景设计</h2><p>填写相应场景信息，如并发用户数，场景执行时间等<br><img src="/img/ngrinder介绍与安装/第二步.PNG" alt="Alt text"></p>
+<h2 id="第三步，场景执行">第三步，场景执行</h2><p>点击保存并运行按钮，开始场景执行<br><img src="/img/ngrinder介绍与安装/第三步.PNG" alt="Alt text"></p>
+<hr>
+<p>参考文章：<br><a href="http://ju.outofmemory.cn/entry/197566" target="_blank" rel="external">利用nGrinder进行性能测试操作指南</a><br><a href="http://blog.csdn.net/neven7/article/details/50740018" target="_blank" rel="external">性能测试工具 nGrinder 项目剖析及二次开发</a></p>
+
+                                                                                
+                                        </div>
+                                        
+            </div>
+            
+                <div class="bdsharebuttonbox" style="margin-top:10px;margin-left:30px;float:left;">
+                    <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                    <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                    <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
+                    <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
+                    <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                    <a href="#" class="bds_more" data-cmd="more"></a>
+                </div>
+                <script>
+                    window._bd_share_config = {
+                        "common": {
+                            "bdSnsKey": {},
+                            "bdText": "",
+                            "bdMini": "1",
+                            "bdMiniList": false,
+                            "bdStyle": "2",
+                            "bdSize": "16"
+                        },
+                        "share": {}
+                    };
+                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
+  
+  
+    <a href="/2017/02/22/loadrunner_https脚本/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">loadrunner https脚本</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-ngrinder介绍与安装" data-title="nGrinder 介绍与安装" data-url="http://tonylit.me/2017/03/23/ngrinder介绍与安装/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "tonylit"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
+</article>
+
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+    
+-->
+<!--
+
+-->
+
+</div>
+      <!--<footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 tonyli
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+    
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+   
+  </div>
+</footer>-->
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/prefixfree.js" type="text/javascript"></script>
+<script src="/js/require-2.1.20.js" type="text/javascript"></script>
+<script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
+    <a title="返回顶部" style="opacity: 100%;">
+        <img src="/img/scrollup.png" />
+    </a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+
+  </div>
+</body>
+</html>
