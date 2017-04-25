@@ -6,21 +6,18 @@
   
   <title>nginx 高并发时出现大量tcp tim-wait解决方法 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="nginx 在高并发时出现大量TIME-WAIT状态的tcp连接。
-1ss -ant | awk &apos;NR&amp;gt;1 &amp;#123;++s[$1]&amp;#125; END &amp;#123;for(k in s) print k,s[k]&amp;#125;&apos;">
+  <meta name="description" content="nginx 在高并发时出现大量TIME-WAIT状态的tcp连接。ss -ant | awk ‘NR&amp;gt;1 {++s[$1]} END {for(k in s) print k,s[k]}’">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nginx 高并发时出现大量tcp tim-wait解决方法">
 <meta property="og:url" content="http://tonylit.me/2017/04/25/nginx 高并发时出现大量tcp tim-wait解决方法/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="nginx 在高并发时出现大量TIME-WAIT状态的tcp连接。
-1ss -ant | awk &apos;NR&amp;gt;1 &amp;#123;++s[$1]&amp;#125; END &amp;#123;for(k in s) print k,s[k]&amp;#125;&apos;">
+<meta property="og:description" content="nginx 在高并发时出现大量TIME-WAIT状态的tcp连接。ss -ant | awk ‘NR&amp;gt;1 {++s[$1]} END {for(k in s) print k,s[k]}’">
 <meta property="og:image" content="http://tonylit.me/img/tcp-time-wait/tcp.PNG">
 <meta property="og:image" content="http://tonylit.me/img/tcp-time-wait/tcp-nice.PNG">
 <meta property="og:updated_time" content="2017-04-25T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx 高并发时出现大量tcp tim-wait解决方法">
-<meta name="twitter:description" content="nginx 在高并发时出现大量TIME-WAIT状态的tcp连接。
-1ss -ant | awk &apos;NR&amp;gt;1 &amp;#123;++s[$1]&amp;#125; END &amp;#123;for(k in s) print k,s[k]&amp;#125;&apos;">
+<meta name="twitter:description" content="nginx 在高并发时出现大量TIME-WAIT状态的tcp连接。ss -ant | awk ‘NR&amp;gt;1 {++s[$1]} END {for(k in s) print k,s[k]}’">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -258,8 +255,7 @@
                                                         
                                                             
                                                                 
-                                                                            <p>nginx 在高并发时出现大量TIME-WAIT状态的tcp连接。</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss -ant | awk 'NR&gt;1 &#123;++s[<span class="label">$1</span>]&#125; END &#123;<span class="keyword">for</span>(k <span class="keyword">in</span> s) <span class="keyword">print</span> k,s[k]&#125;'</span><br></pre></td></tr></table></figure>
+                                                                            <p>nginx 在高并发时出现大量TIME-WAIT状态的tcp连接。<br>ss -ant | awk ‘NR&gt;1 {++s[$1]} END {for(k in s) print k,s[k]}’</p>
 <p><img src="/img/tcp-time-wait/tcp.PNG" alt="Alt text"></p>
 <a id="more"></a>
 <hr>
