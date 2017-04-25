@@ -4,22 +4,23 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>tcpcopy1.0使用 | 淘淘的博客</title>
+  <title>nginx 高并发时出现大量tcp tim-wait解决方法 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="平时我们做的压力测试，很难去模拟线上复杂的真实流量，尤其里面混杂着各种奇异的异常流量。所以，线下压的好好的系统，上线后可能就雪崩了。tcpcopy可以解决以上问题， tcpcopy是一种流量的实时复制工具，可以将线上的流量引到测试环境上做测试。 当然， tcpcopy也可以回放tcpdump的流量包。">
+  <meta name="description" content="nginx 在高并发时出现大量TIME-WAIT状态的tcp连接。
+1ss -ant | awk &apos;NR&amp;gt;1 &amp;#123;++s[$1]&amp;#125; END &amp;#123;for(k in s) print k,s[k]&amp;#125;&apos;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tcpcopy1.0使用">
-<meta property="og:url" content="http://tonylit.me/2016/10/19/tcpcopy/index.html">
+<meta property="og:title" content="nginx 高并发时出现大量tcp tim-wait解决方法">
+<meta property="og:url" content="http://tonylit.me/2017/04/25/nginx 高并发时出现大量tcp tim-wait解决方法/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="平时我们做的压力测试，很难去模拟线上复杂的真实流量，尤其里面混杂着各种奇异的异常流量。所以，线下压的好好的系统，上线后可能就雪崩了。tcpcopy可以解决以上问题， tcpcopy是一种流量的实时复制工具，可以将线上的流量引到测试环境上做测试。 当然， tcpcopy也可以回放tcpdump的流量包。">
-<meta property="og:image" content="http://tonylit.me/img/tcpcopy/流程图.PNG">
-<meta property="og:image" content="http://tonylit.me/img/tcpcopy/tcpcopy.png">
-<meta property="og:image" content="http://tonylit.me/img/tcpcopy/apache.PNG">
-<meta property="og:image" content="http://tonylit.me/img/tcpcopy/tcpdump回放.PNG">
-<meta property="og:updated_time" content="2016-10-19T05:37:27.000Z">
+<meta property="og:description" content="nginx 在高并发时出现大量TIME-WAIT状态的tcp连接。
+1ss -ant | awk &apos;NR&amp;gt;1 &amp;#123;++s[$1]&amp;#125; END &amp;#123;for(k in s) print k,s[k]&amp;#125;&apos;">
+<meta property="og:image" content="http://tonylit.me/img/tcp-time-wait/tcp.PNG">
+<meta property="og:image" content="http://tonylit.me/img/tcp-time-wait/tcp-nice.PNG">
+<meta property="og:updated_time" content="2017-04-25T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tcpcopy1.0使用">
-<meta name="twitter:description" content="平时我们做的压力测试，很难去模拟线上复杂的真实流量，尤其里面混杂着各种奇异的异常流量。所以，线下压的好好的系统，上线后可能就雪崩了。tcpcopy可以解决以上问题， tcpcopy是一种流量的实时复制工具，可以将线上的流量引到测试环境上做测试。 当然， tcpcopy也可以回放tcpdump的流量包。">
+<meta name="twitter:title" content="nginx 高并发时出现大量tcp tim-wait解决方法">
+<meta name="twitter:description" content="nginx 在高并发时出现大量TIME-WAIT状态的tcp连接。
+1ss -ant | awk &apos;NR&amp;gt;1 &amp;#123;++s[$1]&amp;#125; END &amp;#123;for(k in s) print k,s[k]&amp;#125;&apos;">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -197,7 +198,7 @@
 高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
 </div>
 
-      <div class="body-wrap"><article id="post-tcpcopy" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-nginx 高并发时出现大量tcp tim-wait解决方法" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -211,8 +212,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2016/10/19/tcpcopy/" class="article-date">
-  	<time datetime="2016-10-19T03:37:27.000Z" itemprop="datePublished">2016-10-19</time>
+            <a href="/2017/04/25/nginx 高并发时出现大量tcp tim-wait解决方法/" class="article-date">
+  	<time datetime="2017-04-25T03:37:27.000Z" itemprop="datePublished">2017-04-25</time>
 </a>
 
         </div>
@@ -226,7 +227,7 @@
                                 
   
     <h1 class="article-title" itemprop="name">
-      tcpcopy1.0使用
+      nginx 高并发时出现大量tcp tim-wait解决方法
     </h1>
   
 
@@ -236,7 +237,7 @@
                                 <div class="article-info article-info-post">
                                     
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li></ul>
 	</div>
 
 
@@ -251,59 +252,25 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#tcpcopy介绍"><span class="toc-number">1.</span> <span class="toc-text">tcpcopy介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装"><span class="toc-number">2.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备三台机器：A,B,C"><span class="toc-number">2.1.</span> <span class="toc-text">准备三台机器：A,B,C</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在C机器上安装intercept"><span class="toc-number">3.</span> <span class="toc-text">在C机器上安装intercept</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在A机器安装tcpcopy"><span class="toc-number">4.</span> <span class="toc-text">在A机器安装tcpcopy</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在B机器上配置路由信息"><span class="toc-number">5.</span> <span class="toc-text">在B机器上配置路由信息</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试一下："><span class="toc-number">6.</span> <span class="toc-text">测试一下：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用tcpdump的cap包，导入流量"><span class="toc-number">7.</span> <span class="toc-text">使用tcpdump的cap包，导入流量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tcpdump_获取pcap"><span class="toc-number">7.1.</span> <span class="toc-text">tcpdump 获取pcap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回放"><span class="toc-number">7.2.</span> <span class="toc-text">回放</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#解决方法"><span class="toc-number">1.</span> <span class="toc-text">解决方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#修改系统配置参数"><span class="toc-number">1.1.</span> <span class="toc-text">修改系统配置参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改nginx_配置_，加入http1-1_keepalive"><span class="toc-number">1.2.</span> <span class="toc-text">修改nginx 配置 ，加入http1.1 keepalive</span></a></li></ol></li></ol>
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <p>平时我们做的压力测试，很难去模拟线上复杂的真实流量，尤其里面混杂着各种奇异的异常流量。<br>所以，线下压的好好的系统，上线后可能就雪崩了。<br>tcpcopy可以解决以上问题， tcpcopy是一种流量的实时复制工具，可以将线上的流量引到测试环境上做测试。<br> 当然， tcpcopy也可以回放tcpdump的流量包。</p>
+                                                                            <p>nginx 在高并发时出现大量TIME-WAIT状态的tcp连接。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss -ant | awk 'NR&gt;1 &#123;++s[<span class="label">$1</span>]&#125; END &#123;<span class="keyword">for</span>(k <span class="keyword">in</span> s) <span class="keyword">print</span> k,s[k]&#125;'</span><br></pre></td></tr></table></figure>
+<p><img src="/img/tcp-time-wait/tcp.PNG" alt="Alt text"></p>
 <a id="more"></a>
-<h1 id="tcpcopy介绍">tcpcopy介绍</h1><p>由网易的<a href="https://github.com/wangbin579/tcpcopy" target="_blank" rel="external">wangbin</a>开发和维护，目前为1.0版本。<br>推荐使用最新的1.0版本，虽然配置稍微麻烦一些，但是有很多好处(具体参见：<a href="https://github.com/wangbin579/tcpcopy" target="_blank" rel="external">https://github.com/wangbin579/tcpcopy</a>)<br>整体工作流程：<br><img src="/img/tcpcopy/流程图.PNG" alt="Alt text"></p>
-<h1 id="安装">安装</h1><h2 id="准备三台机器：A,B,C">准备三台机器：A,B,C</h2><p>A:192.168.42.162，作为线上服务器，安装tcpcopy<br>B:192.168.42.164，作为测试服务器<br>C:192.168.42.166，作为辅助服务器，安装intercept</p>
-<p><strong>整体流程</strong>：在192.168.42.162上运行tcpcopy把线上流量拷贝到192.168.42.164，在192.168.42.164上我们通过路由将应答转向<br>192.168.42.166，在192.168.42.166上把应答丢弃。<br><img src="/img/tcpcopy/tcpcopy.png" alt="Alt text"><br>再简单解释一下工作原理：</p>
-<blockquote>
-<p>TCPcopy 从数据链路层 copy 端口请求，然后更改目的 ip 和目的端口。<br>将修改过的数据包传送给数据链路层，并且保持 tcp 连接请求。<br>通过数据链路层从 online server 发送到 test server。<br>在数据链路层解封装后到达 nginx 响应的服务端口。<br>等用户请求的数据返回结果后，回包走数据链路层。<br>通过数据链路层将返回的结果从 test server 发送到 assistant server。注：test server 只有一条默认路由指向 assistant server。<br>数据到达 assistant server 后被 intercept 进程截获。<br>过滤相关信息将请求状态发送给 online server 的 tcpcopy，关闭 tcp 连接。</p>
-</blockquote>
-<h1 id="在C机器上安装intercept">在C机器上安装intercept</h1><blockquote>
-<p>wget <a href="https://github.com/session-replay-tools/intercept/archive/1.0.0.tar.gz" target="_blank" rel="external">https://github.com/session-replay-tools/intercept/archive/1.0.0.tar.gz</a> -O intercept-1.0.0.tar.gz</p>
-</blockquote>
-<p>centos6以上版本直接安装依赖包：<br>yum -y install libpcap-devel<br>centos5版本上需要卸载低版本的libpcap-devel-0.9.4-15.el5</p>
-<blockquote>
-<p>yum remove libpcap<br>wget <a href="http://www.tcpdump.org/release/libpcap-1.4.0.tar.gz" target="_blank" rel="external">http://www.tcpdump.org/release/libpcap-1.4.0.tar.gz</a><br>tar zxvf libpcap-1.4.0.tar.gz<br>cd libpcap-1.4.0<br>./configure<br>make<br>make install</p>
-<p>tar zxvf intercept-1.0.0.tar.gz<br>cd intercept-1.0.0<br>./configure （默认raw socket方式抓包）<br>make &amp;&amp; make install</p>
-</blockquote>
-<p>安装完成，启动intercept</p>
-<blockquote>
-<p>/usr/local/intercept/sbin/intercept -i eth1 -l intercept.log -P /var/run/intercept.pid -F ‘tcp and src port 80’ -d<br>指令说明：<br>-i 监控网卡接口<br>-l 记录日志<br>-F 监控的协议和端口<br>-P 记录pid<br>-d 以daemon形式运行<br>其他参数可以通过/usr/local/intercept/sbin/intercept -h查看</p>
-</blockquote>
-<p>成功运行后可以观察到的网路连接状态：</p>
-<blockquote>
-<p>netstat -anp |grep 36524</p>
-</blockquote>
-<h1 id="在A机器安装tcpcopy">在A机器安装tcpcopy</h1><blockquote>
-<p>wget <a href="https://github.com/session-replay-tools/tcpcopy/archive/1.0.0.tar.gz" target="_blank" rel="external">https://github.com/session-replay-tools/tcpcopy/archive/1.0.0.tar.gz</a> -O tcpcopy-1.0.0.tar.gz<br>yum -y install libpcap-devel<br>tar zxvf tcpcopy-1.0.0.tar.gz<br>cd tcpcopy-1.0.0<br>./configure （默认raw socket方式抓包）<br>make<br> make install</p>
-</blockquote>
-<p>安装完成，运行tcpcopy</p>
-<blockquote>
-<p>/usr/local/tcpcopy/sbin/tcpcopy -x 80-192.168.42.164:80 -s 192.168.42.166 -c 10.10.10.x -d -C 4 -l tcpcopy.log -P /var/run/tcpcopy.pid</p>
-</blockquote>
-<p>指令说明：</p>
-<blockquote>
-<p>-x 80-192.168.42.164:80将本机上80端口的流量复制到192.168.42.164（测试服务器）的80端口<br>-s指定intercept进程所在的服务器192.168.42.166。（丢包服务器）<br>-c修改请求的host地址为10.10.10.x，以便在164测试服务器上设置路由（设置路由是为了将应答转向丢166包服务器）<br>-C 开启4个进程<br>-d 以daemon形式运行<br>-l 记录日志<br>-P 记录pid<br>其他参数可以通过<br>/usr/local/tcpcopy/sbin/tcpcopy -h查看</p>
-</blockquote>
-<p>运行 tcpcopy 客户端，有几种可选方式：<br>/usr/local/tcpcopy/sbin/tcpcopy -x 80-192.168.42.164:80 -s 192.168.42.166 -d       #全流量复制<br>/usr/local/tcpcopy/sbin/tcpcopy -x 80-192.168.42.164:80 -s 192.168.42.166 -r 20 -d  #复制20%的流量<br>/usr/local/tcpcopy/sbin/tcpcopy -x 80-192.168.42.164:80 -s 192.168.42.166 -n 2 -d    #放大2倍流量</p>
-<h1 id="在B机器上配置路由信息">在B机器上配置路由信息</h1><p>在测试机器上需要配置一条路由信息</p>
-<blockquote>
-<p>route add -net 10.10.10.0 netmask 255.255.255.0 gw 192.168.42.166</p>
-</blockquote>
-<h1 id="测试一下：">测试一下：</h1><p>我们在线上机器上启动apache：80端口，B机器上也启动apache:80端口，访问线上机器：<br><img src="/img/tcpcopy/apache.PNG" alt="Alt text"></p>
-<h1 id="使用tcpdump的cap包，导入流量">使用tcpdump的cap包，导入流量</h1><p>很多情况下我们不能实时导线上流量，需要借助tcpdump先将流量保存下来，然后进行回放。<br><img src="/img/tcpcopy/tcpdump回放.PNG" alt="Alt text"></p>
-<h2 id="tcpdump_获取pcap">tcpdump 获取pcap</h2><p>tcpdump -i eth0 -w online.pcap tcp and port 80 </p>
-<blockquote>
-<p>-i eth0:eth0为网卡，获取方式可在liunx系统下执行ifconfig查看所有的网卡，选取需要的那个。<br>-w online.pcap:为获取pcap文件进行回放，可设置路径，e.g. -w /home/user/test.pcap<br>tcp and port 80:截获端口为80的tcp请求，也可添加udp请求，和更改服务端口80，e.g. tcp and port 16001<br>-s 0:默认的话，tcpdump只显示部分数据包，-s snaplen是控制包长度的，默认是68字节，-s 0 则为全部字节，在使用过程中，如果添加-s则回放时会出现错误。可不使用该参数</p>
-</blockquote>
-<h2 id="回放">回放</h2><p>/usr/local/tcpcopy/sbin/tcpcopy -x 80-192.168.42.164:80 -s 192.168.42.166  -i /home/user/test.pcap</p>
+<hr>
+<h1 id="解决方法">解决方法</h1><h2 id="修改系统配置参数">修改系统配置参数</h2><p>进行操作系统配置参数优化，但是没有解决问题。<br>这里使用的centos6， vim /etc/sysctl.conf</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">net<span class="class">.core</span><span class="class">.rmem_max</span>=<span class="number">16777216</span></span><br><span class="line">net<span class="class">.core</span><span class="class">.wmem_max</span>=<span class="number">16777216</span></span><br><span class="line">net<span class="class">.ipv4</span><span class="class">.tcp_rmem</span>=<span class="number">4096</span> <span class="number">87380</span> <span class="number">16777216</span></span><br><span class="line">net<span class="class">.ipv4</span><span class="class">.tcp_wmem</span>=<span class="number">4096</span> <span class="number">65536</span> <span class="number">16777216</span></span><br><span class="line">net<span class="class">.ipv4</span><span class="class">.tcp_fin_timeout</span> = <span class="number">10</span></span><br><span class="line">net<span class="class">.ipv4</span><span class="class">.tcp_tw_recycle</span> = <span class="number">1</span></span><br><span class="line">net<span class="class">.ipv4</span><span class="class">.tcp_timestamps</span> = <span class="number">0</span></span><br><span class="line">net<span class="class">.ipv4</span><span class="class">.tcp_window_scaling</span> = <span class="number">0</span></span><br><span class="line">net<span class="class">.ipv4</span><span class="class">.tcp_sack</span> = <span class="number">0</span></span><br><span class="line">net<span class="class">.core</span><span class="class">.netdev_max_backlog</span> = <span class="number">30000</span></span><br><span class="line">net<span class="class">.ipv4</span><span class="class">.tcp_no_metrics_save</span>=<span class="number">1</span></span><br><span class="line">net<span class="class">.core</span><span class="class">.somaxconn</span> = <span class="number">262144</span></span><br><span class="line">net<span class="class">.ipv4</span><span class="class">.tcp_syncookies</span> = <span class="number">0</span></span><br><span class="line">net<span class="class">.ipv4</span><span class="class">.tcp_max_orphans</span> = <span class="number">262144</span></span><br><span class="line">net<span class="class">.ipv4</span><span class="class">.tcp_max_syn_backlog</span> = <span class="number">262144</span></span><br><span class="line">net<span class="class">.ipv4</span><span class="class">.tcp_synack_retries</span> = <span class="number">2</span></span><br><span class="line">net<span class="class">.ipv4</span><span class="class">.tcp_syn_retries</span> = <span class="number">2</span></span><br><span class="line">fs<span class="class">.file-max</span> = <span class="number">999999</span></span><br><span class="line">net<span class="class">.ipv4</span><span class="class">.tcp_tw_reuse</span> = <span class="number">1</span></span><br><span class="line">net<span class="class">.nf_conntrack_max</span> = <span class="number">655360</span></span><br><span class="line">net<span class="class">.netfilter</span><span class="class">.nf_conntrack_max</span> = <span class="number">655350</span></span><br><span class="line">net<span class="class">.netfilter</span><span class="class">.nf_conntrack_tcp_timeout_established</span> = <span class="number">1200</span></span><br></pre></td></tr></table></figure>
+<p>执行sysctl -p使之生效。<br>发现上面这种方式配置后tcp连接数没有得到改善。</p>
+<hr>
+<h2 id="修改nginx_配置_，加入http1-1_keepalive">修改nginx 配置 ，加入http1.1 keepalive</h2><p>具体可以参考：<a href="http://nginx.org/en/docs/http/ngx_http_upstream_module.html#keepalive" target="_blank" rel="external">http://nginx.org/en/docs/http/ngx_http_upstream_module.html#keepalive</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">upstream http_backend &#123;</span><br><span class="line">    server <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8080</span>;</span><br><span class="line"></span><br><span class="line">    keepalive <span class="number">16</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    location /http/ &#123;</span><br><span class="line">        proxy_pass http:<span class="comment">//http_backend;</span></span><br><span class="line">        proxy_http_version <span class="number">1.1</span>;</span><br><span class="line">        proxy_set_header Connection <span class="string">""</span>;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>经过此优化后，tcp time-wait数量下来了</p>
+<p><img src="/img/tcp-time-wait/tcp-nice.PNG" alt="Alt text"></p>
 
                                                                                 
                                         </div>
@@ -337,18 +304,9 @@
                         
 <nav id="article-nav">
   
-    <a href="/2016/11/16/网络带宽瓶颈导致tps上不去/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          网络带宽瓶颈导致tps上不去
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/10/12/工程师成长计划/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">高级性能测试工程师成长计划</div>
+    <a href="/2017/04/20/linux tcp端口转发工具-rinetd/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">linux tcp端口转发工具-rinetd</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -358,7 +316,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-tcpcopy" data-title="tcpcopy1.0使用" data-url="http://tonylit.me/2016/10/19/tcpcopy/"></div>
+                                    <div class="ds-thread" data-thread-key="post-nginx 高并发时出现大量tcp tim-wait解决方法" data-title="nginx 高并发时出现大量tcp tim-wait解决方法" data-url="http://tonylit.me/2017/04/25/nginx 高并发时出现大量tcp tim-wait解决方法/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">
