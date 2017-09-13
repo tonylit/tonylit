@@ -82,11 +82,6 @@
   </url>
   
   <url>
-    <loc>http://tonylit.me/2016/09/04/%E5%AE%B6%E5%85%B7%E6%95%B4%E7%90%86/</loc>
-    <lastmod>2016-09-04T05:37:27.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://tonylit.me/2016/08/23/docker%20overlayfs/</loc>
     <lastmod>2016-08-23T05:37:27.000Z</lastmod>
   </url>
@@ -167,12 +162,12 @@
   </url>
   
   <url>
-    <loc>http://tonylit.me/2016/05/18/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/</loc>
+    <loc>http://tonylit.me/2016/05/18/scp%E5%92%8Crsync%E4%BC%A0%E8%BE%93%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83/</loc>
     <lastmod>2016-05-18T05:37:27.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://tonylit.me/2016/05/18/scp%E5%92%8Crsync%E4%BC%A0%E8%BE%93%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83/</loc>
+    <loc>http://tonylit.me/2016/05/18/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/</loc>
     <lastmod>2016-05-18T05:37:27.000Z</lastmod>
   </url>
   
@@ -297,12 +292,12 @@
   </url>
   
   <url>
-    <loc>http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/</loc>
+    <loc>http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/</loc>
     <lastmod>2015-12-22T05:37:27.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/</loc>
+    <loc>http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2015-12-22T05:37:27.000Z</lastmod>
   </url>
   
