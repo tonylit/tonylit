@@ -244,10 +244,6 @@
 <p>其中XX:HeapDumpPath可以设置为一个目录或者一个文件，这里指定文件。</p>
 <h3 id="-verbose:gc与-XX:+PrintGC">-verbose:gc与-XX:+PrintGC</h3><p>-XX:+PrintGC 与 -verbose:gc 的功能是一样的，区别在于-XX:+PrintGC是managable的，可以通过jinfo被开启或关闭。<br>另外，-XX:+PrintGCDetails 在启动脚本可以自动开启-XX:+PrintGC , 如果在命令行使用jinfo开启的话，不会自动开启-XX:+PrintGC</p>
 <hr>
-<h2 id="eden区参数">eden区参数</h2><hr>
-<h2 id="survivor区参数">survivor区参数</h2><hr>
-<h2 id="old区参数">old区参数</h2><hr>
-<h2 id="perm区参数">perm区参数</h2><hr>
 <h1 id="参考：">参考：</h1><p><a href="https://segmentfault.com/a/1190000004699398" target="_blank" rel="external">jvm参数备忘</a><br><a href="https://segmentfault.com/a/1190000005036183" target="_blank" rel="external">JVM参数陷阱</a></p>
 ]]></content>
     <summary type="html">
