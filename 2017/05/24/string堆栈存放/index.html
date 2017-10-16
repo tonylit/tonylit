@@ -6,16 +6,16 @@
   
   <title>string堆栈存放 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="java string堆栈存放一直有些困惑，读了一篇很好的帖子，感觉清明了许多。">
+  <meta name="description" content="java string堆栈存放一直有些困惑，读了一篇很好的帖子，感觉清明了许多。首先明确常量池的概念（方法区中，java8前可以叫做永久代）：常量池(constant pool)指的是在编译期被确定，并被保存在已编译的.class文件中的一些数据。它包括了关于类、方法、接口等中的常量，也包括字符串常量。String str = “abc” 存放在常量池中">
 <meta property="og:type" content="article">
 <meta property="og:title" content="string堆栈存放">
 <meta property="og:url" content="http://tonylit.me/2017/05/24/string堆栈存放/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="java string堆栈存放一直有些困惑，读了一篇很好的帖子，感觉清明了许多。">
+<meta property="og:description" content="java string堆栈存放一直有些困惑，读了一篇很好的帖子，感觉清明了许多。首先明确常量池的概念（方法区中，java8前可以叫做永久代）：常量池(constant pool)指的是在编译期被确定，并被保存在已编译的.class文件中的一些数据。它包括了关于类、方法、接口等中的常量，也包括字符串常量。String str = “abc” 存放在常量池中">
 <meta property="og:updated_time" content="2017-05-24T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="string堆栈存放">
-<meta name="twitter:description" content="java string堆栈存放一直有些困惑，读了一篇很好的帖子，感觉清明了许多。">
+<meta name="twitter:description" content="java string堆栈存放一直有些困惑，读了一篇很好的帖子，感觉清明了许多。首先明确常量池的概念（方法区中，java8前可以叫做永久代）：常量池(constant pool)指的是在编译期被确定，并被保存在已编译的.class文件中的一些数据。它包括了关于类、方法、接口等中的常量，也包括字符串常量。String str = “abc” 存放在常量池中">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -253,22 +253,22 @@
                                                         
                                                             
                                                                 
-                                                                            <p>java string堆栈存放一直有些困惑，读了一篇很好的帖子，感觉清明了许多。</p>
+                                                                            <p>java string堆栈存放一直有些困惑，读了一篇很好的帖子，感觉清明了许多。<br>首先明确常量池的概念（方法区中，java8前可以叫做永久代）：<br>常量池(constant pool)指的是在编译期被确定，并被保存在已编译的.class文件中的一些数据。它包括了关于类、方法、接口等中的常量，也包括字符串常量。<br>String str = “abc” 存放在常量池中</p>
 <a id="more"></a>
 <p>String str1 = “abc”;<br>System.out.println(str1 == “abc”); </p>
-<p>步骤：<br>1) 栈中开辟一块空间存放引用str1，<br>2) String池中开辟一块空间，存放String常量”abc”，<br>3) 引用str1指向池中String常量”abc”，<br>4) str1所指代的地址即常量”abc”所在地址，输出为true </p>
+<p>步骤：<br>1) 栈中开辟一块空间存放引用str1，<br>2) String常量池中开辟一块空间，存放String常量”abc”，<br>3) 引用str1指向池中String常量”abc”，<br>4) str1所指代的地址即常量”abc”所在地址，输出为true </p>
 <hr>
-<p>String str2 = new String(“abc”);<br> System.out.println(str2 == “abc”); </p>
-<p>步骤：<br>1) 栈中开辟一块空间存放引用str2，<br>2) 堆中开辟一块空间存放一个新建的String对象”abc”，<br>3) 引用str2指向堆中的新建的String对象”abc”，<br>4) str2所指代的对象地址为堆中地址，而常量”abc”地址在池中，输出为false </p>
+<p>String str2 = new String(“abc”);<br>System.out.println(str2 == “abc”); </p>
+<p>步骤：<br>1) 栈中开辟一块空间存放引用str2，<br>2) 堆中开辟一块空间存放一个新建的String对象”abc”，<br>3) 引用str2指向堆中的新建的String对象”abc”，<br>4) str2所指代的对象地址为堆中地址，而常量”abc”地址在常量池中，输出为false </p>
 <hr>
-<p>String str3 = new String（”abc”);<br> System.out.println(str3 == str2); </p>
+<p>String str3 = new String（”abc”);<br>System.out.println(str3 == str2); </p>
 <p>步骤：<br>1) 栈中开辟一块空间存放引用str3，<br>2) 堆中开辟一块新空间存放另外一个(不同于str2所指)新建的String对象，<br>3) 引用str3指向另外新建的那个String对象<br>4) str3和str2指向堆中不同的String对象，地址也不相同，输出为false </p>
 <hr>
-<p>String str4 = “a” + “b”;<br> System.out.println(str4 == “ab”); </p>
+<p>String str4 = “a” + “b”;<br>System.out.println(str4 == “ab”); </p>
 <p>步骤：<br>1) 栈中开辟一块空间存放引用str4，<br>2) 根据编译器合并已知量的优化功能，池中开辟一块空间，存放合并后的String常量”ab”，<br>3) 引用str4指向池中常量”ab”，<br>4) str4所指即池中常量”ab”，输出为true </p>
 <hr>
 <p>String s1 = “a”;<br>String s2 = “b”;<br>String str6 = s1 + s2;<br>System.out.println(str6 == “ab”); </p>
-<p>步骤：<br>1) 栈中开辟一块中间存放引用s1，s1指向池中String常量”a”，<br>2) 栈中开辟一块中间存放引用s2，s2指向池中String常量”b”，<br>3) 栈中开辟一块中间存放引用str5，<br>4) s1 + s2通过StringBuilder的最后一步toString()方法还原一个新的String对象”ab”，因此堆中开辟一块空间存放此对象，<br>5) 引用str6指向堆中(s1 + s2)所还原的新String对象，<br>6) str6指向的对象在堆中，而常量”ab”在池中，输出为false </p>
+<p>步骤：<br>1) 栈中开辟一块中间存放引用s1，s1指向池中String常量”a”，<br>2) 栈中开辟一块中间存放引用s2，s2指向池中String常量”b”，<br>3) 栈中开辟一块中间存放引用str6，<br>4) s1 + s2通过StringBuilder的最后一步toString()方法还原一个新的String对象”ab”，因此堆中开辟一块空间存放此对象，<br>5) 引用str6指向堆中(s1 + s2)所还原的新String对象，<br>6) str6指向的对象在堆中，而常量”ab”在池中，输出为false </p>
 <hr>
 <p>String str7 = “abc”.substring(0, 2); </p>
 <p>步骤：<br>1) 栈中开辟一块空间存放引用str7，<br>2) substring()方法还原一个新的String对象”ab”（不同于str6所指），堆中开辟一块空间存放此对象，<br>3) 引用str7指向堆中的新String对象， </p>
