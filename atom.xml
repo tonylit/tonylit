@@ -4,7 +4,7 @@
   <subtitle><![CDATA[今年lebron绝逼夺冠，bie跟我急!]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2017-05-24T05:37:27.000Z</updated>
+  <updated>2017-06-02T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -13,6 +13,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Java中Arrays.asList不能使用add方法]]></title>
+    <link href="http://tonylit.me/2017/06/02/Java%E4%B8%ADArrays.asList%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8add%E6%96%B9%E6%B3%95/"/>
+    <id>http://tonylit.me/2017/06/02/Java中Arrays.asList不能使用add方法/</id>
+    <published>2017-06-02T03:37:27.000Z</published>
+    <updated>2017-06-02T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>我们知道Java数组可以使用Arrays.asList方法，将其转成List集合，操作起来比较方便。<br>最近发现Arrays.asList得到的List无法进行add等操作。</p>
+<a id="more"></a>
+<p>举个简单的例子：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">   	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">String</span>[] <span class="built_in">str</span> = &#123; <span class="string">"aa"</span>, <span class="string">"bb"</span> &#125;;</span><br><span class="line">	List&lt;<span class="keyword">String</span>&gt; list = Arrays.asList(<span class="built_in">str</span>);</span><br><span class="line">	list.<span class="built_in">add</span>(<span class="string">"haha"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行的时候报错：</p>
+<p>Exception in thread “main” java.lang.UnsupportedOperationException<br>    at java.util.AbstractList.add(AbstractList.java:131)<br>    at java.util.AbstractList.add(AbstractList.java:91)<br>    at fanxing.A.main(A.java:18)</p>
+<hr>
+<p>查看源码发现：<br>Arrays.asList方法返回的ArrayList是继承的AbstractList<br><img src="/img/asList.png" alt="Alt text"></p>
+<p>AbstractList 类中实现的add、remove等一些方法中throw UnsupportedOperationException导致。</p>
+<hr>
+<p>建议使用Apache commons包中的ArrayUtils工具类进行数组相关操作。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>我们知道Java数组可以使用Arrays.asList方法，将其转成List集合，操作起来比较方便。<br>最近发现Arrays.asList得到的List无法进行add等操作。</p>]]>
+    
+    </summary>
+    
+      <category term="java" scheme="http://tonylit.me/tags/java/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[string堆栈存放]]></title>
@@ -518,61 +545,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[JAVA程序怎样使用jvm堆栈内存]]></title>
-    <link href="http://tonylit.me/2016/12/07/JAVA%E7%A8%8B%E5%BA%8F%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8jvm%E5%A0%86%E6%A0%88%E5%86%85%E5%AD%98/"/>
-    <id>http://tonylit.me/2016/12/07/JAVA程序怎样使用jvm堆栈内存/</id>
-    <published>2016-12-07T03:37:27.000Z</published>
-    <updated>2016-12-07T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>java是一门面向对象的编程语言，平时我们创建对象通常是通过new的方式。</p>
-<p>java虚拟机在遇到new指令的时候，首先去检查new的类是否已经被加载、链接、初始化；<br>如果没有，则必须先执行相应的类加载过程。<br><strong>类加载过程见下图：</strong><br><img src="/img/jvm/class_run_jvm/类加载过程.PNG" alt="Alt text"></p>
-<a id="more"></a>
-<hr>
-<h1 id="程序运行时jvm内存使用">程序运行时jvm内存使用</h1><p>类加载完成以后，程序运行的内存分配工作主要在堆与栈上面了。</p>
-<blockquote>
-<p>通俗来讲，栈上放局部变量，堆上放成员变量<br>基本类型的变量在栈中直接保存它所对应的值<br>引用类型的变量在栈中保存的是一个指向堆区对应对象存放地址的指针<br><a href="https://www.zhihu.com/question/31203609" target="_blank" rel="external">java是值传递还是引用传递？</a></p>
-</blockquote>
-<p>以下实例转载（<a href="http://blog.csdn.net/shimiso/article/details/8595564）" target="_blank" rel="external">http://blog.csdn.net/shimiso/article/details/8595564）</a></p>
-<p><img src="/img/jvm/class_run_jvm/调用过程一.PNG" alt="Alt text"></p>
-<p>1.JVM自动寻找main方法，执行第一句代码，创建一个Test类的实例，<br>在栈中分配一块内存，存放一个指向堆区对象的指针110925。</p>
-<p>2.创建一个int型的变量date，由于是基本类型，直接在栈中存放date对应的值9。</p>
-<p>3.创建两个BirthDate类的实例d1、d2，在栈中分别存放了对应的指针指向各自的对象。<br>他们在实例化时调用了有参数的构造方法，因此对象中有自定义初始值。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程二.PNG" alt="Alt text"></p>
-<p>调用test对象的change1方法，并且以date为参数。<br>JVM读到这段代码时，检测到i是局部变量，因此会把i放在栈中，并且把date的值赋给i。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程三.PNG" alt="Alt text"></p>
-<p>把1234赋给i。很简单的一步。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程四.PNG" alt="Alt text"></p>
-<p>change1方法执行完毕，立即释放局部变量i所占用的栈空间。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程五.PNG" alt="Alt text"></p>
-<p>调用test对象的change2方法，以实例d1为参数。<br>JVM检测到change2方法中的b参数为局部变量，立即加入到栈中，由于是引用类型的变量，<br>所以b中保存的是d1中的指针，此时b和d1指向同一个堆中的对象，在b和d1之间传递是指针。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程六.PNG" alt="Alt text"></p>
-<p>change2方法中又实例化了一个BirthDate对象，并且赋给b。<br>在内部执行过程是：在堆区new了一个对象，并且把该对象的指针保存在栈中的b对应空间，<br>此时实例b不再指向实例d1所指向的对象，但是实例d1所指向的对象并无变化，这样无法对d1造成任何影响。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程七.PNG" alt="Alt text"></p>
-<p>change2方法执行完毕，立即释放局部引用变量b所占的栈空间，<br><strong>注意只是释放了栈空间，堆空间要等待自动回收</strong>。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程八.PNG" alt="Alt text"></p>
-<p>调用test实例的change3方法，以实例d2为参数。<br>同理，JVM会在栈中为局部引用变量b分配空间，并且把d2中的指针存放在b中，此时d2和b指向同一个对象。<br>再调用实例b的setDay方法，其实就是调用d2指向的对象的setDay方法。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程九.PNG" alt="Alt text"></p>
-<p>调用实例b的setDay方法会影响d2，因为二者指向的是同一个对象。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程十.PNG" alt="Alt text"></p>
-<p>change3方法执行完毕，立即释放局部引用变量b。</p>
-<hr>
-<h1 id="String对象实例">String对象实例</h1><p>对于String对象的赋值，一直都很模糊，<br>比如下面的例子，</p>
-<blockquote>
-<p>str1=str2 ？<br>程序执行的时候，内存里到底有几个实例？<br>实例存在内存的哪里?</p>
-</blockquote>
-<p>String str1 = “Hello”;<br>String str2 = new String(“Hello”);</p>
-<p>想深入了解，可以参见：<br><a href="https://www.zhihu.com/question/29884421" target="_blank" rel="external">https://www.zhihu.com/question/29884421</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>java是一门面向对象的编程语言，平时我们创建对象通常是通过new的方式。</p>
-<p>java虚拟机在遇到new指令的时候，首先去检查new的类是否已经被加载、链接、初始化；<br>如果没有，则必须先执行相应的类加载过程。<br><strong>类加载过程见下图：</strong><br><img src="/img/jvm/class_run_jvm/类加载过程.PNG" alt="Alt text"></p>]]>
-    
-    </summary>
-    
-      <category term="java" scheme="http://tonylit.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[浅谈JVM垃圾收集器]]></title>
     <link href="http://tonylit.me/2016/12/07/%E6%B5%85%E8%B0%88JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/"/>
     <id>http://tonylit.me/2016/12/07/浅谈JVM垃圾收集器/</id>
@@ -678,6 +650,61 @@
     <![CDATA[<p>Java虚拟机规范中对垃圾收集器应该如何实现并没有任何规定，</p>
 <p>因此不同的厂商、不同版本的虚拟机所提供的垃圾收集器都可能会有很大差别，</p>
 <p>并且一般都会提供参数供用户根据自己的应用特点和要求组合出各个年代所使用的收集器。</p>]]>
+    
+    </summary>
+    
+      <category term="java" scheme="http://tonylit.me/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[JAVA程序怎样使用jvm堆栈内存]]></title>
+    <link href="http://tonylit.me/2016/12/07/JAVA%E7%A8%8B%E5%BA%8F%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8jvm%E5%A0%86%E6%A0%88%E5%86%85%E5%AD%98/"/>
+    <id>http://tonylit.me/2016/12/07/JAVA程序怎样使用jvm堆栈内存/</id>
+    <published>2016-12-07T03:37:27.000Z</published>
+    <updated>2016-12-07T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>java是一门面向对象的编程语言，平时我们创建对象通常是通过new的方式。</p>
+<p>java虚拟机在遇到new指令的时候，首先去检查new的类是否已经被加载、链接、初始化；<br>如果没有，则必须先执行相应的类加载过程。<br><strong>类加载过程见下图：</strong><br><img src="/img/jvm/class_run_jvm/类加载过程.PNG" alt="Alt text"></p>
+<a id="more"></a>
+<hr>
+<h1 id="程序运行时jvm内存使用">程序运行时jvm内存使用</h1><p>类加载完成以后，程序运行的内存分配工作主要在堆与栈上面了。</p>
+<blockquote>
+<p>通俗来讲，栈上放局部变量，堆上放成员变量<br>基本类型的变量在栈中直接保存它所对应的值<br>引用类型的变量在栈中保存的是一个指向堆区对应对象存放地址的指针<br><a href="https://www.zhihu.com/question/31203609" target="_blank" rel="external">java是值传递还是引用传递？</a></p>
+</blockquote>
+<p>以下实例转载（<a href="http://blog.csdn.net/shimiso/article/details/8595564）" target="_blank" rel="external">http://blog.csdn.net/shimiso/article/details/8595564）</a></p>
+<p><img src="/img/jvm/class_run_jvm/调用过程一.PNG" alt="Alt text"></p>
+<p>1.JVM自动寻找main方法，执行第一句代码，创建一个Test类的实例，<br>在栈中分配一块内存，存放一个指向堆区对象的指针110925。</p>
+<p>2.创建一个int型的变量date，由于是基本类型，直接在栈中存放date对应的值9。</p>
+<p>3.创建两个BirthDate类的实例d1、d2，在栈中分别存放了对应的指针指向各自的对象。<br>他们在实例化时调用了有参数的构造方法，因此对象中有自定义初始值。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程二.PNG" alt="Alt text"></p>
+<p>调用test对象的change1方法，并且以date为参数。<br>JVM读到这段代码时，检测到i是局部变量，因此会把i放在栈中，并且把date的值赋给i。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程三.PNG" alt="Alt text"></p>
+<p>把1234赋给i。很简单的一步。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程四.PNG" alt="Alt text"></p>
+<p>change1方法执行完毕，立即释放局部变量i所占用的栈空间。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程五.PNG" alt="Alt text"></p>
+<p>调用test对象的change2方法，以实例d1为参数。<br>JVM检测到change2方法中的b参数为局部变量，立即加入到栈中，由于是引用类型的变量，<br>所以b中保存的是d1中的指针，此时b和d1指向同一个堆中的对象，在b和d1之间传递是指针。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程六.PNG" alt="Alt text"></p>
+<p>change2方法中又实例化了一个BirthDate对象，并且赋给b。<br>在内部执行过程是：在堆区new了一个对象，并且把该对象的指针保存在栈中的b对应空间，<br>此时实例b不再指向实例d1所指向的对象，但是实例d1所指向的对象并无变化，这样无法对d1造成任何影响。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程七.PNG" alt="Alt text"></p>
+<p>change2方法执行完毕，立即释放局部引用变量b所占的栈空间，<br><strong>注意只是释放了栈空间，堆空间要等待自动回收</strong>。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程八.PNG" alt="Alt text"></p>
+<p>调用test实例的change3方法，以实例d2为参数。<br>同理，JVM会在栈中为局部引用变量b分配空间，并且把d2中的指针存放在b中，此时d2和b指向同一个对象。<br>再调用实例b的setDay方法，其实就是调用d2指向的对象的setDay方法。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程九.PNG" alt="Alt text"></p>
+<p>调用实例b的setDay方法会影响d2，因为二者指向的是同一个对象。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程十.PNG" alt="Alt text"></p>
+<p>change3方法执行完毕，立即释放局部引用变量b。</p>
+<hr>
+<h1 id="String对象实例">String对象实例</h1><p>对于String对象的赋值，一直都很模糊，<br>比如下面的例子，</p>
+<blockquote>
+<p>str1=str2 ？<br>程序执行的时候，内存里到底有几个实例？<br>实例存在内存的哪里?</p>
+</blockquote>
+<p>String str1 = “Hello”;<br>String str2 = new String(“Hello”);</p>
+<p>想深入了解，可以参见：<br><a href="https://www.zhihu.com/question/29884421" target="_blank" rel="external">https://www.zhihu.com/question/29884421</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>java是一门面向对象的编程语言，平时我们创建对象通常是通过new的方式。</p>
+<p>java虚拟机在遇到new指令的时候，首先去检查new的类是否已经被加载、链接、初始化；<br>如果没有，则必须先执行相应的类加载过程。<br><strong>类加载过程见下图：</strong><br><img src="/img/jvm/class_run_jvm/类加载过程.PNG" alt="Alt text"></p>]]>
     
     </summary>
     
@@ -882,26 +909,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[测试环境的docker实践]]></title>
-    <link href="http://tonylit.me/2016/10/12/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E7%9A%84docker%E5%AE%9E%E8%B7%B5/"/>
-    <id>http://tonylit.me/2016/10/12/测试环境的docker实践/</id>
-    <published>2016-10-12T03:37:27.000Z</published>
-    <updated>2016-10-12T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>
-<a id="more"></a>
-<p>技术委员会也很有心，给出了分享后的反馈。<br><img src="/img/测试环境的docker实践/得分.PNG" alt="Alt text"></p>
-<h2 id="演讲内容">演讲内容</h2><p><img src="/img/测试环境的docker实践/幻灯片1.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片2.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片3.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片4.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片5.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片6.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片7.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片8.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片9.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片10.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片11.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片12.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片13.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片14.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片15.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片16.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片17.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片18.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片19.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片20.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片21.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片22.jpg" alt="Alt text"></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[高级性能测试工程师成长计划]]></title>
     <link href="http://tonylit.me/2016/10/12/%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/"/>
     <id>http://tonylit.me/2016/10/12/工程师成长计划/</id>
@@ -921,6 +928,26 @@
     </summary>
     
       <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[测试环境的docker实践]]></title>
+    <link href="http://tonylit.me/2016/10/12/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E7%9A%84docker%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://tonylit.me/2016/10/12/测试环境的docker实践/</id>
+    <published>2016-10-12T03:37:27.000Z</published>
+    <updated>2016-10-12T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>
+<a id="more"></a>
+<p>技术委员会也很有心，给出了分享后的反馈。<br><img src="/img/测试环境的docker实践/得分.PNG" alt="Alt text"></p>
+<h2 id="演讲内容">演讲内容</h2><p><img src="/img/测试环境的docker实践/幻灯片1.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片2.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片3.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片4.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片5.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片6.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片7.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片8.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片9.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片10.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片11.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片12.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片13.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片14.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片15.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片16.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片17.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片18.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片19.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片20.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片21.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片22.jpg" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   
@@ -1401,6 +1428,24 @@
   </entry>
   
   <entry>
+    <title><![CDATA[docker容器时间修改-通过时区偏移量]]></title>
+    <link href="http://tonylit.me/2016/07/19/docker%E5%AE%B9%E5%99%A8%E6%97%B6%E9%97%B4%E4%BF%AE%E6%94%B9-%E9%80%9A%E8%BF%87%E6%97%B6%E5%8C%BA%E5%81%8F%E7%A7%BB%E9%87%8F/"/>
+    <id>http://tonylit.me/2016/07/19/docker容器时间修改-通过时区偏移量/</id>
+    <published>2016-07-19T03:37:27.000Z</published>
+    <updated>2016-07-19T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。<br>如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。<br>but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。<br><a id="more"></a><br>这边写了个脚本，date.sh<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> != <span class="number">2</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">         <span class="built_in">echo</span> <span class="string">"Please input two parameter,like  '2016-05-20 12:00' "</span></span><br><span class="line">         <span class="built_in">exit</span> <span class="number">200</span>;</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#check /etc/profile exits 'export TZ' environment,if exits ,delete</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">checkProfile</span></span>()&#123;</span><br><span class="line">  <span class="built_in">return</span>Str=`grep -ri <span class="string">'export TZ'</span> /etc/profile`</span><br><span class="line">  <span class="keyword">if</span> [ <span class="string">"<span class="variable">$returnStr</span>"</span> !=  <span class="string">""</span>  ]</span><br><span class="line">   <span class="keyword">then</span></span><br><span class="line">     sed -i <span class="operator">-e</span> <span class="string">'/export TZ/d'</span>  /etc/profile</span><br><span class="line">       </span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line">checkProfile</span><br><span class="line"><span class="comment">#check time format</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">isValidDate</span></span>()&#123;  </span><br><span class="line">    date <span class="operator">-d</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="string">"+%F"</span>|grep -q <span class="string">"<span class="variable">$1</span>"</span> <span class="number">2</span>&gt;/dev/null </span><br><span class="line">    <span class="keyword">if</span> [ $? = <span class="number">0</span> ]; <span class="keyword">then</span>  </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"input:"</span> <span class="variable">$1</span> <span class="variable">$2</span> </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Time format is not correct ,please input like '2016-05-20 12:00' "</span> </span><br><span class="line">    <span class="keyword">fi</span>  </span><br><span class="line">&#125;</span><br><span class="line">isValidDate <span class="variable">$1</span> <span class="variable">$2</span></span><br><span class="line">CURTIME=`date <span class="string">"+%Y-%m-%d %H:%M"</span> `;</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"now:"</span> <span class="variable">$CURTIME</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">timeExport</span></span>()&#123;</span><br><span class="line">    <span class="keyword">if</span> [ <span class="string">"<span class="variable">$2</span>"</span> == <span class="number">1</span> ]</span><br><span class="line">     <span class="keyword">then</span></span><br><span class="line">     timeFormat=`awk <span class="string">'BEGIN&#123;printf "%.2f\n",'</span><span class="variable">$1</span><span class="string">'/3600&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$1</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeFormat</span></span><br><span class="line">     hour=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line">     mins=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     minm=`awk <span class="string">'BEGIN&#123;printf "%.0f\n",0.'</span><span class="variable">$mins</span><span class="string">'*60&#125;'</span>`</span><br><span class="line">     timeRetrunHour=`expr <span class="variable">$hour</span> + <span class="number">8</span>`</span><br><span class="line">      </span><br><span class="line">     <span class="comment">###分钟计算</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"input min:"</span><span class="variable">$3</span></span><br><span class="line">     inputmin=`<span class="built_in">echo</span> <span class="variable">$3</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     nowmin=`date |awk <span class="string">'&#123;print $4&#125;'</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$nowmin</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$inputmin</span></span><br><span class="line">     <span class="keyword">if</span> [ <span class="string">"<span class="variable">$nowmin</span>"</span> <span class="operator">-gt</span> <span class="string">"<span class="variable">$inputmin</span>"</span> ]</span><br><span class="line">      <span class="keyword">then</span> </span><br><span class="line">       <span class="built_in">let</span> hour=<span class="variable">$hour</span>-<span class="number">1</span></span><br><span class="line">     <span class="keyword">fi</span></span><br><span class="line">       </span><br><span class="line">     timeRetrunTime=<span class="variable">$timeRetrunHour</span>:<span class="variable">$minm</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"export TZ=RPC-<span class="variable">$timeRetrunTime</span>"</span>     </span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">       <span class="keyword">if</span> [ <span class="string">"<span class="variable">$2</span>"</span> == <span class="number">2</span> ]</span><br><span class="line">        <span class="keyword">then</span></span><br><span class="line">     timeFormat=`awk <span class="string">'BEGIN&#123;printf "%.2f\n",'</span><span class="variable">$1</span><span class="string">'/3600&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$1</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeFormat</span></span><br><span class="line">     hour=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line">     mins=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     minm=`awk <span class="string">'BEGIN&#123;printf "%.0f\n",0.'</span><span class="variable">$mins</span><span class="string">'*60&#125;'</span>`</span><br><span class="line">     <span class="built_in">let</span> timeRetrunHour=<span class="variable">$hour</span>-<span class="number">8</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeRetrunHour</span></span><br><span class="line">          <span class="comment">###分钟计算</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"input min:"</span><span class="variable">$3</span></span><br><span class="line">     inputmin=`<span class="built_in">echo</span> <span class="variable">$3</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     nowmin=`date |awk <span class="string">'&#123;print $4&#125;'</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$nowmin</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$inputmin</span></span><br><span class="line">     <span class="keyword">if</span> [ <span class="string">"<span class="variable">$nowmin</span>"</span> <span class="operator">-gt</span> <span class="string">"<span class="variable">$inputmin</span>"</span> ]</span><br><span class="line">      <span class="keyword">then</span> </span><br><span class="line">       <span class="built_in">let</span> hour=<span class="variable">$hour</span>-<span class="number">1</span></span><br><span class="line">     <span class="keyword">fi</span> </span><br><span class="line">     timeRetrunTime=<span class="variable">$timeRetrunHour</span>:<span class="variable">$minm</span></span><br><span class="line">          <span class="keyword">if</span> [ <span class="string">"<span class="variable">$timeRetrunHour</span>"</span> <span class="operator">-lt</span> <span class="number">0</span> ]</span><br><span class="line">        <span class="keyword">then</span></span><br><span class="line">           <span class="built_in">echo</span> <span class="string">"export TZ=RPC-<span class="variable">$&#123;timeRetrunTime#-&#125;</span>"</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">           <span class="built_in">echo</span> <span class="string">"export TZ=RPC+<span class="variable">$timeRetrunTime</span>"</span></span><br><span class="line">         <span class="keyword">fi</span></span><br><span class="line">     <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">Sys_data=`date <span class="operator">-d</span>  <span class="string">"<span class="variable">$CURTIME</span>"</span> +%s`    <span class="comment">#把当前时间转化为Linux时间</span></span><br><span class="line">In_data=`date <span class="operator">-d</span>  <span class="string">"<span class="variable">$1</span> <span class="variable">$2</span>"</span> +%s`</span><br><span class="line">  <span class="keyword">if</span> [ <span class="variable">$In_data</span> -ge <span class="variable">$Sys_data</span> ]</span><br><span class="line">   <span class="keyword">then</span></span><br><span class="line">    interval=`expr <span class="variable">$In_data</span> - <span class="variable">$Sys_data</span>`  <span class="comment">#计算2个时间的差</span></span><br><span class="line">    timeExport <span class="variable">$interval</span> <span class="number">1</span> <span class="variable">$2</span></span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">    interval=`expr  <span class="variable">$Sys_data</span> - <span class="variable">$In_data</span>`  </span><br><span class="line">    timeExport <span class="variable">$interval</span> <span class="number">2</span> <span class="variable">$2</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$interval</span></span><br></pre></td></tr></table></figure></p>
+<p>然后手动执行输出的结果：<br>export TZ=xxxx</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。<br>如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。<br>but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。<br>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[docker crontab不执行解决方法]]></title>
     <link href="http://tonylit.me/2016/07/19/docker%20crontab%E4%B8%8D%E6%89%A7%E8%A1%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
     <id>http://tonylit.me/2016/07/19/docker crontab不执行解决方法/</id>
@@ -1412,24 +1457,6 @@
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># The PAM configuration file for the cron daemon</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">auth       sufficient pam_env.so</span><br><span class="line">auth       sufficient   pam_rootok.so</span><br><span class="line">auth       <span class="built_in">include</span>    <span class="keyword">system</span>-auth</span><br><span class="line">account    sufficient   pam_access.so</span><br><span class="line">account    <span class="built_in">include</span>    <span class="keyword">system</span>-auth</span><br><span class="line">session    sufficient   pam_loginuid.so</span><br><span class="line">session    <span class="built_in">include</span>    <span class="keyword">system</span>-auth</span><br></pre></td></tr></table></figure>]]></content>
     <summary type="html">
     <![CDATA[<p>centos镜像，在该镜像中没有安装crond，通过yum安装成功后，crontab没有生效。</p>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[docker容器时间修改-通过时区偏移量]]></title>
-    <link href="http://tonylit.me/2016/07/19/docker%E5%AE%B9%E5%99%A8%E6%97%B6%E9%97%B4%E4%BF%AE%E6%94%B9-%E9%80%9A%E8%BF%87%E6%97%B6%E5%8C%BA%E5%81%8F%E7%A7%BB%E9%87%8F/"/>
-    <id>http://tonylit.me/2016/07/19/docker容器时间修改-通过时区偏移量/</id>
-    <published>2016-07-19T03:37:27.000Z</published>
-    <updated>2016-07-19T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。<br>如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。<br>but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。<br><a id="more"></a><br>这边写了个脚本，date.sh<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> != <span class="number">2</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">         <span class="built_in">echo</span> <span class="string">"Please input two parameter,like  '2016-05-20 12:00' "</span></span><br><span class="line">         <span class="built_in">exit</span> <span class="number">200</span>;</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#check /etc/profile exits 'export TZ' environment,if exits ,delete</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">checkProfile</span></span>()&#123;</span><br><span class="line">  <span class="built_in">return</span>Str=`grep -ri <span class="string">'export TZ'</span> /etc/profile`</span><br><span class="line">  <span class="keyword">if</span> [ <span class="string">"<span class="variable">$returnStr</span>"</span> !=  <span class="string">""</span>  ]</span><br><span class="line">   <span class="keyword">then</span></span><br><span class="line">     sed -i <span class="operator">-e</span> <span class="string">'/export TZ/d'</span>  /etc/profile</span><br><span class="line">       </span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line">checkProfile</span><br><span class="line"><span class="comment">#check time format</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">isValidDate</span></span>()&#123;  </span><br><span class="line">    date <span class="operator">-d</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="string">"+%F"</span>|grep -q <span class="string">"<span class="variable">$1</span>"</span> <span class="number">2</span>&gt;/dev/null </span><br><span class="line">    <span class="keyword">if</span> [ $? = <span class="number">0</span> ]; <span class="keyword">then</span>  </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"input:"</span> <span class="variable">$1</span> <span class="variable">$2</span> </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Time format is not correct ,please input like '2016-05-20 12:00' "</span> </span><br><span class="line">    <span class="keyword">fi</span>  </span><br><span class="line">&#125;</span><br><span class="line">isValidDate <span class="variable">$1</span> <span class="variable">$2</span></span><br><span class="line">CURTIME=`date <span class="string">"+%Y-%m-%d %H:%M"</span> `;</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"now:"</span> <span class="variable">$CURTIME</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">timeExport</span></span>()&#123;</span><br><span class="line">    <span class="keyword">if</span> [ <span class="string">"<span class="variable">$2</span>"</span> == <span class="number">1</span> ]</span><br><span class="line">     <span class="keyword">then</span></span><br><span class="line">     timeFormat=`awk <span class="string">'BEGIN&#123;printf "%.2f\n",'</span><span class="variable">$1</span><span class="string">'/3600&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$1</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeFormat</span></span><br><span class="line">     hour=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line">     mins=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     minm=`awk <span class="string">'BEGIN&#123;printf "%.0f\n",0.'</span><span class="variable">$mins</span><span class="string">'*60&#125;'</span>`</span><br><span class="line">     timeRetrunHour=`expr <span class="variable">$hour</span> + <span class="number">8</span>`</span><br><span class="line">      </span><br><span class="line">     <span class="comment">###分钟计算</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"input min:"</span><span class="variable">$3</span></span><br><span class="line">     inputmin=`<span class="built_in">echo</span> <span class="variable">$3</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     nowmin=`date |awk <span class="string">'&#123;print $4&#125;'</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$nowmin</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$inputmin</span></span><br><span class="line">     <span class="keyword">if</span> [ <span class="string">"<span class="variable">$nowmin</span>"</span> <span class="operator">-gt</span> <span class="string">"<span class="variable">$inputmin</span>"</span> ]</span><br><span class="line">      <span class="keyword">then</span> </span><br><span class="line">       <span class="built_in">let</span> hour=<span class="variable">$hour</span>-<span class="number">1</span></span><br><span class="line">     <span class="keyword">fi</span></span><br><span class="line">       </span><br><span class="line">     timeRetrunTime=<span class="variable">$timeRetrunHour</span>:<span class="variable">$minm</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"export TZ=RPC-<span class="variable">$timeRetrunTime</span>"</span>     </span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">       <span class="keyword">if</span> [ <span class="string">"<span class="variable">$2</span>"</span> == <span class="number">2</span> ]</span><br><span class="line">        <span class="keyword">then</span></span><br><span class="line">     timeFormat=`awk <span class="string">'BEGIN&#123;printf "%.2f\n",'</span><span class="variable">$1</span><span class="string">'/3600&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$1</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeFormat</span></span><br><span class="line">     hour=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line">     mins=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     minm=`awk <span class="string">'BEGIN&#123;printf "%.0f\n",0.'</span><span class="variable">$mins</span><span class="string">'*60&#125;'</span>`</span><br><span class="line">     <span class="built_in">let</span> timeRetrunHour=<span class="variable">$hour</span>-<span class="number">8</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeRetrunHour</span></span><br><span class="line">          <span class="comment">###分钟计算</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"input min:"</span><span class="variable">$3</span></span><br><span class="line">     inputmin=`<span class="built_in">echo</span> <span class="variable">$3</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     nowmin=`date |awk <span class="string">'&#123;print $4&#125;'</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$nowmin</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$inputmin</span></span><br><span class="line">     <span class="keyword">if</span> [ <span class="string">"<span class="variable">$nowmin</span>"</span> <span class="operator">-gt</span> <span class="string">"<span class="variable">$inputmin</span>"</span> ]</span><br><span class="line">      <span class="keyword">then</span> </span><br><span class="line">       <span class="built_in">let</span> hour=<span class="variable">$hour</span>-<span class="number">1</span></span><br><span class="line">     <span class="keyword">fi</span> </span><br><span class="line">     timeRetrunTime=<span class="variable">$timeRetrunHour</span>:<span class="variable">$minm</span></span><br><span class="line">          <span class="keyword">if</span> [ <span class="string">"<span class="variable">$timeRetrunHour</span>"</span> <span class="operator">-lt</span> <span class="number">0</span> ]</span><br><span class="line">        <span class="keyword">then</span></span><br><span class="line">           <span class="built_in">echo</span> <span class="string">"export TZ=RPC-<span class="variable">$&#123;timeRetrunTime#-&#125;</span>"</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">           <span class="built_in">echo</span> <span class="string">"export TZ=RPC+<span class="variable">$timeRetrunTime</span>"</span></span><br><span class="line">         <span class="keyword">fi</span></span><br><span class="line">     <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">Sys_data=`date <span class="operator">-d</span>  <span class="string">"<span class="variable">$CURTIME</span>"</span> +%s`    <span class="comment">#把当前时间转化为Linux时间</span></span><br><span class="line">In_data=`date <span class="operator">-d</span>  <span class="string">"<span class="variable">$1</span> <span class="variable">$2</span>"</span> +%s`</span><br><span class="line">  <span class="keyword">if</span> [ <span class="variable">$In_data</span> -ge <span class="variable">$Sys_data</span> ]</span><br><span class="line">   <span class="keyword">then</span></span><br><span class="line">    interval=`expr <span class="variable">$In_data</span> - <span class="variable">$Sys_data</span>`  <span class="comment">#计算2个时间的差</span></span><br><span class="line">    timeExport <span class="variable">$interval</span> <span class="number">1</span> <span class="variable">$2</span></span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">    interval=`expr  <span class="variable">$Sys_data</span> - <span class="variable">$In_data</span>`  </span><br><span class="line">    timeExport <span class="variable">$interval</span> <span class="number">2</span> <span class="variable">$2</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$interval</span></span><br></pre></td></tr></table></figure></p>
-<p>然后手动执行输出的结果：<br>export TZ=xxxx</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。<br>如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。<br>but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。<br>]]>
     
     </summary>
     
@@ -1755,29 +1782,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[rsync和scp传输时间比较]]></title>
-    <link href="http://tonylit.me/2016/05/18/scp%E5%92%8Crsync%E4%BC%A0%E8%BE%93%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83/"/>
-    <id>http://tonylit.me/2016/05/18/scp和rsync传输速度比较/</id>
-    <published>2016-05-18T03:37:27.000Z</published>
-    <updated>2016-05-18T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br><a id="more"></a><br>传输一个3.2G的文件，里面杂七杂八的图片、小文件、大文件、视频….</p>
-<h1 id="rsync传输">rsync传输</h1><p>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">rsync -avr --progress --delete /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
-<h2 id="第一次传输：">第一次传输：</h2><p><strong>时间：58s</strong></p>
-<h2 id="第二次传输：">第二次传输：</h2><p><strong>时间：1s</strong></p>
-<p>#scp传输<br>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">scp -r /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
-<p><strong>时间：511s</strong></p>
-<h1 id="结论：">结论：</h1><p>rsync的传输速度比scp快很多</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br>]]>
-    
-    </summary>
-    
-      <category term="work" scheme="http://tonylit.me/tags/work/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[ssh 免登陆]]></title>
     <link href="http://tonylit.me/2016/05/18/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/"/>
     <id>http://tonylit.me/2016/05/18/ssh免密码登录/</id>
@@ -1798,6 +1802,29 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>配置A服务器ssh无密码登陆到B服务器<br>]]>
+    
+    </summary>
+    
+      <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[rsync和scp传输时间比较]]></title>
+    <link href="http://tonylit.me/2016/05/18/scp%E5%92%8Crsync%E4%BC%A0%E8%BE%93%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83/"/>
+    <id>http://tonylit.me/2016/05/18/scp和rsync传输速度比较/</id>
+    <published>2016-05-18T03:37:27.000Z</published>
+    <updated>2016-05-18T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br><a id="more"></a><br>传输一个3.2G的文件，里面杂七杂八的图片、小文件、大文件、视频….</p>
+<h1 id="rsync传输">rsync传输</h1><p>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">rsync -avr --progress --delete /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
+<h2 id="第一次传输：">第一次传输：</h2><p><strong>时间：58s</strong></p>
+<h2 id="第二次传输：">第二次传输：</h2><p><strong>时间：1s</strong></p>
+<p>#scp传输<br>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">scp -r /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
+<p><strong>时间：511s</strong></p>
+<h1 id="结论：">结论：</h1><p>rsync的传输速度比scp快很多</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br>]]>
     
     </summary>
     
@@ -2625,47 +2652,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[export、import导出导入docker容器]]></title>
-    <link href="http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/"/>
-    <id>http://tonylit.me/2015/12/22/docker import和export/</id>
-    <published>2015-12-22T03:37:27.000Z</published>
-    <updated>2015-12-22T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/" target="_blank" rel="external">centos-6-x86_64.tar.gz</a></p>
-<blockquote>
-<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
-<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br><a id="more"></a></p>
-</blockquote>
-<h2 id="实例">实例</h2><blockquote>
-<p>cat centos-6-x86_64.tar.gz|docker import - test/centos-6:v1.0<br><img src="/img/docker/docker_import.PNG" alt="Alt text"></p>
-</blockquote>
-<p>此外，也可以通过指定 URL 或者某个目录来导入，例如</p>
-<blockquote>
-<p> docker import <a href="http://example.com/exampleimage.tgz" target="_blank" rel="external">http://example.com/exampleimage.tgz</a> example/imagerepo</p>
-</blockquote>
-<p>*注：用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p>
-<h1 id="导出容器">导出容器</h1><p>先启动一下容器：</p>
-<blockquote>
-<p>docker run -t -i 5de0ac2f6f7e /bin/bash</p>
-</blockquote>
-<p>两个参数，-t表示给容器tty终端，-i表示可以interactive，可以交互。</p>
-<p><img src="/img/docker/docker_ps.PNG" alt="Alt text"></p>
-<blockquote>
-<p>docker export 5d73efeb9a38 &gt; tonylit_centos6.tar</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/">centos-6-x86_64.tar.gz</a></p>
-<blockquote>
-<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
-<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[staf使用]]></title>
     <link href="http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/"/>
     <id>http://tonylit.me/2015/12/22/staf使用/</id>
@@ -2711,6 +2697,47 @@
     </summary>
     
       <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[export、import导出导入docker容器]]></title>
+    <link href="http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/"/>
+    <id>http://tonylit.me/2015/12/22/docker import和export/</id>
+    <published>2015-12-22T03:37:27.000Z</published>
+    <updated>2015-12-22T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/" target="_blank" rel="external">centos-6-x86_64.tar.gz</a></p>
+<blockquote>
+<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
+<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br><a id="more"></a></p>
+</blockquote>
+<h2 id="实例">实例</h2><blockquote>
+<p>cat centos-6-x86_64.tar.gz|docker import - test/centos-6:v1.0<br><img src="/img/docker/docker_import.PNG" alt="Alt text"></p>
+</blockquote>
+<p>此外，也可以通过指定 URL 或者某个目录来导入，例如</p>
+<blockquote>
+<p> docker import <a href="http://example.com/exampleimage.tgz" target="_blank" rel="external">http://example.com/exampleimage.tgz</a> example/imagerepo</p>
+</blockquote>
+<p>*注：用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p>
+<h1 id="导出容器">导出容器</h1><p>先启动一下容器：</p>
+<blockquote>
+<p>docker run -t -i 5de0ac2f6f7e /bin/bash</p>
+</blockquote>
+<p>两个参数，-t表示给容器tty终端，-i表示可以interactive，可以交互。</p>
+<p><img src="/img/docker/docker_ps.PNG" alt="Alt text"></p>
+<blockquote>
+<p>docker export 5d73efeb9a38 &gt; tonylit_centos6.tar</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/">centos-6-x86_64.tar.gz</a></p>
+<blockquote>
+<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
+<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   
@@ -2909,6 +2936,25 @@
   </entry>
   
   <entry>
+    <title><![CDATA[SoupUI接口性能测试]]></title>
+    <link href="http://tonylit.me/2015/12/16/soupui%E6%8E%A5%E5%8F%A3%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/"/>
+    <id>http://tonylit.me/2015/12/16/soupui接口性能测试/</id>
+    <published>2015-12-16T03:37:27.000Z</published>
+    <updated>2015-12-16T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>SoapUI做接口测试时，可能会忽略它有压力测试的套件LoadTest，在做WebServices接口压力测试时，比loadrunner更胜一筹。<br><a id="more"></a><br><img src="/img/soupui/soupui_1.PNG" alt="Alt text"><br>Threads：线程数量，相对于LR中的虚拟用户数<br>Strategy：我们选择Simple就可以了<br>Test Delay：用例之间的等待时间，相对于LR中的思考时间<br>Random：思考时间取值区间，相对于LR中思考时间设置里面的Use Random Percent…<br>Limit：运行时间，相对于LR中的持续时间<br>这里的设置项比较少，但一般情况是够用了；另外结果的展现部分和LR是没法比较的。最主要的它的免费的。<br>在WebServices接口测试方面，准确性比LR高。至于原因（网上说的）：<br>soapui 是专门针对webservices接口的测试工具，在发送请求的时候，直接以组装好的soapui报文进行发送，而LR是使用 web_services_call方法，从方法传入相应的参数，由LR组装成soap报文后再发送接口调用。所以相应时间上LR更长。<br>对于非webservices接口，我也测试了一下（REST POST请求），看下图对比：<br><img src="/img/soupui/soupui_2.PNG" alt="Alt text"><br><img src="/img/soupui/soupui_3.PNG" alt="Alt text"><br>可以看到响应时间上面，soapui更小</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>SoapUI做接口测试时，可能会忽略它有压力测试的套件LoadTest，在做WebServices接口压力测试时，比loadrunner更胜一筹。<br>]]>
+    
+    </summary>
+    
+      <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[JavaMelody监控java应用]]></title>
     <link href="http://tonylit.me/2015/12/16/javamelody%E7%9B%91%E6%8E%A7java%E5%BA%94%E7%94%A8/"/>
     <id>http://tonylit.me/2015/12/16/javamelody监控java应用/</id>
@@ -2935,25 +2981,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[SoupUI接口性能测试]]></title>
-    <link href="http://tonylit.me/2015/12/16/soupui%E6%8E%A5%E5%8F%A3%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/"/>
-    <id>http://tonylit.me/2015/12/16/soupui接口性能测试/</id>
-    <published>2015-12-16T03:37:27.000Z</published>
-    <updated>2015-12-16T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>SoapUI做接口测试时，可能会忽略它有压力测试的套件LoadTest，在做WebServices接口压力测试时，比loadrunner更胜一筹。<br><a id="more"></a><br><img src="/img/soupui/soupui_1.PNG" alt="Alt text"><br>Threads：线程数量，相对于LR中的虚拟用户数<br>Strategy：我们选择Simple就可以了<br>Test Delay：用例之间的等待时间，相对于LR中的思考时间<br>Random：思考时间取值区间，相对于LR中思考时间设置里面的Use Random Percent…<br>Limit：运行时间，相对于LR中的持续时间<br>这里的设置项比较少，但一般情况是够用了；另外结果的展现部分和LR是没法比较的。最主要的它的免费的。<br>在WebServices接口测试方面，准确性比LR高。至于原因（网上说的）：<br>soapui 是专门针对webservices接口的测试工具，在发送请求的时候，直接以组装好的soapui报文进行发送，而LR是使用 web_services_call方法，从方法传入相应的参数，由LR组装成soap报文后再发送接口调用。所以相应时间上LR更长。<br>对于非webservices接口，我也测试了一下（REST POST请求），看下图对比：<br><img src="/img/soupui/soupui_2.PNG" alt="Alt text"><br><img src="/img/soupui/soupui_3.PNG" alt="Alt text"><br>可以看到响应时间上面，soapui更小</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>SoapUI做接口测试时，可能会忽略它有压力测试的套件LoadTest，在做WebServices接口压力测试时，比loadrunner更胜一筹。<br>]]>
-    
-    </summary>
-    
-      <category term="work" scheme="http://tonylit.me/tags/work/"/>
-    
-      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[Druid连接池监控]]></title>
     <link href="http://tonylit.me/2015/12/15/druid%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9B%91%E6%8E%A7/"/>
     <id>http://tonylit.me/2015/12/15/druid连接池监控/</id>
@@ -2969,6 +2996,32 @@
     </summary>
     
       <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[性能测试葵花宝典]]></title>
+    <link href="http://tonylit.me/2015/12/10/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%91%B5%E8%8A%B1%E5%AE%9D%E5%85%B8/"/>
+    <id>http://tonylit.me/2015/12/10/性能测试葵花宝典/</id>
+    <published>2015-12-10T03:37:27.000Z</published>
+    <updated>2015-12-10T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>在此整理性能测试过程中的一些精华内容，并持续进行<br>为此命名为性能测试葵花宝典，我先练上！<br><img src="/img/葵花宝典.jpg" alt="Alt text"></p>
+<a id="more"></a>
+<h1 id="压力机的资源利用率">压力机的资源利用率</h1><blockquote>
+<p>cpu%&lt;50%<br>内存&lt;80%<br>network&lt;30%,高了容易丢包<br>disk的忙闲&lt;50%<br>disk的空间&lt;90%，高了会碎片整理</p>
+</blockquote>
+<h1 id="OS常用阀值">OS常用阀值</h1><blockquote>
+<p>TotalCPU%&lt;75%<br> sysCPU%&lt;30%<br>  load average&lt;5<br> wio%&lt;40%<br>  network%&lt;30%<br>mem%&lt;80%~90%<br> disk%busy&lt;60%<br> disk queueing &lt;5<br> disk usage&lt;90%</p>
+</blockquote>
+<h1 id="OSI7层模型">OSI7层模型</h1><p><img src="/img/OSI_7.gif" alt="Alt text"></p>
+<h1 id="线程状态">线程状态</h1><p><img src="/img/线程状态.jpg" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在此整理性能测试过程中的一些精华内容，并持续进行<br>为此命名为性能测试葵花宝典，我先练上！<br><img src="/img/葵花宝典.jpg" alt="Alt text"></p>]]>
+    
+    </summary>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
     
@@ -3009,32 +3062,6 @@
     </summary>
     
       <category term="Jmeter" scheme="http://tonylit.me/tags/Jmeter/"/>
-    
-      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[性能测试葵花宝典]]></title>
-    <link href="http://tonylit.me/2015/12/10/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%91%B5%E8%8A%B1%E5%AE%9D%E5%85%B8/"/>
-    <id>http://tonylit.me/2015/12/10/性能测试葵花宝典/</id>
-    <published>2015-12-10T03:37:27.000Z</published>
-    <updated>2015-12-10T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>在此整理性能测试过程中的一些精华内容，并持续进行<br>为此命名为性能测试葵花宝典，我先练上！<br><img src="/img/葵花宝典.jpg" alt="Alt text"></p>
-<a id="more"></a>
-<h1 id="压力机的资源利用率">压力机的资源利用率</h1><blockquote>
-<p>cpu%&lt;50%<br>内存&lt;80%<br>network&lt;30%,高了容易丢包<br>disk的忙闲&lt;50%<br>disk的空间&lt;90%，高了会碎片整理</p>
-</blockquote>
-<h1 id="OS常用阀值">OS常用阀值</h1><blockquote>
-<p>TotalCPU%&lt;75%<br> sysCPU%&lt;30%<br>  load average&lt;5<br> wio%&lt;40%<br>  network%&lt;30%<br>mem%&lt;80%~90%<br> disk%busy&lt;60%<br> disk queueing &lt;5<br> disk usage&lt;90%</p>
-</blockquote>
-<h1 id="OSI7层模型">OSI7层模型</h1><p><img src="/img/OSI_7.gif" alt="Alt text"></p>
-<h1 id="线程状态">线程状态</h1><p><img src="/img/线程状态.jpg" alt="Alt text"></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>在此整理性能测试过程中的一些精华内容，并持续进行<br>为此命名为性能测试葵花宝典，我先练上！<br><img src="/img/葵花宝典.jpg" alt="Alt text"></p>]]>
-    
-    </summary>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
     
@@ -3304,6 +3331,37 @@
   </entry>
   
   <entry>
+    <title><![CDATA[kafka与countdownlatch]]></title>
+    <link href="http://tonylit.me/2015/11/24/kafka%E4%B8%8Ecountdownlatch/"/>
+    <id>http://tonylit.me/2015/11/24/kafka与countdownlatch/</id>
+    <published>2015-11-24T03:37:27.000Z</published>
+    <updated>2015-11-24T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>之前测试kafka消息发送的QPS，刚开始用loadrunner写java的，模拟kafka produce的send，发现loadrunner对这种高精确的请求有很大误差（kafka 的消息精确到毫秒，最小的测试40ms），可能loadrunner模拟请求自身需要耗费时间，遂改为直接通过编写代码多线程方式发送请求。<br><a id="more"></a><br>哎，很惭愧，对java不是很精通~<br>开始直接无脑new Thread，for循环依次启动10个线程执行，如下：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> class KafkaProduce &#123;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> ProducerConfig config;</span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    <span class="comment">// 设置配置属性</span></span><br><span class="line">    Properties props = <span class="keyword">new</span> Properties();</span><br><span class="line">    props.put(<span class="string">"metadata.broker.list"</span>, <span class="string">"192.168.28.191:9092,192.168.28.192:9092"</span>);</span><br><span class="line">    props.put(<span class="string">"serializer.class"</span>, <span class="string">"kafka.serializer.StringEncoder"</span>);</span><br><span class="line">    <span class="comment">// key.serializer.class默认为serializer.class</span></span><br><span class="line">    props.put(<span class="string">"key.serializer.class"</span>, <span class="string">"kafka.serializer.StringEncoder"</span>);</span><br><span class="line">    <span class="comment">// 值为0,1,-1,可以参考</span></span><br><span class="line">    <span class="comment">// http://kafka.apache.org/08/configuration.html</span></span><br><span class="line">    props.put(<span class="string">"request.required.acks"</span>, <span class="string">"0"</span>);</span><br><span class="line">    config = <span class="keyword">new</span> ProducerConfig(props);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">String</span> topic = <span class="string">"kafka_test_1"</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">byte</span>[] data = <span class="keyword">new</span> <span class="built_in">byte</span>[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">10</span>; i++) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">new</span> Thread() &#123;</span><br><span class="line">                <span class="comment">// 创建producer</span></span><br><span class="line">                Producer&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt; producer = <span class="keyword">new</span> Producer&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;(config);</span><br><span class="line"></span><br><span class="line">                @Override</span><br><span class="line">                <span class="keyword">public</span> <span class="keyword">void</span> run() &#123;</span><br><span class="line">                    <span class="keyword">long</span> all = <span class="number">0</span>;</span><br><span class="line">                    <span class="keyword">long</span> begin = System.nanoTime();</span><br><span class="line">                    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">1000</span>; i++) &#123;</span><br><span class="line">                        producer.send(<span class="keyword">new</span> KeyedMessage&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;(topic, <span class="keyword">new</span> <span class="keyword">String</span>(data)));</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">long</span> end = System.nanoTime();</span><br><span class="line">                    all += end - begin;</span><br><span class="line">                    System.out.<span class="built_in">println</span>(TimeUnit.NANOSECONDS.toMillis(all));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;.start();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"kafka failed"</span>);</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1106</span></span><br><span class="line"><span class="number">1637</span></span><br><span class="line"><span class="number">1676</span></span><br><span class="line"><span class="number">1682</span></span><br><span class="line"><span class="number">1701</span></span><br><span class="line"><span class="number">1751</span></span><br><span class="line"><span class="number">1760</span></span><br><span class="line"><span class="number">1777</span></span><br><span class="line"><span class="number">1859</span></span><br><span class="line"><span class="number">1913</span></span><br><span class="line"><span class="number">1938</span></span><br></pre></td></tr></table></figure>
+<p>今天无聊逛了逛贴吧，发现竟然有countdownlatch这么个东东，可以让10个线程一块跑，并发执行的话，这个应该更合理吧，遂改了一下代码：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> class KafaProduce2 &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> ProducerConfig config;</span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    <span class="comment">// 设置配置属性</span></span><br><span class="line">    Properties props = <span class="keyword">new</span> Properties();</span><br><span class="line">    props.put(<span class="string">"metadata.broker.list"</span>, <span class="string">"192.168.28.191:9092,192.168.28.192:9092"</span>);</span><br><span class="line">    props.put(<span class="string">"serializer.class"</span>, <span class="string">"kafka.serializer.StringEncoder"</span>);</span><br><span class="line">    <span class="comment">// key.serializer.class默认为serializer.class</span></span><br><span class="line">    props.put(<span class="string">"key.serializer.class"</span>, <span class="string">"kafka.serializer.StringEncoder"</span>);</span><br><span class="line">    <span class="comment">// 值为0,1,-1,可以参考</span></span><br><span class="line">    <span class="comment">// http://kafka.apache.org/08/configuration.html</span></span><br><span class="line">    props.put(<span class="string">"request.required.acks"</span>, <span class="string">"0"</span>);</span><br><span class="line">    config = <span class="keyword">new</span> ProducerConfig(props);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">String</span> topic = <span class="string">"kafka_test_1"</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">byte</span>[] data = <span class="keyword">new</span> <span class="built_in">byte</span>[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 倒数计数器</span></span><br><span class="line">    <span class="keyword">final</span> CountDownLatch begin = <span class="keyword">new</span> CountDownLatch(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 倒数计数器</span></span><br><span class="line">    <span class="keyword">final</span> CountDownLatch end = <span class="keyword">new</span> CountDownLatch(<span class="number">10</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">9</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">new</span> Thread() &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 创建producer</span></span><br><span class="line">            Producer&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt; producer = <span class="keyword">new</span> Producer&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;(config);</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> run() &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    begin.await();</span><br><span class="line">                    <span class="keyword">long</span> all = <span class="number">0</span>;</span><br><span class="line">                    <span class="keyword">long</span> begin = System.nanoTime();</span><br><span class="line">                    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">1000</span>; i++) &#123;</span><br><span class="line">                        producer.send(<span class="keyword">new</span> KeyedMessage&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;(topic, <span class="keyword">new</span> <span class="keyword">String</span>(data)));</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">long</span> end = System.nanoTime();</span><br><span class="line">                    all = end - begin;</span><br><span class="line">                    System.out.<span class="built_in">println</span>(TimeUnit.NANOSECONDS.toMillis(all));</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line"></span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">finally</span> &#123;</span><br><span class="line">                    end.countDown();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    begin.countDown();</span><br><span class="line"></span><br><span class="line">    System.out.<span class="built_in">println</span>(<span class="string">"开始。。。。"</span>);</span><br><span class="line"></span><br><span class="line">    end.await();</span><br><span class="line"></span><br><span class="line">    System.out.<span class="built_in">println</span>(<span class="string">"结束。。。。"</span>);</span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">开始。。。。</span><br><span class="line"><span class="number">1406</span></span><br><span class="line"><span class="number">1618</span></span><br><span class="line"><span class="number">1643</span></span><br><span class="line"><span class="number">1708</span></span><br><span class="line"><span class="number">1714</span></span><br><span class="line"><span class="number">1768</span></span><br><span class="line"><span class="number">1783</span></span><br><span class="line"><span class="number">1837</span></span><br><span class="line"><span class="number">1840</span></span><br><span class="line"><span class="number">1858</span></span><br><span class="line">结束。。。。</span><br></pre></td></tr></table></figure>
+<p>然后，加了个线程池，如下：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> class KafkaProduce3 &#123;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> ProducerConfig config;</span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    <span class="comment">// 设置配置属性</span></span><br><span class="line">    Properties props = <span class="keyword">new</span> Properties();</span><br><span class="line">    props.put(<span class="string">"metadata.broker.list"</span>, <span class="string">"192.168.28.191:9092,192.168.28.192:9092"</span>);</span><br><span class="line">    props.put(<span class="string">"serializer.class"</span>, <span class="string">"kafka.serializer.StringEncoder"</span>);</span><br><span class="line">    <span class="comment">// key.serializer.class默认为serializer.class</span></span><br><span class="line">    props.put(<span class="string">"key.serializer.class"</span>, <span class="string">"kafka.serializer.StringEncoder"</span>);</span><br><span class="line">    <span class="comment">// 值为0,1,-1,可以参考</span></span><br><span class="line">    <span class="comment">// http://kafka.apache.org/08/configuration.html</span></span><br><span class="line">    props.put(<span class="string">"request.required.acks"</span>, <span class="string">"0"</span>);</span><br><span class="line">    config = <span class="keyword">new</span> ProducerConfig(props);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">String</span> topic = <span class="string">"kafka_test_1"</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">byte</span>[] data = <span class="keyword">new</span> <span class="built_in">byte</span>[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 倒数计数器</span></span><br><span class="line">    <span class="keyword">final</span> CountDownLatch begin = <span class="keyword">new</span> CountDownLatch(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 倒数计数器</span></span><br><span class="line">    <span class="keyword">final</span> CountDownLatch end = <span class="keyword">new</span> CountDownLatch(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">    ExecutorService execu = Executors.newFixedThreadPool(<span class="number">10</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">9</span>; i++) &#123;</span><br><span class="line">        Runnable r = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 创建producer</span></span><br><span class="line">            Producer&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt; producer = <span class="keyword">new</span> Producer&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;(config);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> run() &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    begin.await();</span><br><span class="line">                    <span class="keyword">long</span> all = <span class="number">0</span>;</span><br><span class="line">                    KeyedMessage k = <span class="keyword">new</span> KeyedMessage&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;(topic, <span class="keyword">new</span> <span class="keyword">String</span>(data));</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">1000</span>; i++) &#123;</span><br><span class="line">                        <span class="keyword">long</span> begin = System.nanoTime();</span><br><span class="line">                        producer.send(k);</span><br><span class="line">                        <span class="keyword">long</span> end = System.nanoTime();</span><br><span class="line">                        all += end - begin;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    System.out.<span class="built_in">println</span>(TimeUnit.NANOSECONDS.toMillis(all));</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line"></span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">finally</span> &#123;</span><br><span class="line">                    end.countDown();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        execu.submit(r);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    begin.countDown();</span><br><span class="line"></span><br><span class="line">    System.out.<span class="built_in">println</span>(<span class="string">"开始。。。。"</span>);</span><br><span class="line"></span><br><span class="line">    end.await();</span><br><span class="line"></span><br><span class="line">    System.out.<span class="built_in">println</span>(<span class="string">"结束。。。。"</span>);</span><br><span class="line">    execu.shutdown();</span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">开始。。。。</span><br><span class="line"><span class="number">1296</span></span><br><span class="line"><span class="number">1463</span></span><br><span class="line"><span class="number">1464</span></span><br><span class="line"><span class="number">1578</span></span><br><span class="line"><span class="number">1603</span></span><br><span class="line"><span class="number">1630</span></span><br><span class="line"><span class="number">1755</span></span><br><span class="line"><span class="number">1771</span></span><br><span class="line"><span class="number">1826</span></span><br><span class="line"><span class="number">1854</span></span><br><span class="line">结束。。。。</span><br></pre></td></tr></table></figure>
+<p>后面2个结果好一些，做并发测试的时候也更合理！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>之前测试kafka消息发送的QPS，刚开始用loadrunner写java的，模拟kafka produce的send，发现loadrunner对这种高精确的请求有很大误差（kafka 的消息精确到毫秒，最小的测试40ms），可能loadrunner模拟请求自身需要耗费时间，遂改为直接通过编写代码多线程方式发送请求。<br>]]>
+    
+    </summary>
+    
+      <category term="java" scheme="http://tonylit.me/tags/java/"/>
+    
+      <category term="kafka" scheme="http://tonylit.me/tags/kafka/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[docker]]></title>
     <link href="http://tonylit.me/2015/11/24/docker/"/>
     <id>http://tonylit.me/2015/11/24/docker/</id>
@@ -3364,37 +3422,6 @@
     </summary>
     
       <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[kafka与countdownlatch]]></title>
-    <link href="http://tonylit.me/2015/11/24/kafka%E4%B8%8Ecountdownlatch/"/>
-    <id>http://tonylit.me/2015/11/24/kafka与countdownlatch/</id>
-    <published>2015-11-24T03:37:27.000Z</published>
-    <updated>2015-11-24T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>之前测试kafka消息发送的QPS，刚开始用loadrunner写java的，模拟kafka produce的send，发现loadrunner对这种高精确的请求有很大误差（kafka 的消息精确到毫秒，最小的测试40ms），可能loadrunner模拟请求自身需要耗费时间，遂改为直接通过编写代码多线程方式发送请求。<br><a id="more"></a><br>哎，很惭愧，对java不是很精通~<br>开始直接无脑new Thread，for循环依次启动10个线程执行，如下：</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> class KafkaProduce &#123;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> ProducerConfig config;</span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    <span class="comment">// 设置配置属性</span></span><br><span class="line">    Properties props = <span class="keyword">new</span> Properties();</span><br><span class="line">    props.put(<span class="string">"metadata.broker.list"</span>, <span class="string">"192.168.28.191:9092,192.168.28.192:9092"</span>);</span><br><span class="line">    props.put(<span class="string">"serializer.class"</span>, <span class="string">"kafka.serializer.StringEncoder"</span>);</span><br><span class="line">    <span class="comment">// key.serializer.class默认为serializer.class</span></span><br><span class="line">    props.put(<span class="string">"key.serializer.class"</span>, <span class="string">"kafka.serializer.StringEncoder"</span>);</span><br><span class="line">    <span class="comment">// 值为0,1,-1,可以参考</span></span><br><span class="line">    <span class="comment">// http://kafka.apache.org/08/configuration.html</span></span><br><span class="line">    props.put(<span class="string">"request.required.acks"</span>, <span class="string">"0"</span>);</span><br><span class="line">    config = <span class="keyword">new</span> ProducerConfig(props);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">String</span> topic = <span class="string">"kafka_test_1"</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">byte</span>[] data = <span class="keyword">new</span> <span class="built_in">byte</span>[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">10</span>; i++) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">new</span> Thread() &#123;</span><br><span class="line">                <span class="comment">// 创建producer</span></span><br><span class="line">                Producer&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt; producer = <span class="keyword">new</span> Producer&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;(config);</span><br><span class="line"></span><br><span class="line">                @Override</span><br><span class="line">                <span class="keyword">public</span> <span class="keyword">void</span> run() &#123;</span><br><span class="line">                    <span class="keyword">long</span> all = <span class="number">0</span>;</span><br><span class="line">                    <span class="keyword">long</span> begin = System.nanoTime();</span><br><span class="line">                    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">1000</span>; i++) &#123;</span><br><span class="line">                        producer.send(<span class="keyword">new</span> KeyedMessage&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;(topic, <span class="keyword">new</span> <span class="keyword">String</span>(data)));</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">long</span> end = System.nanoTime();</span><br><span class="line">                    all += end - begin;</span><br><span class="line">                    System.out.<span class="built_in">println</span>(TimeUnit.NANOSECONDS.toMillis(all));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;.start();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"kafka failed"</span>);</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure>
-<p>执行结果：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1106</span></span><br><span class="line"><span class="number">1637</span></span><br><span class="line"><span class="number">1676</span></span><br><span class="line"><span class="number">1682</span></span><br><span class="line"><span class="number">1701</span></span><br><span class="line"><span class="number">1751</span></span><br><span class="line"><span class="number">1760</span></span><br><span class="line"><span class="number">1777</span></span><br><span class="line"><span class="number">1859</span></span><br><span class="line"><span class="number">1913</span></span><br><span class="line"><span class="number">1938</span></span><br></pre></td></tr></table></figure>
-<p>今天无聊逛了逛贴吧，发现竟然有countdownlatch这么个东东，可以让10个线程一块跑，并发执行的话，这个应该更合理吧，遂改了一下代码：</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> class KafaProduce2 &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> ProducerConfig config;</span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    <span class="comment">// 设置配置属性</span></span><br><span class="line">    Properties props = <span class="keyword">new</span> Properties();</span><br><span class="line">    props.put(<span class="string">"metadata.broker.list"</span>, <span class="string">"192.168.28.191:9092,192.168.28.192:9092"</span>);</span><br><span class="line">    props.put(<span class="string">"serializer.class"</span>, <span class="string">"kafka.serializer.StringEncoder"</span>);</span><br><span class="line">    <span class="comment">// key.serializer.class默认为serializer.class</span></span><br><span class="line">    props.put(<span class="string">"key.serializer.class"</span>, <span class="string">"kafka.serializer.StringEncoder"</span>);</span><br><span class="line">    <span class="comment">// 值为0,1,-1,可以参考</span></span><br><span class="line">    <span class="comment">// http://kafka.apache.org/08/configuration.html</span></span><br><span class="line">    props.put(<span class="string">"request.required.acks"</span>, <span class="string">"0"</span>);</span><br><span class="line">    config = <span class="keyword">new</span> ProducerConfig(props);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">String</span> topic = <span class="string">"kafka_test_1"</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">byte</span>[] data = <span class="keyword">new</span> <span class="built_in">byte</span>[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 倒数计数器</span></span><br><span class="line">    <span class="keyword">final</span> CountDownLatch begin = <span class="keyword">new</span> CountDownLatch(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 倒数计数器</span></span><br><span class="line">    <span class="keyword">final</span> CountDownLatch end = <span class="keyword">new</span> CountDownLatch(<span class="number">10</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">9</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">new</span> Thread() &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 创建producer</span></span><br><span class="line">            Producer&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt; producer = <span class="keyword">new</span> Producer&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;(config);</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> run() &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    begin.await();</span><br><span class="line">                    <span class="keyword">long</span> all = <span class="number">0</span>;</span><br><span class="line">                    <span class="keyword">long</span> begin = System.nanoTime();</span><br><span class="line">                    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">1000</span>; i++) &#123;</span><br><span class="line">                        producer.send(<span class="keyword">new</span> KeyedMessage&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;(topic, <span class="keyword">new</span> <span class="keyword">String</span>(data)));</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">long</span> end = System.nanoTime();</span><br><span class="line">                    all = end - begin;</span><br><span class="line">                    System.out.<span class="built_in">println</span>(TimeUnit.NANOSECONDS.toMillis(all));</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line"></span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">finally</span> &#123;</span><br><span class="line">                    end.countDown();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    begin.countDown();</span><br><span class="line"></span><br><span class="line">    System.out.<span class="built_in">println</span>(<span class="string">"开始。。。。"</span>);</span><br><span class="line"></span><br><span class="line">    end.await();</span><br><span class="line"></span><br><span class="line">    System.out.<span class="built_in">println</span>(<span class="string">"结束。。。。"</span>);</span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">开始。。。。</span><br><span class="line"><span class="number">1406</span></span><br><span class="line"><span class="number">1618</span></span><br><span class="line"><span class="number">1643</span></span><br><span class="line"><span class="number">1708</span></span><br><span class="line"><span class="number">1714</span></span><br><span class="line"><span class="number">1768</span></span><br><span class="line"><span class="number">1783</span></span><br><span class="line"><span class="number">1837</span></span><br><span class="line"><span class="number">1840</span></span><br><span class="line"><span class="number">1858</span></span><br><span class="line">结束。。。。</span><br></pre></td></tr></table></figure>
-<p>然后，加了个线程池，如下：</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> class KafkaProduce3 &#123;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> ProducerConfig config;</span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    <span class="comment">// 设置配置属性</span></span><br><span class="line">    Properties props = <span class="keyword">new</span> Properties();</span><br><span class="line">    props.put(<span class="string">"metadata.broker.list"</span>, <span class="string">"192.168.28.191:9092,192.168.28.192:9092"</span>);</span><br><span class="line">    props.put(<span class="string">"serializer.class"</span>, <span class="string">"kafka.serializer.StringEncoder"</span>);</span><br><span class="line">    <span class="comment">// key.serializer.class默认为serializer.class</span></span><br><span class="line">    props.put(<span class="string">"key.serializer.class"</span>, <span class="string">"kafka.serializer.StringEncoder"</span>);</span><br><span class="line">    <span class="comment">// 值为0,1,-1,可以参考</span></span><br><span class="line">    <span class="comment">// http://kafka.apache.org/08/configuration.html</span></span><br><span class="line">    props.put(<span class="string">"request.required.acks"</span>, <span class="string">"0"</span>);</span><br><span class="line">    config = <span class="keyword">new</span> ProducerConfig(props);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">String</span> topic = <span class="string">"kafka_test_1"</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">byte</span>[] data = <span class="keyword">new</span> <span class="built_in">byte</span>[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 倒数计数器</span></span><br><span class="line">    <span class="keyword">final</span> CountDownLatch begin = <span class="keyword">new</span> CountDownLatch(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 倒数计数器</span></span><br><span class="line">    <span class="keyword">final</span> CountDownLatch end = <span class="keyword">new</span> CountDownLatch(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">    ExecutorService execu = Executors.newFixedThreadPool(<span class="number">10</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">9</span>; i++) &#123;</span><br><span class="line">        Runnable r = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 创建producer</span></span><br><span class="line">            Producer&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt; producer = <span class="keyword">new</span> Producer&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;(config);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> run() &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    begin.await();</span><br><span class="line">                    <span class="keyword">long</span> all = <span class="number">0</span>;</span><br><span class="line">                    KeyedMessage k = <span class="keyword">new</span> KeyedMessage&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;(topic, <span class="keyword">new</span> <span class="keyword">String</span>(data));</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">1000</span>; i++) &#123;</span><br><span class="line">                        <span class="keyword">long</span> begin = System.nanoTime();</span><br><span class="line">                        producer.send(k);</span><br><span class="line">                        <span class="keyword">long</span> end = System.nanoTime();</span><br><span class="line">                        all += end - begin;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    System.out.<span class="built_in">println</span>(TimeUnit.NANOSECONDS.toMillis(all));</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line"></span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">finally</span> &#123;</span><br><span class="line">                    end.countDown();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        execu.submit(r);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    begin.countDown();</span><br><span class="line"></span><br><span class="line">    System.out.<span class="built_in">println</span>(<span class="string">"开始。。。。"</span>);</span><br><span class="line"></span><br><span class="line">    end.await();</span><br><span class="line"></span><br><span class="line">    System.out.<span class="built_in">println</span>(<span class="string">"结束。。。。"</span>);</span><br><span class="line">    execu.shutdown();</span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">开始。。。。</span><br><span class="line"><span class="number">1296</span></span><br><span class="line"><span class="number">1463</span></span><br><span class="line"><span class="number">1464</span></span><br><span class="line"><span class="number">1578</span></span><br><span class="line"><span class="number">1603</span></span><br><span class="line"><span class="number">1630</span></span><br><span class="line"><span class="number">1755</span></span><br><span class="line"><span class="number">1771</span></span><br><span class="line"><span class="number">1826</span></span><br><span class="line"><span class="number">1854</span></span><br><span class="line">结束。。。。</span><br></pre></td></tr></table></figure>
-<p>后面2个结果好一些，做并发测试的时候也更合理！</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>之前测试kafka消息发送的QPS，刚开始用loadrunner写java的，模拟kafka produce的send，发现loadrunner对这种高精确的请求有很大误差（kafka 的消息精确到毫秒，最小的测试40ms），可能loadrunner模拟请求自身需要耗费时间，遂改为直接通过编写代码多线程方式发送请求。<br>]]>
-    
-    </summary>
-    
-      <category term="java" scheme="http://tonylit.me/tags/java/"/>
-    
-      <category term="kafka" scheme="http://tonylit.me/tags/kafka/"/>
     
   </entry>
   
