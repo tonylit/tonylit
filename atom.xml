@@ -25,7 +25,7 @@
 <p>举个简单的例子：</p>
 <figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;</span><br><span class="line">	<span class="keyword">String</span>[] <span class="built_in">str</span> = &#123; <span class="string">"aa"</span>, <span class="string">"bb"</span> &#125;;</span><br><span class="line">	List&lt;<span class="keyword">String</span>&gt; list = Arrays.asList(<span class="built_in">str</span>);</span><br><span class="line">	list.<span class="built_in">add</span>(<span class="string">"haha"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>运行的时候报错：</p>
-<p>Exception in thread “main” java.lang.UnsupportedOperationException<br>    at java.util.AbstractList.add(AbstractList.java:131)<br>    at java.util.AbstractList.add(AbstractList.java:91)<br>    at fanxing.A.main(A.java:18)</p>
+<p>Exception in thread “main” java.lang.UnsupportedOperationException</p>
 <hr>
 <p>查看源码发现：<br>Arrays.asList方法返回的ArrayList是继承的AbstractList<br><img src="/img/asList.png" alt="Alt text"></p>
 <p>AbstractList 类中实现的add、remove等一些方法中throw UnsupportedOperationException导致。</p>
