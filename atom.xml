@@ -4,7 +4,7 @@
   <subtitle><![CDATA[今年lebron绝逼夺冠，bie跟我急!]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2017-09-15T05:37:27.000Z</updated>
+  <updated>2017-09-20T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -13,6 +13,81 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[tcpcopy的兄弟-gor]]></title>
+    <link href="http://tonylit.me/2017/09/20/tcpcopy%E7%9A%84%E5%85%84%E5%BC%9F-gor/"/>
+    <id>http://tonylit.me/2017/09/20/tcpcopy的兄弟-gor/</id>
+    <published>2017-09-20T03:37:27.000Z</published>
+    <updated>2017-09-20T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>之前写了一篇<a href="http://tonylit.me/2016/10/19/tcpcopy/">tcpcopy的使用</a>，解决了线上流量引到测试环境的问题。</p>
+<p>最近看到一款更简单易用的流量复制工具-<strong>gor</strong>。</p>
+<a id="more"></a>
+<hr>
+<h1 id="简单介绍gor">简单介绍gor</h1><p>Gor是用Golang写的一个HTTP实时流量复制工具.</p>
+<p>github地址：<a href="https://github.com/buger/goreplay" target="_blank" rel="external">https://github.com/buger/goreplay</a></p>
+<p>官方描述：</p>
+<blockquote>
+<p>GoReplay is an open-source tool for capturing and replaying live HTTP traffic into a test environment in order to continuously test your system with real data.<br>It can be used to increase confidence in code deployments, configuration changes and infrastructure changes.</p>
+</blockquote>
+<p><img src="/img/gor/gor流程图.png" alt="Alt text"></p>
+<p>做的事情跟tcpcopy一样，也支持流量的方法、缩小，回放等功能。</p>
+<p>gor只能对http协议的流量进行复制，tcp协议的流量复制还要靠tcpcopy，就算如此也解决了工作中绝大多数的应用场景。</p>
+<hr>
+<h1 id="gor安装">gor安装</h1><p><a href="https://github.com/buger/goreplay/releases" target="_blank" rel="external">https://github.com/buger/goreplay/releases</a><br>，下载最新的包解压后就可以使用了。</p>
+<hr>
+<h1 id="gor常用命令">gor常用命令</h1><p>gor –help  使用方法写的比较清楚。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"> -cpuprofile string</span><br><span class="line">   	write cpu profile to file</span><br><span class="line"> -debug verbose</span><br><span class="line">   	Turn on debug output, shows all intercepted traffic. Works only when with verbose flag</span><br><span class="line"> -http-allow-header value</span><br><span class="line">   	A regexp to match a specific header against. Requests with non-matching headers will be dropped:</span><br><span class="line"> gor <span class="comment">--input-raw :8080 --output-http staging.com --http-allow-header api-version:^v1 (default [])</span></span><br><span class="line"> -http-allow-method value</span><br><span class="line">   	Whitelist of HTTP methods to replay. Anything else will be dropped:</span><br><span class="line">gor <span class="comment">--input-raw :8080 --output-http staging.com --http-allow-method GET --http-allow-method OPTIONS (default [])</span></span><br><span class="line"> -http-allow-url value</span><br><span class="line">   	A regexp to match requests against. Filter get matched against full url with domain. Anything else will be dropped:</span><br><span class="line"> gor <span class="comment">--input-raw :8080 --output-http staging.com --http-allow-url ^www. (default [])</span></span><br><span class="line"> -http-disallow-header value</span><br><span class="line">   	A regexp to match a specific header against. Requests with matching headers will be dropped:</span><br><span class="line"> gor <span class="comment">--input-raw :8080 --output-http staging.com --http-disallow-header "User-Agent: Replayed by Gor" (default [])</span></span><br><span class="line"> -http-disallow-url value</span><br><span class="line">   	A regexp to match requests against. Filter get matched against full url with domain. Anything else will be forwarded:</span><br><span class="line"> gor <span class="comment">--input-raw :8080 --output-http staging.com --http-disallow-url ^www. (default [])</span></span><br><span class="line"> -http-header-limiter value</span><br><span class="line">   	Takes a fraction of requests, consistently taking or rejecting a request based on the FNV32-1A hash of a specific header:</span><br><span class="line"> gor <span class="comment">--input-raw :8080 --output-http staging.com --http-header-imiter user-id:25% (default [])</span></span><br><span class="line"> -http-original-host</span><br><span class="line">   	Normally gor replaces the Host http header with the host supplied with <span class="comment">--output-http.  This option disables that behavior, preserving the original Host header.</span></span><br><span class="line"> -http-param-limiter value</span><br><span class="line">   	Takes a fraction of requests, consistently taking or rejecting a request based on the FNV32-1A hash of a specific GET param:</span><br><span class="line"> gor <span class="comment">--input-raw :8080 --output-http staging.com --http-param-limiter user_id:25% (default [])</span></span><br><span class="line"> -http-rewrite-url value</span><br><span class="line">   	Rewrite the request url based on a mapping:</span><br><span class="line">gor <span class="comment">--input-raw :8080 --output-http staging.com --http-rewrite-url /v1/user/([^\/]+)/ping:/v2/user/$1/ping (default [])</span></span><br><span class="line"> -http-<span class="operator"><span class="keyword">set</span>-header <span class="keyword">value</span></span><br><span class="line">   	Inject additional headers <span class="keyword">to</span> <span class="keyword">http</span> reqest:</span><br><span class="line">gor <span class="comment">--input-raw :8080 --output-http staging.com --http-set-header 'User-Agent: Gor' (default [])</span></span><br><span class="line"> -<span class="keyword">http</span>-<span class="keyword">set</span>-param <span class="keyword">value</span></span><br><span class="line">   	<span class="keyword">Set</span> request <span class="keyword">url</span> param, <span class="keyword">if</span> param already <span class="keyword">exists</span> it will be overwritten:</span><br><span class="line">gor <span class="comment">--input-raw :8080 --output-http staging.com --http-set-param api_key=1 (default [])</span></span><br><span class="line"> -<span class="keyword">input</span>-dummy <span class="keyword">value</span></span><br><span class="line">   	Used <span class="keyword">for</span> testing outputs. Emits <span class="string">'Get /'</span> request every <span class="number">1</span>s (<span class="keyword">default</span> [])</span><br><span class="line"> -<span class="keyword">input</span>-<span class="keyword">file</span> <span class="keyword">value</span></span><br><span class="line">   	<span class="keyword">Read</span> requests <span class="keyword">from</span> <span class="keyword">file</span>: </span><br><span class="line">gor <span class="comment">--input-file ./requests.gor --output-http staging.com (default [])</span></span><br><span class="line"> -<span class="keyword">input</span>-<span class="keyword">http</span> <span class="keyword">value</span></span><br><span class="line">   	<span class="keyword">Read</span> requests <span class="keyword">from</span> <span class="keyword">HTTP</span>, should be explicitly sent <span class="keyword">from</span> your application:</span><br><span class="line"># Listen <span class="keyword">for</span> <span class="keyword">http</span> <span class="keyword">on</span> <span class="number">9000</span></span><br><span class="line">gor <span class="comment">--input-http :9000 --output-http staging.com (default [])</span></span><br><span class="line"> -<span class="keyword">input</span>-<span class="keyword">raw</span> <span class="keyword">value</span></span><br><span class="line">   	Capture traffic <span class="keyword">from</span> given port (<span class="keyword">use</span> <span class="keyword">RAW</span> sockets <span class="keyword">and</span> require *sudo* <span class="keyword">access</span>):</span><br><span class="line"># Capture traffic <span class="keyword">from</span> <span class="number">8080</span> port</span><br><span class="line">gor <span class="comment">--input-raw :8080 --output-http staging.com (default [])</span></span><br><span class="line"> -<span class="keyword">input</span>-<span class="keyword">raw</span>-<span class="keyword">engine</span> libpcap</span><br><span class="line">   	Intercept traffic <span class="keyword">using</span> libpcap (<span class="keyword">default</span>), <span class="keyword">and</span> <span class="string">`raw_socket`</span> (<span class="keyword">default</span> <span class="string">"libpcap"</span>)</span><br><span class="line"> -<span class="keyword">input</span>-tcp <span class="keyword">value</span></span><br><span class="line">   	Used <span class="keyword">for</span> internal communication <span class="keyword">between</span> Gor instances. Example: </span><br><span class="line"># Receive requests <span class="keyword">from</span> other Gor instances <span class="keyword">on</span> <span class="number">28020</span> port, <span class="keyword">and</span> redirect <span class="keyword">output</span> <span class="keyword">to</span> staging</span><br><span class="line">gor <span class="comment">--input-tcp :28020 --output-http staging.com (default [])</span></span><br><span class="line"> -memprofile <span class="keyword">string</span></span><br><span class="line">   	write <span class="keyword">memory</span> profile <span class="keyword">to</span> this <span class="keyword">file</span></span><br><span class="line"> -middleware <span class="keyword">string</span></span><br><span class="line">   	Used <span class="keyword">for</span> modifying traffic <span class="keyword">using</span> <span class="keyword">external</span> command</span><br><span class="line"> -<span class="keyword">output</span>-dummy <span class="keyword">value</span></span><br><span class="line">   	Used <span class="keyword">for</span> testing inputs. Just prints <span class="keyword">data</span> coming <span class="keyword">from</span> inputs. (<span class="keyword">default</span> [])</span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">file</span> <span class="keyword">value</span></span><br><span class="line">   	Write incoming requests <span class="keyword">to</span> <span class="keyword">file</span>: </span><br><span class="line">gor <span class="comment">--input-raw :80 --output-file ./requests.gor (default [])</span></span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span> <span class="keyword">value</span></span><br><span class="line">   	Forwards incoming requests <span class="keyword">to</span> given <span class="keyword">http</span> address.</span><br><span class="line"># Redirect all incoming requests <span class="keyword">to</span> staging.com address </span><br><span class="line">gor <span class="comment">--input-raw :80 --output-http http://staging.com (default [])</span></span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-debug</span><br><span class="line">   	Enables <span class="keyword">http</span> debug <span class="keyword">output</span>.</span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-elasticsearch <span class="keyword">string</span></span><br><span class="line">   	Send request <span class="keyword">and</span> response stats <span class="keyword">to</span> ElasticSearch:</span><br><span class="line">gor <span class="comment">--input-raw :8080 --output-http staging.com --output-http-elasticsearch 'es_host:api_port/index_name'</span></span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-header <span class="comment">--output-http-header</span></span><br><span class="line">   	<span class="keyword">WARNING</span>: <span class="comment">--output-http-header DEPRECATED, use `--http-set-header` instead (default [])</span></span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-header-filter <span class="comment">--output-http-header-filter</span></span><br><span class="line">   	<span class="keyword">WARNING</span>: <span class="comment">--output-http-header-filter DEPRECATED, use `--http-allow-header` instead (default [])</span></span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-header-<span class="keyword">hash</span>-filter <span class="keyword">output</span>-<span class="keyword">http</span>-header-<span class="keyword">hash</span>-filter</span><br><span class="line">   	<span class="keyword">WARNING</span>: <span class="keyword">output</span>-<span class="keyword">http</span>-header-<span class="keyword">hash</span>-filter DEPRECATED, <span class="keyword">use</span> <span class="string">`--http-header-hash-limiter`</span> instead (<span class="keyword">default</span> [])</span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-method <span class="comment">--output-http-method</span></span><br><span class="line">   	<span class="keyword">WARNING</span>: <span class="comment">--output-http-method DEPRECATED, use `--http-allow-method` instead (default [])</span></span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-redirects <span class="built_in">int</span></span><br><span class="line">   	<span class="keyword">Enable</span> how often redirects should be followed.</span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-rewrite-<span class="keyword">url</span> <span class="comment">--output-http-rewrite-url</span></span><br><span class="line">   	<span class="keyword">WARNING</span>: <span class="comment">--output-http-rewrite-url DEPRECATED, use `--http-rewrite-url` instead (default [])</span></span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-stats</span><br><span class="line">   	Report <span class="keyword">http</span> <span class="keyword">output</span> queue stats <span class="keyword">to</span> console every <span class="number">5</span> seconds.</span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-<span class="keyword">timeout</span> <span class="keyword">duration</span></span><br><span class="line">   	Specify <span class="keyword">HTTP</span> request/response <span class="keyword">timeout</span>. <span class="keyword">By</span> <span class="keyword">default</span> <span class="number">5</span>s. Example: <span class="comment">--output-http-timeout 30s</span></span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-<span class="keyword">url</span>-regexp <span class="comment">--output-http-url-regexp</span></span><br><span class="line">   	<span class="keyword">WARNING</span>: <span class="comment">--output-http-url-regexp DEPRECATED, use `--http-allow-url` instead (default [])</span></span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-workers <span class="built_in">int</span></span><br><span class="line">   	Gor uses dynamic worker scaling <span class="keyword">by</span> <span class="keyword">default</span>.  Enter a <span class="built_in">number</span> <span class="keyword">to</span> run a <span class="keyword">set</span> <span class="built_in">number</span> <span class="keyword">of</span> workers.</span><br><span class="line"> -<span class="keyword">output</span>-tcp <span class="keyword">value</span></span><br><span class="line">   	Used <span class="keyword">for</span> internal communication <span class="keyword">between</span> Gor instances. Example: </span><br><span class="line"># Listen <span class="keyword">for</span> requests <span class="keyword">on</span> <span class="number">80</span> port <span class="keyword">and</span> forward them <span class="keyword">to</span> other Gor <span class="keyword">instance</span> <span class="keyword">on</span> <span class="number">28020</span> port</span><br><span class="line">gor <span class="comment">--input-raw :80 --output-tcp replay.local:28020 (default [])</span></span><br><span class="line"> -<span class="keyword">output</span>-tcp-stats</span><br><span class="line">   	Report TCP <span class="keyword">output</span> queue stats <span class="keyword">to</span> console every <span class="number">5</span> seconds.</span><br><span class="line"> -<span class="keyword">split</span>-<span class="keyword">output</span> <span class="literal">true</span></span><br><span class="line">   	<span class="keyword">By</span> <span class="keyword">default</span> <span class="keyword">each</span> <span class="keyword">output</span> gets same traffic. <span class="keyword">If</span> <span class="keyword">set</span> <span class="keyword">to</span> <span class="literal">true</span> it splits traffic equally among all outputs.</span><br><span class="line"> -stats</span><br><span class="line">   	Turn <span class="keyword">on</span> queue stats <span class="keyword">output</span></span><br><span class="line"> -verbose</span><br><span class="line">   	Turn <span class="keyword">on</span> more verbose <span class="keyword">output</span></span></span><br></pre></td></tr></table></figure>
+<p>常用的命令：</p>
+<p>线上引流的机器为192.168.1.1 ，测试机器为192.168.2.2</p>
+<h2 id="实时引流：">实时引流：</h2><blockquote>
+<p>gor –input-raw :80 –output-http “192.168.2.2:80”</p>
+</blockquote>
+<p>把192.168.1.1 80端口上的http请求转到192.168.2.2 80端口上。</p>
+<blockquote>
+<p>gor –input-tcp :80–output-http “192.168.2.2:80”  –output-http “192.168.3.3:80”</p>
+</blockquote>
+<p>把流量复制两份到不同的测试机器</p>
+<hr>
+<h2 id="流量放大、缩小">流量放大、缩小</h2><blockquote>
+<p>gor –input-raw :80 –output-http “192.168.2.2:80|1000%”</p>
+</blockquote>
+<p>流量放大10倍</p>
+<blockquote>
+<p>gor –input-raw :80 –output-http “192.168.2.2:80|10%”</p>
+</blockquote>
+<p>流量缩小10倍</p>
+<hr>
+<h2 id="回放">回放</h2><blockquote>
+<p>gor –input-raw :80–output-file requests.gor</p>
+</blockquote>
+<p>保存请求到文件中</p>
+<blockquote>
+<p>gor –input-file requests.gor –output-http “192.168.2.2:80”</p>
+</blockquote>
+<p>回放请求</p>
+<hr>
+<h2 id="过滤">过滤</h2><blockquote>
+<p>gor –input-raw :80–output-http 192.168.2.2:80 –output-http-url-regexp ^www.</p>
+</blockquote>
+<p>只保留www开头的请求</p>
+<hr>
+<h2 id="自定义参数">自定义参数</h2><blockquote>
+<p>gor –input-raw :80–output-http 192.168.2.2:80 –http-set-header ‘User-Agent: gor’</p>
+</blockquote>
+<p>在请求头上加入 User-Agent: gor</p>
+<hr>
+<p>关于gor的其他特性，可以想见官方wiki：<br><a href="https://github.com/buger/goreplay/wiki" target="_blank" rel="external">https://github.com/buger/goreplay/wiki</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>之前写了一篇<a href="http://tonylit.me/2016/10/19/tcpcopy/">tcpcopy的使用</a>，解决了线上流量引到测试环境的问题。</p>
+<p>最近看到一款更简单易用的流量复制工具-<strong>gor</strong>。</p>]]>
+    
+    </summary>
+    
+      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[java线程池]]></title>
@@ -661,6 +736,61 @@
   </entry>
   
   <entry>
+    <title><![CDATA[JAVA程序怎样使用jvm堆栈内存]]></title>
+    <link href="http://tonylit.me/2016/12/07/JAVA%E7%A8%8B%E5%BA%8F%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8jvm%E5%A0%86%E6%A0%88%E5%86%85%E5%AD%98/"/>
+    <id>http://tonylit.me/2016/12/07/JAVA程序怎样使用jvm堆栈内存/</id>
+    <published>2016-12-07T03:37:27.000Z</published>
+    <updated>2016-12-07T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>java是一门面向对象的编程语言，平时我们创建对象通常是通过new的方式。</p>
+<p>java虚拟机在遇到new指令的时候，首先去检查new的类是否已经被加载、链接、初始化；<br>如果没有，则必须先执行相应的类加载过程。<br><strong>类加载过程见下图：</strong><br><img src="/img/jvm/class_run_jvm/类加载过程.PNG" alt="Alt text"></p>
+<a id="more"></a>
+<hr>
+<h1 id="程序运行时jvm内存使用">程序运行时jvm内存使用</h1><p>类加载完成以后，程序运行的内存分配工作主要在堆与栈上面了。</p>
+<blockquote>
+<p>通俗来讲，栈上放局部变量，堆上放成员变量<br>基本类型的变量在栈中直接保存它所对应的值<br>引用类型的变量在栈中保存的是一个指向堆区对应对象存放地址的指针<br><a href="https://www.zhihu.com/question/31203609" target="_blank" rel="external">java是值传递还是引用传递？</a></p>
+</blockquote>
+<p>以下实例转载（<a href="http://blog.csdn.net/shimiso/article/details/8595564）" target="_blank" rel="external">http://blog.csdn.net/shimiso/article/details/8595564）</a></p>
+<p><img src="/img/jvm/class_run_jvm/调用过程一.PNG" alt="Alt text"></p>
+<p>1.JVM自动寻找main方法，执行第一句代码，创建一个Test类的实例，<br>在栈中分配一块内存，存放一个指向堆区对象的指针110925。</p>
+<p>2.创建一个int型的变量date，由于是基本类型，直接在栈中存放date对应的值9。</p>
+<p>3.创建两个BirthDate类的实例d1、d2，在栈中分别存放了对应的指针指向各自的对象。<br>他们在实例化时调用了有参数的构造方法，因此对象中有自定义初始值。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程二.PNG" alt="Alt text"></p>
+<p>调用test对象的change1方法，并且以date为参数。<br>JVM读到这段代码时，检测到i是局部变量，因此会把i放在栈中，并且把date的值赋给i。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程三.PNG" alt="Alt text"></p>
+<p>把1234赋给i。很简单的一步。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程四.PNG" alt="Alt text"></p>
+<p>change1方法执行完毕，立即释放局部变量i所占用的栈空间。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程五.PNG" alt="Alt text"></p>
+<p>调用test对象的change2方法，以实例d1为参数。<br>JVM检测到change2方法中的b参数为局部变量，立即加入到栈中，由于是引用类型的变量，<br>所以b中保存的是d1中的指针，此时b和d1指向同一个堆中的对象，在b和d1之间传递是指针。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程六.PNG" alt="Alt text"></p>
+<p>change2方法中又实例化了一个BirthDate对象，并且赋给b。<br>在内部执行过程是：在堆区new了一个对象，并且把该对象的指针保存在栈中的b对应空间，<br>此时实例b不再指向实例d1所指向的对象，但是实例d1所指向的对象并无变化，这样无法对d1造成任何影响。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程七.PNG" alt="Alt text"></p>
+<p>change2方法执行完毕，立即释放局部引用变量b所占的栈空间，<br><strong>注意只是释放了栈空间，堆空间要等待自动回收</strong>。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程八.PNG" alt="Alt text"></p>
+<p>调用test实例的change3方法，以实例d2为参数。<br>同理，JVM会在栈中为局部引用变量b分配空间，并且把d2中的指针存放在b中，此时d2和b指向同一个对象。<br>再调用实例b的setDay方法，其实就是调用d2指向的对象的setDay方法。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程九.PNG" alt="Alt text"></p>
+<p>调用实例b的setDay方法会影响d2，因为二者指向的是同一个对象。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程十.PNG" alt="Alt text"></p>
+<p>change3方法执行完毕，立即释放局部引用变量b。</p>
+<hr>
+<h1 id="String对象实例">String对象实例</h1><p>对于String对象的赋值，一直都很模糊，<br>比如下面的例子，</p>
+<blockquote>
+<p>str1=str2 ？<br>程序执行的时候，内存里到底有几个实例？<br>实例存在内存的哪里?</p>
+</blockquote>
+<p>String str1 = “Hello”;<br>String str2 = new String(“Hello”);</p>
+<p>想深入了解，可以参见：<br><a href="https://www.zhihu.com/question/29884421" target="_blank" rel="external">https://www.zhihu.com/question/29884421</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>java是一门面向对象的编程语言，平时我们创建对象通常是通过new的方式。</p>
+<p>java虚拟机在遇到new指令的时候，首先去检查new的类是否已经被加载、链接、初始化；<br>如果没有，则必须先执行相应的类加载过程。<br><strong>类加载过程见下图：</strong><br><img src="/img/jvm/class_run_jvm/类加载过程.PNG" alt="Alt text"></p>]]>
+    
+    </summary>
+    
+      <category term="java" scheme="http://tonylit.me/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[浅谈JVM垃圾收集器]]></title>
     <link href="http://tonylit.me/2016/12/07/%E6%B5%85%E8%B0%88JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/"/>
     <id>http://tonylit.me/2016/12/07/浅谈JVM垃圾收集器/</id>
@@ -766,61 +896,6 @@
     <![CDATA[<p>Java虚拟机规范中对垃圾收集器应该如何实现并没有任何规定，</p>
 <p>因此不同的厂商、不同版本的虚拟机所提供的垃圾收集器都可能会有很大差别，</p>
 <p>并且一般都会提供参数供用户根据自己的应用特点和要求组合出各个年代所使用的收集器。</p>]]>
-    
-    </summary>
-    
-      <category term="java" scheme="http://tonylit.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[JAVA程序怎样使用jvm堆栈内存]]></title>
-    <link href="http://tonylit.me/2016/12/07/JAVA%E7%A8%8B%E5%BA%8F%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8jvm%E5%A0%86%E6%A0%88%E5%86%85%E5%AD%98/"/>
-    <id>http://tonylit.me/2016/12/07/JAVA程序怎样使用jvm堆栈内存/</id>
-    <published>2016-12-07T03:37:27.000Z</published>
-    <updated>2016-12-07T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>java是一门面向对象的编程语言，平时我们创建对象通常是通过new的方式。</p>
-<p>java虚拟机在遇到new指令的时候，首先去检查new的类是否已经被加载、链接、初始化；<br>如果没有，则必须先执行相应的类加载过程。<br><strong>类加载过程见下图：</strong><br><img src="/img/jvm/class_run_jvm/类加载过程.PNG" alt="Alt text"></p>
-<a id="more"></a>
-<hr>
-<h1 id="程序运行时jvm内存使用">程序运行时jvm内存使用</h1><p>类加载完成以后，程序运行的内存分配工作主要在堆与栈上面了。</p>
-<blockquote>
-<p>通俗来讲，栈上放局部变量，堆上放成员变量<br>基本类型的变量在栈中直接保存它所对应的值<br>引用类型的变量在栈中保存的是一个指向堆区对应对象存放地址的指针<br><a href="https://www.zhihu.com/question/31203609" target="_blank" rel="external">java是值传递还是引用传递？</a></p>
-</blockquote>
-<p>以下实例转载（<a href="http://blog.csdn.net/shimiso/article/details/8595564）" target="_blank" rel="external">http://blog.csdn.net/shimiso/article/details/8595564）</a></p>
-<p><img src="/img/jvm/class_run_jvm/调用过程一.PNG" alt="Alt text"></p>
-<p>1.JVM自动寻找main方法，执行第一句代码，创建一个Test类的实例，<br>在栈中分配一块内存，存放一个指向堆区对象的指针110925。</p>
-<p>2.创建一个int型的变量date，由于是基本类型，直接在栈中存放date对应的值9。</p>
-<p>3.创建两个BirthDate类的实例d1、d2，在栈中分别存放了对应的指针指向各自的对象。<br>他们在实例化时调用了有参数的构造方法，因此对象中有自定义初始值。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程二.PNG" alt="Alt text"></p>
-<p>调用test对象的change1方法，并且以date为参数。<br>JVM读到这段代码时，检测到i是局部变量，因此会把i放在栈中，并且把date的值赋给i。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程三.PNG" alt="Alt text"></p>
-<p>把1234赋给i。很简单的一步。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程四.PNG" alt="Alt text"></p>
-<p>change1方法执行完毕，立即释放局部变量i所占用的栈空间。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程五.PNG" alt="Alt text"></p>
-<p>调用test对象的change2方法，以实例d1为参数。<br>JVM检测到change2方法中的b参数为局部变量，立即加入到栈中，由于是引用类型的变量，<br>所以b中保存的是d1中的指针，此时b和d1指向同一个堆中的对象，在b和d1之间传递是指针。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程六.PNG" alt="Alt text"></p>
-<p>change2方法中又实例化了一个BirthDate对象，并且赋给b。<br>在内部执行过程是：在堆区new了一个对象，并且把该对象的指针保存在栈中的b对应空间，<br>此时实例b不再指向实例d1所指向的对象，但是实例d1所指向的对象并无变化，这样无法对d1造成任何影响。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程七.PNG" alt="Alt text"></p>
-<p>change2方法执行完毕，立即释放局部引用变量b所占的栈空间，<br><strong>注意只是释放了栈空间，堆空间要等待自动回收</strong>。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程八.PNG" alt="Alt text"></p>
-<p>调用test实例的change3方法，以实例d2为参数。<br>同理，JVM会在栈中为局部引用变量b分配空间，并且把d2中的指针存放在b中，此时d2和b指向同一个对象。<br>再调用实例b的setDay方法，其实就是调用d2指向的对象的setDay方法。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程九.PNG" alt="Alt text"></p>
-<p>调用实例b的setDay方法会影响d2，因为二者指向的是同一个对象。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程十.PNG" alt="Alt text"></p>
-<p>change3方法执行完毕，立即释放局部引用变量b。</p>
-<hr>
-<h1 id="String对象实例">String对象实例</h1><p>对于String对象的赋值，一直都很模糊，<br>比如下面的例子，</p>
-<blockquote>
-<p>str1=str2 ？<br>程序执行的时候，内存里到底有几个实例？<br>实例存在内存的哪里?</p>
-</blockquote>
-<p>String str1 = “Hello”;<br>String str2 = new String(“Hello”);</p>
-<p>想深入了解，可以参见：<br><a href="https://www.zhihu.com/question/29884421" target="_blank" rel="external">https://www.zhihu.com/question/29884421</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>java是一门面向对象的编程语言，平时我们创建对象通常是通过new的方式。</p>
-<p>java虚拟机在遇到new指令的时候，首先去检查new的类是否已经被加载、链接、初始化；<br>如果没有，则必须先执行相应的类加载过程。<br><strong>类加载过程见下图：</strong><br><img src="/img/jvm/class_run_jvm/类加载过程.PNG" alt="Alt text"></p>]]>
     
     </summary>
     
@@ -1114,6 +1189,35 @@
   </entry>
   
   <entry>
+    <title><![CDATA[docker network 网络设置]]></title>
+    <link href="http://tonylit.me/2016/08/15/docker%20network%20%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE/"/>
+    <id>http://tonylit.me/2016/08/15/docker network 网络设置/</id>
+    <published>2016-08-15T03:37:27.000Z</published>
+    <updated>2016-08-15T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>
+<a id="more"></a>
+<p>使用docker network(1.9以后新特性)解决该问题。</p>
+<h1 id="新建docker网桥：">新建docker网桥：</h1><blockquote>
+<p>docker network create –subnet=192.168.42.0/24 -d=bridge   –gateway=192.168.42.3  mynetwork</p>
+</blockquote>
+<h1 id="启动网桥并把网卡桥接上">启动网桥并把网卡桥接上</h1><blockquote>
+<p>ifconfig   br-353aab8b89f2  up 0<br>brctl   addif  br-353aab8b89f2 eth1</p>
+</blockquote>
+<h1 id="docker启动时指定ip和网桥">docker启动时指定ip和网桥</h1><blockquote>
+<p>docker  run -it –rm  –ip=192.168.42.130  –net=mynetwork  docker.vemic.com/focustest/centos5:6.18 /bin/bash</p>
+</blockquote>
+<p>以上就可以了，不再需要pipework修改网络。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[使用strace定位性能问题]]></title>
     <link href="http://tonylit.me/2016/08/15/%E4%BD%BF%E7%94%A8strace%E5%AE%9A%E4%BD%8D%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/"/>
     <id>http://tonylit.me/2016/08/15/使用strace定位性能问题/</id>
@@ -1146,35 +1250,6 @@
     </summary>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[docker network 网络设置]]></title>
-    <link href="http://tonylit.me/2016/08/15/docker%20network%20%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE/"/>
-    <id>http://tonylit.me/2016/08/15/docker network 网络设置/</id>
-    <published>2016-08-15T03:37:27.000Z</published>
-    <updated>2016-08-15T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>
-<a id="more"></a>
-<p>使用docker network(1.9以后新特性)解决该问题。</p>
-<h1 id="新建docker网桥：">新建docker网桥：</h1><blockquote>
-<p>docker network create –subnet=192.168.42.0/24 -d=bridge   –gateway=192.168.42.3  mynetwork</p>
-</blockquote>
-<h1 id="启动网桥并把网卡桥接上">启动网桥并把网卡桥接上</h1><blockquote>
-<p>ifconfig   br-353aab8b89f2  up 0<br>brctl   addif  br-353aab8b89f2 eth1</p>
-</blockquote>
-<h1 id="docker启动时指定ip和网桥">docker启动时指定ip和网桥</h1><blockquote>
-<p>docker  run -it –rm  –ip=192.168.42.130  –net=mynetwork  docker.vemic.com/focustest/centos5:6.18 /bin/bash</p>
-</blockquote>
-<p>以上就可以了，不再需要pipework修改网络。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   
@@ -2768,6 +2843,47 @@
   </entry>
   
   <entry>
+    <title><![CDATA[export、import导出导入docker容器]]></title>
+    <link href="http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/"/>
+    <id>http://tonylit.me/2015/12/22/docker import和export/</id>
+    <published>2015-12-22T03:37:27.000Z</published>
+    <updated>2015-12-22T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/" target="_blank" rel="external">centos-6-x86_64.tar.gz</a></p>
+<blockquote>
+<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
+<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br><a id="more"></a></p>
+</blockquote>
+<h2 id="实例">实例</h2><blockquote>
+<p>cat centos-6-x86_64.tar.gz|docker import - test/centos-6:v1.0<br><img src="/img/docker/docker_import.PNG" alt="Alt text"></p>
+</blockquote>
+<p>此外，也可以通过指定 URL 或者某个目录来导入，例如</p>
+<blockquote>
+<p> docker import <a href="http://example.com/exampleimage.tgz" target="_blank" rel="external">http://example.com/exampleimage.tgz</a> example/imagerepo</p>
+</blockquote>
+<p>*注：用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p>
+<h1 id="导出容器">导出容器</h1><p>先启动一下容器：</p>
+<blockquote>
+<p>docker run -t -i 5de0ac2f6f7e /bin/bash</p>
+</blockquote>
+<p>两个参数，-t表示给容器tty终端，-i表示可以interactive，可以交互。</p>
+<p><img src="/img/docker/docker_ps.PNG" alt="Alt text"></p>
+<blockquote>
+<p>docker export 5d73efeb9a38 &gt; tonylit_centos6.tar</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/">centos-6-x86_64.tar.gz</a></p>
+<blockquote>
+<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
+<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[staf使用]]></title>
     <link href="http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/"/>
     <id>http://tonylit.me/2015/12/22/staf使用/</id>
@@ -2813,47 +2929,6 @@
     </summary>
     
       <category term="work" scheme="http://tonylit.me/tags/work/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[export、import导出导入docker容器]]></title>
-    <link href="http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/"/>
-    <id>http://tonylit.me/2015/12/22/docker import和export/</id>
-    <published>2015-12-22T03:37:27.000Z</published>
-    <updated>2015-12-22T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/" target="_blank" rel="external">centos-6-x86_64.tar.gz</a></p>
-<blockquote>
-<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
-<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br><a id="more"></a></p>
-</blockquote>
-<h2 id="实例">实例</h2><blockquote>
-<p>cat centos-6-x86_64.tar.gz|docker import - test/centos-6:v1.0<br><img src="/img/docker/docker_import.PNG" alt="Alt text"></p>
-</blockquote>
-<p>此外，也可以通过指定 URL 或者某个目录来导入，例如</p>
-<blockquote>
-<p> docker import <a href="http://example.com/exampleimage.tgz" target="_blank" rel="external">http://example.com/exampleimage.tgz</a> example/imagerepo</p>
-</blockquote>
-<p>*注：用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p>
-<h1 id="导出容器">导出容器</h1><p>先启动一下容器：</p>
-<blockquote>
-<p>docker run -t -i 5de0ac2f6f7e /bin/bash</p>
-</blockquote>
-<p>两个参数，-t表示给容器tty终端，-i表示可以interactive，可以交互。</p>
-<p><img src="/img/docker/docker_ps.PNG" alt="Alt text"></p>
-<blockquote>
-<p>docker export 5d73efeb9a38 &gt; tonylit_centos6.tar</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/">centos-6-x86_64.tar.gz</a></p>
-<blockquote>
-<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
-<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   
@@ -3052,25 +3127,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[SoupUI接口性能测试]]></title>
-    <link href="http://tonylit.me/2015/12/16/soupui%E6%8E%A5%E5%8F%A3%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/"/>
-    <id>http://tonylit.me/2015/12/16/soupui接口性能测试/</id>
-    <published>2015-12-16T03:37:27.000Z</published>
-    <updated>2015-12-16T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>SoapUI做接口测试时，可能会忽略它有压力测试的套件LoadTest，在做WebServices接口压力测试时，比loadrunner更胜一筹。<br><a id="more"></a><br><img src="/img/soupui/soupui_1.PNG" alt="Alt text"><br>Threads：线程数量，相对于LR中的虚拟用户数<br>Strategy：我们选择Simple就可以了<br>Test Delay：用例之间的等待时间，相对于LR中的思考时间<br>Random：思考时间取值区间，相对于LR中思考时间设置里面的Use Random Percent…<br>Limit：运行时间，相对于LR中的持续时间<br>这里的设置项比较少，但一般情况是够用了；另外结果的展现部分和LR是没法比较的。最主要的它的免费的。<br>在WebServices接口测试方面，准确性比LR高。至于原因（网上说的）：<br>soapui 是专门针对webservices接口的测试工具，在发送请求的时候，直接以组装好的soapui报文进行发送，而LR是使用 web_services_call方法，从方法传入相应的参数，由LR组装成soap报文后再发送接口调用。所以相应时间上LR更长。<br>对于非webservices接口，我也测试了一下（REST POST请求），看下图对比：<br><img src="/img/soupui/soupui_2.PNG" alt="Alt text"><br><img src="/img/soupui/soupui_3.PNG" alt="Alt text"><br>可以看到响应时间上面，soapui更小</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>SoapUI做接口测试时，可能会忽略它有压力测试的套件LoadTest，在做WebServices接口压力测试时，比loadrunner更胜一筹。<br>]]>
-    
-    </summary>
-    
-      <category term="work" scheme="http://tonylit.me/tags/work/"/>
-    
-      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[JavaMelody监控java应用]]></title>
     <link href="http://tonylit.me/2015/12/16/javamelody%E7%9B%91%E6%8E%A7java%E5%BA%94%E7%94%A8/"/>
     <id>http://tonylit.me/2015/12/16/javamelody监控java应用/</id>
@@ -3097,6 +3153,25 @@
   </entry>
   
   <entry>
+    <title><![CDATA[SoupUI接口性能测试]]></title>
+    <link href="http://tonylit.me/2015/12/16/soupui%E6%8E%A5%E5%8F%A3%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/"/>
+    <id>http://tonylit.me/2015/12/16/soupui接口性能测试/</id>
+    <published>2015-12-16T03:37:27.000Z</published>
+    <updated>2015-12-16T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>SoapUI做接口测试时，可能会忽略它有压力测试的套件LoadTest，在做WebServices接口压力测试时，比loadrunner更胜一筹。<br><a id="more"></a><br><img src="/img/soupui/soupui_1.PNG" alt="Alt text"><br>Threads：线程数量，相对于LR中的虚拟用户数<br>Strategy：我们选择Simple就可以了<br>Test Delay：用例之间的等待时间，相对于LR中的思考时间<br>Random：思考时间取值区间，相对于LR中思考时间设置里面的Use Random Percent…<br>Limit：运行时间，相对于LR中的持续时间<br>这里的设置项比较少，但一般情况是够用了；另外结果的展现部分和LR是没法比较的。最主要的它的免费的。<br>在WebServices接口测试方面，准确性比LR高。至于原因（网上说的）：<br>soapui 是专门针对webservices接口的测试工具，在发送请求的时候，直接以组装好的soapui报文进行发送，而LR是使用 web_services_call方法，从方法传入相应的参数，由LR组装成soap报文后再发送接口调用。所以相应时间上LR更长。<br>对于非webservices接口，我也测试了一下（REST POST请求），看下图对比：<br><img src="/img/soupui/soupui_2.PNG" alt="Alt text"><br><img src="/img/soupui/soupui_3.PNG" alt="Alt text"><br>可以看到响应时间上面，soapui更小</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>SoapUI做接口测试时，可能会忽略它有压力测试的套件LoadTest，在做WebServices接口压力测试时，比loadrunner更胜一筹。<br>]]>
+    
+    </summary>
+    
+      <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Druid连接池监控]]></title>
     <link href="http://tonylit.me/2015/12/15/druid%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9B%91%E6%8E%A7/"/>
     <id>http://tonylit.me/2015/12/15/druid连接池监控/</id>
@@ -3112,6 +3187,32 @@
     </summary>
     
       <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[性能测试葵花宝典]]></title>
+    <link href="http://tonylit.me/2015/12/10/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%91%B5%E8%8A%B1%E5%AE%9D%E5%85%B8/"/>
+    <id>http://tonylit.me/2015/12/10/性能测试葵花宝典/</id>
+    <published>2015-12-10T03:37:27.000Z</published>
+    <updated>2015-12-10T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>在此整理性能测试过程中的一些精华内容，并持续进行<br>为此命名为性能测试葵花宝典，我先练上！<br><img src="/img/葵花宝典.jpg" alt="Alt text"></p>
+<a id="more"></a>
+<h1 id="压力机的资源利用率">压力机的资源利用率</h1><blockquote>
+<p>cpu%&lt;50%<br>内存&lt;80%<br>network&lt;30%,高了容易丢包<br>disk的忙闲&lt;50%<br>disk的空间&lt;90%，高了会碎片整理</p>
+</blockquote>
+<h1 id="OS常用阀值">OS常用阀值</h1><blockquote>
+<p>TotalCPU%&lt;75%<br> sysCPU%&lt;30%<br>  load average&lt;5<br> wio%&lt;40%<br>  network%&lt;30%<br>mem%&lt;80%~90%<br> disk%busy&lt;60%<br> disk queueing &lt;5<br> disk usage&lt;90%</p>
+</blockquote>
+<h1 id="OSI7层模型">OSI7层模型</h1><p><img src="/img/OSI_7.gif" alt="Alt text"></p>
+<h1 id="线程状态">线程状态</h1><p><img src="/img/线程状态.jpg" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在此整理性能测试过程中的一些精华内容，并持续进行<br>为此命名为性能测试葵花宝典，我先练上！<br><img src="/img/葵花宝典.jpg" alt="Alt text"></p>]]>
+    
+    </summary>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
     
@@ -3152,32 +3253,6 @@
     </summary>
     
       <category term="Jmeter" scheme="http://tonylit.me/tags/Jmeter/"/>
-    
-      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[性能测试葵花宝典]]></title>
-    <link href="http://tonylit.me/2015/12/10/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%91%B5%E8%8A%B1%E5%AE%9D%E5%85%B8/"/>
-    <id>http://tonylit.me/2015/12/10/性能测试葵花宝典/</id>
-    <published>2015-12-10T03:37:27.000Z</published>
-    <updated>2015-12-10T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>在此整理性能测试过程中的一些精华内容，并持续进行<br>为此命名为性能测试葵花宝典，我先练上！<br><img src="/img/葵花宝典.jpg" alt="Alt text"></p>
-<a id="more"></a>
-<h1 id="压力机的资源利用率">压力机的资源利用率</h1><blockquote>
-<p>cpu%&lt;50%<br>内存&lt;80%<br>network&lt;30%,高了容易丢包<br>disk的忙闲&lt;50%<br>disk的空间&lt;90%，高了会碎片整理</p>
-</blockquote>
-<h1 id="OS常用阀值">OS常用阀值</h1><blockquote>
-<p>TotalCPU%&lt;75%<br> sysCPU%&lt;30%<br>  load average&lt;5<br> wio%&lt;40%<br>  network%&lt;30%<br>mem%&lt;80%~90%<br> disk%busy&lt;60%<br> disk queueing &lt;5<br> disk usage&lt;90%</p>
-</blockquote>
-<h1 id="OSI7层模型">OSI7层模型</h1><p><img src="/img/OSI_7.gif" alt="Alt text"></p>
-<h1 id="线程状态">线程状态</h1><p><img src="/img/线程状态.jpg" alt="Alt text"></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>在此整理性能测试过程中的一些精华内容，并持续进行<br>为此命名为性能测试葵花宝典，我先练上！<br><img src="/img/葵花宝典.jpg" alt="Alt text"></p>]]>
-    
-    </summary>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
     
@@ -3781,6 +3856,38 @@
   </entry>
   
   <entry>
+    <title><![CDATA[loadrunner监控linux服务器]]></title>
+    <link href="http://tonylit.me/2015/10/14/loadrunner%E7%9B%91%E6%8E%A7linux%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    <id>http://tonylit.me/2015/10/14/loadrunner监控linux服务器/</id>
+    <published>2015-10-14T03:37:27.000Z</published>
+    <updated>2015-10-14T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>loadrunner监控linux服务器的cpu、io、内存等</strong><br><img src="/img/linux-server.PNG" alt="Alt text"></p>
+<a id="more"></a>
+<p>需要在linux服务器上开启rstatd服务，首先看下机器上面有没有装过rstatd<br>rstatd 是一个为网络上其他机器收集和提供系统信息的守候程序</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">whereis</span> <span class="tag">rpc</span><span class="class">.ratatd</span></span><br></pre></td></tr></table></figure>
+<p>如果没安装过，安装一下</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf rpc<span class="class">.rstatd-4</span>.<span class="number">0.1</span><span class="class">.tar</span><span class="class">.gz</span></span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p>安装完成，启动rstatd</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">rpc</span><span class="class">.rstatd</span></span><br></pre></td></tr></table></figure>
+<p>检查下是否启动成功</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">rpcinfo</span> -p</span><br></pre></td></tr></table></figure>
+<p><img src="/img/rpcinfo.PNG" alt="Alt text"><br>说明rstatd启动成功了</p>
+<p>最后在controller中添加UNIX resources监控，然后选择监控指标就行了。<br><img src="/img/unix_resources.PNG" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong>loadrunner监控linux服务器的cpu、io、内存等</strong><br><img src="/img/linux-server.PNG" alt="Alt text"></p>]]>
+    
+    </summary>
+    
+      <category term="loadrunner" scheme="http://tonylit.me/tags/loadrunner/"/>
+    
+      <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[前端性能测试]]></title>
     <link href="http://tonylit.me/2015/10/14/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/"/>
     <id>http://tonylit.me/2015/10/14/前端性能测试/</id>
@@ -3835,38 +3942,6 @@
       <category term="work" scheme="http://tonylit.me/tags/work/"/>
     
       <category term="前端性能" scheme="http://tonylit.me/tags/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[loadrunner监控linux服务器]]></title>
-    <link href="http://tonylit.me/2015/10/14/loadrunner%E7%9B%91%E6%8E%A7linux%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-    <id>http://tonylit.me/2015/10/14/loadrunner监控linux服务器/</id>
-    <published>2015-10-14T03:37:27.000Z</published>
-    <updated>2015-10-14T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p><strong>loadrunner监控linux服务器的cpu、io、内存等</strong><br><img src="/img/linux-server.PNG" alt="Alt text"></p>
-<a id="more"></a>
-<p>需要在linux服务器上开启rstatd服务，首先看下机器上面有没有装过rstatd<br>rstatd 是一个为网络上其他机器收集和提供系统信息的守候程序</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">whereis</span> <span class="tag">rpc</span><span class="class">.ratatd</span></span><br></pre></td></tr></table></figure>
-<p>如果没安装过，安装一下</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf rpc<span class="class">.rstatd-4</span>.<span class="number">0.1</span><span class="class">.tar</span><span class="class">.gz</span></span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-<p>安装完成，启动rstatd</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">rpc</span><span class="class">.rstatd</span></span><br></pre></td></tr></table></figure>
-<p>检查下是否启动成功</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">rpcinfo</span> -p</span><br></pre></td></tr></table></figure>
-<p><img src="/img/rpcinfo.PNG" alt="Alt text"><br>说明rstatd启动成功了</p>
-<p>最后在controller中添加UNIX resources监控，然后选择监控指标就行了。<br><img src="/img/unix_resources.PNG" alt="Alt text"></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p><strong>loadrunner监控linux服务器的cpu、io、内存等</strong><br><img src="/img/linux-server.PNG" alt="Alt text"></p>]]>
-    
-    </summary>
-    
-      <category term="loadrunner" scheme="http://tonylit.me/tags/loadrunner/"/>
-    
-      <category term="work" scheme="http://tonylit.me/tags/work/"/>
-    
-      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
     
   </entry>
   

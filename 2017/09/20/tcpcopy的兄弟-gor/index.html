@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content=""/>
+  
+  <title>tcpcopy的兄弟-gor | 淘淘的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="之前写了一篇tcpcopy的使用，解决了线上流量引到测试环境的问题。
+最近看到一款更简单易用的流量复制工具-gor。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tcpcopy的兄弟-gor">
+<meta property="og:url" content="http://tonylit.me/2017/09/20/tcpcopy的兄弟-gor/index.html">
+<meta property="og:site_name" content="淘淘的博客">
+<meta property="og:description" content="之前写了一篇tcpcopy的使用，解决了线上流量引到测试环境的问题。
+最近看到一款更简单易用的流量复制工具-gor。">
+<meta property="og:image" content="http://tonylit.me/img/gor/gor流程图.png">
+<meta property="og:updated_time" content="2017-09-20T05:37:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="tcpcopy的兄弟-gor">
+<meta name="twitter:description" content="之前写了一篇tcpcopy的使用，解决了线上流量引到测试环境的问题。
+最近看到一款更简单易用的流量复制工具-gor。">
+  
+    <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/leaves.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script src="http://tonylit.me//js/jquery.nicescroll.js"></script>
+
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+<form class="search" method="get" accept-charset="utf-8">
+			<input type="text" id="chillax-search-input" class="st-search-input_my" maxlength="30" placeholder="search" />
+		</form>
+
+
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/c.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/" class="alluraregular">tonyli</a></h1>
+		</hgroup>
+        <!--
+		
+		<p class="header-subtitle">今年lebron绝逼夺冠，bie跟我急!</p>
+		
+        -->
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/work">工作日志</a></li>
+				        
+							<li><a href="/tags/life">点滴生活</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Gatling/" style="font-size: 11.67px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.67px;">Jmeter</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 18.33px;">docker</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/kafka/" style="font-size: 11.67px;">kafka</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/loadrunner/" style="font-size: 13.33px;">loadrunner</a> <a href="/tags/nGrinder/" style="font-size: 10px;">nGrinder</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/work/" style="font-size: 16.67px;">work</a> <a href="/tags/前端性能/" style="font-size: 10px;">前端性能</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a>
+					</div>
+				</section>
+				
+
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">科比：他来湖人.或者我去骑士.就这么简单 麦迪：我希望更正一下我之前说的话.如果詹姆斯是我的队友... 凯文杜兰特：我永远在追赶他的背影 保罗：我人生最大的两个愿望.一是为基德打替补.二是为詹姆斯奉献助攻 艾弗森：他才是答案。 迈克尔.乔丹：我很幸运，当他进入NBA的时候，我已经退役了！</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tonyli</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/c.jpg" class="js-avatar">
+				<hgroup>
+				  <h1 class="header-author">tonyli</h1>
+				</hgroup>
+			</div>
+			
+			<p class="header-subtitle">今年lebron绝逼夺冠，bie跟我急!</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/work">工作日志</a></li>
+		        
+					<li><a href="/tags/life">点滴生活</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+
+	  <div class="recent">
+高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
+</div>
+
+      <div class="body-wrap"><article id="post-tcpcopy的兄弟-gor" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2017/09/20/tcpcopy的兄弟-gor/" class="article-date">
+  	<time datetime="2017-09-20T03:37:27.000Z" itemprop="datePublished">2017-09-20</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      tcpcopy的兄弟-gor
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+	</div>
+
+
+                                        
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简单介绍gor"><span class="toc-number">1.</span> <span class="toc-text">简单介绍gor</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gor安装"><span class="toc-number">2.</span> <span class="toc-text">gor安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gor常用命令"><span class="toc-number">3.</span> <span class="toc-text">gor常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#实时引流："><span class="toc-number">3.1.</span> <span class="toc-text">实时引流：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#流量放大、缩小"><span class="toc-number">3.2.</span> <span class="toc-text">流量放大、缩小</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回放"><span class="toc-number">3.3.</span> <span class="toc-text">回放</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#过滤"><span class="toc-number">3.4.</span> <span class="toc-text">过滤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义参数"><span class="toc-number">3.5.</span> <span class="toc-text">自定义参数</span></a></li></ol></li></ol>
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p>之前写了一篇<a href="http://tonylit.me/2016/10/19/tcpcopy/">tcpcopy的使用</a>，解决了线上流量引到测试环境的问题。</p>
+<p>最近看到一款更简单易用的流量复制工具-<strong>gor</strong>。</p>
+<a id="more"></a>
+<hr>
+<h1 id="简单介绍gor">简单介绍gor</h1><p>Gor是用Golang写的一个HTTP实时流量复制工具.</p>
+<p>github地址：<a href="https://github.com/buger/goreplay" target="_blank" rel="external">https://github.com/buger/goreplay</a></p>
+<p>官方描述：</p>
+<blockquote>
+<p>GoReplay is an open-source tool for capturing and replaying live HTTP traffic into a test environment in order to continuously test your system with real data.<br>It can be used to increase confidence in code deployments, configuration changes and infrastructure changes.</p>
+</blockquote>
+<p><img src="/img/gor/gor流程图.png" alt="Alt text"></p>
+<p>做的事情跟tcpcopy一样，也支持流量的方法、缩小，回放等功能。</p>
+<p>gor只能对http协议的流量进行复制，tcp协议的流量复制还要靠tcpcopy，就算如此也解决了工作中绝大多数的应用场景。</p>
+<hr>
+<h1 id="gor安装">gor安装</h1><p><a href="https://github.com/buger/goreplay/releases" target="_blank" rel="external">https://github.com/buger/goreplay/releases</a><br>，下载最新的包解压后就可以使用了。</p>
+<hr>
+<h1 id="gor常用命令">gor常用命令</h1><p>gor –help  使用方法写的比较清楚。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"> -cpuprofile string</span><br><span class="line">   	write cpu profile to file</span><br><span class="line"> -debug verbose</span><br><span class="line">   	Turn on debug output, shows all intercepted traffic. Works only when with verbose flag</span><br><span class="line"> -http-allow-header value</span><br><span class="line">   	A regexp to match a specific header against. Requests with non-matching headers will be dropped:</span><br><span class="line"> gor <span class="comment">--input-raw :8080 --output-http staging.com --http-allow-header api-version:^v1 (default [])</span></span><br><span class="line"> -http-allow-method value</span><br><span class="line">   	Whitelist of HTTP methods to replay. Anything else will be dropped:</span><br><span class="line">gor <span class="comment">--input-raw :8080 --output-http staging.com --http-allow-method GET --http-allow-method OPTIONS (default [])</span></span><br><span class="line"> -http-allow-url value</span><br><span class="line">   	A regexp to match requests against. Filter get matched against full url with domain. Anything else will be dropped:</span><br><span class="line"> gor <span class="comment">--input-raw :8080 --output-http staging.com --http-allow-url ^www. (default [])</span></span><br><span class="line"> -http-disallow-header value</span><br><span class="line">   	A regexp to match a specific header against. Requests with matching headers will be dropped:</span><br><span class="line"> gor <span class="comment">--input-raw :8080 --output-http staging.com --http-disallow-header "User-Agent: Replayed by Gor" (default [])</span></span><br><span class="line"> -http-disallow-url value</span><br><span class="line">   	A regexp to match requests against. Filter get matched against full url with domain. Anything else will be forwarded:</span><br><span class="line"> gor <span class="comment">--input-raw :8080 --output-http staging.com --http-disallow-url ^www. (default [])</span></span><br><span class="line"> -http-header-limiter value</span><br><span class="line">   	Takes a fraction of requests, consistently taking or rejecting a request based on the FNV32-1A hash of a specific header:</span><br><span class="line"> gor <span class="comment">--input-raw :8080 --output-http staging.com --http-header-imiter user-id:25% (default [])</span></span><br><span class="line"> -http-original-host</span><br><span class="line">   	Normally gor replaces the Host http header with the host supplied with <span class="comment">--output-http.  This option disables that behavior, preserving the original Host header.</span></span><br><span class="line"> -http-param-limiter value</span><br><span class="line">   	Takes a fraction of requests, consistently taking or rejecting a request based on the FNV32-1A hash of a specific GET param:</span><br><span class="line"> gor <span class="comment">--input-raw :8080 --output-http staging.com --http-param-limiter user_id:25% (default [])</span></span><br><span class="line"> -http-rewrite-url value</span><br><span class="line">   	Rewrite the request url based on a mapping:</span><br><span class="line">gor <span class="comment">--input-raw :8080 --output-http staging.com --http-rewrite-url /v1/user/([^\/]+)/ping:/v2/user/$1/ping (default [])</span></span><br><span class="line"> -http-<span class="operator"><span class="keyword">set</span>-header <span class="keyword">value</span></span><br><span class="line">   	Inject additional headers <span class="keyword">to</span> <span class="keyword">http</span> reqest:</span><br><span class="line">gor <span class="comment">--input-raw :8080 --output-http staging.com --http-set-header 'User-Agent: Gor' (default [])</span></span><br><span class="line"> -<span class="keyword">http</span>-<span class="keyword">set</span>-param <span class="keyword">value</span></span><br><span class="line">   	<span class="keyword">Set</span> request <span class="keyword">url</span> param, <span class="keyword">if</span> param already <span class="keyword">exists</span> it will be overwritten:</span><br><span class="line">gor <span class="comment">--input-raw :8080 --output-http staging.com --http-set-param api_key=1 (default [])</span></span><br><span class="line"> -<span class="keyword">input</span>-dummy <span class="keyword">value</span></span><br><span class="line">   	Used <span class="keyword">for</span> testing outputs. Emits <span class="string">'Get /'</span> request every <span class="number">1</span>s (<span class="keyword">default</span> [])</span><br><span class="line"> -<span class="keyword">input</span>-<span class="keyword">file</span> <span class="keyword">value</span></span><br><span class="line">   	<span class="keyword">Read</span> requests <span class="keyword">from</span> <span class="keyword">file</span>: </span><br><span class="line">gor <span class="comment">--input-file ./requests.gor --output-http staging.com (default [])</span></span><br><span class="line"> -<span class="keyword">input</span>-<span class="keyword">http</span> <span class="keyword">value</span></span><br><span class="line">   	<span class="keyword">Read</span> requests <span class="keyword">from</span> <span class="keyword">HTTP</span>, should be explicitly sent <span class="keyword">from</span> your application:</span><br><span class="line"># Listen <span class="keyword">for</span> <span class="keyword">http</span> <span class="keyword">on</span> <span class="number">9000</span></span><br><span class="line">gor <span class="comment">--input-http :9000 --output-http staging.com (default [])</span></span><br><span class="line"> -<span class="keyword">input</span>-<span class="keyword">raw</span> <span class="keyword">value</span></span><br><span class="line">   	Capture traffic <span class="keyword">from</span> given port (<span class="keyword">use</span> <span class="keyword">RAW</span> sockets <span class="keyword">and</span> require *sudo* <span class="keyword">access</span>):</span><br><span class="line"># Capture traffic <span class="keyword">from</span> <span class="number">8080</span> port</span><br><span class="line">gor <span class="comment">--input-raw :8080 --output-http staging.com (default [])</span></span><br><span class="line"> -<span class="keyword">input</span>-<span class="keyword">raw</span>-<span class="keyword">engine</span> libpcap</span><br><span class="line">   	Intercept traffic <span class="keyword">using</span> libpcap (<span class="keyword">default</span>), <span class="keyword">and</span> <span class="string">`raw_socket`</span> (<span class="keyword">default</span> <span class="string">"libpcap"</span>)</span><br><span class="line"> -<span class="keyword">input</span>-tcp <span class="keyword">value</span></span><br><span class="line">   	Used <span class="keyword">for</span> internal communication <span class="keyword">between</span> Gor instances. Example: </span><br><span class="line"># Receive requests <span class="keyword">from</span> other Gor instances <span class="keyword">on</span> <span class="number">28020</span> port, <span class="keyword">and</span> redirect <span class="keyword">output</span> <span class="keyword">to</span> staging</span><br><span class="line">gor <span class="comment">--input-tcp :28020 --output-http staging.com (default [])</span></span><br><span class="line"> -memprofile <span class="keyword">string</span></span><br><span class="line">   	write <span class="keyword">memory</span> profile <span class="keyword">to</span> this <span class="keyword">file</span></span><br><span class="line"> -middleware <span class="keyword">string</span></span><br><span class="line">   	Used <span class="keyword">for</span> modifying traffic <span class="keyword">using</span> <span class="keyword">external</span> command</span><br><span class="line"> -<span class="keyword">output</span>-dummy <span class="keyword">value</span></span><br><span class="line">   	Used <span class="keyword">for</span> testing inputs. Just prints <span class="keyword">data</span> coming <span class="keyword">from</span> inputs. (<span class="keyword">default</span> [])</span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">file</span> <span class="keyword">value</span></span><br><span class="line">   	Write incoming requests <span class="keyword">to</span> <span class="keyword">file</span>: </span><br><span class="line">gor <span class="comment">--input-raw :80 --output-file ./requests.gor (default [])</span></span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span> <span class="keyword">value</span></span><br><span class="line">   	Forwards incoming requests <span class="keyword">to</span> given <span class="keyword">http</span> address.</span><br><span class="line"># Redirect all incoming requests <span class="keyword">to</span> staging.com address </span><br><span class="line">gor <span class="comment">--input-raw :80 --output-http http://staging.com (default [])</span></span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-debug</span><br><span class="line">   	Enables <span class="keyword">http</span> debug <span class="keyword">output</span>.</span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-elasticsearch <span class="keyword">string</span></span><br><span class="line">   	Send request <span class="keyword">and</span> response stats <span class="keyword">to</span> ElasticSearch:</span><br><span class="line">gor <span class="comment">--input-raw :8080 --output-http staging.com --output-http-elasticsearch 'es_host:api_port/index_name'</span></span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-header <span class="comment">--output-http-header</span></span><br><span class="line">   	<span class="keyword">WARNING</span>: <span class="comment">--output-http-header DEPRECATED, use `--http-set-header` instead (default [])</span></span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-header-filter <span class="comment">--output-http-header-filter</span></span><br><span class="line">   	<span class="keyword">WARNING</span>: <span class="comment">--output-http-header-filter DEPRECATED, use `--http-allow-header` instead (default [])</span></span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-header-<span class="keyword">hash</span>-filter <span class="keyword">output</span>-<span class="keyword">http</span>-header-<span class="keyword">hash</span>-filter</span><br><span class="line">   	<span class="keyword">WARNING</span>: <span class="keyword">output</span>-<span class="keyword">http</span>-header-<span class="keyword">hash</span>-filter DEPRECATED, <span class="keyword">use</span> <span class="string">`--http-header-hash-limiter`</span> instead (<span class="keyword">default</span> [])</span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-method <span class="comment">--output-http-method</span></span><br><span class="line">   	<span class="keyword">WARNING</span>: <span class="comment">--output-http-method DEPRECATED, use `--http-allow-method` instead (default [])</span></span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-redirects <span class="built_in">int</span></span><br><span class="line">   	<span class="keyword">Enable</span> how often redirects should be followed.</span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-rewrite-<span class="keyword">url</span> <span class="comment">--output-http-rewrite-url</span></span><br><span class="line">   	<span class="keyword">WARNING</span>: <span class="comment">--output-http-rewrite-url DEPRECATED, use `--http-rewrite-url` instead (default [])</span></span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-stats</span><br><span class="line">   	Report <span class="keyword">http</span> <span class="keyword">output</span> queue stats <span class="keyword">to</span> console every <span class="number">5</span> seconds.</span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-<span class="keyword">timeout</span> <span class="keyword">duration</span></span><br><span class="line">   	Specify <span class="keyword">HTTP</span> request/response <span class="keyword">timeout</span>. <span class="keyword">By</span> <span class="keyword">default</span> <span class="number">5</span>s. Example: <span class="comment">--output-http-timeout 30s</span></span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-<span class="keyword">url</span>-regexp <span class="comment">--output-http-url-regexp</span></span><br><span class="line">   	<span class="keyword">WARNING</span>: <span class="comment">--output-http-url-regexp DEPRECATED, use `--http-allow-url` instead (default [])</span></span><br><span class="line"> -<span class="keyword">output</span>-<span class="keyword">http</span>-workers <span class="built_in">int</span></span><br><span class="line">   	Gor uses dynamic worker scaling <span class="keyword">by</span> <span class="keyword">default</span>.  Enter a <span class="built_in">number</span> <span class="keyword">to</span> run a <span class="keyword">set</span> <span class="built_in">number</span> <span class="keyword">of</span> workers.</span><br><span class="line"> -<span class="keyword">output</span>-tcp <span class="keyword">value</span></span><br><span class="line">   	Used <span class="keyword">for</span> internal communication <span class="keyword">between</span> Gor instances. Example: </span><br><span class="line"># Listen <span class="keyword">for</span> requests <span class="keyword">on</span> <span class="number">80</span> port <span class="keyword">and</span> forward them <span class="keyword">to</span> other Gor <span class="keyword">instance</span> <span class="keyword">on</span> <span class="number">28020</span> port</span><br><span class="line">gor <span class="comment">--input-raw :80 --output-tcp replay.local:28020 (default [])</span></span><br><span class="line"> -<span class="keyword">output</span>-tcp-stats</span><br><span class="line">   	Report TCP <span class="keyword">output</span> queue stats <span class="keyword">to</span> console every <span class="number">5</span> seconds.</span><br><span class="line"> -<span class="keyword">split</span>-<span class="keyword">output</span> <span class="literal">true</span></span><br><span class="line">   	<span class="keyword">By</span> <span class="keyword">default</span> <span class="keyword">each</span> <span class="keyword">output</span> gets same traffic. <span class="keyword">If</span> <span class="keyword">set</span> <span class="keyword">to</span> <span class="literal">true</span> it splits traffic equally among all outputs.</span><br><span class="line"> -stats</span><br><span class="line">   	Turn <span class="keyword">on</span> queue stats <span class="keyword">output</span></span><br><span class="line"> -verbose</span><br><span class="line">   	Turn <span class="keyword">on</span> more verbose <span class="keyword">output</span></span></span><br></pre></td></tr></table></figure>
+<p>常用的命令：</p>
+<p>线上引流的机器为192.168.1.1 ，测试机器为192.168.2.2</p>
+<h2 id="实时引流：">实时引流：</h2><blockquote>
+<p>gor –input-raw :80 –output-http “192.168.2.2:80”</p>
+</blockquote>
+<p>把192.168.1.1 80端口上的http请求转到192.168.2.2 80端口上。</p>
+<blockquote>
+<p>gor –input-tcp :80–output-http “192.168.2.2:80”  –output-http “192.168.3.3:80”</p>
+</blockquote>
+<p>把流量复制两份到不同的测试机器</p>
+<hr>
+<h2 id="流量放大、缩小">流量放大、缩小</h2><blockquote>
+<p>gor –input-raw :80 –output-http “192.168.2.2:80|1000%”</p>
+</blockquote>
+<p>流量放大10倍</p>
+<blockquote>
+<p>gor –input-raw :80 –output-http “192.168.2.2:80|10%”</p>
+</blockquote>
+<p>流量缩小10倍</p>
+<hr>
+<h2 id="回放">回放</h2><blockquote>
+<p>gor –input-raw :80–output-file requests.gor</p>
+</blockquote>
+<p>保存请求到文件中</p>
+<blockquote>
+<p>gor –input-file requests.gor –output-http “192.168.2.2:80”</p>
+</blockquote>
+<p>回放请求</p>
+<hr>
+<h2 id="过滤">过滤</h2><blockquote>
+<p>gor –input-raw :80–output-http 192.168.2.2:80 –output-http-url-regexp ^www.</p>
+</blockquote>
+<p>只保留www开头的请求</p>
+<hr>
+<h2 id="自定义参数">自定义参数</h2><blockquote>
+<p>gor –input-raw :80–output-http 192.168.2.2:80 –http-set-header ‘User-Agent: gor’</p>
+</blockquote>
+<p>在请求头上加入 User-Agent: gor</p>
+<hr>
+<p>关于gor的其他特性，可以想见官方wiki：<br><a href="https://github.com/buger/goreplay/wiki" target="_blank" rel="external">https://github.com/buger/goreplay/wiki</a></p>
+
+                                                                                
+                                        </div>
+                                        
+            </div>
+            
+                <div class="bdsharebuttonbox" style="margin-top:10px;margin-left:30px;float:left;">
+                    <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                    <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                    <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
+                    <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
+                    <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                    <a href="#" class="bds_more" data-cmd="more"></a>
+                </div>
+                <script>
+                    window._bd_share_config = {
+                        "common": {
+                            "bdSnsKey": {},
+                            "bdText": "",
+                            "bdMini": "1",
+                            "bdMiniList": false,
+                            "bdStyle": "2",
+                            "bdSize": "16"
+                        },
+                        "share": {}
+                    };
+                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
+  
+  
+    <a href="/2017/09/15/聊聊java线程池/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">java线程池</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-tcpcopy的兄弟-gor" data-title="tcpcopy的兄弟-gor" data-url="http://tonylit.me/2017/09/20/tcpcopy的兄弟-gor/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "tonylit"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
+</article>
+
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+    
+-->
+<!--
+
+-->
+
+</div>
+      <!--<footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 tonyli
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+    
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+   
+  </div>
+</footer>-->
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/prefixfree.js" type="text/javascript"></script>
+<script src="/js/require-2.1.20.js" type="text/javascript"></script>
+<script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
+    <a title="返回顶部" style="opacity: 100%;">
+        <img src="/img/scrollup.png" />
+    </a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+
+  </div>
+</body>
+</html>
