@@ -120,7 +120,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Gatling/" style="font-size: 11.67px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.67px;">Jmeter</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 18.33px;">docker</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/kafka/" style="font-size: 11.67px;">kafka</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/loadrunner/" style="font-size: 13.33px;">loadrunner</a> <a href="/tags/nGrinder/" style="font-size: 10px;">nGrinder</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/work/" style="font-size: 16.67px;">work</a> <a href="/tags/前端性能/" style="font-size: 10px;">前端性能</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a>
+						<a href="/tags/Gatling/" style="font-size: 11.67px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.67px;">Jmeter</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 18.33px;">docker</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/kafka/" style="font-size: 11.67px;">kafka</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/loadrunner/" style="font-size: 13.33px;">loadrunner</a> <a href="/tags/nGrinder/" style="font-size: 10px;">nGrinder</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/work/" style="font-size: 16.67px;">work</a> <a href="/tags/前端性能/" style="font-size: 10px;">前端性能</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a>
 					</div>
 				</section>
 				
@@ -326,6 +326,86 @@
     );
 </script>
 
+
+  
+    <article id="post-ngrinder介绍与安装" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2017/03/23/ngrinder介绍与安装/" class="article-date">
+  	<time datetime="2017-03-23T03:37:27.000Z" itemprop="datePublished">2017-03-23</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/23/ngrinder介绍与安装/">nGrinder 介绍与安装</a>
+    </h1>
+  
+
+
+                            </header>
+                            
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+
+                                                
+                                                                
+                                                                    <p>nGrinder是基于Grinder开源项目，但由NHN公司的nGrinder开发团队进行了重新设计和完善（所以叫做nGrinder）。</p>
+<p>它是由一个controller和连接它的多个agent组成，用户可以通过web界面管理和控制测试，以及查看测试报告，controller会把测试分发到一个或多个agent去执行。用户可以设置使用多个进程和线程来并发的执行该脚本，而且在同一线程中，来重复不断的执行测试脚本，来模拟很多并发用户。</p>
+<p>nGrinder的测试是基于一个python的测试脚本，用户按照一定规则编写测试脚本以后，controller会将脚本以及需要的其他文件分发到agent，用Jython执行。并在执行过程中收集运行情况、响应时间、测试目标服务器的运行情况等。并保存这些数据生成运行报告，以供以后查看。</p>
+                                                                        
+                                        </div>
+                                        
+                                            <div class="article-info article-info-index">
+                                                
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nGrinder/">nGrinder</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+	</div>
+
+
+                                                    
+
+                                                        
+                                                            <p class="article-more-link">
+                                                                <a  href="/2017/03/23/ngrinder介绍与安装/#more">More >></a>
+                                                            </p>
+                                                            
+                                                                <div class="clearfix"></div>
+                                            </div>
+                                            
+            </div>
+            
+                    
+                                <!-- 多说评论框 start -->
+                                
+</article>
+
+<!--
+
+-->
+<!--
+
+-->
 
   
     <article id="post-loadrunner_https脚本" class="article article-type-post" itemscope itemprop="blogPost">
@@ -884,87 +964,9 @@
 -->
 
   
-    <article id="post-网络带宽瓶颈导致tps上不去" class="article article-type-post" itemscope itemprop="blogPost">
-    <script>
-        $("html").niceScroll({
-            cursorcolor: "#2a2929",
-            cursoropacitymax: 1,
-            touchbehavior: false,
-            cursorwidth: "6px",
-            cursorborder: "5",
-            cursorborderradius: "0px",
-            autohidemode: true
-        });
-    </script>
-    
-        <div class="article-meta">
-            <a href="/2016/11/16/网络带宽瓶颈导致tps上不去/" class="article-date">
-  	<time datetime="2016-11-16T03:37:27.000Z" itemprop="datePublished">2016-11-16</time>
-</a>
-
-        </div>
-        
-            <div class="article-inner">
-                
-                    <input type="hidden" class="isFancy" />
-                    
-                        
-                            <header class="article-header">
-                                
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/16/网络带宽瓶颈导致tps上不去/">网络带宽瓶颈导致tps上不去</a>
-    </h1>
-  
-
-
-                            </header>
-                            
-                                    
-                                        <div class="article-entry" itemprop="articleBody">
-                                            
-
-                                                
-                                                                
-                                                                    <p>最近给保险项目组做压力测试，发现增加并发用户数和应用服务器数量，tps一直上不去，<br>最终发现是应用服务器与DB服务器之间网络带宽不够导致。</p>
-                                                                        
-                                        </div>
-                                        
-                                            <div class="article-info article-info-index">
-                                                
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
-	</div>
-
-
-                                                    
-
-                                                        
-                                                            <p class="article-more-link">
-                                                                <a  href="/2016/11/16/网络带宽瓶颈导致tps上不去/#more">More >></a>
-                                                            </p>
-                                                            
-                                                                <div class="clearfix"></div>
-                                            </div>
-                                            
-            </div>
-            
-                    
-                                <!-- 多说评论框 start -->
-                                
-</article>
-
-<!--
-
--->
-<!--
-
--->
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 
