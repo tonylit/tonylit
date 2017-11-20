@@ -46,7 +46,7 @@
 <blockquote>
 <p>./redis-cli -h host -p port -a password 的方式</p>
 </blockquote>
-<p>port和password 可以在redis.coonf中设置（port与requirepass）。</p>
+<p>port和password 可以在redis.conf中设置（port与requirepass）。</p>
 <h3 id="Webdis_-A_Redis_HTTP_interface_with_JSON_output">Webdis -A Redis HTTP interface with JSON output</h3><p>如果你觉得命令行方式操作redis不习惯，可以使用HTTP接口的方式。<br>Webdis 就是这么一款工具，为 Redis 提供 HTTP 接口，通过 HTTP 即可直接操作 Redis。</p>
 <p><strong>项目地址</strong>：<br><a href="https://github.com/nicolasff/webdis" target="_blank" rel="external">https://github.com/nicolasff/webdis</a></p>
 <p><strong>安装</strong>：</p>
