@@ -4,7 +4,7 @@
   <subtitle><![CDATA[今年lebron绝逼夺冠，bie跟我急!]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2017-12-02T13:06:55.877Z</updated>
+  <updated>2017-10-30T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://tonylit.me/2017/10/30/Welcome%20to%20Python/"/>
     <id>http://tonylit.me/2017/10/30/Welcome to Python/</id>
     <published>2017-10-30T03:37:27.000Z</published>
-    <updated>2017-12-02T13:06:55.877Z</updated>
+    <updated>2017-10-30T05:37:27.000Z</updated>
     <content type="html"><![CDATA[<p><strong>Life is short. You need Python.</strong></p>
 <p><img src="/img/python/人生苦短我用python.PNG" alt="Alt text"></p>
 <a id="more"></a>
@@ -128,7 +128,7 @@
 <p>True<br>True</p>
 </blockquote>
 <hr>
-<p>##列表<br>有点像c、java中的数组</p>
+<h2 id="列表">列表</h2><p>有点像c、java中的数组</p>
 <p>[100,2000,200000,”abcs”] 可以同时放整型、字符串等多种数据类型。</p>
 <h3 id="列表循环">列表循环</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">name = [<span class="number">1</span>,<span class="string">'a'</span>,<span class="string">'aaa'</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> name:</span><br><span class="line">	<span class="built_in">print</span> x</span><br></pre></td></tr></table></figure>
 <p>输出：</p>
@@ -141,9 +141,7 @@
 <blockquote>
 <p>(0, ‘a’)<br>(1, ‘b’)<br>(2, ‘c’)<br>(3, ‘d’)</p>
 </blockquote>
-<p>###列表增、删、改、查</p>
-<p>####列表增</p>
-<h5 id="append">append</h5><p>通过append添加元素<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name = [<span class="number">1</span>,<span class="string">'a'</span>,<span class="string">'aaa'</span>]</span><br><span class="line">name.<span class="function"><span class="title">append</span><span class="params">(<span class="string">"bbb"</span>)</span></span></span><br><span class="line">print name</span><br></pre></td></tr></table></figure></p>
+<h3 id="列表增、删、改、查">列表增、删、改、查</h3><h4 id="列表增">列表增</h4><h5 id="append">append</h5><p>通过append添加元素<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name = [<span class="number">1</span>,<span class="string">'a'</span>,<span class="string">'aaa'</span>]</span><br><span class="line">name.<span class="function"><span class="title">append</span><span class="params">(<span class="string">"bbb"</span>)</span></span></span><br><span class="line">print name</span><br></pre></td></tr></table></figure></p>
 <p>输出：</p>
 <blockquote>
 <p>[1, ‘a’, ‘aaa’, ‘bbb’]</p>
@@ -193,13 +191,12 @@
 <blockquote>
 <p>{‘name2’: ‘wangwu’, ‘name3’: ‘maliu’, ‘name1’: ‘lisi’}</p>
 </blockquote>
-<p>#####字典修改元素</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="property">name</span> = &#123;<span class="string">"name1"</span>:<span class="string">"lisi"</span>,<span class="string">"name2"</span>:<span class="string">"wangwu"</span>&#125;</span><br><span class="line"><span class="property">name</span>['name1'] = <span class="string">"maliu"</span></span><br><span class="line">print <span class="property">name</span></span><br></pre></td></tr></table></figure>
+<h5 id="字典修改元素">字典修改元素</h5><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="property">name</span> = &#123;<span class="string">"name1"</span>:<span class="string">"lisi"</span>,<span class="string">"name2"</span>:<span class="string">"wangwu"</span>&#125;</span><br><span class="line"><span class="property">name</span>['name1'] = <span class="string">"maliu"</span></span><br><span class="line">print <span class="property">name</span></span><br></pre></td></tr></table></figure>
 <p>输出：</p>
 <blockquote>
 <p>{‘name2’: ‘wangwu’, ‘name1’: ‘maliu’}</p>
 </blockquote>
-<p>#####字段删除元素<br>del：按key删<br>clear：删除全部元素</p>
+<h5 id="字段删除元素">字段删除元素</h5><p>del：按key删<br>clear：删除全部元素</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="property">name</span> = &#123;<span class="string">"name1"</span>:<span class="string">"lisi"</span>,<span class="string">"name2"</span>:<span class="string">"wangwu"</span>,<span class="string">"name3"</span>:<span class="string">"maliu"</span>&#125;</span><br><span class="line">del <span class="property">name</span>['name1']</span><br><span class="line">print <span class="property">name</span></span><br><span class="line"></span><br><span class="line"><span class="property">name</span>.clear()</span><br><span class="line">print <span class="property">name</span></span><br></pre></td></tr></table></figure>
 <p>输出：</p>
 <blockquote>
@@ -210,19 +207,18 @@
 <blockquote>
 <p>[‘name2’, ‘name3’, ‘name1’]<br>[‘wangwu’, ‘maliu’, ‘lisi’]</p>
 </blockquote>
-<p>#####items</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="property">name</span> = &#123;<span class="string">"name1"</span>:<span class="string">"lisi"</span>,<span class="string">"name2"</span>:<span class="string">"wangwu"</span>,<span class="string">"name3"</span>:<span class="string">"maliu"</span>&#125;</span><br><span class="line">print <span class="property">name</span>.items()</span><br></pre></td></tr></table></figure>
+<h5 id="items">items</h5><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="property">name</span> = &#123;<span class="string">"name1"</span>:<span class="string">"lisi"</span>,<span class="string">"name2"</span>:<span class="string">"wangwu"</span>,<span class="string">"name3"</span>:<span class="string">"maliu"</span>&#125;</span><br><span class="line">print <span class="property">name</span>.items()</span><br></pre></td></tr></table></figure>
 <p>输出：</p>
 <blockquote>
 <p>[(‘name2’, ‘wangwu’), (‘name3’, ‘maliu’), (‘name1’, ‘lisi’)]</p>
 </blockquote>
-<p>#####has_key<br>has_key(key)如果key在字典中，返回true</p>
+<h5 id="has_key">has_key</h5><p>has_key(key)如果key在字典中，返回true</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="property">name</span> = &#123;<span class="string">"name1"</span>:<span class="string">"lisi"</span>,<span class="string">"name2"</span>:<span class="string">"wangwu"</span>,<span class="string">"name3"</span>:<span class="string">"maliu"</span>&#125;</span><br><span class="line">print <span class="property">name</span>.has_key('name1')</span><br></pre></td></tr></table></figure>
 <p>输出：</p>
 <blockquote>
 <p>True</p>
 </blockquote>
-<p>#####字典遍历<br>把字典转化成列表<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">names = &#123;<span class="string">"name1"</span>:<span class="string">"lisi"</span>,<span class="string">"name2"</span>:<span class="string">"wangwu"</span>,<span class="string">"name3"</span>:<span class="string">"maliu"</span>&#125;</span><br><span class="line"><span class="keyword">for</span> name,<span class="built_in">value</span> <span class="operator">in</span> names.<span class="keyword">items</span>():</span><br><span class="line">	print name,<span class="built_in">value</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="字典遍历">字典遍历</h5><p>把字典转化成列表<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">names = &#123;<span class="string">"name1"</span>:<span class="string">"lisi"</span>,<span class="string">"name2"</span>:<span class="string">"wangwu"</span>,<span class="string">"name3"</span>:<span class="string">"maliu"</span>&#125;</span><br><span class="line"><span class="keyword">for</span> name,<span class="built_in">value</span> <span class="operator">in</span> names.<span class="keyword">items</span>():</span><br><span class="line">	print name,<span class="built_in">value</span></span><br></pre></td></tr></table></figure></p>
 <p>输出：</p>
 <blockquote>
 <p>name2 wangwu<br>name3 maliu<br>name1 lisi</p>
@@ -237,20 +233,19 @@
 <p>hello lisi</p>
 </blockquote>
 <hr>
-<p>##函数的参数</p>
-<p>python支持不按照顺序传参</p>
+<h2 id="函数的参数">函数的参数</h2><p>python支持不按照顺序传参</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">numAdd</span><span class="params">(a,b)</span>:</span></span><br><span class="line">	sum = a + b</span><br><span class="line">	<span class="keyword">print</span> (<span class="string">"%s+%s=%s"</span> %(a,b,sum))</span><br><span class="line"></span><br><span class="line">numAdd(<span class="number">100</span>,<span class="number">200</span>)</span><br><span class="line">numAdd(b=<span class="number">100</span>,a=<span class="number">200</span>)<span class="comment">##指定参数值</span></span><br></pre></td></tr></table></figure>
 <p>输出：</p>
 <blockquote>
 <p>100+200=300<br>200+100=300</p>
 </blockquote>
-<p>###缺省参数<br>函数中指定一个参数的值，调用的时候可以不用传值。</p>
+<h3 id="缺省参数">缺省参数</h3><p>函数中指定一个参数的值，调用的时候可以不用传值。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(a,b=<span class="number">110</span>)</span>:</span></span><br><span class="line">	<span class="keyword">print</span> a,b</span><br><span class="line"></span><br><span class="line">test(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">test(<span class="number">1</span>)<span class="comment">#调用的时候b不传值</span></span><br></pre></td></tr></table></figure>
 <p>输出:</p>
 <blockquote>
 <p>1 2<br>1 110</p>
 </blockquote>
-<p>###不定长参数<br>参数的数量不确定。<br><em>参数名为元组数据类型<br>*</em>参数名为字典数据类型</p>
+<h3 id="不定长参数">不定长参数</h3><p>参数的数量不确定。<br><em>参数名为元组数据类型<br>*</em>参数名为字典数据类型</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def <span class="function"><span class="title">test</span><span class="params">(a,*b,**c)</span></span>:</span><br><span class="line">	print <span class="tag">a</span>,<span class="tag">b</span>,c</span><br><span class="line">	print (<span class="function"><span class="title">type</span><span class="params">(b)</span></span>)</span><br><span class="line">	print (<span class="function"><span class="title">type</span><span class="params">(c)</span></span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">test</span><span class="params">(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,num1=<span class="number">10</span>,num2=<span class="number">100</span>)</span></span></span><br></pre></td></tr></table></figure>
 <p>输出：</p>
 <blockquote>
