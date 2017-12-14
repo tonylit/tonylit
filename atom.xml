@@ -167,6 +167,10 @@
 <p>输入adb version 检查是否配置成功。</p>
 <p><img src="/img/android开发环境配置/adb.PNG" alt="Alt text"></p>
 <hr>
+<h2 id="Android模拟器">Android模拟器</h2><p>点击AVD Manager，创建一个模拟器<br><img src="/img/android开发环境配置/avd.PNG" alt="Alt text"></p>
+<p>点击start运行模拟器即可</p>
+<p><img src="/img/android开发环境配置/moniqi.PNG" alt="Alt text"></p>
+<hr>
 <h1 id="Eclipse_SDK插件安装（离线）">Eclipse SDK插件安装（离线）</h1><p>Android Development Tools 插件，不翻墙在线安装很难，最好采用离线安装的方法。</p>
 <p>ADT-23.0.6下载：<a href="https://pan.baidu.com/s/1nvf2djr" target="_blank" rel="external">https://pan.baidu.com/s/1nvf2djr</a></p>
 <p>点击Eclipse-&gt;Help-&gt;Install New Software，点击ADD-&gt;点击Archive，选择下载好的ADT-23.0.6.ZIP，安装插件。</p>
