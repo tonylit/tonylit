@@ -20,7 +20,7 @@
     <id>http://tonylit.me/2017/12/02/Appium Desktop/</id>
     <published>2017-12-02T03:37:27.000Z</published>
     <updated>2017-12-02T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p><img src="./appium-desktop.PNG" alt="Alt text"></p>
+    <content type="html"><![CDATA[<p><img src="/img/appium-desktop/appium-desktop.PNG" alt="Alt text"></p>
 <p>Appium Desktop is an open source app for Mac, Windows, and Linux which gives you the power of the Appium automation server in a beautiful and flexible UI.</p>
 <p>by <strong><a href="https://github.com/appium/appium-desktop" target="_blank" rel="external">https://github.com/appium/appium-desktop</a></strong></p>
 <a id="more"></a>
@@ -60,7 +60,7 @@
 <p><img src="/img/appium-desktop/testrun.PNG" alt="Alt text"></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p><img src="./appium-desktop.PNG" alt="Alt text"></p>
+    <![CDATA[<p><img src="/img/appium-desktop/appium-desktop.PNG" alt="Alt text"></p>
 <p>Appium Desktop is an open source app for Mac, Windows, and Linux which gives you the power of the Appium automation server in a beautiful and flexible UI.</p>
 <p>by <strong><a href="https://github.com/appium/appium-desktop">https://github.com/appium/appium-desktop</a></strong></p>]]>
     
