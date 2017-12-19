@@ -21,7 +21,9 @@
     <published>2017-12-17T03:37:27.000Z</published>
     <updated>2017-12-17T05:37:27.000Z</updated>
     <content type="html"><![CDATA[<p>Appium Desired Capabilities中有两个重要的参数：appPackage和appActivity。</p>
-<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">capabilities.setCapability<span class="params">(<span class="string">"appPackage"</span>, <span class="string">"xxx"</span>)</span>;  </span><br><span class="line">capabilities.setCapability<span class="params">(<span class="string">"appActivity"</span>, <span class="string">"xxx"</span>)</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>capabilities.setCapability(“appPackage”, “xxx”);<br>capabilities.setCapability(“appActivity”, “xxx”);</p>
+</blockquote>
 <a id="more"></a>
 <hr>
 <p>打开APP，使用adb命令：</p>
@@ -36,7 +38,9 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>Appium Desired Capabilities中有两个重要的参数：appPackage和appActivity。</p>
-<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">capabilities.setCapability<span class="params">(<span class="string">"appPackage"</span>, <span class="string">"xxx"</span>)</span>;  </span><br><span class="line">capabilities.setCapability<span class="params">(<span class="string">"appActivity"</span>, <span class="string">"xxx"</span>)</span>;</span><br></pre></td></tr></table></figure>]]>
+<blockquote>
+<p>capabilities.setCapability(“appPackage”, “xxx”);<br>capabilities.setCapability(“appActivity”, “xxx”);</p>
+</blockquote>]]>
     
     </summary>
     
