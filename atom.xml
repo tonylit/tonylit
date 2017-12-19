@@ -3027,7 +3027,7 @@
     
     </summary>
     
-      <category term="life" scheme="http://tonylit.me/tags/life/"/>
+      <category term="work" scheme="http://tonylit.me/tags/work/"/>
     
   </entry>
   
@@ -4727,8 +4727,6 @@
     
       <category term="java" scheme="http://tonylit.me/tags/java/"/>
     
-      <category term="springmvc" scheme="http://tonylit.me/tags/springmvc/"/>
-    
       <category term="work" scheme="http://tonylit.me/tags/work/"/>
     
   </entry>
@@ -4819,7 +4817,7 @@
     
       <category term="work" scheme="http://tonylit.me/tags/work/"/>
     
-      <category term="前端性能" scheme="http://tonylit.me/tags/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD/"/>
+      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
     
   </entry>
   
