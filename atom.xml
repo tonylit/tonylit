@@ -15,27 +15,27 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[��ȡappPackage��appActivity]]></title>
+    <title><![CDATA[获取appPackage和appActivity]]></title>
     <link href="http://tonylit.me/2017/12/17/%E8%8E%B7%E5%8F%96appPackage%E5%92%8CappActivity/"/>
     <id>http://tonylit.me/2017/12/17/获取appPackage和appActivity/</id>
     <published>2017-12-17T03:37:27.000Z</published>
     <updated>2017-12-17T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>Appium Desired Capabilities����������Ҫ�Ĳ�����appPackage��appActivity��</p>
+    <content type="html"><![CDATA[<p>Appium Desired Capabilities中有两个重要的参数：appPackage和appActivity。</p>
 <figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">capabilities.setCapability<span class="params">(<span class="string">"appPackage"</span>, <span class="string">"xxx"</span>)</span>;  </span><br><span class="line">capabilities.setCapability<span class="params">(<span class="string">"appActivity"</span>, <span class="string">"xxx"</span>)</span>;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <hr>
-<p>����APP��ʹ��adb���</p>
+<p>打开APP，使用adb命令：</p>
 <blockquote>
 <p>adb logcat |grep Displayed</p>
 </blockquote>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span>-<span class="number">17</span> <span class="number">21</span>:<span class="number">32</span>:<span class="number">24.461</span>   <span class="number">562</span>   <span class="number">584</span> I ActivityManager: Displayed com.android.launcher   <span class="number">3</span>/.Launcher: +<span class="number">1</span>s38ms</span><br><span class="line"><span class="number">12</span>-<span class="number">17</span> <span class="number">21</span>:<span class="number">34</span>:<span class="number">12.577</span>   <span class="number">562</span>   <span class="number">584</span> I ActivityManager: Displayed io.appium.settings/.   Settings: +<span class="number">573</span>ms</span><br><span class="line"><span class="number">12</span>-<span class="number">17</span> <span class="number">21</span>:<span class="number">34</span>:<span class="number">16.470</span>   <span class="number">562</span>   <span class="number">584</span> I ActivityManager: Displayed com.android.calculat   or2/.Calculator: +<span class="number">719</span>ms</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>appPackage: com.android.calculator2</p>
-<p>appActivity��.Calculator</p>
+<p>appActivity：.Calculator</p>
 </blockquote>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>Appium Desired Capabilities����������Ҫ�Ĳ�����appPackage��appActivity��</p>
+    <![CDATA[<p>Appium Desired Capabilities中有两个重要的参数：appPackage和appActivity。</p>
 <figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">capabilities.setCapability<span class="params">(<span class="string">"appPackage"</span>, <span class="string">"xxx"</span>)</span>;  </span><br><span class="line">capabilities.setCapability<span class="params">(<span class="string">"appActivity"</span>, <span class="string">"xxx"</span>)</span>;</span><br></pre></td></tr></table></figure>]]>
     
     </summary>

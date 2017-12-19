@@ -4,20 +4,20 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>��ȡappPackage��appActivity | 淘淘的博客</title>
+  <title>获取appPackage和appActivity | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Appium Desired Capabilities����������Ҫ�Ĳ�����appPackage��appActivity��
+  <meta name="description" content="Appium Desired Capabilities中有两个重要的参数：appPackage和appActivity。
 12capabilities.setCapability(&quot;appPackage&quot;, &quot;xxx&quot;);  capabilities.setCapability(&quot;appActivity&quot;, &quot;xxx&quot;);">
 <meta property="og:type" content="article">
-<meta property="og:title" content="��ȡappPackage��appActivity">
+<meta property="og:title" content="获取appPackage和appActivity">
 <meta property="og:url" content="http://tonylit.me/2017/12/17/获取appPackage和appActivity/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="Appium Desired Capabilities����������Ҫ�Ĳ�����appPackage��appActivity��
+<meta property="og:description" content="Appium Desired Capabilities中有两个重要的参数：appPackage和appActivity。
 12capabilities.setCapability(&quot;appPackage&quot;, &quot;xxx&quot;);  capabilities.setCapability(&quot;appActivity&quot;, &quot;xxx&quot;);">
 <meta property="og:updated_time" content="2017-12-17T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="��ȡappPackage��appActivity">
-<meta name="twitter:description" content="Appium Desired Capabilities����������Ҫ�Ĳ�����appPackage��appActivity��
+<meta name="twitter:title" content="获取appPackage和appActivity">
+<meta name="twitter:description" content="Appium Desired Capabilities中有两个重要的参数：appPackage和appActivity。
 12capabilities.setCapability(&quot;appPackage&quot;, &quot;xxx&quot;);  capabilities.setCapability(&quot;appActivity&quot;, &quot;xxx&quot;);">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
@@ -225,7 +225,7 @@
                                 
   
     <h1 class="article-title" itemprop="name">
-      ��ȡappPackage��appActivity
+      获取appPackage和appActivity
     </h1>
   
 
@@ -256,18 +256,18 @@
                                                         
                                                             
                                                                 
-                                                                            <p>Appium Desired Capabilities����������Ҫ�Ĳ�����appPackage��appActivity��</p>
+                                                                            <p>Appium Desired Capabilities中有两个重要的参数：appPackage和appActivity。</p>
 <figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">capabilities.setCapability<span class="params">(<span class="string">"appPackage"</span>, <span class="string">"xxx"</span>)</span>;  </span><br><span class="line">capabilities.setCapability<span class="params">(<span class="string">"appActivity"</span>, <span class="string">"xxx"</span>)</span>;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <hr>
-<p>����APP��ʹ��adb���</p>
+<p>打开APP，使用adb命令：</p>
 <blockquote>
 <p>adb logcat |grep Displayed</p>
 </blockquote>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span>-<span class="number">17</span> <span class="number">21</span>:<span class="number">32</span>:<span class="number">24.461</span>   <span class="number">562</span>   <span class="number">584</span> I ActivityManager: Displayed com.android.launcher   <span class="number">3</span>/.Launcher: +<span class="number">1</span>s38ms</span><br><span class="line"><span class="number">12</span>-<span class="number">17</span> <span class="number">21</span>:<span class="number">34</span>:<span class="number">12.577</span>   <span class="number">562</span>   <span class="number">584</span> I ActivityManager: Displayed io.appium.settings/.   Settings: +<span class="number">573</span>ms</span><br><span class="line"><span class="number">12</span>-<span class="number">17</span> <span class="number">21</span>:<span class="number">34</span>:<span class="number">16.470</span>   <span class="number">562</span>   <span class="number">584</span> I ActivityManager: Displayed com.android.calculat   or2/.Calculator: +<span class="number">719</span>ms</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>appPackage: com.android.calculator2</p>
-<p>appActivity��.Calculator</p>
+<p>appActivity：.Calculator</p>
 </blockquote>
 
                                                                                 
@@ -314,7 +314,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-获取appPackage和appActivity" data-title="��ȡappPackage��appActivity" data-url="http://tonylit.me/2017/12/17/获取appPackage和appActivity/"></div>
+                                    <div class="ds-thread" data-thread-key="post-获取appPackage和appActivity" data-title="获取appPackage和appActivity" data-url="http://tonylit.me/2017/12/17/获取appPackage和appActivity/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">
