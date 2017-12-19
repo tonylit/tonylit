@@ -8,20 +8,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Appium Desired Capabilities中有两个重要的参数：appPackage和appActivity。
 
-capabilities.setCapability(“appPackage”, “xxx”);capabilities.setCapability(“appActivity”, “xxx”);">
+capabilities.setCapability(“appPackage”,”xxx”);capabilities.setCapability(“appActivity”,”xxx”);">
 <meta property="og:type" content="article">
 <meta property="og:title" content="获取appPackage和appActivity">
 <meta property="og:url" content="http://tonylit.me/2017/12/17/获取appPackage和appActivity/index.html">
 <meta property="og:site_name" content="淘淘的博客">
 <meta property="og:description" content="Appium Desired Capabilities中有两个重要的参数：appPackage和appActivity。
 
-capabilities.setCapability(“appPackage”, “xxx”);capabilities.setCapability(“appActivity”, “xxx”);">
+capabilities.setCapability(“appPackage”,”xxx”);capabilities.setCapability(“appActivity”,”xxx”);">
 <meta property="og:updated_time" content="2017-12-17T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="获取appPackage和appActivity">
 <meta name="twitter:description" content="Appium Desired Capabilities中有两个重要的参数：appPackage和appActivity。
 
-capabilities.setCapability(“appPackage”, “xxx”);capabilities.setCapability(“appActivity”, “xxx”);">
+capabilities.setCapability(“appPackage”,”xxx”);capabilities.setCapability(“appActivity”,”xxx”);">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -253,7 +253,7 @@ capabilities.setCapability(“appPackage”, “xxx”);capabilities.setCapabili
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#获取appPackage和appActivity"><span class="toc-number">1.</span> <span class="toc-text">获取appPackage和appActivity</span></a></li></ol>
 </div>
 
                                                         
@@ -261,18 +261,18 @@ capabilities.setCapability(“appPackage”, “xxx”);capabilities.setCapabili
                                                                 
                                                                             <p>Appium Desired Capabilities中有两个重要的参数：appPackage和appActivity。</p>
 <blockquote>
-<p>capabilities.setCapability(“appPackage”, “xxx”);<br>capabilities.setCapability(“appActivity”, “xxx”);</p>
+<p>capabilities.setCapability(“appPackage”,”xxx”);<br>capabilities.setCapability(“appActivity”,”xxx”);</p>
 </blockquote>
 <a id="more"></a>
 <hr>
-<p>打开APP，使用adb命令：</p>
+<h1 id="获取appPackage和appActivity">获取appPackage和appActivity</h1><p>打开APP，使用adb命令：</p>
 <blockquote>
 <p>adb logcat |grep Displayed</p>
 </blockquote>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span>-<span class="number">17</span> <span class="number">21</span>:<span class="number">32</span>:<span class="number">24.461</span>   <span class="number">562</span>   <span class="number">584</span> I ActivityManager: Displayed com.android.launcher   <span class="number">3</span>/.Launcher: +<span class="number">1</span>s38ms</span><br><span class="line"><span class="number">12</span>-<span class="number">17</span> <span class="number">21</span>:<span class="number">34</span>:<span class="number">12.577</span>   <span class="number">562</span>   <span class="number">584</span> I ActivityManager: Displayed io.appium.settings/.   Settings: +<span class="number">573</span>ms</span><br><span class="line"><span class="number">12</span>-<span class="number">17</span> <span class="number">21</span>:<span class="number">34</span>:<span class="number">16.470</span>   <span class="number">562</span>   <span class="number">584</span> I ActivityManager: Displayed com.android.calculat   or2/.Calculator: +<span class="number">719</span>ms</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>appPackage: com.android.calculator2</p>
-<p>appActivity：.Calculator</p>
+<p>appPackage:com.android.calculator2</p>
+<p>appActivity:.Calculator</p>
 </blockquote>
 
                                                                                 
