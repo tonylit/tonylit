@@ -4,19 +4,21 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>Druid连接池监控 | 淘淘的博客</title>
+  <title>��ȡappPackage��appActivity | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Druid是一个JDBC组件， 首先是一个数据库连接池，属于阿里巴巴众多开源项目的一个。如果想看具体的介绍请看这里：官网介绍：http://code.alibabatech.com/wiki/display/Druid/Home我这里主要介绍怎么监控druid">
+  <meta name="description" content="Appium Desired Capabilities����������Ҫ�Ĳ�����appPackage��appActivity��
+12capabilities.setCapability(&quot;appPackage&quot;, &quot;xxx&quot;);  capabilities.setCapability(&quot;appActivity&quot;, &quot;xxx&quot;);">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Druid连接池监控">
-<meta property="og:url" content="http://tonylit.me/2015/12/15/druid连接池监控/index.html">
+<meta property="og:title" content="��ȡappPackage��appActivity">
+<meta property="og:url" content="http://tonylit.me/2017/12/17/获取appPackage和appActivity/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="Druid是一个JDBC组件， 首先是一个数据库连接池，属于阿里巴巴众多开源项目的一个。如果想看具体的介绍请看这里：官网介绍：http://code.alibabatech.com/wiki/display/Druid/Home我这里主要介绍怎么监控druid">
-<meta property="og:image" content="http://tonylit.me/img/druid.PNG">
-<meta property="og:updated_time" content="2015-12-15T05:37:27.000Z">
+<meta property="og:description" content="Appium Desired Capabilities����������Ҫ�Ĳ�����appPackage��appActivity��
+12capabilities.setCapability(&quot;appPackage&quot;, &quot;xxx&quot;);  capabilities.setCapability(&quot;appActivity&quot;, &quot;xxx&quot;);">
+<meta property="og:updated_time" content="2017-12-17T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Druid连接池监控">
-<meta name="twitter:description" content="Druid是一个JDBC组件， 首先是一个数据库连接池，属于阿里巴巴众多开源项目的一个。如果想看具体的介绍请看这里：官网介绍：http://code.alibabatech.com/wiki/display/Druid/Home我这里主要介绍怎么监控druid">
+<meta name="twitter:title" content="��ȡappPackage��appActivity">
+<meta name="twitter:description" content="Appium Desired Capabilities����������Ҫ�Ĳ�����appPackage��appActivity��
+12capabilities.setCapability(&quot;appPackage&quot;, &quot;xxx&quot;);  capabilities.setCapability(&quot;appActivity&quot;, &quot;xxx&quot;);">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -194,7 +196,7 @@
 高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
 </div>
 
-      <div class="body-wrap"><article id="post-druid连接池监控" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-获取appPackage和appActivity" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -208,8 +210,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2015/12/15/druid连接池监控/" class="article-date">
-  	<time datetime="2015-12-15T03:37:27.000Z" itemprop="datePublished">2015-12-15</time>
+            <a href="/2017/12/17/获取appPackage和appActivity/" class="article-date">
+  	<time datetime="2017-12-17T03:37:27.000Z" itemprop="datePublished">2017-12-17</time>
 </a>
 
         </div>
@@ -223,7 +225,7 @@
                                 
   
     <h1 class="article-title" itemprop="name">
-      Druid连接池监控
+      ��ȡappPackage��appActivity
     </h1>
   
 
@@ -233,7 +235,7 @@
                                 <div class="article-info article-info-post">
                                     
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Appium/">Appium</a></li></ul>
 	</div>
 
 
@@ -248,15 +250,25 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#在web-xml中添加如下："><span class="toc-number">1.</span> <span class="toc-text">在web.xml中添加如下：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置完成，重启应用，访问http://ip地址+端口/druid/index-html"><span class="toc-number">2.</span> <span class="toc-text">配置完成，重启应用，访问http://ip地址+端口/druid/index.html</span></a></li></ol>
+    
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <p>Druid是一个JDBC组件， 首先是一个数据库连接池，属于阿里巴巴众多开源项目的一个。如果想看具体的介绍请看这里：<br>官网介绍：<a href="http://code.alibabatech.com/wiki/display/Druid/Home" target="_blank" rel="external">http://code.alibabatech.com/wiki/display/Druid/Home</a><br>我这里主要介绍怎么监控druid<br><a id="more"></a></p>
-<h1 id="在web-xml中添加如下：">在web.xml中添加如下：</h1><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">&lt;servlet&gt;</span>  </span><br><span class="line"></span><br><span class="line">        <span class="variable">&lt;servlet-name&gt;</span>DruidStatView<span class="variable">&lt;/servlet-name&gt;</span>  </span><br><span class="line">        <span class="variable">&lt;servlet-class&gt;</span>com.alibaba.druid.support.http.StatViewServlet<span class="variable">&lt;/servlet-class&gt;</span>  </span><br><span class="line">    <span class="variable">&lt;/servlet&gt;</span>  </span><br><span class="line">    <span class="variable">&lt;servlet-mapping&gt;</span>  </span><br><span class="line">        <span class="variable">&lt;servlet-name&gt;</span>DruidStatView<span class="variable">&lt;/servlet-name&gt;</span>  </span><br><span class="line">        <span class="variable">&lt;url-pattern&gt;</span>/druid/<span class="keyword">*</span><span class="variable">&lt;/url-pattern&gt;</span>  </span><br><span class="line">    <span class="variable">&lt;/servlet-mapping&gt;</span> </span><br><span class="line"><span class="variable">&lt;filter&gt;</span>  </span><br><span class="line">        <span class="variable">&lt;filter-name&gt;</span>DruidWebStatFilter<span class="variable">&lt;/filter-name&gt;</span>  </span><br><span class="line">        <span class="variable">&lt;filter-class&gt;</span>com.alibaba.druid.support.http.WebStatFilter<span class="variable">&lt;/filter-class&gt;</span>  </span><br><span class="line">        <span class="variable">&lt;init-param&gt;</span>  </span><br><span class="line">            <span class="variable">&lt;param-name&gt;</span>exclusions<span class="variable">&lt;/param-name&gt;</span>  </span><br><span class="line">            <span class="variable">&lt;param-value&gt;</span><span class="keyword">*</span>.js,<span class="keyword">*</span>.gif,<span class="keyword">*</span>.jpg,<span class="keyword">*</span>.png,<span class="keyword">*</span>.css,<span class="keyword">*</span>.ico,/druid/<span class="keyword">*</span><span class="variable">&lt;/param-value&gt;</span>  </span><br><span class="line">        <span class="variable">&lt;/init-param&gt;</span>  </span><br><span class="line">      <span class="variable">&lt;/filter&gt;</span>  </span><br><span class="line">      <span class="variable">&lt;filter-mapping&gt;</span>  </span><br><span class="line">        <span class="variable">&lt;filter-name&gt;</span>DruidWebStatFilter<span class="variable">&lt;/filter-name&gt;</span>  </span><br><span class="line">        <span class="variable">&lt;url-pattern&gt;</span>/<span class="keyword">*</span><span class="variable">&lt;/url-pattern&gt;</span>  </span><br><span class="line">      <span class="variable">&lt;/filter-mapping&gt;</span></span><br></pre></td></tr></table></figure>
-<h1 id="配置完成，重启应用，访问http://ip地址+端口/druid/index-html">配置完成，重启应用，访问<a href="http://ip地址+端口/druid/index.html" target="_blank" rel="external">http://ip地址+端口/druid/index.html</a></h1><p><img src="/img/druid.PNG" alt="Alt text"></p>
+                                                                            <p>Appium Desired Capabilities����������Ҫ�Ĳ�����appPackage��appActivity��</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">capabilities.setCapability<span class="params">(<span class="string">"appPackage"</span>, <span class="string">"xxx"</span>)</span>;  </span><br><span class="line">capabilities.setCapability<span class="params">(<span class="string">"appActivity"</span>, <span class="string">"xxx"</span>)</span>;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<hr>
+<p>����APP��ʹ��adb���</p>
+<blockquote>
+<p>adb logcat |grep Displayed</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span>-<span class="number">17</span> <span class="number">21</span>:<span class="number">32</span>:<span class="number">24.461</span>   <span class="number">562</span>   <span class="number">584</span> I ActivityManager: Displayed com.android.launcher   <span class="number">3</span>/.Launcher: +<span class="number">1</span>s38ms</span><br><span class="line"><span class="number">12</span>-<span class="number">17</span> <span class="number">21</span>:<span class="number">34</span>:<span class="number">12.577</span>   <span class="number">562</span>   <span class="number">584</span> I ActivityManager: Displayed io.appium.settings/.   Settings: +<span class="number">573</span>ms</span><br><span class="line"><span class="number">12</span>-<span class="number">17</span> <span class="number">21</span>:<span class="number">34</span>:<span class="number">16.470</span>   <span class="number">562</span>   <span class="number">584</span> I ActivityManager: Displayed com.android.calculat   or2/.Calculator: +<span class="number">719</span>ms</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>appPackage: com.android.calculator2</p>
+<p>appActivity��.Calculator</p>
+</blockquote>
 
                                                                                 
                                         </div>
@@ -290,18 +302,9 @@
                         
 <nav id="article-nav">
   
-    <a href="/2015/12/16/javamelody监控java应用/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          JavaMelody监控java应用
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/12/10/jmeter测试java/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Jmeter测试java程序</div>
+    <a href="/2017/12/02/Appium Desktop/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Appium Desktop</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -311,7 +314,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-druid连接池监控" data-title="Druid连接池监控" data-url="http://tonylit.me/2015/12/15/druid连接池监控/"></div>
+                                    <div class="ds-thread" data-thread-key="post-获取appPackage和appActivity" data-title="��ȡappPackage��appActivity" data-url="http://tonylit.me/2017/12/17/获取appPackage和appActivity/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">
