@@ -120,7 +120,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Appium/" style="font-size: 13.33px;">Appium</a> <a href="/tags/Gatling/" style="font-size: 11.67px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.67px;">Jmeter</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 18.33px;">docker</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/kafka/" style="font-size: 11.67px;">kafka</a> <a href="/tags/loadrunner/" style="font-size: 15px;">loadrunner</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/work/" style="font-size: 16.67px;">work</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a>
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Appium/" style="font-size: 12.86px;">Appium</a> <a href="/tags/Gatling/" style="font-size: 11.43px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.43px;">Jmeter</a> <a href="/tags/Python/" style="font-size: 12.86px;">Python</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 18.57px;">docker</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/kafka/" style="font-size: 11.43px;">kafka</a> <a href="/tags/loadrunner/" style="font-size: 14.29px;">loadrunner</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/work/" style="font-size: 15.71px;">work</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a>
 					</div>
 				</section>
 				
@@ -876,7 +876,7 @@
 -->
 
   
-    <article id="post-如何不输出docker日志到控制台" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-supervisor管理docker进程" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -890,7 +890,7 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2016/04/22/如何不输出docker日志到控制台/" class="article-date">
+            <a href="/2016/04/22/supervisor管理docker进程/" class="article-date">
   	<time datetime="2016-04-22T03:37:27.000Z" itemprop="datePublished">2016-04-22</time>
 </a>
 
@@ -905,7 +905,7 @@
                                 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/22/如何不输出docker日志到控制台/">如何不输出docker日志到控制台</a>
+      <a class="article-title" href="/2016/04/22/supervisor管理docker进程/">supervisor管理容器进程</a>
     </h1>
   
 
@@ -918,7 +918,9 @@
 
                                                 
                                                                 
-                                                                    <p>docker run 后一些日志会打印到控制台，怎样不让信息打印到控制台呢？<br>
+                                                                    <p>启动容器的时候，为了保证容器退出时保持UP状态，可以使用 /usr/sbin/sshd -D<br>我们经常会在后面加上若干启动命令：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -ti --name test docker<span class="class">.vemic</span><span class="class">.com</span>:<span class="number">5000</span>/focustest-centos5 -P <span class="number">22</span> -P <span class="number">80</span> /usr/sbin/sshd -D &amp;&amp; nginx &amp;&amp; /opt/resin<span class="class">.sh</span> restart</span><br></pre></td></tr></table></figure></p>
+<p>命令多的时候看起来会很乱<br>but，可以使用supervisor来进行优化（管理进程）<br>可以写成这样：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[supervisord]</span></span><br><span class="line"><span class="setting">nodaemon=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"><span class="title">[program:sshd]</span></span><br><span class="line"><span class="setting">command=<span class="value">/usr/sbin/sshd -D</span></span></span><br><span class="line"><span class="title">[program:nginx]</span></span><br><span class="line"><span class="setting">command=<span class="value">nginx</span></span></span><br><span class="line"><span class="title">[program:resin]</span></span><br><span class="line"><span class="setting">command=<span class="value">/opt/resin.sh restart</span></span></span><br></pre></td></tr></table></figure>
                                                                         
                                         </div>
                                         
@@ -933,7 +935,7 @@
 
                                                         
                                                             <p class="article-more-link">
-                                                                <a  href="/2016/04/22/如何不输出docker日志到控制台/#more">More >></a>
+                                                                <a  href="/2016/04/22/supervisor管理docker进程/#more">More >></a>
                                                             </p>
                                                             
                                                                 <div class="clearfix"></div>
