@@ -278,7 +278,7 @@
 <p>Dao类，持久层@Repository</p>
 <p>PersonDao接口：</p>
 <figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">package com.spring.test.dao;</span><br><span class="line"></span><br><span class="line">import com.spring.test.model.<span class="keyword">Person</span>;</span><br><span class="line"></span><br><span class="line">public interface PersonDao &#123;</span><br><span class="line"></span><br><span class="line">	public <span class="keyword">Person</span> getPersonInfo();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>PersonDap实现类:</p>
+<p>PersonDao实现类:</p>
 <figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package com.spring.test.dao.impl;</span><br><span class="line"></span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"></span><br><span class="line">@Repository</span><br><span class="line">public class PersonDaoImpl implements PersonDao &#123;</span><br><span class="line">	@Autowired</span><br><span class="line">	private <span class="keyword">Person</span> <span class="keyword">person</span>;</span><br><span class="line"></span><br><span class="line">	public <span class="keyword">Person</span> getPersonInfo() &#123;</span><br><span class="line">		<span class="keyword">person</span>.setName(<span class="string">"zhangsan"</span>);</span><br><span class="line">		<span class="keyword">person</span>.setAges(<span class="string">"20"</span>);</span><br><span class="line">		return <span class="keyword">person</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <p>配置文件：</p>
@@ -318,11 +318,11 @@
                         
 <nav id="article-nav">
   
-    <a href="/2015/10/14/loadrunner监控linux服务器/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/06/17/Spring4.x 泛型依赖注入/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          loadrunner监控linux服务器
+          Spring4.x 泛型依赖注入
         
       </div>
     </a>
