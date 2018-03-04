@@ -4,12 +4,12 @@
 
     
   <url>
-    <loc>http://tonylit.me/2017/12/17/%E8%8E%B7%E5%8F%96appPackage%E5%92%8CappActivity/</loc>
-    <lastmod>2017-12-17T05:37:27.000Z</lastmod>
+    <loc>http://tonylit.me/2018/01/17/%E8%8E%B7%E5%8F%96appPackage%E5%92%8CappActivity/</loc>
+    <lastmod>2018-01-17T05:37:27.000Z</lastmod>
     <data>
         <display>
         <title>获取appPackage和appActivity</title>
-        <pubTime>2017-12-17T03:37:27.000Z</pubTime>
+        <pubTime>2018-01-17T03:37:27.000Z</pubTime>
         
         <tag>Appium</tag>
          
@@ -21,31 +21,31 @@
 
     
   <url>
-    <loc>http://tonylit.me/2017/12/02/Appium%20Desktop/</loc>
-    <lastmod>2017-12-02T05:37:27.000Z</lastmod>
-    <data>
-        <display>
-        <title>Appium Desktop</title>
-        <pubTime>2017-12-02T03:37:27.000Z</pubTime>
-        
-        <tag>Appium</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://tonylit.me/2017/12/01/Appium%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA-Windows%E7%89%88/</loc>
-    <lastmod>2017-12-01T05:37:27.000Z</lastmod>
+    <loc>http://tonylit.me/2017/12/11/Appium%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA-Windows%E7%89%88/</loc>
+    <lastmod>2017-12-11T05:37:27.000Z</lastmod>
     <data>
         <display>
         <title>Appium环境搭建-Windows版</title>
-        <pubTime>2017-12-01T03:37:27.000Z</pubTime>
+        <pubTime>2017-12-11T03:37:27.000Z</pubTime>
         
         <tag>Appium</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://tonylit.me/2017/12/09/Android%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/</loc>
+    <lastmod>2017-12-09T05:37:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android开发环境安装</title>
+        <pubTime>2017-12-09T03:37:27.000Z</pubTime>
+        
+        <tag>Android</tag>
          
          
            
@@ -63,23 +63,6 @@
         <pubTime>2017-11-19T03:37:27.000Z</pubTime>
         
         <tag>Python</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://tonylit.me/2017/11/09/Android%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/</loc>
-    <lastmod>2017-11-09T05:37:27.000Z</lastmod>
-    <data>
-        <display>
-        <title>Android开发环境安装</title>
-        <pubTime>2017-11-09T03:37:27.000Z</pubTime>
-        
-        <tag>Android</tag>
          
          
            
@@ -312,6 +295,23 @@
 
     
   <url>
+    <loc>http://tonylit.me/2017/01/02/Appium%20Desktop/</loc>
+    <lastmod>2017-01-02T05:37:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>Appium Desktop</title>
+        <pubTime>2017-01-02T03:37:27.000Z</pubTime>
+        
+        <tag>Appium</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://tonylit.me/2016/12/27/GC%20combination%20test/</loc>
     <lastmod>2016-12-27T05:37:27.000Z</lastmod>
     <data>
@@ -346,11 +346,11 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/12/07/JAVA%E7%A8%8B%E5%BA%8F%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8jvm%E5%A0%86%E6%A0%88%E5%86%85%E5%AD%98/</loc>
+    <loc>http://tonylit.me/2016/12/07/%E6%B5%85%E8%B0%88JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/</loc>
     <lastmod>2016-12-07T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>JAVA程序怎样使用jvm堆栈内存</title>
+        <title>浅谈JVM垃圾收集器</title>
         <pubTime>2016-12-07T03:37:27.000Z</pubTime>
         
         <tag>java</tag>
@@ -363,11 +363,11 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/12/07/%E6%B5%85%E8%B0%88JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/</loc>
+    <loc>http://tonylit.me/2016/12/07/JAVA%E7%A8%8B%E5%BA%8F%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8jvm%E5%A0%86%E6%A0%88%E5%86%85%E5%AD%98/</loc>
     <lastmod>2016-12-07T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>浅谈JVM垃圾收集器</title>
+        <title>JAVA程序怎样使用jvm堆栈内存</title>
         <pubTime>2016-12-07T03:37:27.000Z</pubTime>
         
         <tag>java</tag>
