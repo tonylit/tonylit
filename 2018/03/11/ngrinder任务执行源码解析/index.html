@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content=""/>
+  
+  <title>ngrinder任务执行源码解析 | 淘淘的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="读了ngrinder任务执行的源码，在此做一些记录。ngrinder版本：3.4.1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ngrinder任务执行源码解析">
+<meta property="og:url" content="http://tonylit.me/2018/03/11/ngrinder任务执行源码解析/index.html">
+<meta property="og:site_name" content="淘淘的博客">
+<meta property="og:description" content="读了ngrinder任务执行的源码，在此做一些记录。ngrinder版本：3.4.1">
+<meta property="og:image" content="http://tonylit.me/img/ngrinder任务执行源码解析/ngrinder用户图.PNG">
+<meta property="og:image" content="http://tonylit.me/img/ngrinder任务执行源码解析/java-project.PNG">
+<meta property="og:image" content="http://tonylit.me/img/ngrinder任务执行源码解析/architecture.png">
+<meta property="og:updated_time" content="2018-03-11T05:37:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ngrinder任务执行源码解析">
+<meta name="twitter:description" content="读了ngrinder任务执行的源码，在此做一些记录。ngrinder版本：3.4.1">
+  
+    <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/leaves.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script src="http://tonylit.me//js/jquery.nicescroll.js"></script>
+
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+<form class="search" method="get" accept-charset="utf-8">
+			<input type="text" id="chillax-search-input" class="st-search-input_my" maxlength="30" placeholder="search" />
+		</form>
+
+
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/c.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/" class="alluraregular">tonyli</a></h1>
+		</hgroup>
+        <!--
+		
+		<p class="header-subtitle">Nothing is given. Everything is earned.</p>
+		
+        -->
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/work">工作日志</a></li>
+				        
+							<li><a href="/tags/life">点滴生活</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Appium/" style="font-size: 12.86px;">Appium</a> <a href="/tags/Gatling/" style="font-size: 11.43px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.43px;">Jmeter</a> <a href="/tags/Python/" style="font-size: 12.86px;">Python</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 18.57px;">docker</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/kafka/" style="font-size: 11.43px;">kafka</a> <a href="/tags/loadrunner/" style="font-size: 14.29px;">loadrunner</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/work/" style="font-size: 15.71px;">work</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a>
+					</div>
+				</section>
+				
+
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">Nothing is given. Everything is earned.</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tonyli</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/c.jpg" class="js-avatar">
+				<hgroup>
+				  <h1 class="header-author">tonyli</h1>
+				</hgroup>
+			</div>
+			
+			<p class="header-subtitle">Nothing is given. Everything is earned.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/work">工作日志</a></li>
+		        
+					<li><a href="/tags/life">点滴生活</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+
+	  <div class="recent">
+高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
+</div>
+
+      <div class="body-wrap"><article id="post-ngrinder任务执行源码解析" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2018/03/11/ngrinder任务执行源码解析/" class="article-date">
+  	<time datetime="2018-03-11T03:37:27.000Z" itemprop="datePublished">2018-03-11</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      ngrinder任务执行源码解析
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+	</div>
+
+
+                                        
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#源码下载"><span class="toc-number">1.</span> <span class="toc-text">源码下载</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PerfTestRunnable任务执行"><span class="toc-number">2.</span> <span class="toc-text">PerfTestRunnable任务执行</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#入口PerfTestRunnable类init()方法"><span class="toc-number">2.1.</span> <span class="toc-text">入口PerfTestRunnable类init()方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#doTest()开始测试任务"><span class="toc-number">2.2.</span> <span class="toc-text">doTest()开始测试任务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#准备控制台，通过单例模式实现。"><span class="toc-number">2.2.1.</span> <span class="toc-text">准备控制台，通过单例模式实现。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#准备脚本文件和agent，将脚本传送至agent"><span class="toc-number">2.2.2.</span> <span class="toc-text">准备脚本文件和agent，将脚本传送至agent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#runTestOn_运行测试"><span class="toc-number">2.2.3.</span> <span class="toc-text">runTestOn 运行测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#agent启动运行"><span class="toc-number">2.2.4.</span> <span class="toc-text">agent启动运行</span></a></li></ol></li></ol></li></ol>
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p><img src="/img/ngrinder任务执行源码解析/ngrinder用户图.PNG" alt="Alt text"></p>
+<p>读了ngrinder任务执行的源码，在此做一些记录。<br>ngrinder版本：3.4.1</p>
+<a id="more"></a>
+<hr>
+<h1 id="源码下载">源码下载</h1><p><a href="https://github.com/naver/ngrinder" target="_blank" rel="external">https://github.com/naver/ngrinder</a></p>
+<p><img src="/img/ngrinder任务执行源码解析/java-project.PNG" alt="Alt text"></p>
+<hr>
+<h1 id="PerfTestRunnable任务执行">PerfTestRunnable任务执行</h1><p>总架构图上对整个系统的流转描述的很清楚了，结合架构图读源码，会容易很多。<br><img src="/img/ngrinder任务执行源码解析/architecture.png" alt="Alt text"></p>
+<hr>
+<h2 id="入口PerfTestRunnable类init()方法">入口PerfTestRunnable类init()方法</h2><p>ngrinder-controller子项目下：</p>
+<p>org.ngrinder.perftest.service.PerfTestRunnable</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@PostConstruct</span></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// Clean up db first.</span></span><br><span class="line">		doFinish(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">this</span>.startRunnable = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">			<span class="annotation">@Override</span></span><br><span class="line">			<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">				startPeriodically();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line">		scheduledTaskService.addFixedDelayedScheduledTask(startRunnable, PERFTEST_RUN_FREQUENCY_MILLISECONDS);</span><br><span class="line">		<span class="keyword">this</span>.finishRunnable = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">			<span class="annotation">@Override</span></span><br><span class="line">			<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">				finishPeriodically();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line">		scheduledTaskService.addFixedDelayedScheduledTask(finishRunnable, PERFTEST_RUN_FREQUENCY_MILLISECONDS);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>init()方法在项目启动加载Servlet后执行。</p>
+<p>初始化数据库(默认是h2，db配置在/root/.ngrinder/database.conf)。</p>
+<p>俩定时任务startPeriodically()，finishPeriodically()，1s一次。核心逻辑在startPeriodically()中。</p>
+<hr>
+<p>##startPeriodically()开始执行任务</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">	 * <span class="type">Scheduled</span> <span class="keyword">method</span> <span class="keyword">for</span> test execution. <span class="type">This</span> <span class="keyword">method</span> dispatches the test</span><br><span class="line">	 * candidates <span class="keyword">and</span> run one <span class="keyword">of</span> them. <span class="type">This</span> <span class="keyword">method</span> <span class="keyword">is</span> responsible until a test</span><br><span class="line">	 * <span class="keyword">is</span> executed.</span><br><span class="line">	 */</span><br><span class="line">	public <span class="type">void</span> startPeriodically() &#123;</span><br><span class="line">		doStart();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="type">void</span> doStart() &#123;</span><br><span class="line">		<span class="keyword">if</span> (config.hasNoMoreTestLock()) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		// <span class="type">Block</span> <span class="keyword">if</span> the count <span class="keyword">of</span> testing exceed the limit</span><br><span class="line">		<span class="keyword">if</span> (!canExecuteMore()) &#123;</span><br><span class="line">			// <span class="type">LOG</span> <span class="type">MORE</span></span><br><span class="line">			<span class="type">List</span>&lt;<span class="type">PerfTest</span>&gt; currentlyRunningTests = perfTestService.getCurrentlyRunningTest();</span><br><span class="line">			<span class="type">LOG</span>.debug(<span class="string">"Currently running test is &#123;&#125;. No more tests can not run."</span>, currentlyRunningTests.size());</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		// <span class="type">Find</span> <span class="keyword">out</span> next ready perftest</span><br><span class="line">		<span class="type">PerfTest</span> runCandidate = getRunnablePerfTest();</span><br><span class="line">		<span class="keyword">if</span> (runCandidate == null) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (!isScheduledNow(runCandidate)) &#123;</span><br><span class="line">			// this test project <span class="keyword">is</span> reserved,but it isn't yet going to run test</span><br><span class="line">			// right now.</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (!hasEnoughFreeAgents(runCandidate)) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		doTest(runCandidate);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>开始会判断是否超过任务上限，默认10个，可在system.conf中设置。</p>
+<p>找到下个准备执行（状态为READY）的任务。</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public PerfTest getNextRunnablePerfTestPerfTestCandidate<span class="params">()</span> &#123;</span><br><span class="line">	List&lt;PerfTest&gt; readyPerfTests = getPerfTestRepository<span class="params">()</span>.findAllByStatusAndRegionOrderByScheduledTimeAsc<span class="params">(</span><br><span class="line">			Status.READY, getConfig<span class="params">()</span>.getRegion<span class="params">()</span>)</span>;</span><br><span class="line">	List&lt;PerfTest&gt; usersFirstPerfTests = filterCurrentlyRunningTestUsersTest<span class="params">(readyPerfTests)</span>;</span><br><span class="line">	return usersFirstPerfTests.isEmpty<span class="params">()</span> ? null : readyPerfTests.get<span class="params">(<span class="number">0</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>判断有没有符合权限的空闲的agent。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">boolean</span> hasEnoughFreeAgents(PerfTest test) &#123;</span><br><span class="line">	<span class="keyword">int</span> <span class="keyword">size</span> = agentManager.getAllFreeApprovedAgentsForUser(test.getCreatedUser()).<span class="keyword">size</span>();</span><br><span class="line">	<span class="keyword">if</span> (test.getAgentCount() != <span class="keyword">null</span> &amp;&amp; test.getAgentCount() &gt; <span class="keyword">size</span>) &#123;</span><br><span class="line">		perfTestService.markProgress(test, <span class="string">"The test is tried to execute but there is not enough free agents."</span></span><br><span class="line">				+ <span class="string">"\n- Current free agent count : "</span> + <span class="keyword">size</span> + <span class="string">"  / Requested : "</span> + test.getAgentCount() + <span class="string">"\n"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="doTest()开始测试任务">doTest()开始测试任务</h2><p>真正的测试任务执行从该方法开始，之前可以称为准备阶段。</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">	 * Run the given test.</span><br><span class="line">	 * &lt;p/&gt;</span><br><span class="line">	 * If fails, it marks STOP_BY_ERROR in the given &#123;@link PerfTest&#125; status</span><br><span class="line">	 *</span><br><span class="line">	 * @param perfTest perftest instance;</span><br><span class="line">	 */</span></span><br><span class="line">	public void doTest<span class="params">(final PerfTest perfTest)</span> &#123;</span><br><span class="line">		SingleConsole singleConsole = null;</span><br><span class="line">		try &#123;</span><br><span class="line">			singleConsole = startConsole<span class="params">(perfTest)</span>;</span><br><span class="line">			ScriptHandler prepareDistribution = perfTestService.prepareDistribution<span class="params">(perfTest)</span>;</span><br><span class="line">			GrinderProperties grinderProperties = perfTestService.getGrinderProperties<span class="params">(perfTest, prepareDistribution)</span>;</span><br><span class="line">			startAgentsOn<span class="params">(perfTest, grinderProperties, checkCancellation<span class="params">(singleConsole)</span>)</span>;</span><br><span class="line">			distributeFileOn<span class="params">(perfTest, checkCancellation<span class="params">(singleConsole)</span>)</span>;</span><br><span class="line"></span><br><span class="line">			singleConsole.setReportPath<span class="params">(perfTestService.getReportFileDirectory<span class="params">(perfTest)</span>)</span>;</span><br><span class="line">			runTestOn<span class="params">(perfTest, grinderProperties, checkCancellation<span class="params">(singleConsole)</span>)</span>;</span><br><span class="line">		&#125; catch <span class="params">(SingleConsoleCancellationException ex)</span> &#123;</span><br><span class="line">			<span class="comment">// In case of error, mark the occurs error on perftest.</span></span><br><span class="line">			doCancel<span class="params">(perfTest, singleConsole)</span>;</span><br><span class="line">			notifyFinish<span class="params">(perfTest, StopReason.CANCEL_BY_USER)</span>;</span><br><span class="line">		&#125; catch <span class="params">(Exception e)</span> &#123;</span><br><span class="line">			<span class="comment">// In case of error, mark the occurs error on perftest.</span></span><br><span class="line">			LOG.error<span class="params">(<span class="string">"Error while executing test: &#123;&#125; - &#123;&#125; "</span>, perfTest.getTestIdentifier<span class="params">()</span>, e.getMessage<span class="params">()</span>)</span>;</span><br><span class="line">			LOG.debug<span class="params">(<span class="string">"Stack Trace is : "</span>, e)</span>;</span><br><span class="line">			doTerminate<span class="params">(perfTest, singleConsole)</span>;</span><br><span class="line">			notifyFinish<span class="params">(perfTest, StopReason.ERROR_WHILE_PREPARE)</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="准备控制台，通过单例模式实现。">准备控制台，通过单例模式实现。</h3><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">	 * Get an available console.</span><br><span class="line">	 * &lt;p/&gt;</span><br><span class="line">	 * If there is no available console, it waits until available console is returned back. If the specific time is</span><br><span class="line">	 * elapsed, the timeout error occurs and throws &#123;@link org.ngrinder.common.exception.NGrinderRuntimeException&#125; . The</span><br><span class="line">	 * timeout can be adjusted by overriding &#123;@link #getMaxWaitingMilliSecond()&#125;.</span><br><span class="line">	 *</span><br><span class="line">	 * @param baseConsoleProperties base &#123;@link net.grinder.console.model.ConsoleProperties&#125;</span><br><span class="line">	 * @return console</span><br><span class="line">	 */</span></span><br><span class="line">	public SingleConsole getAvailableConsole<span class="params">(ConsoleProperties baseConsoleProperties)</span> &#123;</span><br><span class="line">		ConsoleEntry consoleEntry = null;</span><br><span class="line">		try &#123;</span><br><span class="line">			consoleEntry = consoleQueue.poll<span class="params">(getMaxWaitingMilliSecond<span class="params">()</span>, TimeUnit.MILLISECONDS)</span>;</span><br><span class="line">			<span class="keyword">if</span> <span class="params">(consoleEntry == null)</span> &#123;</span><br><span class="line">				throw processException<span class="params">(<span class="string">"no console entry available"</span>)</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			synchronized <span class="params">(this)</span> &#123;</span><br><span class="line">				consoleEntry.releaseSocket<span class="params">()</span>;</span><br><span class="line">				<span class="comment">// FIXME : It might fail here</span></span><br><span class="line">				ConsoleCommunicationSetting consoleCommunicationSetting = ConsoleCommunicationSetting.asDefault<span class="params">()</span>;</span><br><span class="line">				<span class="keyword">if</span> <span class="params">(config.getInactiveClientTimeOut<span class="params">()</span> &gt; <span class="number">0</span>)</span> &#123;</span><br><span class="line">					consoleCommunicationSetting.setInactiveClientTimeOut<span class="params">(config.getInactiveClientTimeOut<span class="params">()</span>)</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				SingleConsole singleConsole = new SingleConsole<span class="params">(config.getCurrentIP<span class="params">()</span>, consoleEntry.getPort<span class="params">()</span>,</span><br><span class="line">						consoleCommunicationSetting, baseConsoleProperties)</span>;</span><br><span class="line">				getConsoleInUse<span class="params">()</span>.add<span class="params">(singleConsole)</span>;</span><br><span class="line">				singleConsole.setCsvSeparator<span class="params">(config.getCsvSeparator<span class="params">()</span>)</span>;</span><br><span class="line">				return singleConsole;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; catch <span class="params">(Exception e)</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> <span class="params">(consoleEntry != null)</span> &#123;</span><br><span class="line">				consoleQueue.add<span class="params">(consoleEntry)</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			throw processException<span class="params">(<span class="string">"no console entry available"</span>)</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>consoleQueue存储在consoleQueue中，通过ConsoleManager类进行设置，默认队列最大值10,可在system.conf中设置。</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">	 * Prepare console queue.</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="annotation">@PostConstruct</span></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> consoleSize = getConsoleSize();</span><br><span class="line">		consoleQueue = <span class="keyword">new</span> ArrayBlockingQueue&lt;ConsoleEntry&gt;(consoleSize);</span><br><span class="line">		<span class="keyword">final</span> String currentIP = config.getCurrentIP();</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> each : getAvailablePorts(currentIP, consoleSize, getConsolePortBase(), MAX_PORT_NUMBER)) &#123;</span><br><span class="line">			<span class="keyword">final</span> ConsoleEntry e = <span class="keyword">new</span> ConsoleEntry(config.getCurrentIP(), each);</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				e.occupySocket();</span><br><span class="line">				consoleQueue.add(e);</span><br><span class="line">			&#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">				LOG.<span class="keyword">error</span>(<span class="string">"socket binding to &#123;&#125;:&#123;&#125; is failed"</span>, config.getCurrentIP(), each);</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="准备脚本文件和agent，将脚本传送至agent">准备脚本文件和agent，将脚本传送至agent</h3><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//准备脚本</span></span><br><span class="line">ScriptHandler prepareDistribution = perfTestService.prepareDistribution<span class="params">(perfTest)</span>;</span><br><span class="line"><span class="comment">//封装脚本</span></span><br><span class="line">GrinderProperties grinderProperties = perfTestService.getGrinderProperties<span class="params">(perfTest, prepareDistribution)</span>;</span><br><span class="line"><span class="comment">//启动agent</span></span><br><span class="line">startAgentsOn<span class="params">(perfTest, grinderProperties, checkCancellation<span class="params">(singleConsole)</span>)</span>;</span><br><span class="line"><span class="comment">//将脚本传送至agent</span></span><br><span class="line">distributeFileOn<span class="params">(perfTest, checkCancellation<span class="params">(singleConsole)</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p>编写的脚本会保存在服务器上，默认路径/root/.ngrinder/perftest/。</p>
+<hr>
+<h3 id="runTestOn_运行测试">runTestOn 运行测试</h3><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">	 * Run a given &#123;@link PerfTest&#125; with the given &#123;@link GrinderProperties&#125; and</span><br><span class="line">	 * the &#123;@link SingleConsole&#125; .</span><br><span class="line">	 *</span><br><span class="line">	 * @param perfTest          perftest</span><br><span class="line">	 * @param grinderProperties grinder properties</span><br><span class="line">	 * @param singleConsole     console to be used.</span><br><span class="line">	 */</span></span><br><span class="line">	void runTestOn<span class="params">(final PerfTest perfTest, GrinderProperties grinderProperties, final SingleConsole singleConsole)</span> &#123;</span><br><span class="line">		<span class="comment">// start target monitor</span></span><br><span class="line">		<span class="keyword">for</span> <span class="params">(OnTestLifeCycleRunnable run : pluginManager.getEnabledModulesByClass<span class="params">(OnTestLifeCycleRunnable.class)</span>)</span> &#123;</span><br><span class="line">			run.start<span class="params">(perfTest, perfTestService, config.getVersion<span class="params">()</span>)</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Run test</span></span><br><span class="line">		perfTestService.markStatusAndProgress<span class="params">(perfTest, START_TESTING, <span class="string">"The test is ready to start."</span>)</span>;</span><br><span class="line">		<span class="comment">// Add listener to detect abnormal condition and mark the perfTest</span></span><br><span class="line">		singleConsole.addListener<span class="params">(new ConsoleShutdownListener<span class="params">()</span> &#123;</span><br><span class="line">			@Override</span><br><span class="line">			public void readyToStop<span class="params">(StopReason stopReason)</span> &#123;</span><br><span class="line">				perfTestService.markAbnormalTermination<span class="params">(perfTest, stopReason)</span>;</span><br><span class="line">				LOG.error<span class="params">(<span class="string">"Abnormal test &#123;&#125; due to &#123;&#125;"</span>, perfTest.getId<span class="params">()</span>, stopReason.name<span class="params">()</span>)</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span>;</span><br><span class="line">		long startTime = singleConsole.startTest<span class="params">(grinderProperties)</span>;</span><br><span class="line">		perfTest.setStartTime<span class="params">(new Date<span class="params">(startTime)</span>)</span>;</span><br><span class="line">		addSamplingListeners<span class="params">(perfTest, singleConsole)</span>;</span><br><span class="line">		perfTestService.markStatusAndProgress<span class="params">(perfTest, TESTING, <span class="string">"The test is started."</span>)</span>;</span><br><span class="line">		singleConsole.startSampling<span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>开启监控空间（包括自定义的plugin），开启异常中断监听。</p>
+<p> 进行测试结果收集。</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">	 * Start sampling with sampling ignore count.</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">startSampling</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.sampleModel = getConsoleComponent(SampleModelImplementationEx.class);</span><br><span class="line">		<span class="keyword">this</span>.sampleModel.addTotalSampleListener(<span class="keyword">this</span>);</span><br><span class="line">		<span class="keyword">this</span>.sampleModel.addModelListener(<span class="keyword">new</span> SampleModel.Listener() &#123;</span><br><span class="line">			<span class="annotation">@Override</span></span><br><span class="line">			<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">stateChanged</span><span class="params">()</span> </span>&#123;</span><br><span class="line">				capture = SingleConsole.<span class="keyword">this</span>.sampleModel.getState().isCapturing();</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="annotation">@Override</span></span><br><span class="line">			<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">resetTests</span><span class="params">()</span> </span>&#123;</span><br><span class="line">				intervalStatisticMapPerTest.clear();</span><br><span class="line">				accumulatedStatisticMapPerTest.clear();</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="annotation">@Override</span></span><br><span class="line">			<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">newTests</span><span class="params">(Set&lt;Test&gt; newTests, ModelTestIndex modelTestIndex)</span> </span>&#123;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">final</span> Test each : newTests) &#123;</span><br><span class="line">					SingleConsole.<span class="keyword">this</span>.sampleModel.addSampleListener(each, <span class="keyword">new</span> SampleListener() &#123;</span><br><span class="line">						<span class="annotation">@Override</span></span><br><span class="line">						<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(StatisticsSet intervalStatistics, StatisticsSet cumulativeStatistics)</span> </span>&#123;</span><br><span class="line">							intervalStatisticMapPerTest.put(each, intervalStatistics.snapshot());</span><br><span class="line">							accumulatedStatisticMapPerTest.put(each, cumulativeStatistics.snapshot());</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="annotation">@Override</span></span><br><span class="line">			<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">newSample</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">		informTestSamplingStart();</span><br><span class="line">		<span class="keyword">this</span>.sampleModel.start();</span><br><span class="line">		LOGGER.info(<span class="string">"Sampling is started"</span>);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="agent启动运行">agent启动运行</h3><p>agent的启动运行在AgentManager类中，init方法：</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">	 * Initialize agent manager.</span><br><span class="line">	 */</span></span><br><span class="line">	@PostConstruct</span><br><span class="line">	public void init<span class="params">()</span> &#123;</span><br><span class="line">		int port = config.getControllerPort<span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">		ConsoleCommunicationSetting consoleCommunicationSetting = ConsoleCommunicationSetting.asDefault<span class="params">()</span>;</span><br><span class="line">		<span class="keyword">if</span> <span class="params">(config.getInactiveClientTimeOut<span class="params">()</span> &gt; <span class="number">0</span>)</span> &#123;</span><br><span class="line">			consoleCommunicationSetting.setInactiveClientTimeOut<span class="params">(config.getInactiveClientTimeOut<span class="params">()</span>)</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		agentControllerServerDaemon = new AgentControllerServerDaemon<span class="params">(config.getCurrentIP<span class="params">()</span>, port, consoleCommunicationSetting)</span>;</span><br><span class="line">		agentControllerServerDaemon.start<span class="params">()</span>;</span><br><span class="line">		agentControllerServerDaemon.setAgentDownloadRequestListener<span class="params">(this)</span>;</span><br><span class="line">		agentControllerServerDaemon.addLogArrivedListener<span class="params">(new LogArrivedListener<span class="params">()</span> &#123;</span><br><span class="line">			@Override</span><br><span class="line">			public void logArrived<span class="params">(String testId, AgentAddress agentAddress, byte[] logs)</span> &#123;</span><br><span class="line">				AgentControllerIdentityImplementation agentIdentity = convert<span class="params">(agentAddress.getIdentity<span class="params">()</span>)</span>;</span><br><span class="line">				if <span class="params">(ArrayUtils.isEmpty<span class="params">(logs)</span>)</span> &#123;</span><br><span class="line">					LOGGER.error<span class="params">(<span class="string">"Log is arrived from &#123;&#125; but no log content"</span>, agentIdentity.getIp<span class="params">()</span>)</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				File logFile = null;</span><br><span class="line">				try &#123;</span><br><span class="line">					logFile = new File<span class="params">(config.getHome<span class="params">()</span>.getPerfTestLogDirectory<span class="params">(testId.replace<span class="params">(<span class="string">"test_"</span>, <span class="string">""</span>)</span>)</span>,</span><br><span class="line">							agentIdentity.getName<span class="params">()</span> + <span class="string">"-"</span> + agentIdentity.getRegion<span class="params">()</span> + <span class="string">"-log.zip"</span>)</span>;</span><br><span class="line">					FileUtils.writeByteArrayToFile<span class="params">(logFile, logs)</span>;</span><br><span class="line">				&#125; catch <span class="params">(IOException e)</span> &#123;</span><br><span class="line">					LOGGER.error<span class="params">(<span class="string">"Error while write logs from &#123;&#125; to &#123;&#125;"</span>, agentAddress.getIdentity<span class="params">()</span>.getName<span class="params">()</span>,</span><br><span class="line">							logFile.getAbsolutePath<span class="params">()</span>)</span>;</span><br><span class="line">					LOGGER.error<span class="params">(<span class="string">"Error is following"</span>, e)</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span>;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>agent 启动后，连接到 controller, 开始控制测试流，直到测试结束。当测试完成后，所使用的 agents 归还给 AgentControllerServer ，以供其他console使用。</p>
+
+                                                                                
+                                        </div>
+                                        
+            </div>
+            
+                <div class="bdsharebuttonbox" style="margin-top:10px;margin-left:30px;float:left;">
+                    <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                    <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                    <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
+                    <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
+                    <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                    <a href="#" class="bds_more" data-cmd="more"></a>
+                </div>
+                <script>
+                    window._bd_share_config = {
+                        "common": {
+                            "bdSnsKey": {},
+                            "bdText": "",
+                            "bdMini": "1",
+                            "bdMiniList": false,
+                            "bdStyle": "2",
+                            "bdSize": "16"
+                        },
+                        "share": {}
+                    };
+                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
+  
+  
+    <a href="/2018/01/17/获取appPackage和appActivity/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">获取appPackage和appActivity</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-ngrinder任务执行源码解析" data-title="ngrinder任务执行源码解析" data-url="http://tonylit.me/2018/03/11/ngrinder任务执行源码解析/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "tonylit"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
+</article>
+
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+    
+-->
+<!--
+
+-->
+
+</div>
+      <!--<footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 tonyli
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+    
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+   
+  </div>
+</footer>-->
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/prefixfree.js" type="text/javascript"></script>
+<script src="/js/require-2.1.20.js" type="text/javascript"></script>
+<script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
+    <a title="返回顶部" style="opacity: 100%;">
+        <img src="/img/scrollup.png" />
+    </a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+
+  </div>
+</body>
+</html>
