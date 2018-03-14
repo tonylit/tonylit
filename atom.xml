@@ -2156,7 +2156,7 @@
 <a id="more"></a>
 <hr>
 <p><strong>操作系统：centos7</strong></p>
-<p>#mysql安装<br>首先安装mysql数据库作为zabbix数据存储。</p>
+<h1 id="mysql安装">mysql安装</h1><p>首先安装mysql数据库作为zabbix数据存储。</p>
 <p>wget <a href="http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm" target="_blank" rel="external">http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm</a></p>
 <p>yum localinstall mysql57-community-release-el7-8.noarch.rpm</p>
 <p>yum install mysql-community-server</p>
