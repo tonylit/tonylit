@@ -4,23 +4,34 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>zabbix docker 容器监控 | 淘淘的博客</title>
+  <title>docker容器监控 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="docker容器监控有很多方案，docker stats、cadvisor、datadog、Scout…
-稍微好用点的就收费，本着省钱、好用、顺手的原则，选择了zabbix+docker+zabbix-docker-monitoring的方式。">
+  <meta name="description" content="docker容器监控有很多方案，zabbix,docker stats、cadvisor、datadog、Scout…
+这里总结两种监控工具：zabbix+docker+zabbix-docker-monitoring和InfluxDB+cAdvisor+Grafana。
+如果公司中已有zabbix监控，可以直接加入zabbix-docker-monitoring即可。
+InfluxDB+cAdv">
 <meta property="og:type" content="article">
-<meta property="og:title" content="zabbix docker 容器监控">
+<meta property="og:title" content="docker容器监控">
 <meta property="og:url" content="http://tonylit.me/2016/09/21/zabbix docker 容器监控/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="docker容器监控有很多方案，docker stats、cadvisor、datadog、Scout…
-稍微好用点的就收费，本着省钱、好用、顺手的原则，选择了zabbix+docker+zabbix-docker-monitoring的方式。">
+<meta property="og:description" content="docker容器监控有很多方案，zabbix,docker stats、cadvisor、datadog、Scout…
+这里总结两种监控工具：zabbix+docker+zabbix-docker-monitoring和InfluxDB+cAdvisor+Grafana。
+如果公司中已有zabbix监控，可以直接加入zabbix-docker-monitoring即可。
+InfluxDB+cAdv">
 <meta property="og:image" content="http://tonylit.me/img/zabbix-docker-容器监控/图标.PNG">
-<meta property="og:image" content="http://tonylit.me/img/zabbix-docker-容器监控//zabbix-login.PNG">
+<meta property="og:image" content="http://tonylit.me/img/zabbix-docker-容器监控/zabbix-login.PNG">
+<meta property="og:image" content="http://tonylit.me/img/zabbix-docker-容器监控/influxdb.PNG">
+<meta property="og:image" content="http://tonylit.me/img/zabbix-docker-容器监控/acdvisor.PNG">
+<meta property="og:image" content="http://tonylit.me/./grafana.PNG">
+<meta property="og:image" content="http://tonylit.me/img/zabbix-docker-容器监控/dbsource.PNG">
+<meta property="og:image" content="http://tonylit.me/img/zabbix-docker-容器监控/dashboard.PNG">
 <meta property="og:updated_time" content="2016-09-21T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zabbix docker 容器监控">
-<meta name="twitter:description" content="docker容器监控有很多方案，docker stats、cadvisor、datadog、Scout…
-稍微好用点的就收费，本着省钱、好用、顺手的原则，选择了zabbix+docker+zabbix-docker-monitoring的方式。">
+<meta name="twitter:title" content="docker容器监控">
+<meta name="twitter:description" content="docker容器监控有很多方案，zabbix,docker stats、cadvisor、datadog、Scout…
+这里总结两种监控工具：zabbix+docker+zabbix-docker-monitoring和InfluxDB+cAdvisor+Grafana。
+如果公司中已有zabbix监控，可以直接加入zabbix-docker-monitoring即可。
+InfluxDB+cAdv">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -227,7 +238,7 @@
                                 
   
     <h1 class="article-title" itemprop="name">
-      zabbix docker 容器监控
+      docker容器监控
     </h1>
   
 
@@ -252,18 +263,20 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql安装"><span class="toc-number">1.</span> <span class="toc-text">mysql安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#zabbix安装-docker-compose方式"><span class="toc-number">2.</span> <span class="toc-text">zabbix安装-docker-compose方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#docker-compose安装"><span class="toc-number">2.1.</span> <span class="toc-text">docker-compose安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zabbix-server安装"><span class="toc-number">2.2.</span> <span class="toc-text">zabbix-server安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zabbix-agent安装"><span class="toc-number">2.3.</span> <span class="toc-text">zabbix-agent安装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#登录配置zabbix"><span class="toc-number">3.</span> <span class="toc-text">登录配置zabbix</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#zabbix+docker+zabbix-docker-monitoring"><span class="toc-number">1.</span> <span class="toc-text">zabbix+docker+zabbix-docker-monitoring</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql安装"><span class="toc-number">1.1.</span> <span class="toc-text">mysql安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zabbix安装-docker-compose方式"><span class="toc-number">1.2.</span> <span class="toc-text">zabbix安装-docker-compose方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-compose安装"><span class="toc-number">1.2.1.</span> <span class="toc-text">docker-compose安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zabbix-server安装"><span class="toc-number">1.2.2.</span> <span class="toc-text">zabbix-server安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zabbix-agent安装"><span class="toc-number">1.2.3.</span> <span class="toc-text">zabbix-agent安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#登录配置zabbix"><span class="toc-number">1.3.</span> <span class="toc-text">登录配置zabbix</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#InfluxDB+cAdvisor+Grafana"><span class="toc-number">2.</span> <span class="toc-text">InfluxDB+cAdvisor+Grafana</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装influxDB"><span class="toc-number">2.1.</span> <span class="toc-text">安装influxDB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建数据库信息："><span class="toc-number">2.1.1.</span> <span class="toc-text">创建数据库信息：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装cAdvisor"><span class="toc-number">2.2.</span> <span class="toc-text">安装cAdvisor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Grafana"><span class="toc-number">2.3.</span> <span class="toc-text">安装Grafana</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置Grafana与influxDB数据库连接"><span class="toc-number">2.4.</span> <span class="toc-text">配置Grafana与influxDB数据库连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加Gtrafana数据源"><span class="toc-number">2.4.1.</span> <span class="toc-text">添加Gtrafana数据源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加Dashboard"><span class="toc-number">2.4.2.</span> <span class="toc-text">添加Dashboard</span></a></li></ol></li></ol></li></ol>
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <p><img src="/img/zabbix-docker-容器监控/图标.PNG" alt="Alt text"><br>docker容器监控有很多方案，docker stats、cadvisor、datadog、Scout…</p>
-<p>稍微好用点的就收费，本着省钱、好用、顺手的原则，选择了zabbix+docker+zabbix-docker-monitoring的方式。</p>
+                                                                            <p><img src="/img/zabbix-docker-容器监控/图标.PNG" alt="Alt text"><br>docker容器监控有很多方案，zabbix,docker stats、cadvisor、datadog、Scout…</p>
+<p>这里总结两种监控工具：zabbix+docker+zabbix-docker-monitoring和InfluxDB+cAdvisor+Grafana。</p>
+<p>如果公司中已有zabbix监控，可以直接加入zabbix-docker-monitoring即可。</p>
+<p>InfluxDB+cAdvisor+Grafana，目前是业界docker监控应用挺多的监控体系，可以尝试尝试。</p>
 <a id="more"></a>
 <hr>
 <p><strong>操作系统：centos7</strong></p>
-<h1 id="mysql安装">mysql安装</h1><p>首先安装mysql数据库作为zabbix数据存储。</p>
+<h1 id="zabbix+docker+zabbix-docker-monitoring">zabbix+docker+zabbix-docker-monitoring</h1><h2 id="mysql安装">mysql安装</h2><p>首先安装mysql数据库作为zabbix数据存储。</p>
 <p>wget <a href="http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm" target="_blank" rel="external">http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm</a></p>
 <p>yum localinstall mysql57-community-release-el7-8.noarch.rpm</p>
 <p>yum install mysql-community-server</p>
@@ -272,14 +285,14 @@
 <p>验证：</p>
 <p>systemctl status mysqld</p>
 <hr>
-<h1 id="zabbix安装-docker-compose方式">zabbix安装-docker-compose方式</h1><h2 id="docker-compose安装">docker-compose安装</h2><p>下载：<br>sudo curl -L <a href="https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname" target="_blank" rel="external">https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname</a> -s<code>-</code>uname -m` -o /usr/local/bin/docker-compose</p>
+<h2 id="zabbix安装-docker-compose方式">zabbix安装-docker-compose方式</h2><h3 id="docker-compose安装">docker-compose安装</h3><p>下载：<br>sudo curl -L <a href="https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname" target="_blank" rel="external">https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname</a> -s<code>-</code>uname -m` -o /usr/local/bin/docker-compose</p>
 <p>附权限：<br>sudo chmod +x /usr/local/bin/docker-compose</p>
 <p>测试：<br>$ docker-compose –version</p>
-<h2 id="zabbix-server安装">zabbix-server安装</h2><p>安装zabbix-server，编写docker-compose.yml：</p>
+<h3 id="zabbix-server安装">zabbix-server安装</h3><p>安装zabbix-server，编写docker-compose.yml：</p>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">version</span>: <span class="string">'2'</span></span><br><span class="line"><span class="attribute">services</span>:</span><br><span class="line">  <span class="attribute">zabbix</span>:</span><br><span class="line">    <span class="attribute">image</span>: monitoringartist/zabbix-xxl</span><br><span class="line">    <span class="attribute">ports</span>:</span><br><span class="line">      - <span class="number">8080</span>:<span class="number">80</span></span><br><span class="line">      - <span class="number">10051</span>:<span class="number">10051</span></span><br><span class="line">    <span class="attribute">volumes</span>:</span><br><span class="line">      - /etc/<span class="attribute">localtime</span>:/etc/<span class="attribute">localtime</span>:ro</span><br><span class="line">    <span class="attribute">depends_on</span>:</span><br><span class="line">      - zabbix.db</span><br><span class="line">    <span class="attribute">environment</span>:</span><br><span class="line">      <span class="attribute">ZS_DBHost</span>: zabbix.db</span><br><span class="line">      <span class="attribute">ZS_DBUser</span>: zabbix</span><br><span class="line">      <span class="attribute">ZS_DBPassword</span>: zabbix_password</span><br><span class="line">  zabbix.<span class="attribute">db</span>:</span><br><span class="line">    <span class="attribute">image</span>: monitoringartist/zabbix-db-mariadb</span><br><span class="line">    <span class="attribute">volumes</span>:</span><br><span class="line">      - /<span class="attribute">backups</span>:/backups</span><br><span class="line">      - /etc/<span class="attribute">localtime</span>:/etc/<span class="attribute">localtime</span>:ro</span><br><span class="line">    <span class="attribute">volumes_from</span>:</span><br><span class="line">      - zabbix-db-storage</span><br><span class="line">    <span class="attribute">environment</span>:</span><br><span class="line">      <span class="attribute">MARIADB_USER</span>: zabbix</span><br><span class="line">      <span class="attribute">MARIADB_PASS</span>: zabbix_password</span><br><span class="line">  <span class="attribute">zabbix-db-storage</span>:</span><br><span class="line">    <span class="attribute">image</span>: <span class="attribute">busybox</span>:latest</span><br><span class="line">    <span class="attribute">volumes</span>:</span><br><span class="line">      - /var/lib/mysql</span><br></pre></td></tr></table></figure>
 <p>执行docker-compose up即可。</p>
 <hr>
-<h2 id="zabbix-agent安装">zabbix-agent安装</h2><p>zabbix-agent安装不推荐使用docker镜像方式，因为不支持 docker.xnet 数据的监控。</p>
+<h3 id="zabbix-agent安装">zabbix-agent安装</h3><p>zabbix-agent安装不推荐使用docker镜像方式，因为不支持 docker.xnet 数据的监控。</p>
 <p>执行脚本：</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"><span class="hexcolor">#add</span> user</span><br><span class="line">groupadd zabbix</span><br><span class="line">useradd -g zabbix zabbix</span><br><span class="line"></span><br><span class="line"><span class="id">#agent</span> compile</span><br><span class="line">yum  install -y wget autoconf automake gcc subversion make pkg-config</span><br><span class="line">cd ~</span><br><span class="line">mkdir zabbix32</span><br><span class="line">cd zabbix32</span><br><span class="line">svn co svn:<span class="comment">//svn.zabbix.com/branches/3.2 .</span></span><br><span class="line">./bootstrap<span class="class">.sh</span></span><br><span class="line">./configure --enable-agent</span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"><span class="id">#zabbix_module_docker</span><span class="class">.so</span> compile</span><br><span class="line">cd ~/zabbix32</span><br><span class="line">mkdir src/modules/zabbix_module_docker</span><br><span class="line">cd src/modules/zabbix_module_docker</span><br><span class="line">wget https:<span class="comment">//raw.githubusercontent.com/monitoringartist/Zabbix-Docker-Monitoring/master/src/modules/zabbix_module_docker/zabbix_module_docker.c</span></span><br><span class="line">wget https:<span class="comment">//raw.githubusercontent.com/monitoringartist/Zabbix-Docker-Monitoring/master/src/modules/zabbix_module_docker/Makefile</span></span><br><span class="line">make</span><br><span class="line"></span><br><span class="line">mkdir -<span class="tag">p</span> /usr/local/lib/zabbix/agent/</span><br><span class="line">cp zabbix_module_docker<span class="class">.so</span> /usr/local/lib/zabbix/agent/</span><br></pre></td></tr></table></figure>
 <p>创建 /lib/systemd/system/zabbix-agentd.service 文件：</p>
@@ -291,9 +304,30 @@
 <p>sudo systemctl status zabbix-agentd.service</p>
 <p>ok, 以上server和agent安装完成 </p>
 <hr>
-<h1 id="登录配置zabbix">登录配置zabbix</h1><p>浏览器访问<a href="http://ZabbixServerIP:Port，账号密码：Admin/zabbix。" target="_blank" rel="external">http://ZabbixServerIP:Port，账号密码：Admin/zabbix。</a><br><img src="/img/zabbix-docker-容器监控//zabbix-login.PNG" alt="Alt text"></p>
+<h2 id="登录配置zabbix">登录配置zabbix</h2><p>浏览器访问<a href="http://ZabbixServerIP:Port，账号密码：Admin/zabbix。" target="_blank" rel="external">http://ZabbixServerIP:Port，账号密码：Admin/zabbix。</a><br><img src="/img/zabbix-docker-容器监控/zabbix-login.PNG" alt="Alt text"></p>
 <p>在配置-&gt;模板中导入docker监控模板：<a href="https://github.com/monitoringartist/grafana-zabbix-dashboards/blob/master/overview-docker/zabbix-template-app-docker.xml" target="_blank" rel="external">zabbix-template-app-docker.xml</a></p>
 <p>在配置-&gt;主机-&gt;模板中选择该模板，更新即可。</p>
+<hr>
+<h1 id="InfluxDB+cAdvisor+Grafana">InfluxDB+cAdvisor+Grafana</h1><h2 id="安装influxDB">安装influxDB</h2><p>docker run -d -p 8083:8083 -p 8086:8086 –expose 8090 –expose 8099 –name influxsrv tutum/influxdb</p>
+<p>influxdb容器运行成功后，访问<a href="http://docker-host-ip:8083后台管理界面。用户名：root" target="_blank" rel="external">http://docker-host-ip:8083后台管理界面。用户名：root</a>, 密码：root。</p>
+<hr>
+<h3 id="创建数据库信息：">创建数据库信息：</h3><p><img src="/img/zabbix-docker-容器监控/influxdb.PNG" alt="Alt text"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 创建数据库</span><br><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">database</span> <span class="string">'cadvisor'</span>;</span> </span><br><span class="line"></span><br><span class="line"># 创建用户</span><br><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">"cadvisor"</span> <span class="keyword">WITH</span> <span class="keyword">PASSWORD</span> <span class="string">'cadvisor'</span> <span class="keyword">WITH</span> ALL <span class="keyword">PRIVILEGES</span></span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="安装cAdvisor">安装cAdvisor</h2><p>docker run –volume=/:/rootfs:ro  –volume=/var/run:/var/run:rw   –volume=/sys:/sys:ro   –volume=/var/lib/docker/:/var/lib/docker:ro   -p 8080:8080   –detach=true   –link influxsrv:influxsrv   –name=cadvisor   google/cadvisor:v0.24.1   -storage_driver=influxdb   -storage_driver_db=cadvisor   -storage_driver_host=influxsrv:8086</p>
+<p>cAdvisor容器启动后，访问<a href="http://docker-host-ip:8080，便可以查看cAdvisor监控工具所收集到的Docker主机和容器的资源统计信息。" target="_blank" rel="external">http://docker-host-ip:8080，便可以查看cAdvisor监控工具所收集到的Docker主机和容器的资源统计信息。</a></p>
+<p><img src="/img/zabbix-docker-容器监控/acdvisor.PNG" alt="Alt text"></p>
+<hr>
+<h2 id="安装Grafana">安装Grafana</h2><p>docker run -d -p 3000:3000 -e INFLUXDB_HOST=localhost -e INFLUXDB_PORT=8086 -e INFLUXDB_NAME=cadvisor -e INFLUXDB_USER=root -e INFLUXDB_PASS=root –link influxsrv:influxsrv –name grafana grafana/grafana</p>
+<p>Web访问<a href="http://docker-host-ip:3000,登录Grafana管理平台。" target="_blank" rel="external">http://docker-host-ip:3000,登录Grafana管理平台。</a><br>用户名：admin<br>密 码：admin</p>
+<p> <img src="./grafana.PNG" alt="Alt text"></p>
+<hr>
+<h2 id="配置Grafana与influxDB数据库连接">配置Grafana与influxDB数据库连接</h2><h3 id="添加Gtrafana数据源">添加Gtrafana数据源</h3><p><img src="/img/zabbix-docker-容器监控/dbsource.PNG" alt="Alt text"></p>
+<p>如果出现502.请关闭防火墙再试。</p>
+<hr>
+<h3 id="添加Dashboard">添加Dashboard</h3><p>在Dashboard面板中选择相应的组件并拖动到相关的位置。</p>
+<p><img src="/img/zabbix-docker-容器监控/dashboard.PNG" alt="Alt text"></p>
+<p>做一些sql配置即可。</p>
 
                                                                                 
                                         </div>
@@ -348,7 +382,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-zabbix docker 容器监控" data-title="zabbix docker 容器监控" data-url="http://tonylit.me/2016/09/21/zabbix docker 容器监控/"></div>
+                                    <div class="ds-thread" data-thread-key="post-zabbix docker 容器监控" data-title="docker容器监控" data-url="http://tonylit.me/2016/09/21/zabbix docker 容器监控/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">
