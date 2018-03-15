@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content=""/>
+  
+  <title>docker | 淘淘的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="整理loadrunner 脚本中的一些常用函数。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker">
+<meta property="og:url" content="http://tonylit.me/2015/12/21/loadrunner常用函数/index.html">
+<meta property="og:site_name" content="淘淘的博客">
+<meta property="og:description" content="整理loadrunner 脚本中的一些常用函数。">
+<meta property="og:updated_time" content="2015-12-21T05:37:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="docker">
+<meta name="twitter:description" content="整理loadrunner 脚本中的一些常用函数。">
+  
+    <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/leaves.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script src="http://tonylit.me//js/jquery.nicescroll.js"></script>
+
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+<form class="search" method="get" accept-charset="utf-8">
+			<input type="text" id="chillax-search-input" class="st-search-input_my" maxlength="30" placeholder="search" />
+		</form>
+
+
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/c.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/" class="alluraregular">tonyli</a></h1>
+		</hgroup>
+        <!--
+		
+		<p class="header-subtitle">Nothing is given. Everything is earned.</p>
+		
+        -->
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/work">工作日志</a></li>
+				        
+							<li><a href="/tags/life">点滴生活</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Appium/" style="font-size: 12.86px;">Appium</a> <a href="/tags/Gatling/" style="font-size: 11.43px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.43px;">Jmeter</a> <a href="/tags/Python/" style="font-size: 12.86px;">Python</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 18.57px;">docker</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/kafka/" style="font-size: 11.43px;">kafka</a> <a href="/tags/loadrunner/" style="font-size: 14.29px;">loadrunner</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/work/" style="font-size: 15.71px;">work</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a>
+					</div>
+				</section>
+				
+
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">Nothing is given. Everything is earned.</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tonyli</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/c.jpg" class="js-avatar">
+				<hgroup>
+				  <h1 class="header-author">tonyli</h1>
+				</hgroup>
+			</div>
+			
+			<p class="header-subtitle">Nothing is given. Everything is earned.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/work">工作日志</a></li>
+		        
+					<li><a href="/tags/life">点滴生活</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+
+	  <div class="recent">
+高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
+</div>
+
+      <div class="body-wrap"><article id="post-loadrunner常用函数" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2015/12/21/loadrunner常用函数/" class="article-date">
+  	<time datetime="2015-12-21T03:37:27.000Z" itemprop="datePublished">2015-12-21</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      docker
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/loadrunner/">loadrunner</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+	</div>
+
+
+                                        
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#字符串相关"><span class="toc-number">1.</span> <span class="toc-text">字符串相关</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#日期时间相关函数"><span class="toc-number">2.</span> <span class="toc-text">日期时间相关函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#事物相关"><span class="toc-number">3.</span> <span class="toc-text">事物相关</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#文件操作"><span class="toc-number">4.</span> <span class="toc-text">文件操作</span></a></li></ol>
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p>整理loadrunner 脚本中的一些常用函数。</p>
+<a id="more"></a>
+<h1 id="字符串相关">字符串相关</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">strlen</span>(<span class="keyword">const</span> <span class="keyword">char</span> *<span class="built_in">string</span>); <span class="comment">//返回一个字符串的长度</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">strcpy</span>(destination_string,source_string);<span class="comment">//拷贝一个字符串到另一个字符串</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">strcat</span>(<span class="keyword">char</span> *to, <span class="keyword">const</span> <span class="keyword">char</span> *from ); <span class="comment">//合并两个字符串</span></span><br><span class="line"></span><br><span class="line">atoi(<span class="keyword">const</span> <span class="keyword">char</span> *<span class="built_in">string</span>);<span class="comment">//字符串转换成整形</span></span><br><span class="line"></span><br><span class="line">itoa(<span class="keyword">int</span> value, <span class="keyword">char</span> *str, <span class="keyword">int</span> radix )<span class="comment">//整形转换成字符串，radix为转换进制，radix为10（10进制）</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">strcmp</span>(<span class="keyword">const</span> <span class="keyword">char</span> *string1, <span class="keyword">const</span> <span class="keyword">char</span> *string2 );<span class="comment">//比较两个字符串的大小</span></span><br><span class="line"></span><br><span class="line">stricmp( <span class="keyword">const</span> <span class="keyword">char</span> *string1, <span class="keyword">const</span> <span class="keyword">char</span> *string2 ); <span class="comment">//区分大小写比较字符串</span></span><br><span class="line"></span><br><span class="line">strlwr( <span class="keyword">char</span> *<span class="built_in">string</span> ); <span class="comment">//将字符串转换为小写</span></span><br><span class="line"></span><br><span class="line">strupr(<span class="keyword">char</span> *<span class="built_in">string</span> );<span class="comment">//将字符串转换成大写</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"></span><br><span class="line">* 字符串编码转换</span><br><span class="line"></span><br><span class="line">*/</span></span><br><span class="line"></span><br><span class="line">lr_convert_string_encoding( <span class="keyword">const</span> <span class="keyword">char</span> *sourceString, <span class="keyword">const</span> <span class="keyword">char</span> *fromEncoding, <span class="keyword">const</span> <span class="keyword">char</span> *toEncoding, <span class="keyword">const</span> <span class="keyword">char</span> *paramName);</span><br><span class="line"></span><br><span class="line"><span class="comment">//sourceString：被转换的源字符串</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//fromEncoding：转换前的字符编码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//toEncoding：转换后的字符编码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//paramName：转换后的字符串</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 很多时候需要将中文字符进行转码为UTF-8格式</span></span><br><span class="line"></span><br><span class="line">lr_convert_string_encoding(<span class="string">"订单"</span>,LR_ENC_SYSTEM_LO<span class="built_in">CALE</span>,LR_ENC_UTF8,<span class="string">"str"</span>);</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="日期时间相关函数">日期时间相关函数</h1><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="perl">lr_save_datetime(const char *<span class="keyword">format</span>, <span class="keyword">int</span> offset, const char *name);</span><br><span class="line"><span class="regexp">//</span>将当前的日期和时间或者指定偏移的时间保存在参数里</span><br><span class="line">// <span class="keyword">format</span>：格式化信息，如:<span class="string">"<span class="variable">%Y</span>-<span class="variable">%m</span>-<span class="variable">%d</span>"</span>代表日期格式，<span class="string">"<span class="variable">%H</span>:<span class="variable">%M</span>:<span class="variable">%S</span>"</span>代表时间格式</span><br><span class="line">// offset：时间的偏移量 DATE_NOW(现在的日期)，TIME_NOW(现在的时间)，ONE_DAY（一天的时间），ONE_HOUR（一小时的时 间），ONE_MIN（一分钟的时间），DATE_NOW-ONE_DAY(昨天)，DATE_NOW+ONE_DAY(明天)</span><br><span class="line">// name：参数保存的参数名</span><br><span class="line"></span><br><span class="line">//取当前时间</span><br><span class="line">lr_save_datetime(<span class="string">"<span class="variable">%Y</span>-<span class="variable">%m</span>-<span class="variable">%d</span> <span class="variable">%H</span>:<span class="variable">%M</span>:<span class="variable">%S</span>"</span>, DATE_NOW ,<span class="string">"time"</span>);</span><br><span class="line">lr_output_message(<span class="string">"now=<span class="variable">%s</span>"</span>,lr_eval_string(<span class="string">"&#123;time&#125;"</span>));</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span>取两个小时后的时间</span><br><span class="line">lr_save_datetime(<span class="string">"<span class="variable">%Y</span>-<span class="variable">%m</span>-<span class="variable">%d</span> <span class="variable">%H</span>:<span class="variable">%M</span>:<span class="variable">%S</span>"</span>, DATE_NOW+<span class="number">2</span>*(ONE_HOUR) ,<span class="string">"time"</span>);</span><br><span class="line">lr_output_message(<span class="string">"2小时后=<span class="variable">%s</span>"</span>,lr_eval_string(<span class="string">"&#123;time&#125;"</span>));</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="事物相关">事物相关</h1><figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*** 事物相关</span><br><span class="line"></span><br><span class="line">*/</span></span><br><span class="line"></span><br><span class="line">lr<span class="number">_</span>end<span class="number">_</span>sub<span class="number">_</span>transaction<span class="comment">// 标记子事务的结束以便进行性能分析</span></span><br><span class="line"></span><br><span class="line">lr<span class="number">_</span>end<span class="number">_</span>transaction<span class="comment">//标记LoadRunner事务的结束</span></span><br><span class="line"></span><br><span class="line">lr<span class="number">_</span>end<span class="number">_</span>transaction<span class="number">_</span>instance<span class="comment">//标记事务实例的结束以便进行性能分析</span></span><br><span class="line"></span><br><span class="line">lr<span class="number">_f</span>ail<span class="number">_</span>trans<span class="number">_</span>with<span class="number">_</span>error<span class="comment">//将打开事务的状态设置为LR_FAIL并发送错误消息</span></span><br><span class="line"></span><br><span class="line">lr<span class="number">_</span>get<span class="number">_</span>trans<span class="number">_</span>instance<span class="number">_</span>duration<span class="comment">//获取事务实例的持续时间（由它的句柄指定）</span></span><br><span class="line"></span><br><span class="line">lr<span class="number">_</span>get<span class="number">_</span>trans<span class="number">_</span>instance<span class="number">_</span>wasted<span class="number">_</span>time<span class="comment">//获取事务实例浪费的时间（由它的句柄指定）</span></span><br><span class="line"></span><br><span class="line">lr<span class="number">_</span>get<span class="number">_</span>transaction<span class="number">_</span>duration<span class="comment">//获取事务的持续时间（按事务的名称）</span></span><br><span class="line"></span><br><span class="line">lr<span class="number">_</span>get<span class="number">_</span>transaction<span class="number">_</span>think<span class="number">_</span>time<span class="comment">//获取事务的思考时间（按事务的名称）</span></span><br><span class="line"></span><br><span class="line">lr<span class="number">_</span>get<span class="number">_</span>transaction<span class="number">_</span>wasted<span class="number">_</span>time<span class="comment">//获取事务浪费的时间（按事务的名称）</span></span><br><span class="line"></span><br><span class="line">lr<span class="number">_</span>resume<span class="number">_</span>transaction<span class="comment">//继续收集事务数据以便进行性能分析</span></span><br><span class="line"></span><br><span class="line">lr<span class="number">_</span>resume<span class="number">_</span>transaction<span class="number">_</span>instance<span class="comment">//继续收集事务实例数据以便进行性能分析</span></span><br><span class="line"></span><br><span class="line">lr<span class="number">_</span>set<span class="number">_</span>transaction<span class="number">_</span>instance<span class="number">_</span>status<span class="comment">//设置事务实例的状态</span></span><br><span class="line"></span><br><span class="line">lr<span class="number">_</span>set<span class="number">_</span>transaction<span class="number">_</span>status<span class="comment">//设置打开事务的状态</span></span><br><span class="line"></span><br><span class="line">lr<span class="number">_</span>set<span class="number">_</span>transaction<span class="number">_</span>status<span class="number">_</span><span class="annotation">by</span><span class="number">_n</span>ame<span class="comment">//设置事务的状态</span></span><br><span class="line"></span><br><span class="line">lr<span class="number">_</span>start<span class="number">_</span>sub<span class="number">_</span>transaction<span class="comment">//标记子事务的开始</span></span><br><span class="line"></span><br><span class="line">lr<span class="number">_</span>start<span class="number">_</span>transaction<span class="comment">//标记事务的开始</span></span><br><span class="line"></span><br><span class="line">lr<span class="number">_</span>start<span class="number">_</span>transaction<span class="number">_</span>instance<span class="comment">//启动嵌套事务（由它的父事务的句柄指定）</span></span><br><span class="line"></span><br><span class="line">lr<span class="number">_</span>stop<span class="number">_</span>transaction<span class="comment">//停止事务数据的收集</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="文件操作">文件操作</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*** 文件操作</span><br><span class="line"></span><br><span class="line"> */</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"> fopen(<span class="keyword">const</span> <span class="keyword">char</span> *filename, <span class="keyword">const</span> <span class="keyword">char</span> *access_mode );<span class="comment">//打开一个文件</span></span><br><span class="line"></span><br><span class="line"> fclose(FILE *file_pointer);<span class="comment">//关闭一个文件</span></span><br><span class="line"></span><br><span class="line"> feof(FILE *file_pointer );<span class="comment">//文件是否结束</span></span><br><span class="line"></span><br><span class="line"> fread(<span class="keyword">void</span> *buffer, <span class="keyword">size_t</span> size, <span class="keyword">size_t</span> count, FILE *file_pointer);<span class="comment">//从文件缓冲区读文件</span></span><br><span class="line"></span><br><span class="line"> fgets(<span class="keyword">char</span> *<span class="built_in">string</span>, <span class="keyword">int</span> maxchar, FILE *file_pointer );<span class="comment">//从文件中读取字符串</span></span><br><span class="line"></span><br><span class="line"> fwrite(<span class="keyword">const</span> <span class="keyword">void</span> *buffer, <span class="keyword">size_t</span> size, <span class="keyword">size_t</span> count, FILE *file_pointer );<span class="comment">//写文件内容</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span><br><span class="line"></span><br><span class="line"> * 读文件的内容,每次读取8各字符，直到读完</span><br><span class="line"></span><br><span class="line"> */</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">char</span> *FileName=<span class="string">"c:\\test.txt"</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">char</span> readbuffer[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line"> <span class="keyword">long</span> file_stream;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="keyword">if</span>(file_stream=fopen(FileName,<span class="string">"r"</span>)==<span class="literal">NULL</span>)&#123;</span><br><span class="line"></span><br><span class="line"> lr_error_message(<span class="string">"Can't open file,%s"</span>,FileName);</span><br><span class="line"></span><br><span class="line"> <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="keyword">while</span>(!feof(FileName))&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> count = fread(readbuffer,<span class="keyword">sizeof</span>(<span class="keyword">char</span>),<span class="number">8</span>,file_stream);</span><br><span class="line"></span><br><span class="line"> lr_output_message(<span class="string">"read date=%s"</span>,lr_eval_string(readbuffer));</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> fclose(file_stream);</span><br></pre></td></tr></table></figure>
+
+                                                                                
+                                        </div>
+                                        
+            </div>
+            
+                <div class="bdsharebuttonbox" style="margin-top:10px;margin-left:30px;float:left;">
+                    <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                    <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                    <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
+                    <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
+                    <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                    <a href="#" class="bds_more" data-cmd="more"></a>
+                </div>
+                <script>
+                    window._bd_share_config = {
+                        "common": {
+                            "bdSnsKey": {},
+                            "bdText": "",
+                            "bdMini": "1",
+                            "bdMiniList": false,
+                            "bdStyle": "2",
+                            "bdSize": "16"
+                        },
+                        "share": {}
+                    };
+                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
+  
+    <a href="/2015/12/22/docker import和export/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          export、import导出导入docker容器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/20/loadrunner测试webservice/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">loadrunner测试webservice</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-loadrunner常用函数" data-title="docker" data-url="http://tonylit.me/2015/12/21/loadrunner常用函数/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "tonylit"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
+</article>
+
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+    
+-->
+<!--
+
+-->
+
+</div>
+      <!--<footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 tonyli
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+    
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+   
+  </div>
+</footer>-->
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/prefixfree.js" type="text/javascript"></script>
+<script src="/js/require-2.1.20.js" type="text/javascript"></script>
+<script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
+    <a title="返回顶部" style="opacity: 100%;">
+        <img src="/img/scrollup.png" />
+    </a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+
+  </div>
+</body>
+</html>
