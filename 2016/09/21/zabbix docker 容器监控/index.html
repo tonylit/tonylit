@@ -22,7 +22,7 @@ InfluxDB+cAdv">
 <meta property="og:image" content="http://tonylit.me/img/zabbix-docker-容器监控/zabbix-login.PNG">
 <meta property="og:image" content="http://tonylit.me/img/zabbix-docker-容器监控/influxdb.PNG">
 <meta property="og:image" content="http://tonylit.me/img/zabbix-docker-容器监控/acdvisor.PNG">
-<meta property="og:image" content="http://tonylit.me/./grafana.PNG">
+<meta property="og:image" content="http://tonylit.me/img/zabbix-docker-容器监控/grafana.PNG">
 <meta property="og:image" content="http://tonylit.me/img/zabbix-docker-容器监控/dbsource.PNG">
 <meta property="og:image" content="http://tonylit.me/img/zabbix-docker-容器监控/dashboard.PNG">
 <meta property="og:updated_time" content="2016-09-21T05:37:27.000Z">
@@ -320,7 +320,7 @@ InfluxDB+cAdv">
 <hr>
 <h2 id="安装Grafana">安装Grafana</h2><p>docker run -d -p 3000:3000 -e INFLUXDB_HOST=localhost -e INFLUXDB_PORT=8086 -e INFLUXDB_NAME=cadvisor -e INFLUXDB_USER=root -e INFLUXDB_PASS=root –link influxsrv:influxsrv –name grafana grafana/grafana</p>
 <p>Web访问<a href="http://docker-host-ip:3000,登录Grafana管理平台。" target="_blank" rel="external">http://docker-host-ip:3000,登录Grafana管理平台。</a><br>用户名：admin<br>密 码：admin</p>
-<p> <img src="./grafana.PNG" alt="Alt text"></p>
+<p> <img src="/img/zabbix-docker-容器监控/grafana.PNG" alt="Alt text"></p>
 <hr>
 <h2 id="配置Grafana与influxDB数据库连接">配置Grafana与influxDB数据库连接</h2><h3 id="添加Gtrafana数据源">添加Gtrafana数据源</h3><p><img src="/img/zabbix-docker-容器监控/dbsource.PNG" alt="Alt text"></p>
 <p>如果出现502.请关闭防火墙再试。</p>
