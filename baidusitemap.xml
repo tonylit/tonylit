@@ -4,6 +4,23 @@
 
     
   <url>
+    <loc>http://tonylit.me/2018/04/11/eclipse%20git%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</loc>
+    <lastmod>2018-04-11T05:37:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>eclipse git安装配置</title>
+        <pubTime>2018-04-11T03:37:27.000Z</pubTime>
+        
+        <tag>work</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://tonylit.me/2018/04/10/%E8%AE%A8%E5%A5%BD%E5%9E%8B%E4%BA%BA%E6%A0%BC/</loc>
     <lastmod>2018-04-10T05:37:27.000Z</lastmod>
     <data>
@@ -447,7 +464,6 @@
     </url>
 
     
-    
   <url>
     <loc>http://tonylit.me/2016/11/16/%E7%BD%91%E7%BB%9C%E5%B8%A6%E5%AE%BD%E7%93%B6%E9%A2%88%E5%AF%BC%E8%87%B4tps%E4%B8%8A%E4%B8%8D%E5%8E%BB/</loc>
     <lastmod>2016-11-16T05:37:27.000Z</lastmod>
@@ -464,6 +480,7 @@
     </data>
     </url>
 
+    
     
   <url>
     <loc>http://tonylit.me/2016/10/19/tcpcopy/</loc>
@@ -483,14 +500,14 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/10/12/%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/</loc>
+    <loc>http://tonylit.me/2016/10/12/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E7%9A%84docker%E5%AE%9E%E8%B7%B5/</loc>
     <lastmod>2016-10-12T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>高级性能测试工程师成长计划</title>
+        <title>测试环境的docker实践</title>
         <pubTime>2016-10-12T03:37:27.000Z</pubTime>
         
-        <tag>性能</tag>
+        <tag>docker</tag>
          
          
            
@@ -500,14 +517,14 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/10/12/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E7%9A%84docker%E5%AE%9E%E8%B7%B5/</loc>
+    <loc>http://tonylit.me/2016/10/12/%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/</loc>
     <lastmod>2016-10-12T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>测试环境的docker实践</title>
+        <title>高级性能测试工程师成长计划</title>
         <pubTime>2016-10-12T03:37:27.000Z</pubTime>
         
-        <tag>docker</tag>
+        <tag>性能</tag>
          
          
            
@@ -568,14 +585,14 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/08/15/docker%20network%20%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE/</loc>
+    <loc>http://tonylit.me/2016/08/15/%E4%BD%BF%E7%94%A8strace%E5%AE%9A%E4%BD%8D%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2016-08-15T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>docker network 网络设置</title>
+        <title>使用strace定位性能问题</title>
         <pubTime>2016-08-15T03:37:27.000Z</pubTime>
         
-        <tag>docker</tag>
+        <tag>性能</tag>
          
          
            
@@ -585,14 +602,14 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/08/15/%E4%BD%BF%E7%94%A8strace%E5%AE%9A%E4%BD%8D%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/</loc>
+    <loc>http://tonylit.me/2016/08/15/docker%20network%20%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE/</loc>
     <lastmod>2016-08-15T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>使用strace定位性能问题</title>
+        <title>docker network 网络设置</title>
         <pubTime>2016-08-15T03:37:27.000Z</pubTime>
         
-        <tag>性能</tag>
+        <tag>docker</tag>
          
          
            
@@ -810,11 +827,11 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/05/18/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/</loc>
+    <loc>http://tonylit.me/2016/05/18/scp%E5%92%8Crsync%E4%BC%A0%E8%BE%93%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83/</loc>
     <lastmod>2016-05-18T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>ssh 免登陆</title>
+        <title>rsync和scp传输时间比较</title>
         <pubTime>2016-05-18T03:37:27.000Z</pubTime>
         
         <tag>work</tag>
@@ -827,11 +844,11 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/05/18/scp%E5%92%8Crsync%E4%BC%A0%E8%BE%93%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83/</loc>
+    <loc>http://tonylit.me/2016/05/18/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/</loc>
     <lastmod>2016-05-18T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>rsync和scp传输时间比较</title>
+        <title>ssh 免登陆</title>
         <pubTime>2016-05-18T03:37:27.000Z</pubTime>
         
         <tag>work</tag>
@@ -861,11 +878,11 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/04/22/%E5%A6%82%E4%BD%95%E4%B8%8D%E8%BE%93%E5%87%BAdocker%E6%97%A5%E5%BF%97%E5%88%B0%E6%8E%A7%E5%88%B6%E5%8F%B0/</loc>
+    <loc>http://tonylit.me/2016/04/22/supervisor%E7%AE%A1%E7%90%86docker%E8%BF%9B%E7%A8%8B/</loc>
     <lastmod>2016-04-22T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>如何不输出docker日志到控制台</title>
+        <title>supervisor管理容器进程</title>
         <pubTime>2016-04-22T03:37:27.000Z</pubTime>
         
         <tag>docker</tag>
@@ -878,11 +895,11 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/04/22/supervisor%E7%AE%A1%E7%90%86docker%E8%BF%9B%E7%A8%8B/</loc>
+    <loc>http://tonylit.me/2016/04/22/%E5%A6%82%E4%BD%95%E4%B8%8D%E8%BE%93%E5%87%BAdocker%E6%97%A5%E5%BF%97%E5%88%B0%E6%8E%A7%E5%88%B6%E5%8F%B0/</loc>
     <lastmod>2016-04-22T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>supervisor管理容器进程</title>
+        <title>如何不输出docker日志到控制台</title>
         <pubTime>2016-04-22T03:37:27.000Z</pubTime>
         
         <tag>docker</tag>
@@ -997,11 +1014,11 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/</loc>
+    <loc>http://tonylit.me/2016/03/29/docker_pull_https_error/</loc>
     <lastmod>2016-03-29T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>使用weave实现docker多宿主机互联</title>
+        <title>docker pull关于https的报错处理</title>
         <pubTime>2016-03-29T03:37:27.000Z</pubTime>
         
         <tag>docker</tag>
@@ -1014,11 +1031,11 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/03/29/docker_pull_https_error/</loc>
+    <loc>http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/</loc>
     <lastmod>2016-03-29T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>docker pull关于https的报错处理</title>
+        <title>使用weave实现docker多宿主机互联</title>
         <pubTime>2016-03-29T03:37:27.000Z</pubTime>
         
         <tag>docker</tag>
@@ -1240,14 +1257,14 @@
 
     
   <url>
-    <loc>http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/</loc>
+    <loc>http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/</loc>
     <lastmod>2015-12-22T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>staf使用</title>
+        <title>export、import导出导入docker容器</title>
         <pubTime>2015-12-22T03:37:27.000Z</pubTime>
         
-        <tag>work</tag>
+        <tag>docker</tag>
          
          
            
@@ -1257,14 +1274,14 @@
 
     
   <url>
-    <loc>http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/</loc>
+    <loc>http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2015-12-22T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>export、import导出导入docker容器</title>
+        <title>staf使用</title>
         <pubTime>2015-12-22T03:37:27.000Z</pubTime>
         
-        <tag>docker</tag>
+        <tag>work</tag>
          
          
            
@@ -1369,11 +1386,11 @@
 
     
   <url>
-    <loc>http://tonylit.me/2015/12/16/javamelody%E7%9B%91%E6%8E%A7java%E5%BA%94%E7%94%A8/</loc>
+    <loc>http://tonylit.me/2015/12/16/soupui%E6%8E%A5%E5%8F%A3%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</loc>
     <lastmod>2015-12-16T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>JavaMelody监控java应用</title>
+        <title>SoupUI接口性能测试</title>
         <pubTime>2015-12-16T03:37:27.000Z</pubTime>
         
         <tag>work</tag>
@@ -1407,11 +1424,11 @@
 
     
   <url>
-    <loc>http://tonylit.me/2015/12/16/soupui%E6%8E%A5%E5%8F%A3%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</loc>
+    <loc>http://tonylit.me/2015/12/16/javamelody%E7%9B%91%E6%8E%A7java%E5%BA%94%E7%94%A8/</loc>
     <lastmod>2015-12-16T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>SoupUI接口性能测试</title>
+        <title>JavaMelody监控java应用</title>
         <pubTime>2015-12-16T03:37:27.000Z</pubTime>
         
         <tag>work</tag>
@@ -1445,13 +1462,15 @@
 
     
   <url>
-    <loc>http://tonylit.me/2015/12/10/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%91%B5%E8%8A%B1%E5%AE%9D%E5%85%B8/</loc>
+    <loc>http://tonylit.me/2015/12/10/jmeter%E6%B5%8B%E8%AF%95java/</loc>
     <lastmod>2015-12-10T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>性能测试葵花宝典</title>
+        <title>Jmeter测试java程序</title>
         <pubTime>2015-12-10T03:37:27.000Z</pubTime>
         
+        <tag>Jmeter</tag>
+         
         <tag>性能</tag>
          
          
@@ -1462,15 +1481,13 @@
 
     
   <url>
-    <loc>http://tonylit.me/2015/12/10/jmeter%E6%B5%8B%E8%AF%95java/</loc>
+    <loc>http://tonylit.me/2015/12/10/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%91%B5%E8%8A%B1%E5%AE%9D%E5%85%B8/</loc>
     <lastmod>2015-12-10T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>Jmeter测试java程序</title>
+        <title>性能测试葵花宝典</title>
         <pubTime>2015-12-10T03:37:27.000Z</pubTime>
         
-        <tag>Jmeter</tag>
-         
         <tag>性能</tag>
          
          
@@ -1587,6 +1604,23 @@
 
     
   <url>
+    <loc>http://tonylit.me/2015/11/24/docker/</loc>
+    <lastmod>2015-11-24T05:37:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>docker</title>
+        <pubTime>2015-11-24T03:37:27.000Z</pubTime>
+        
+        <tag>docker</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://tonylit.me/2015/11/24/kafka%E4%B8%8Ecountdownlatch/</loc>
     <lastmod>2015-11-24T05:37:27.000Z</lastmod>
     <data>
@@ -1597,23 +1631,6 @@
         <tag>java</tag>
          
         <tag>kafka</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://tonylit.me/2015/11/24/docker/</loc>
-    <lastmod>2015-11-24T05:37:27.000Z</lastmod>
-    <data>
-        <display>
-        <title>docker</title>
-        <pubTime>2015-11-24T03:37:27.000Z</pubTime>
-        
-        <tag>docker</tag>
          
          
            
