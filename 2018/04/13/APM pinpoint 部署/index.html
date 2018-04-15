@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content=""/>
+  
+  <title>APM pinpoint 部署 | 淘淘的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="pinpoint是一款开源的APM监控工具，对代码零浸入，部署简单。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="APM pinpoint 部署">
+<meta property="og:url" content="http://tonylit.me/2018/04/13/APM pinpoint 部署/index.html">
+<meta property="og:site_name" content="淘淘的博客">
+<meta property="og:description" content="pinpoint是一款开源的APM监控工具，对代码零浸入，部署简单。">
+<meta property="og:image" content="http://tonylit.me/img/pinpoint安装部署/监控图片.PNG">
+<meta property="og:image" content="http://tonylit.me/img/pinpoint安装部署/apm对比.PNG">
+<meta property="og:image" content="http://tonylit.me/img/pinpoint安装部署/pinpoint-architecture.png">
+<meta property="og:image" content="http://tonylit.me/img/pinpoint安装部署/链路图.png">
+<meta property="og:image" content="http://tonylit.me/img/pinpoint安装部署/堆栈图.png">
+<meta property="og:image" content="http://tonylit.me/img/pinpoint安装部署/jvm图.png">
+<meta property="og:image" content="http://tonylit.me/img/pinpoint安装部署/hbase-web.PNG">
+<meta property="og:image" content="http://tonylit.me/img/pinpoint安装部署/pinpoint-web.PNG">
+<meta property="og:image" content="http://tonylit.me/img/pinpoint安装部署/test.PNG">
+<meta property="og:updated_time" content="2018-04-13T05:37:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="APM pinpoint 部署">
+<meta name="twitter:description" content="pinpoint是一款开源的APM监控工具，对代码零浸入，部署简单。">
+  
+    <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/leaves.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script src="http://tonylit.me//js/jquery.nicescroll.js"></script>
+
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+<form class="search" method="get" accept-charset="utf-8">
+			<input type="text" id="chillax-search-input" class="st-search-input_my" maxlength="30" placeholder="search" />
+		</form>
+
+
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/c.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/" class="alluraregular">tonyli</a></h1>
+		</hgroup>
+        <!--
+		
+		<p class="header-subtitle">Nothing is given. Everything is earned.</p>
+		
+        -->
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/work">工作日志</a></li>
+				        
+							<li><a href="/tags/life">点滴生活</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Appium/" style="font-size: 12.86px;">Appium</a> <a href="/tags/Gatling/" style="font-size: 11.43px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.43px;">Jmeter</a> <a href="/tags/Python/" style="font-size: 12.86px;">Python</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 18.57px;">docker</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/kafka/" style="font-size: 11.43px;">kafka</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/loadrunner/" style="font-size: 14.29px;">loadrunner</a> <a href="/tags/pinpoint/" style="font-size: 10px;">pinpoint</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/work/" style="font-size: 15.71px;">work</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a>
+					</div>
+				</section>
+				
+
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">Nothing is given. Everything is earned.</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tonyli</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/c.jpg" class="js-avatar">
+				<hgroup>
+				  <h1 class="header-author">tonyli</h1>
+				</hgroup>
+			</div>
+			
+			<p class="header-subtitle">Nothing is given. Everything is earned.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/work">工作日志</a></li>
+		        
+					<li><a href="/tags/life">点滴生活</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+
+	  <div class="recent">
+高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
+</div>
+
+      <div class="body-wrap"><article id="post-APM pinpoint 部署" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2018/04/13/APM pinpoint 部署/" class="article-date">
+  	<time datetime="2018-04-13T03:37:27.000Z" itemprop="datePublished">2018-04-13</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      APM pinpoint 部署
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pinpoint/">pinpoint</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+	</div>
+
+
+                                        
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#开源APM方案对比"><span class="toc-number">1.</span> <span class="toc-text">开源APM方案对比</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pinpoint架构"><span class="toc-number">2.</span> <span class="toc-text">pinpoint架构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pinpoint部署"><span class="toc-number">3.</span> <span class="toc-text">pinpoint部署</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Hbase"><span class="toc-number">3.1.</span> <span class="toc-text">安装Hbase</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载Hbase"><span class="toc-number">3.1.1.</span> <span class="toc-text">下载Hbase</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改Hbase配置"><span class="toc-number">3.1.2.</span> <span class="toc-text">修改Hbase配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动Hbase"><span class="toc-number">3.1.3.</span> <span class="toc-text">启动Hbase</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#执行pinpoint_Hbase初始化脚本"><span class="toc-number">3.1.4.</span> <span class="toc-text">执行pinpoint Hbase初始化脚本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装pinpoint-collector和pinpoint-web"><span class="toc-number">3.2.</span> <span class="toc-text">安装pinpoint-collector和pinpoint-web</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#检查pinpoint启动成功"><span class="toc-number">3.2.1.</span> <span class="toc-text">检查pinpoint启动成功</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署pinpoint_agent"><span class="toc-number">3.3.</span> <span class="toc-text">部署pinpoint agent</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、修改pinpoint-config"><span class="toc-number">3.3.1.</span> <span class="toc-text">一、修改pinpoint.config</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、停止resin"><span class="toc-number">3.3.2.</span> <span class="toc-text">二、停止resin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、配置resin容器"><span class="toc-number">3.3.3.</span> <span class="toc-text">三、配置resin容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、启动Resin"><span class="toc-number">3.3.4.</span> <span class="toc-text">四、启动Resin</span></a></li></ol></li></ol></li></ol>
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p><img src="/img/pinpoint安装部署/监控图片.PNG" alt="Alt text"></p>
+<p>pinpoint是一款开源的APM监控工具，对代码零浸入，部署简单。</p>
+<a id="more"></a>
+<hr>
+<h1 id="开源APM方案对比">开源APM方案对比</h1><p>业界开源的APM有很多：</p>
+<p><img src="/img/pinpoint安装部署/apm对比.PNG" alt="Alt text"></p>
+<hr>
+<h1 id="pinpoint架构">pinpoint架构</h1><p>pinpoint架构图<br><img src="/img/pinpoint安装部署/pinpoint-architecture.png" alt="Alt text"></p>
+<blockquote>
+<p>Pinpoint-Collector：收集各种性能数据</p>
+<p>Pinpoint-Agent：和自己运行的应用关联起来的探针</p>
+<p>Pinpoint-Web：将收集到的数据显示成WEB网页形式</p>
+<p>HBase Storage：收集到的数据存到HBase中</p>
+</blockquote>
+<p><img src="/img/pinpoint安装部署/链路图.png" alt="Alt text"></p>
+<p>应用、中间件、DB之间的调用关系链路清晰。</p>
+<p><img src="/img/pinpoint安装部署/堆栈图.png" alt="Alt text"></p>
+<p>堆栈信息，时间，异常清楚。</p>
+<p><img src="/img/pinpoint安装部署/jvm图.png" alt="Alt text"></p>
+<p>jvm、cpu、gc信息简单明了。</p>
+<hr>
+<h1 id="pinpoint部署">pinpoint部署</h1><p>环境要求：jdk1.7</p>
+<h2 id="安装Hbase">安装Hbase</h2><p>Hbase用于存储pinpoint收集的测试数据。</p>
+<h3 id="下载Hbase">下载Hbase</h3><p>下载地址：<a href="http://archive.apache.org/dist/hbase/1.1.5/" target="_blank" rel="external">http://archive.apache.org/dist/hbase/1.1.5/</a></p>
+<p>解压：tar -xvf hbase-1.1.5-bin.tar.gz</p>
+<h3 id="修改Hbase配置">修改Hbase配置</h3><p> /hbase-1.1.5/conf 中，修改hbase-env.sh的JAVA_HOME环境变量位置</p>
+<p>export JAVA_HOME=/opt/jdk1.7.0_40</p>
+<h3 id="启动Hbase">启动Hbase</h3><p>/hbase-1.1.5/bin 中，./start-hbase.sh</p>
+<h3 id="执行pinpoint_Hbase初始化脚本">执行pinpoint Hbase初始化脚本</h3><p>脚本地址：<a href="https://github.com/tonylit/pinpoint/tree/master/hbase/scripts" target="_blank" rel="external">https://github.com/tonylit/pinpoint/tree/master/hbase/scripts</a></p>
+<p>执行脚本：./hbase  hbase-create.hbase</p>
+<p>登录Hbase web，来查看数据是否初始化成功。<a href="http://192.168.1.27:16010/master-status" target="_blank" rel="external">http://192.168.1.27:16010/master-status</a></p>
+<p><img src="/img/pinpoint安装部署/hbase-web.PNG" alt="Alt text"></p>
+<hr>
+<h2 id="安装pinpoint-collector和pinpoint-web">安装pinpoint-collector和pinpoint-web</h2><p>下载地址：<a href="https://github.com/naver/pinpoint/releases/" target="_blank" rel="external">https://github.com/naver/pinpoint/releases/</a></p>
+<p>这边使用1.5.1版本。</p>
+<p>将pinpoint-collector-1.5.1.war和pinpoint-web-1.5.1.war放入tomcat（apache-tomcat-7.0.65）的webapps中，启动tomcat即可。</p>
+<p>./apache-tomcat-7.0.65/bin/catalina.sh start</p>
+<h3 id="检查pinpoint启动成功">检查pinpoint启动成功</h3><p>web访问：<a href="http://192.168.1.27:8080/#/main" target="_blank" rel="external">http://192.168.1.27:8080/#/main</a><br><img src="/img/pinpoint安装部署/pinpoint-web.PNG" alt="Alt text"></p>
+<hr>
+<h2 id="部署pinpoint_agent">部署pinpoint agent</h2><p>下载地址：<a href="https://github.com/naver/pinpoint/releases/" target="_blank" rel="external">https://github.com/naver/pinpoint/releases/</a><br>这里使用resin容器</p>
+<h3 id="一、修改pinpoint-config">一、修改pinpoint.config</h3><p>修改 profiler.collector.ip=192.168.1.27， 改成collector服务器地址</p>
+<h3 id="二、停止resin">二、停止resin</h3><p>必须先停止，在进行一下操作（修改配置和jar都会导致resin重启）</p>
+<h3 id="三、配置resin容器">三、配置resin容器</h3><p>1)JVM持久代调大，推荐为：-XX:PermSize=128m -XX:MaxPermSize=256m<br>2)在resin.conf配置文件中，在class-loader标签下<br>(注意为web-app-default下prologue)，增加pinpoint插件的路径：<tree-loader path="${resin.home}/pinpoint-agent/plugin"><br>3)jvm启动参数增加 <jvm-arg>-javaagent:${resin.home}/pinpoint-agent/pinpoint-bootstrap.jar</jvm-arg><br>4)jvm启动参数增加应用标识参数${dcName}<em>${ appName } </em>${ IP后两位}，如电信点vo：<jvm-arg>-DappName=tc_vo_1_31 </jvm-arg></tree-loader></p>
+<p>5 ）拷贝pinpoint-bootstrap-core.jar 到resin lib目录下面</p>
+<h3 id="四、启动Resin">四、启动Resin</h3><p>启动后，应用信息会在pinpoint web上显示<br><img src="/img/pinpoint安装部署/test.PNG" alt="Alt text"></p>
+
+                                                                                
+                                        </div>
+                                        
+            </div>
+            
+                <div class="bdsharebuttonbox" style="margin-top:10px;margin-left:30px;float:left;">
+                    <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                    <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                    <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
+                    <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
+                    <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                    <a href="#" class="bds_more" data-cmd="more"></a>
+                </div>
+                <script>
+                    window._bd_share_config = {
+                        "common": {
+                            "bdSnsKey": {},
+                            "bdText": "",
+                            "bdMini": "1",
+                            "bdMiniList": false,
+                            "bdStyle": "2",
+                            "bdSize": "16"
+                        },
+                        "share": {}
+                    };
+                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
+  
+  
+    <a href="/2018/04/11/eclipse git安装配置/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">eclipse git安装配置</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-APM pinpoint 部署" data-title="APM pinpoint 部署" data-url="http://tonylit.me/2018/04/13/APM pinpoint 部署/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "tonylit"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
+</article>
+
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+    
+-->
+<!--
+
+-->
+
+</div>
+      <!--<footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 tonyli
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+    
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+   
+  </div>
+</footer>-->
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/prefixfree.js" type="text/javascript"></script>
+<script src="/js/require-2.1.20.js" type="text/javascript"></script>
+<script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
+    <a title="返回顶部" style="opacity: 100%;">
+        <img src="/img/scrollup.png" />
+    </a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+
+  </div>
+</body>
+</html>
