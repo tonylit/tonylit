@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Nothing is given. Everything is earned.]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2018-04-13T05:37:27.000Z</updated>
+  <updated>2018-04-16T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -13,6 +13,77 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Spring Boot入门]]></title>
+    <link href="http://tonylit.me/2018/04/16/Spring%20Boot%E5%85%A5%E9%97%A8/"/>
+    <id>http://tonylit.me/2018/04/16/Spring Boot入门/</id>
+    <published>2018-04-16T03:37:27.000Z</published>
+    <updated>2018-04-16T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="/img/springboot入门/springboot图标.PNG" alt="Alt text"></p>
+<p>Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can “just run”.</p>
+<p> We take an opinionated view of the Spring platform and third-party libraries so you can get started with minimum fuss. </p>
+<p>Most Spring Boot applications need very little Spring configuration.</p>
+<p>化繁为简，简化配置。</p>
+<a id="more"></a>
+<hr>
+<h1 id="SpringBoot_Hello_World">SpringBoot Hello World</h1><p>环境准备：<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="external">jdk1.8</a>, <a href="http://maven.apache.org/download.cgi" target="_blank" rel="external">maven:3.5.3</a></p>
+<p>开发工具：[IntelliJ IDEA] (<a href="https://www.jetbrains.com/idea/" target="_blank" rel="external">https://www.jetbrains.com/idea/</a>)</p>
+<p>maven的settings.xml中最好配置阿里的mirror。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">mirror</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">id</span>&gt;</span>alimaven<span class="tag">&lt;/<span class="title">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">name</span>&gt;</span>aliyun maven<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="title">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="title">mirrorOf</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="创建spring项目：">创建spring项目：</h2><p><img src="/img/springboot入门/springInitializr.PNG" alt="Alt text"></p>
+<p><img src="/img/springboot入门/projectMetata.PNG" alt="Alt text"></p>
+<p><img src="/img/springboot入门/newproject.PNG" alt="Alt text"></p>
+<p>这里勾选web一个选项即可。</p>
+<p><img src="/img/springboot入门/projectfinish.PNG" alt="Alt text"></p>
+<p>注意路径不要有中文。</p>
+<p><img src="/img/springboot入门/project-list.PNG" alt="Alt text"></p>
+<p>生成maven项目。</p>
+<hr>
+<h2 id="启动项目">启动项目</h2><p>不用做其他任何配置，先直接启动项目，爽一把。（或者命令行：mvn spring-boot run）</p>
+<p><img src="/img/springboot入门/项目启动.PNG" alt="Alt text"></p>
+<p>启动后，web访问:<a href="http://127.0.0.1:8080/" target="_blank" rel="external">http://127.0.0.1:8080/</a></p>
+<p><img src="/img/springboot入门/404.PNG" alt="Alt text"></p>
+<p>OK，说明项目启动成功了。</p>
+<p>对比之前的spring项目，这个实在是太简单了吧。</p>
+<hr>
+<h2 id="编写一个helloworld类">编写一个helloworld类</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">package</span> <span class="tag">com</span><span class="class">.tony</span><span class="class">.girl</span>;</span><br><span class="line"></span><br><span class="line"><span class="tag">import</span> <span class="tag">org</span><span class="class">.springframework</span><span class="class">.web</span><span class="class">.bind</span><span class="class">.annotation</span><span class="class">.RequestMapping</span>;</span><br><span class="line"><span class="tag">import</span> <span class="tag">org</span><span class="class">.springframework</span><span class="class">.web</span><span class="class">.bind</span><span class="class">.annotation</span><span class="class">.RequestMethod</span>;</span><br><span class="line"><span class="tag">import</span> <span class="tag">org</span><span class="class">.springframework</span><span class="class">.web</span><span class="class">.bind</span><span class="class">.annotation</span><span class="class">.RestController</span>;</span><br><span class="line"></span><br><span class="line"><span class="at_rule">@<span class="keyword">RestController</span></span><br><span class="line">public class HelloController </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="at_rule">@<span class="keyword">RequestMapping(value</span> = <span class="string">"hello"</span>, method = RequestMethod.GET)</span><br><span class="line">    public String <span class="function">sayHello</span>() </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="tag">return</span> "<span class="tag">hello</span> <span class="tag">world</span> <span class="tag">Spring</span> <span class="tag">Boot</span>";</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重新启动项目，web访问<a href="http://127.0.0.1:8080/hello" target="_blank" rel="external">http://127.0.0.1:8080/hello</a></p>
+<p><img src="/img/springboot入门/hellopage.PNG" alt="Alt text"></p>
+<hr>
+<h1 id="自定义属性配置">自定义属性配置</h1><p>默认提供的配置文件为application.properties,建议使用yml文件格式，更简单便捷。</p>
+<p><img src="/img/springboot入门/yml.PNG" alt="Alt text"></p>
+<p>将服务端口改成8081. <a href="http://127.0.0.1:8081/hello" target="_blank" rel="external">http://127.0.0.1:8081/hello</a></p>
+<hr>
+<h2 id="使用属性值">使用属性值</h2><p>在application.yml 中配置：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">server:</span></span><br><span class="line">  port: <span class="number">8081</span></span><br><span class="line"></span><br><span class="line"><span class="label">name:</span> <span class="string">"zhangsan"</span></span><br><span class="line"></span><br><span class="line"><span class="label">age:</span> <span class="number">18</span></span><br><span class="line"></span><br><span class="line"><span class="label">userinfo:</span> <span class="string">"name:$&#123;name&#125;,age:$&#123;age&#125;"</span></span><br></pre></td></tr></table></figure>
+<p>HelloController中：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">package</span> <span class="tag">com</span><span class="class">.tony</span><span class="class">.girl</span>;</span><br><span class="line"></span><br><span class="line"><span class="tag">import</span> <span class="tag">org</span><span class="class">.springframework</span><span class="class">.beans</span><span class="class">.factory</span><span class="class">.annotation</span><span class="class">.Value</span>;</span><br><span class="line"><span class="tag">import</span> <span class="tag">org</span><span class="class">.springframework</span><span class="class">.web</span><span class="class">.bind</span><span class="class">.annotation</span><span class="class">.RequestMapping</span>;</span><br><span class="line"><span class="tag">import</span> <span class="tag">org</span><span class="class">.springframework</span><span class="class">.web</span><span class="class">.bind</span><span class="class">.annotation</span><span class="class">.RequestMethod</span>;</span><br><span class="line"><span class="tag">import</span> <span class="tag">org</span><span class="class">.springframework</span><span class="class">.web</span><span class="class">.bind</span><span class="class">.annotation</span><span class="class">.RestController</span>;</span><br><span class="line"></span><br><span class="line"><span class="at_rule">@<span class="keyword">RestController</span></span><br><span class="line">public class HelloController </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="at_rule">@<span class="keyword">Value("$&#123;userinfo&#125;")</span></span><br><span class="line">    private String userinfo</span>;</span><br><span class="line"></span><br><span class="line">    <span class="at_rule">@<span class="keyword">RequestMapping(value</span> = <span class="string">"hello"</span>, method = RequestMethod.GET)</span><br><span class="line">    public String <span class="function">sayHello</span>() </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="tag">return</span> <span class="tag">userinfo</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>访问：<a href="http://127.0.0.1:8081/hello" target="_blank" rel="external">http://127.0.0.1:8081/hello</a></p>
+<p><img src="/img/springboot入门/message.PNG" alt="Alt text"></p>
+<hr>
+<h3 id="将属性配置映射为bean">将属性配置映射为bean</h3><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">user</span>:</span><br><span class="line">  <span class="attribute">name</span>: <span class="string">"123"</span></span><br><span class="line">  <span class="attribute">age</span>: <span class="number">20</span></span><br></pre></td></tr></table></figure>
+<p>新建model类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.tony.girl;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="annotation">@Component</span></span><br><span class="line"><span class="annotation">@ConfigurationProperties</span>(prefix = <span class="string">"user"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserProperties</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用的时候直接注入就行了。</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Autowired</span></span><br><span class="line">  <span class="keyword">private</span> UserProperties userProperties;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="Spring-data-jpa">Spring-data-jpa</h1><p>TO BE CONTINUE..</p>
+<hr>
+<h1 id="事务管理">事务管理</h1><p>TO BE CONTINUE..</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><img src="/img/springboot入门/springboot图标.PNG" alt="Alt text"></p>
+<p>Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can “just run”.</p>
+<p> We take an opinionated view of the Spring platform and third-party libraries so you can get started with minimum fuss. </p>
+<p>Most Spring Boot applications need very little Spring configuration.</p>
+<p>化繁为简，简化配置。</p>]]>
+    
+    </summary>
+    
+      <category term="java" scheme="http://tonylit.me/tags/java/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[APM pinpoint 部署]]></title>
@@ -1998,6 +2069,61 @@
   </entry>
   
   <entry>
+    <title><![CDATA[JAVA程序怎样使用jvm堆栈内存]]></title>
+    <link href="http://tonylit.me/2016/12/07/JAVA%E7%A8%8B%E5%BA%8F%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8jvm%E5%A0%86%E6%A0%88%E5%86%85%E5%AD%98/"/>
+    <id>http://tonylit.me/2016/12/07/JAVA程序怎样使用jvm堆栈内存/</id>
+    <published>2016-12-07T03:37:27.000Z</published>
+    <updated>2016-12-07T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>java是一门面向对象的编程语言，平时我们创建对象通常是通过new的方式。</p>
+<p>java虚拟机在遇到new指令的时候，首先去检查new的类是否已经被加载、链接、初始化；<br>如果没有，则必须先执行相应的类加载过程。<br><strong>类加载过程见下图：</strong><br><img src="/img/jvm/class_run_jvm/类加载过程.PNG" alt="Alt text"></p>
+<a id="more"></a>
+<hr>
+<h1 id="程序运行时jvm内存使用">程序运行时jvm内存使用</h1><p>类加载完成以后，程序运行的内存分配工作主要在堆与栈上面了。</p>
+<blockquote>
+<p>通俗来讲，栈上放局部变量，堆上放成员变量<br>基本类型的变量在栈中直接保存它所对应的值<br>引用类型的变量在栈中保存的是一个指向堆区对应对象存放地址的指针<br><a href="https://www.zhihu.com/question/31203609" target="_blank" rel="external">java是值传递还是引用传递？</a></p>
+</blockquote>
+<p>以下实例转载（<a href="http://blog.csdn.net/shimiso/article/details/8595564）" target="_blank" rel="external">http://blog.csdn.net/shimiso/article/details/8595564）</a></p>
+<p><img src="/img/jvm/class_run_jvm/调用过程一.PNG" alt="Alt text"></p>
+<p>1.JVM自动寻找main方法，执行第一句代码，创建一个Test类的实例，<br>在栈中分配一块内存，存放一个指向堆区对象的指针110925。</p>
+<p>2.创建一个int型的变量date，由于是基本类型，直接在栈中存放date对应的值9。</p>
+<p>3.创建两个BirthDate类的实例d1、d2，在栈中分别存放了对应的指针指向各自的对象。<br>他们在实例化时调用了有参数的构造方法，因此对象中有自定义初始值。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程二.PNG" alt="Alt text"></p>
+<p>调用test对象的change1方法，并且以date为参数。<br>JVM读到这段代码时，检测到i是局部变量，因此会把i放在栈中，并且把date的值赋给i。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程三.PNG" alt="Alt text"></p>
+<p>把1234赋给i。很简单的一步。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程四.PNG" alt="Alt text"></p>
+<p>change1方法执行完毕，立即释放局部变量i所占用的栈空间。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程五.PNG" alt="Alt text"></p>
+<p>调用test对象的change2方法，以实例d1为参数。<br>JVM检测到change2方法中的b参数为局部变量，立即加入到栈中，由于是引用类型的变量，<br>所以b中保存的是d1中的指针，此时b和d1指向同一个堆中的对象，在b和d1之间传递是指针。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程六.PNG" alt="Alt text"></p>
+<p>change2方法中又实例化了一个BirthDate对象，并且赋给b。<br>在内部执行过程是：在堆区new了一个对象，并且把该对象的指针保存在栈中的b对应空间，<br>此时实例b不再指向实例d1所指向的对象，但是实例d1所指向的对象并无变化，这样无法对d1造成任何影响。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程七.PNG" alt="Alt text"></p>
+<p>change2方法执行完毕，立即释放局部引用变量b所占的栈空间，<br><strong>注意只是释放了栈空间，堆空间要等待自动回收</strong>。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程八.PNG" alt="Alt text"></p>
+<p>调用test实例的change3方法，以实例d2为参数。<br>同理，JVM会在栈中为局部引用变量b分配空间，并且把d2中的指针存放在b中，此时d2和b指向同一个对象。<br>再调用实例b的setDay方法，其实就是调用d2指向的对象的setDay方法。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程九.PNG" alt="Alt text"></p>
+<p>调用实例b的setDay方法会影响d2，因为二者指向的是同一个对象。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程十.PNG" alt="Alt text"></p>
+<p>change3方法执行完毕，立即释放局部引用变量b。</p>
+<hr>
+<h1 id="String对象实例">String对象实例</h1><p>对于String对象的赋值，一直都很模糊，<br>比如下面的例子，</p>
+<blockquote>
+<p>str1=str2 ？<br>程序执行的时候，内存里到底有几个实例？<br>实例存在内存的哪里?</p>
+</blockquote>
+<p>String str1 = “Hello”;<br>String str2 = new String(“Hello”);</p>
+<p>想深入了解，可以参见：<br><a href="https://www.zhihu.com/question/29884421" target="_blank" rel="external">https://www.zhihu.com/question/29884421</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>java是一门面向对象的编程语言，平时我们创建对象通常是通过new的方式。</p>
+<p>java虚拟机在遇到new指令的时候，首先去检查new的类是否已经被加载、链接、初始化；<br>如果没有，则必须先执行相应的类加载过程。<br><strong>类加载过程见下图：</strong><br><img src="/img/jvm/class_run_jvm/类加载过程.PNG" alt="Alt text"></p>]]>
+    
+    </summary>
+    
+      <category term="java" scheme="http://tonylit.me/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[浅谈JVM垃圾收集器]]></title>
     <link href="http://tonylit.me/2016/12/07/%E6%B5%85%E8%B0%88JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/"/>
     <id>http://tonylit.me/2016/12/07/浅谈JVM垃圾收集器/</id>
@@ -2103,61 +2229,6 @@
     <![CDATA[<p>Java虚拟机规范中对垃圾收集器应该如何实现并没有任何规定，</p>
 <p>因此不同的厂商、不同版本的虚拟机所提供的垃圾收集器都可能会有很大差别，</p>
 <p>并且一般都会提供参数供用户根据自己的应用特点和要求组合出各个年代所使用的收集器。</p>]]>
-    
-    </summary>
-    
-      <category term="java" scheme="http://tonylit.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[JAVA程序怎样使用jvm堆栈内存]]></title>
-    <link href="http://tonylit.me/2016/12/07/JAVA%E7%A8%8B%E5%BA%8F%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8jvm%E5%A0%86%E6%A0%88%E5%86%85%E5%AD%98/"/>
-    <id>http://tonylit.me/2016/12/07/JAVA程序怎样使用jvm堆栈内存/</id>
-    <published>2016-12-07T03:37:27.000Z</published>
-    <updated>2016-12-07T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>java是一门面向对象的编程语言，平时我们创建对象通常是通过new的方式。</p>
-<p>java虚拟机在遇到new指令的时候，首先去检查new的类是否已经被加载、链接、初始化；<br>如果没有，则必须先执行相应的类加载过程。<br><strong>类加载过程见下图：</strong><br><img src="/img/jvm/class_run_jvm/类加载过程.PNG" alt="Alt text"></p>
-<a id="more"></a>
-<hr>
-<h1 id="程序运行时jvm内存使用">程序运行时jvm内存使用</h1><p>类加载完成以后，程序运行的内存分配工作主要在堆与栈上面了。</p>
-<blockquote>
-<p>通俗来讲，栈上放局部变量，堆上放成员变量<br>基本类型的变量在栈中直接保存它所对应的值<br>引用类型的变量在栈中保存的是一个指向堆区对应对象存放地址的指针<br><a href="https://www.zhihu.com/question/31203609" target="_blank" rel="external">java是值传递还是引用传递？</a></p>
-</blockquote>
-<p>以下实例转载（<a href="http://blog.csdn.net/shimiso/article/details/8595564）" target="_blank" rel="external">http://blog.csdn.net/shimiso/article/details/8595564）</a></p>
-<p><img src="/img/jvm/class_run_jvm/调用过程一.PNG" alt="Alt text"></p>
-<p>1.JVM自动寻找main方法，执行第一句代码，创建一个Test类的实例，<br>在栈中分配一块内存，存放一个指向堆区对象的指针110925。</p>
-<p>2.创建一个int型的变量date，由于是基本类型，直接在栈中存放date对应的值9。</p>
-<p>3.创建两个BirthDate类的实例d1、d2，在栈中分别存放了对应的指针指向各自的对象。<br>他们在实例化时调用了有参数的构造方法，因此对象中有自定义初始值。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程二.PNG" alt="Alt text"></p>
-<p>调用test对象的change1方法，并且以date为参数。<br>JVM读到这段代码时，检测到i是局部变量，因此会把i放在栈中，并且把date的值赋给i。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程三.PNG" alt="Alt text"></p>
-<p>把1234赋给i。很简单的一步。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程四.PNG" alt="Alt text"></p>
-<p>change1方法执行完毕，立即释放局部变量i所占用的栈空间。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程五.PNG" alt="Alt text"></p>
-<p>调用test对象的change2方法，以实例d1为参数。<br>JVM检测到change2方法中的b参数为局部变量，立即加入到栈中，由于是引用类型的变量，<br>所以b中保存的是d1中的指针，此时b和d1指向同一个堆中的对象，在b和d1之间传递是指针。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程六.PNG" alt="Alt text"></p>
-<p>change2方法中又实例化了一个BirthDate对象，并且赋给b。<br>在内部执行过程是：在堆区new了一个对象，并且把该对象的指针保存在栈中的b对应空间，<br>此时实例b不再指向实例d1所指向的对象，但是实例d1所指向的对象并无变化，这样无法对d1造成任何影响。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程七.PNG" alt="Alt text"></p>
-<p>change2方法执行完毕，立即释放局部引用变量b所占的栈空间，<br><strong>注意只是释放了栈空间，堆空间要等待自动回收</strong>。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程八.PNG" alt="Alt text"></p>
-<p>调用test实例的change3方法，以实例d2为参数。<br>同理，JVM会在栈中为局部引用变量b分配空间，并且把d2中的指针存放在b中，此时d2和b指向同一个对象。<br>再调用实例b的setDay方法，其实就是调用d2指向的对象的setDay方法。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程九.PNG" alt="Alt text"></p>
-<p>调用实例b的setDay方法会影响d2，因为二者指向的是同一个对象。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程十.PNG" alt="Alt text"></p>
-<p>change3方法执行完毕，立即释放局部引用变量b。</p>
-<hr>
-<h1 id="String对象实例">String对象实例</h1><p>对于String对象的赋值，一直都很模糊，<br>比如下面的例子，</p>
-<blockquote>
-<p>str1=str2 ？<br>程序执行的时候，内存里到底有几个实例？<br>实例存在内存的哪里?</p>
-</blockquote>
-<p>String str1 = “Hello”;<br>String str2 = new String(“Hello”);</p>
-<p>想深入了解，可以参见：<br><a href="https://www.zhihu.com/question/29884421" target="_blank" rel="external">https://www.zhihu.com/question/29884421</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>java是一门面向对象的编程语言，平时我们创建对象通常是通过new的方式。</p>
-<p>java虚拟机在遇到new指令的时候，首先去检查new的类是否已经被加载、链接、初始化；<br>如果没有，则必须先执行相应的类加载过程。<br><strong>类加载过程见下图：</strong><br><img src="/img/jvm/class_run_jvm/类加载过程.PNG" alt="Alt text"></p>]]>
     
     </summary>
     
@@ -3357,6 +3428,25 @@
   </entry>
   
   <entry>
+    <title><![CDATA[如何不输出docker日志到控制台]]></title>
+    <link href="http://tonylit.me/2016/04/22/%E5%A6%82%E4%BD%95%E4%B8%8D%E8%BE%93%E5%87%BAdocker%E6%97%A5%E5%BF%97%E5%88%B0%E6%8E%A7%E5%88%B6%E5%8F%B0/"/>
+    <id>http://tonylit.me/2016/04/22/如何不输出docker日志到控制台/</id>
+    <published>2016-04-22T03:37:27.000Z</published>
+    <updated>2016-04-22T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>docker run 后一些日志会打印到控制台，怎样不让信息打印到控制台呢？<br><a id="more"></a></p>
+<p>解决方法：docker -d &gt; docker.log</p>
+<p>docker run -d &gt; docker.log –name test -v /app/webroot/:/app/webroot/ -P docker.vemic.com:5000/focustest-centos5:5.4  /opt/ActivePython-2.7/bin/supervisord -c /opt/supervisor/supervisord.conf &amp;</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>docker run 后一些日志会打印到控制台，怎样不让信息打印到控制台呢？<br>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[supervisor管理容器进程]]></title>
     <link href="http://tonylit.me/2016/04/22/supervisor%E7%AE%A1%E7%90%86docker%E8%BF%9B%E7%A8%8B/"/>
     <id>http://tonylit.me/2016/04/22/supervisor管理docker进程/</id>
@@ -3379,25 +3469,6 @@
     <![CDATA[<p>启动容器的时候，为了保证容器退出时保持UP状态，可以使用 /usr/sbin/sshd -D<br>我们经常会在后面加上若干启动命令：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -ti --name test docker<span class="class">.vemic</span><span class="class">.com</span>:<span class="number">5000</span>/focustest-centos5 -P <span class="number">22</span> -P <span class="number">80</span> /usr/sbin/sshd -D &amp;&amp; nginx &amp;&amp; /opt/resin<span class="class">.sh</span> restart</span><br></pre></td></tr></table></figure></p>
 <p>命令多的时候看起来会很乱<br>but，可以使用supervisor来进行优化（管理进程）<br>可以写成这样：</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[supervisord]</span></span><br><span class="line"><span class="setting">nodaemon=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"><span class="title">[program:sshd]</span></span><br><span class="line"><span class="setting">command=<span class="value">/usr/sbin/sshd -D</span></span></span><br><span class="line"><span class="title">[program:nginx]</span></span><br><span class="line"><span class="setting">command=<span class="value">nginx</span></span></span><br><span class="line"><span class="title">[program:resin]</span></span><br><span class="line"><span class="setting">command=<span class="value">/opt/resin.sh restart</span></span></span><br></pre></td></tr></table></figure>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[如何不输出docker日志到控制台]]></title>
-    <link href="http://tonylit.me/2016/04/22/%E5%A6%82%E4%BD%95%E4%B8%8D%E8%BE%93%E5%87%BAdocker%E6%97%A5%E5%BF%97%E5%88%B0%E6%8E%A7%E5%88%B6%E5%8F%B0/"/>
-    <id>http://tonylit.me/2016/04/22/如何不输出docker日志到控制台/</id>
-    <published>2016-04-22T03:37:27.000Z</published>
-    <updated>2016-04-22T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>docker run 后一些日志会打印到控制台，怎样不让信息打印到控制台呢？<br><a id="more"></a></p>
-<p>解决方法：docker -d &gt; docker.log</p>
-<p>docker run -d &gt; docker.log –name test -v /app/webroot/:/app/webroot/ -P docker.vemic.com:5000/focustest-centos5:5.4  /opt/ActivePython-2.7/bin/supervisord -c /opt/supervisor/supervisord.conf &amp;</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>docker run 后一些日志会打印到控制台，怎样不让信息打印到控制台呢？<br>]]>
     
     </summary>
     
@@ -3644,6 +3715,32 @@
   </entry>
   
   <entry>
+    <title><![CDATA[docker pull关于https的报错处理]]></title>
+    <link href="http://tonylit.me/2016/03/29/docker_pull_https_error/"/>
+    <id>http://tonylit.me/2016/03/29/docker_pull_https_error/</id>
+    <published>2016-03-29T03:37:27.000Z</published>
+    <updated>2016-03-29T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>
+<a id="more"></a>
+<p>网上很多解决方法都是Ubuntu系统的，centos7 docker的配置文件真是难找。</p>
+<h1 id="修改docker配置文件">修改docker配置文件</h1><p>刚开始修改/etc/sysconfig/docker文件，加入–insecure-registry docker.vemic.com:5000，没启作用。<br>起作用的配置如下修改：<br>vi /usr/lib/systemd/system/docker.service</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[Unit]</span></span><br><span class="line"><span class="setting">Description=<span class="value">Docker Application Container Engine</span></span></span><br><span class="line"><span class="comment">##这里讲https-&gt;http</span></span><br><span class="line"><span class="setting">Documentation=<span class="value">http://docs.docker.com</span></span></span><br><span class="line"><span class="setting">After=<span class="value">network.target docker.socket</span></span></span><br><span class="line"><span class="setting">Requires=<span class="value">docker.socket</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Service]</span></span><br><span class="line"><span class="comment">##这里加入-d  --insecure-registry docker.vemic.com:5000</span></span><br><span class="line"><span class="setting">ExecStart=<span class="value">/usr/bin/docker -d  --insecure-registry docker.vemic.com:<span class="number">5000</span> -H fd:// <span class="variable">$OPTIONS</span> <span class="variable">$DOCKER_STORAGE_OPTIONS</span>  </span></span></span><br><span class="line"><span class="setting">MountFlags=<span class="value">slave</span></span></span><br><span class="line"><span class="setting">LimitNOFILE=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitNPROC=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitCORE=<span class="value">infinity</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Install]</span></span><br><span class="line"><span class="setting">WantedBy=<span class="value">multi-user.target</span></span></span><br></pre></td></tr></table></figure>
+<p>以上修改后重启docker</p>
+<blockquote>
+<p>service docker restart<br>systemctl daemon-reload</p>
+</blockquote>
+<p>OK了</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[使用weave实现docker多宿主机互联]]></title>
     <link href="http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/"/>
     <id>http://tonylit.me/2016/03/29/docker-weave网络互连/</id>
@@ -3667,32 +3764,6 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>使用weave实现docker多宿主机互联<br>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[docker pull关于https的报错处理]]></title>
-    <link href="http://tonylit.me/2016/03/29/docker_pull_https_error/"/>
-    <id>http://tonylit.me/2016/03/29/docker_pull_https_error/</id>
-    <published>2016-03-29T03:37:27.000Z</published>
-    <updated>2016-03-29T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>
-<a id="more"></a>
-<p>网上很多解决方法都是Ubuntu系统的，centos7 docker的配置文件真是难找。</p>
-<h1 id="修改docker配置文件">修改docker配置文件</h1><p>刚开始修改/etc/sysconfig/docker文件，加入–insecure-registry docker.vemic.com:5000，没启作用。<br>起作用的配置如下修改：<br>vi /usr/lib/systemd/system/docker.service</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[Unit]</span></span><br><span class="line"><span class="setting">Description=<span class="value">Docker Application Container Engine</span></span></span><br><span class="line"><span class="comment">##这里讲https-&gt;http</span></span><br><span class="line"><span class="setting">Documentation=<span class="value">http://docs.docker.com</span></span></span><br><span class="line"><span class="setting">After=<span class="value">network.target docker.socket</span></span></span><br><span class="line"><span class="setting">Requires=<span class="value">docker.socket</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Service]</span></span><br><span class="line"><span class="comment">##这里加入-d  --insecure-registry docker.vemic.com:5000</span></span><br><span class="line"><span class="setting">ExecStart=<span class="value">/usr/bin/docker -d  --insecure-registry docker.vemic.com:<span class="number">5000</span> -H fd:// <span class="variable">$OPTIONS</span> <span class="variable">$DOCKER_STORAGE_OPTIONS</span>  </span></span></span><br><span class="line"><span class="setting">MountFlags=<span class="value">slave</span></span></span><br><span class="line"><span class="setting">LimitNOFILE=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitNPROC=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitCORE=<span class="value">infinity</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Install]</span></span><br><span class="line"><span class="setting">WantedBy=<span class="value">multi-user.target</span></span></span><br></pre></td></tr></table></figure>
-<p>以上修改后重启docker</p>
-<blockquote>
-<p>service docker restart<br>systemctl daemon-reload</p>
-</blockquote>
-<p>OK了</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>]]>
     
     </summary>
     
@@ -4396,6 +4467,32 @@
   </entry>
   
   <entry>
+    <title><![CDATA[JavaMelody监控java应用]]></title>
+    <link href="http://tonylit.me/2015/12/16/javamelody%E7%9B%91%E6%8E%A7java%E5%BA%94%E7%94%A8/"/>
+    <id>http://tonylit.me/2015/12/16/javamelody监控java应用/</id>
+    <published>2015-12-16T03:37:27.000Z</published>
+    <updated>2015-12-16T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>公司里大多都是java项目，之前监控一直用jprofiler，最近在论坛上发现JavaMelody这个监控神器，真是眼前一亮！<br><img src="/img/javamelody/javamelody_1.jpg" alt="Alt text"></p>
+<a id="more"></a>
+<h1 id="JavaMelody介绍">JavaMelody介绍</h1><p>JavaMelody 能够监测Java或Java EE应用程序服务器，并以图表的方式显示：Java内存和Java  CPU使用情况，用户Session数量，JDBC连接数，和http请求、sql请求、jsp页面与业务接口方法（EJB3、Spring、 Guice）的执行数量，平均执行时间，错误百分比等。图表可以按天，周，月，年或自定义时间段查看。</p>
+<h1 id="监控配置">监控配置</h1><p>今天先介绍怎样简单的做项目监控，与spring或者Struts集成先不谈。<br>你需要做的只是拷贝两个jar包，添加10行xml的代码就OK了。</p>
+<h2 id="下载一个javamelody-1-58-0-zip_解压开来">下载一个javamelody-1.58.0.zip 解压开来</h2><p>下载地址在github上，<a href="https://github.com/javamelody/javamelody/releases，现在的最新版本是1.58，下载javamelody-1.58.0.zip" target="_blank" rel="external">https://github.com/javamelody/javamelody/releases，现在的最新版本是1.58，下载javamelody-1.58.0.zip</a><br>解压开，将里面的javamelody.jar和jrobin-1.5.9.1.jar拷贝到项目WEB-INF下的lib中。</p>
+<h1 id="配置web-xml">配置web.xml</h1><p>在web.xml中添加配置：</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">&lt;filter&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="variable">&lt;filter-name&gt;</span>monitoring<span class="variable">&lt;/filter-name&gt;</span></span><br><span class="line">      <span class="variable">&lt;filter-class&gt;</span>net.bull.javamelody.MonitoringFilter<span class="variable">&lt;/filter-class&gt;</span></span><br><span class="line"><span class="variable">&lt;/filter&gt;</span></span><br><span class="line"><span class="variable">&lt;filter-mapping&gt;</span></span><br><span class="line">       <span class="variable">&lt;filter-name&gt;</span>monitoring<span class="variable">&lt;/filter-name&gt;</span></span><br><span class="line">       <span class="variable">&lt;url-pattern&gt;</span>/<span class="keyword">*</span><span class="variable">&lt;/url-pattern&gt;</span></span><br><span class="line"><span class="variable">&lt;/filter-mapping&gt;</span></span><br><span class="line"><span class="variable">&lt;listener&gt;</span></span><br><span class="line">       <span class="variable">&lt;listener-class&gt;</span>net.bull.javamelody.SessionListener<span class="variable">&lt;/listener-class&gt;</span></span><br><span class="line"><span class="variable">&lt;/listener&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="重启应用，完成配置">重启应用，完成配置</h1><p>现在就可以启动应用服务器打开网址查看监控效果了。网址：http://<host>/monitoring<br>如：<a href="http://192.168.43.103:82/monitoring" target="_blank" rel="external">http://192.168.43.103:82/monitoring</a><br><img src="/img/javamelody/javamelody.PNG" alt="Alt text"></host></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>公司里大多都是java项目，之前监控一直用jprofiler，最近在论坛上发现JavaMelody这个监控神器，真是眼前一亮！<br><img src="/img/javamelody/javamelody_1.jpg" alt="Alt text"></p>]]>
+    
+    </summary>
+    
+      <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[jenkins+maven+jmeter 性能自动化实践]]></title>
     <link href="http://tonylit.me/2015/12/16/jenkins+maven+jmeter%E6%80%A7%E8%83%BD%E8%87%AA%E5%8A%A8%E5%8C%96%E5%AE%9E%E8%B7%B5/"/>
     <id>http://tonylit.me/2015/12/16/jenkins+maven+jmeter性能自动化实践/</id>
@@ -4445,32 +4542,6 @@
     </summary>
     
       <category term="Jmeter" scheme="http://tonylit.me/tags/Jmeter/"/>
-    
-      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[JavaMelody监控java应用]]></title>
-    <link href="http://tonylit.me/2015/12/16/javamelody%E7%9B%91%E6%8E%A7java%E5%BA%94%E7%94%A8/"/>
-    <id>http://tonylit.me/2015/12/16/javamelody监控java应用/</id>
-    <published>2015-12-16T03:37:27.000Z</published>
-    <updated>2015-12-16T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>公司里大多都是java项目，之前监控一直用jprofiler，最近在论坛上发现JavaMelody这个监控神器，真是眼前一亮！<br><img src="/img/javamelody/javamelody_1.jpg" alt="Alt text"></p>
-<a id="more"></a>
-<h1 id="JavaMelody介绍">JavaMelody介绍</h1><p>JavaMelody 能够监测Java或Java EE应用程序服务器，并以图表的方式显示：Java内存和Java  CPU使用情况，用户Session数量，JDBC连接数，和http请求、sql请求、jsp页面与业务接口方法（EJB3、Spring、 Guice）的执行数量，平均执行时间，错误百分比等。图表可以按天，周，月，年或自定义时间段查看。</p>
-<h1 id="监控配置">监控配置</h1><p>今天先介绍怎样简单的做项目监控，与spring或者Struts集成先不谈。<br>你需要做的只是拷贝两个jar包，添加10行xml的代码就OK了。</p>
-<h2 id="下载一个javamelody-1-58-0-zip_解压开来">下载一个javamelody-1.58.0.zip 解压开来</h2><p>下载地址在github上，<a href="https://github.com/javamelody/javamelody/releases，现在的最新版本是1.58，下载javamelody-1.58.0.zip" target="_blank" rel="external">https://github.com/javamelody/javamelody/releases，现在的最新版本是1.58，下载javamelody-1.58.0.zip</a><br>解压开，将里面的javamelody.jar和jrobin-1.5.9.1.jar拷贝到项目WEB-INF下的lib中。</p>
-<h1 id="配置web-xml">配置web.xml</h1><p>在web.xml中添加配置：</p>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">&lt;filter&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="variable">&lt;filter-name&gt;</span>monitoring<span class="variable">&lt;/filter-name&gt;</span></span><br><span class="line">      <span class="variable">&lt;filter-class&gt;</span>net.bull.javamelody.MonitoringFilter<span class="variable">&lt;/filter-class&gt;</span></span><br><span class="line"><span class="variable">&lt;/filter&gt;</span></span><br><span class="line"><span class="variable">&lt;filter-mapping&gt;</span></span><br><span class="line">       <span class="variable">&lt;filter-name&gt;</span>monitoring<span class="variable">&lt;/filter-name&gt;</span></span><br><span class="line">       <span class="variable">&lt;url-pattern&gt;</span>/<span class="keyword">*</span><span class="variable">&lt;/url-pattern&gt;</span></span><br><span class="line"><span class="variable">&lt;/filter-mapping&gt;</span></span><br><span class="line"><span class="variable">&lt;listener&gt;</span></span><br><span class="line">       <span class="variable">&lt;listener-class&gt;</span>net.bull.javamelody.SessionListener<span class="variable">&lt;/listener-class&gt;</span></span><br><span class="line"><span class="variable">&lt;/listener&gt;</span></span><br></pre></td></tr></table></figure>
-<h1 id="重启应用，完成配置">重启应用，完成配置</h1><p>现在就可以启动应用服务器打开网址查看监控效果了。网址：http://<host>/monitoring<br>如：<a href="http://192.168.43.103:82/monitoring" target="_blank" rel="external">http://192.168.43.103:82/monitoring</a><br><img src="/img/javamelody/javamelody.PNG" alt="Alt text"></host></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>公司里大多都是java项目，之前监控一直用jprofiler，最近在论坛上发现JavaMelody这个监控神器，真是眼前一亮！<br><img src="/img/javamelody/javamelody_1.jpg" alt="Alt text"></p>]]>
-    
-    </summary>
-    
-      <category term="work" scheme="http://tonylit.me/tags/work/"/>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
     
@@ -5146,34 +5217,6 @@
       <category term="work" scheme="http://tonylit.me/tags/work/"/>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[登录filter实现]]></title>
-    <link href="http://tonylit.me/2015/10/20/%E7%99%BB%E5%BD%95filter%E5%AE%9E%E7%8E%B0/"/>
-    <id>http://tonylit.me/2015/10/20/登录filter实现/</id>
-    <published>2015-10-20T03:37:27.000Z</published>
-    <updated>2015-10-20T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>   最近想实现一个vo登录的功能，左思右想~~<br>   嗯，应该是需要实现权限和登录认证的功能，看来是做写一个登录过滤器或者拦截器了。<br> 项目使用的springmvc框架，查阅了一些资料，决定使用<strong>filter</strong>过滤器，<a href="http://blog.csdn.net/chenleixing/article/details/44573495" target="_blank" rel="external">拦截器与过滤器的区别</a>    </p>
-<a id="more"></a>
-<p>具体实现比较简单，配置配置，写个filter类就行了，如下：</p>
-<ul>
-<li><h1 id="在web-xml中增加对filer的配置">在web.xml中增加对filer的配置</h1><p><img src="/img/webxml-filter.PNG" alt="Alt text"></p>
-</li>
-<li><h1 id="新建一个filter类">新建一个filter类</h1></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.focustech.fds.web.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.Filter;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.FilterChain;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.FilterConfig;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletResponse;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpSession;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 登录验证的filter实现</span><br><span class="line"> * </span><br><span class="line"> * <span class="doctag">@author</span> lit</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecurityServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">    <span class="keyword">private</span> FilterConfig config;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String[] EXCEPT_PAGE;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 登录页面</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String LOGIN_PAGE = <span class="string">"/login"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)</span></span><br><span class="line">            <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line"></span><br><span class="line">        HttpServletRequest request = (HttpServletRequest) servletRequest;</span><br><span class="line">        HttpServletResponse response = (HttpServletResponse) servletResponse;</span><br><span class="line">        request.setAttribute(<span class="string">"version"</span>, <span class="keyword">new</span> Random().nextInt());</span><br><span class="line">        BodyReaderHttpServletRequestWrapper requestWrapper = <span class="keyword">new</span> BodyReaderHttpServletRequestWrapper(request);</span><br><span class="line">        <span class="keyword">if</span> (requestWrapper != <span class="keyword">null</span>) &#123;</span><br><span class="line">            request = requestWrapper;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 排除一些jsp，css等文件</span></span><br><span class="line">        <span class="keyword">for</span> (String exception : EXCEPT_PAGE) &#123;</span><br><span class="line">            <span class="keyword">if</span> (request.getRequestURI().endsWith(exception)) &#123;</span><br><span class="line"></span><br><span class="line">                filterChain.doFilter(request, response);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// String ref = request.getHeader("REFERER");</span></span><br><span class="line">        String ref = <span class="string">"REFERER"</span>;</span><br><span class="line">        HttpSession session = request.getSession(<span class="keyword">false</span>);</span><br><span class="line">        String type = request.getHeader(<span class="string">"X-Requested-With"</span>);</span><br><span class="line">        <span class="keyword">if</span> (session == <span class="keyword">null</span> || session.getAttribute(<span class="string">"fdsUser"</span>) == <span class="keyword">null</span> || ref == <span class="keyword">null</span> || <span class="string">""</span>.equals(ref)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">"XMLHttpRequest"</span>.equalsIgnoreCase(type)) &#123;<span class="comment">// AJAX REQUEST</span></span><br><span class="line">                                                          <span class="comment">// PROCESS</span></span><br><span class="line">                response.setHeader(<span class="string">"sessionstatus"</span>, <span class="string">"timeout"</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            response.sendRedirect(request.getContextPath() + LOGIN_PAGE);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        filterChain.doFilter(request, response);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(FilterConfig filterConfig)</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">        String exception = filterConfig.getInitParameter(<span class="string">"exception"</span>);</span><br><span class="line">        <span class="keyword">if</span> (exception != <span class="keyword">null</span> &amp;&amp; !<span class="string">""</span>.equals(exception)) &#123;</span><br><span class="line">            EXCEPT_PAGE = exception.split(<span class="string">","</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        config = filterConfig;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>搞定~<br>以后凡是URL中带有/vo/的请求都走过滤器滤一滤！</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>   最近想实现一个vo登录的功能，左思右想~~<br>   嗯，应该是需要实现权限和登录认证的功能，看来是做写一个登录过滤器或者拦截器了。<br> 项目使用的springmvc框架，查阅了一些资料，决定使用<strong>filter</strong>过滤器，<a href="http://blog.csdn.net/chenleixing/article/details/44573495">拦截器与过滤器的区别</a>    </p>]]>
-    
-    </summary>
-    
-      <category term="java" scheme="http://tonylit.me/tags/java/"/>
-    
-      <category term="work" scheme="http://tonylit.me/tags/work/"/>
     
   </entry>
   
