@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Nothing is given. Everything is earned.]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2018-04-16T05:37:27.000Z</updated>
+  <updated>2018-05-05T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -13,6 +13,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[ngrinder post�����ű�demo]]></title>
+    <link href="http://tonylit.me/2018/05/05/ngrinder%20post%E8%AF%B7%E6%B1%82%E8%84%9A%E6%9C%ACdemo/"/>
+    <id>http://tonylit.me/2018/05/05/ngrinder post请求脚本demo/</id>
+    <published>2018-05-05T03:37:27.000Z</published>
+    <updated>2018-05-05T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>ngrinder�ű�֧��Jython��Groovy���ԣ���������<br>Groovy HTTP Post�����ű���д��ʽ��</p>
+<a id="more"></a>
+<hr>
+<h1 id="post�����ű�">post�����ű�</h1><p><a href="https://pan.baidu.com/s/13pp-UZLF1w4Z71zeIH9qJg" target="_blank" rel="external">����jar��</a></p>
+<p>���а������ﶨ�壬�������ȡ�</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> postdemo</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> net.grinder.script.Grinder.grinder</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> net.grinder.plugin.http.HTTPRequest</span><br><span class="line"><span class="keyword">import</span> net.grinder.plugin.http.HTTPPluginControl</span><br><span class="line"><span class="keyword">import</span> net.grinder.script.GTest</span><br><span class="line"><span class="keyword">import</span> net.grinder.scriptengine.groovy.junit.GrinderRunner</span><br><span class="line"><span class="keyword">import</span> net.grinder.scriptengine.groovy.junit.annotation.BeforeProcess</span><br><span class="line"><span class="keyword">import</span> net.grinder.scriptengine.groovy.junit.annotation.BeforeThread</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.Before</span><br><span class="line"><span class="keyword">import</span> org.junit.Test</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> HTTPClient.Cookie</span><br><span class="line"><span class="keyword">import</span> HTTPClient.CookieModule</span><br><span class="line"><span class="keyword">import</span> HTTPClient.HTTPResponse</span><br><span class="line"><span class="keyword">import</span> HTTPClient.NVPair</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.Assert.*</span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSONObject;</span><br><span class="line"></span><br><span class="line"><span class="annotation">@RunWith</span>(GrinderRunner)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostDemo</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> GTest test1</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> GTest test2</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> HTTPRequest request</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> NVPair[] headers = []</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Cookie[] cookies = []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> List&lt;String&gt; buyerlineList <span class="comment">//���Ų����ļ���¼</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> def buyerRowNumber <span class="comment">//������</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * <span class="doctag">@BeforeProcess</span>��ÿ����������ǰִ�и÷���</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="annotation">@BeforeProcess</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">void</span> <span class="title">beforeProcess</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">//����������Ӧ��ʱʱ�䣨ms�����������׳��쳣</span></span><br><span class="line">		HTTPPluginControl.getConnectionDefaults().timeout = <span class="number">6000</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">//1����ִ��˳�������Ĵ�����������</span></span><br><span class="line">		test1 = <span class="keyword">new</span> GTest(<span class="number">1</span>, <span class="string">"��һ������"</span>)</span><br><span class="line">		<span class="comment">//test2 = new GTest(2, "�ڶ�������")</span></span><br><span class="line"></span><br><span class="line">		request = <span class="keyword">new</span> HTTPRequest()</span><br><span class="line"></span><br><span class="line">		<span class="comment">//��ȡ�����ļ�</span></span><br><span class="line">		buyerlineList = <span class="keyword">new</span> File(<span class="string">"./resources/buyertest.txt"</span>).readLines()</span><br><span class="line"></span><br><span class="line">		grinder.logger.info(<span class="string">"before process."</span>);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * <span class="doctag">@BeforeThread</span> ��ÿ���߳�����ǰִ�и÷���</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="annotation">@BeforeThread</span></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">beforeThread</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">//ע���¼�������test1�������ķ���������һ��</span></span><br><span class="line">		test1.record(<span class="keyword">this</span>, <span class="string">"test1"</span>)</span><br><span class="line"></span><br><span class="line">		grinder.statistics.delayReports=<span class="keyword">true</span>;</span><br><span class="line">		grinder.logger.info(<span class="string">"before thread."</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * <span class="doctag">@Before</span>��ÿ��<span class="doctag">@test</span>����ǰִ��</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="annotation">@Before</span></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">before</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">//����header����</span></span><br><span class="line">		headers = [</span><br><span class="line">			<span class="keyword">new</span> NVPair(<span class="string">"Content-type"</span>,<span class="string">"application/x-www-form-urlencoded;"</span>),</span><br><span class="line">			<span class="keyword">new</span> NVPair(<span class="string">"User-Agent"</span>,<span class="string">"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT)"</span>),</span><br><span class="line">			<span class="keyword">new</span> NVPair(<span class="string">"Accept"</span>,<span class="string">"*/*"</span>)] as NVPair[];</span><br><span class="line">		request.setHeaders(headers)</span><br><span class="line"></span><br><span class="line">		cookies.each &#123; CookieModule.addCookie(it, HTTPPluginControl.getThreadHTTPClientContext()) &#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">/*���������ݣ�����������������ʽ���˴�Ϊ������ʽ*/</span></span><br><span class="line">		buyerRowNumber = <span class="keyword">new</span> Random().nextInt(buyerlineList.size())</span><br><span class="line">		String buyer = buyerlineList.get(buyerRowNumber);</span><br><span class="line">		<span class="comment">//��������������--json��ʽ</span></span><br><span class="line">		String testdata=<span class="string">"&#123;\"buyer\":\""</span>+buyer+<span class="string">"\",\"preTotalAmt\":2000,\"afterTotalAmt\":2000&#125;"</span>;</span><br><span class="line">		request.setData(testdata.getBytes(<span class="string">"utf-8"</span>));</span><br><span class="line"></span><br><span class="line">		grinder.logger.info(<span class="string">"before thread. init headers and cookies"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Test</span></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">try</span>&#123;</span><br><span class="line">			<span class="comment">//��������</span></span><br><span class="line">			HTTPResponse result = request.POST(<span class="string">"http://xxxx/aa/bb/cc.html"</span>);</span><br><span class="line">			<span class="comment">//��ȡ���ر���</span></span><br><span class="line">			String respCode = JSONObject.parseObject(result.getText()).get(<span class="string">"responseCode"</span>);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> (respCode.equals(<span class="string">"0000"</span>)) &#123;</span><br><span class="line"></span><br><span class="line">				println <span class="string">"===����==========�ɹ�"</span>+result.getText();</span><br><span class="line">				assertTrue(<span class="string">"�ɹ�&lt;&lt;&lt;"</span>,respCode.equals(<span class="string">"0000"</span>))</span><br><span class="line">			&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">				grinder.logger.<span class="keyword">error</span>(<span class="string">"===ʧ��=========="</span>+result.getText())</span><br><span class="line">				assertFalse(<span class="string">"ʧ��&gt;&gt;&gt;"</span>,!respCode.equals(<span class="string">"0000"</span>))</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">			assertFalse(<span class="string">"ʧ��&gt;&gt;&gt;"</span>+ex,<span class="keyword">false</span>)</span><br><span class="line">			grinder.logger.<span class="keyword">error</span>(<span class="string">"===�쳣======"</span>+ex)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>���е�ʱ����vm�м������ã�<br>-javaagent:E:\sn\PTlib\PTlib\grinder-dcr-agent-3.9.1.jar<br><img src="/img/ngrinder-post�ű�/vm����.PNG" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>ngrinder�ű�֧��Jython��Groovy���ԣ���������<br>Groovy HTTP Post�����ű���д��ʽ��</p>]]>
+    
+    </summary>
+    
+      <category term="����" scheme="http://tonylit.me/tags/%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Spring Boot入门]]></title>
@@ -2600,35 +2623,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[docker network 网络设置]]></title>
-    <link href="http://tonylit.me/2016/08/15/docker%20network%20%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE/"/>
-    <id>http://tonylit.me/2016/08/15/docker network 网络设置/</id>
-    <published>2016-08-15T03:37:27.000Z</published>
-    <updated>2016-08-15T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>
-<a id="more"></a>
-<p>使用docker network(1.9以后新特性)解决该问题。</p>
-<h1 id="新建docker网桥：">新建docker网桥：</h1><blockquote>
-<p>docker network create –subnet=192.168.42.0/24 -d=bridge   –gateway=192.168.42.3  mynetwork</p>
-</blockquote>
-<h1 id="启动网桥并把网卡桥接上">启动网桥并把网卡桥接上</h1><blockquote>
-<p>ifconfig   br-353aab8b89f2  up 0<br>brctl   addif  br-353aab8b89f2 eth1</p>
-</blockquote>
-<h1 id="docker启动时指定ip和网桥">docker启动时指定ip和网桥</h1><blockquote>
-<p>docker  run -it –rm  –ip=192.168.42.130  –net=mynetwork  docker.vemic.com/focustest/centos5:6.18 /bin/bash</p>
-</blockquote>
-<p>以上就可以了，不再需要pipework修改网络。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[使用strace定位性能问题]]></title>
     <link href="http://tonylit.me/2016/08/15/%E4%BD%BF%E7%94%A8strace%E5%AE%9A%E4%BD%8D%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/"/>
     <id>http://tonylit.me/2016/08/15/使用strace定位性能问题/</id>
@@ -2661,6 +2655,35 @@
     </summary>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[docker network 网络设置]]></title>
+    <link href="http://tonylit.me/2016/08/15/docker%20network%20%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE/"/>
+    <id>http://tonylit.me/2016/08/15/docker network 网络设置/</id>
+    <published>2016-08-15T03:37:27.000Z</published>
+    <updated>2016-08-15T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>
+<a id="more"></a>
+<p>使用docker network(1.9以后新特性)解决该问题。</p>
+<h1 id="新建docker网桥：">新建docker网桥：</h1><blockquote>
+<p>docker network create –subnet=192.168.42.0/24 -d=bridge   –gateway=192.168.42.3  mynetwork</p>
+</blockquote>
+<h1 id="启动网桥并把网卡桥接上">启动网桥并把网卡桥接上</h1><blockquote>
+<p>ifconfig   br-353aab8b89f2  up 0<br>brctl   addif  br-353aab8b89f2 eth1</p>
+</blockquote>
+<h1 id="docker启动时指定ip和网桥">docker启动时指定ip和网桥</h1><blockquote>
+<p>docker  run -it –rm  –ip=192.168.42.130  –net=mynetwork  docker.vemic.com/focustest/centos5:6.18 /bin/bash</p>
+</blockquote>
+<p>以上就可以了，不再需要pipework修改网络。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   
@@ -3715,32 +3738,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[docker pull关于https的报错处理]]></title>
-    <link href="http://tonylit.me/2016/03/29/docker_pull_https_error/"/>
-    <id>http://tonylit.me/2016/03/29/docker_pull_https_error/</id>
-    <published>2016-03-29T03:37:27.000Z</published>
-    <updated>2016-03-29T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>
-<a id="more"></a>
-<p>网上很多解决方法都是Ubuntu系统的，centos7 docker的配置文件真是难找。</p>
-<h1 id="修改docker配置文件">修改docker配置文件</h1><p>刚开始修改/etc/sysconfig/docker文件，加入–insecure-registry docker.vemic.com:5000，没启作用。<br>起作用的配置如下修改：<br>vi /usr/lib/systemd/system/docker.service</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[Unit]</span></span><br><span class="line"><span class="setting">Description=<span class="value">Docker Application Container Engine</span></span></span><br><span class="line"><span class="comment">##这里讲https-&gt;http</span></span><br><span class="line"><span class="setting">Documentation=<span class="value">http://docs.docker.com</span></span></span><br><span class="line"><span class="setting">After=<span class="value">network.target docker.socket</span></span></span><br><span class="line"><span class="setting">Requires=<span class="value">docker.socket</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Service]</span></span><br><span class="line"><span class="comment">##这里加入-d  --insecure-registry docker.vemic.com:5000</span></span><br><span class="line"><span class="setting">ExecStart=<span class="value">/usr/bin/docker -d  --insecure-registry docker.vemic.com:<span class="number">5000</span> -H fd:// <span class="variable">$OPTIONS</span> <span class="variable">$DOCKER_STORAGE_OPTIONS</span>  </span></span></span><br><span class="line"><span class="setting">MountFlags=<span class="value">slave</span></span></span><br><span class="line"><span class="setting">LimitNOFILE=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitNPROC=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitCORE=<span class="value">infinity</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Install]</span></span><br><span class="line"><span class="setting">WantedBy=<span class="value">multi-user.target</span></span></span><br></pre></td></tr></table></figure>
-<p>以上修改后重启docker</p>
-<blockquote>
-<p>service docker restart<br>systemctl daemon-reload</p>
-</blockquote>
-<p>OK了</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[使用weave实现docker多宿主机互联]]></title>
     <link href="http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/"/>
     <id>http://tonylit.me/2016/03/29/docker-weave网络互连/</id>
@@ -3764,6 +3761,32 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>使用weave实现docker多宿主机互联<br>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[docker pull关于https的报错处理]]></title>
+    <link href="http://tonylit.me/2016/03/29/docker_pull_https_error/"/>
+    <id>http://tonylit.me/2016/03/29/docker_pull_https_error/</id>
+    <published>2016-03-29T03:37:27.000Z</published>
+    <updated>2016-03-29T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>
+<a id="more"></a>
+<p>网上很多解决方法都是Ubuntu系统的，centos7 docker的配置文件真是难找。</p>
+<h1 id="修改docker配置文件">修改docker配置文件</h1><p>刚开始修改/etc/sysconfig/docker文件，加入–insecure-registry docker.vemic.com:5000，没启作用。<br>起作用的配置如下修改：<br>vi /usr/lib/systemd/system/docker.service</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[Unit]</span></span><br><span class="line"><span class="setting">Description=<span class="value">Docker Application Container Engine</span></span></span><br><span class="line"><span class="comment">##这里讲https-&gt;http</span></span><br><span class="line"><span class="setting">Documentation=<span class="value">http://docs.docker.com</span></span></span><br><span class="line"><span class="setting">After=<span class="value">network.target docker.socket</span></span></span><br><span class="line"><span class="setting">Requires=<span class="value">docker.socket</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Service]</span></span><br><span class="line"><span class="comment">##这里加入-d  --insecure-registry docker.vemic.com:5000</span></span><br><span class="line"><span class="setting">ExecStart=<span class="value">/usr/bin/docker -d  --insecure-registry docker.vemic.com:<span class="number">5000</span> -H fd:// <span class="variable">$OPTIONS</span> <span class="variable">$DOCKER_STORAGE_OPTIONS</span>  </span></span></span><br><span class="line"><span class="setting">MountFlags=<span class="value">slave</span></span></span><br><span class="line"><span class="setting">LimitNOFILE=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitNPROC=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitCORE=<span class="value">infinity</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Install]</span></span><br><span class="line"><span class="setting">WantedBy=<span class="value">multi-user.target</span></span></span><br></pre></td></tr></table></figure>
+<p>以上修改后重启docker</p>
+<blockquote>
+<p>service docker restart<br>systemctl daemon-reload</p>
+</blockquote>
+<p>OK了</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>]]>
     
     </summary>
     
@@ -4211,6 +4234,47 @@
   </entry>
   
   <entry>
+    <title><![CDATA[export、import导出导入docker容器]]></title>
+    <link href="http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/"/>
+    <id>http://tonylit.me/2015/12/22/docker import和export/</id>
+    <published>2015-12-22T03:37:27.000Z</published>
+    <updated>2015-12-22T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/" target="_blank" rel="external">centos-6-x86_64.tar.gz</a></p>
+<blockquote>
+<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
+<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br><a id="more"></a></p>
+</blockquote>
+<h2 id="实例">实例</h2><blockquote>
+<p>cat centos-6-x86_64.tar.gz|docker import - test/centos-6:v1.0<br><img src="/img/docker/docker_import.PNG" alt="Alt text"></p>
+</blockquote>
+<p>此外，也可以通过指定 URL 或者某个目录来导入，例如</p>
+<blockquote>
+<p> docker import <a href="http://example.com/exampleimage.tgz" target="_blank" rel="external">http://example.com/exampleimage.tgz</a> example/imagerepo</p>
+</blockquote>
+<p>*注：用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p>
+<h1 id="导出容器">导出容器</h1><p>先启动一下容器：</p>
+<blockquote>
+<p>docker run -t -i 5de0ac2f6f7e /bin/bash</p>
+</blockquote>
+<p>两个参数，-t表示给容器tty终端，-i表示可以interactive，可以交互。</p>
+<p><img src="/img/docker/docker_ps.PNG" alt="Alt text"></p>
+<blockquote>
+<p>docker export 5d73efeb9a38 &gt; tonylit_centos6.tar</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/">centos-6-x86_64.tar.gz</a></p>
+<blockquote>
+<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
+<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[staf使用]]></title>
     <link href="http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/"/>
     <id>http://tonylit.me/2015/12/22/staf使用/</id>
@@ -4256,47 +4320,6 @@
     </summary>
     
       <category term="work" scheme="http://tonylit.me/tags/work/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[export、import导出导入docker容器]]></title>
-    <link href="http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/"/>
-    <id>http://tonylit.me/2015/12/22/docker import和export/</id>
-    <published>2015-12-22T03:37:27.000Z</published>
-    <updated>2015-12-22T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/" target="_blank" rel="external">centos-6-x86_64.tar.gz</a></p>
-<blockquote>
-<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
-<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br><a id="more"></a></p>
-</blockquote>
-<h2 id="实例">实例</h2><blockquote>
-<p>cat centos-6-x86_64.tar.gz|docker import - test/centos-6:v1.0<br><img src="/img/docker/docker_import.PNG" alt="Alt text"></p>
-</blockquote>
-<p>此外，也可以通过指定 URL 或者某个目录来导入，例如</p>
-<blockquote>
-<p> docker import <a href="http://example.com/exampleimage.tgz" target="_blank" rel="external">http://example.com/exampleimage.tgz</a> example/imagerepo</p>
-</blockquote>
-<p>*注：用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p>
-<h1 id="导出容器">导出容器</h1><p>先启动一下容器：</p>
-<blockquote>
-<p>docker run -t -i 5de0ac2f6f7e /bin/bash</p>
-</blockquote>
-<p>两个参数，-t表示给容器tty终端，-i表示可以interactive，可以交互。</p>
-<p><img src="/img/docker/docker_ps.PNG" alt="Alt text"></p>
-<blockquote>
-<p>docker export 5d73efeb9a38 &gt; tonylit_centos6.tar</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/">centos-6-x86_64.tar.gz</a></p>
-<blockquote>
-<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
-<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   
@@ -4467,32 +4490,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[JavaMelody监控java应用]]></title>
-    <link href="http://tonylit.me/2015/12/16/javamelody%E7%9B%91%E6%8E%A7java%E5%BA%94%E7%94%A8/"/>
-    <id>http://tonylit.me/2015/12/16/javamelody监控java应用/</id>
-    <published>2015-12-16T03:37:27.000Z</published>
-    <updated>2015-12-16T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>公司里大多都是java项目，之前监控一直用jprofiler，最近在论坛上发现JavaMelody这个监控神器，真是眼前一亮！<br><img src="/img/javamelody/javamelody_1.jpg" alt="Alt text"></p>
-<a id="more"></a>
-<h1 id="JavaMelody介绍">JavaMelody介绍</h1><p>JavaMelody 能够监测Java或Java EE应用程序服务器，并以图表的方式显示：Java内存和Java  CPU使用情况，用户Session数量，JDBC连接数，和http请求、sql请求、jsp页面与业务接口方法（EJB3、Spring、 Guice）的执行数量，平均执行时间，错误百分比等。图表可以按天，周，月，年或自定义时间段查看。</p>
-<h1 id="监控配置">监控配置</h1><p>今天先介绍怎样简单的做项目监控，与spring或者Struts集成先不谈。<br>你需要做的只是拷贝两个jar包，添加10行xml的代码就OK了。</p>
-<h2 id="下载一个javamelody-1-58-0-zip_解压开来">下载一个javamelody-1.58.0.zip 解压开来</h2><p>下载地址在github上，<a href="https://github.com/javamelody/javamelody/releases，现在的最新版本是1.58，下载javamelody-1.58.0.zip" target="_blank" rel="external">https://github.com/javamelody/javamelody/releases，现在的最新版本是1.58，下载javamelody-1.58.0.zip</a><br>解压开，将里面的javamelody.jar和jrobin-1.5.9.1.jar拷贝到项目WEB-INF下的lib中。</p>
-<h1 id="配置web-xml">配置web.xml</h1><p>在web.xml中添加配置：</p>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">&lt;filter&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="variable">&lt;filter-name&gt;</span>monitoring<span class="variable">&lt;/filter-name&gt;</span></span><br><span class="line">      <span class="variable">&lt;filter-class&gt;</span>net.bull.javamelody.MonitoringFilter<span class="variable">&lt;/filter-class&gt;</span></span><br><span class="line"><span class="variable">&lt;/filter&gt;</span></span><br><span class="line"><span class="variable">&lt;filter-mapping&gt;</span></span><br><span class="line">       <span class="variable">&lt;filter-name&gt;</span>monitoring<span class="variable">&lt;/filter-name&gt;</span></span><br><span class="line">       <span class="variable">&lt;url-pattern&gt;</span>/<span class="keyword">*</span><span class="variable">&lt;/url-pattern&gt;</span></span><br><span class="line"><span class="variable">&lt;/filter-mapping&gt;</span></span><br><span class="line"><span class="variable">&lt;listener&gt;</span></span><br><span class="line">       <span class="variable">&lt;listener-class&gt;</span>net.bull.javamelody.SessionListener<span class="variable">&lt;/listener-class&gt;</span></span><br><span class="line"><span class="variable">&lt;/listener&gt;</span></span><br></pre></td></tr></table></figure>
-<h1 id="重启应用，完成配置">重启应用，完成配置</h1><p>现在就可以启动应用服务器打开网址查看监控效果了。网址：http://<host>/monitoring<br>如：<a href="http://192.168.43.103:82/monitoring" target="_blank" rel="external">http://192.168.43.103:82/monitoring</a><br><img src="/img/javamelody/javamelody.PNG" alt="Alt text"></host></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>公司里大多都是java项目，之前监控一直用jprofiler，最近在论坛上发现JavaMelody这个监控神器，真是眼前一亮！<br><img src="/img/javamelody/javamelody_1.jpg" alt="Alt text"></p>]]>
-    
-    </summary>
-    
-      <category term="work" scheme="http://tonylit.me/tags/work/"/>
-    
-      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[jenkins+maven+jmeter 性能自动化实践]]></title>
     <link href="http://tonylit.me/2015/12/16/jenkins+maven+jmeter%E6%80%A7%E8%83%BD%E8%87%AA%E5%8A%A8%E5%8C%96%E5%AE%9E%E8%B7%B5/"/>
     <id>http://tonylit.me/2015/12/16/jenkins+maven+jmeter性能自动化实践/</id>
@@ -4567,6 +4564,32 @@
   </entry>
   
   <entry>
+    <title><![CDATA[JavaMelody监控java应用]]></title>
+    <link href="http://tonylit.me/2015/12/16/javamelody%E7%9B%91%E6%8E%A7java%E5%BA%94%E7%94%A8/"/>
+    <id>http://tonylit.me/2015/12/16/javamelody监控java应用/</id>
+    <published>2015-12-16T03:37:27.000Z</published>
+    <updated>2015-12-16T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>公司里大多都是java项目，之前监控一直用jprofiler，最近在论坛上发现JavaMelody这个监控神器，真是眼前一亮！<br><img src="/img/javamelody/javamelody_1.jpg" alt="Alt text"></p>
+<a id="more"></a>
+<h1 id="JavaMelody介绍">JavaMelody介绍</h1><p>JavaMelody 能够监测Java或Java EE应用程序服务器，并以图表的方式显示：Java内存和Java  CPU使用情况，用户Session数量，JDBC连接数，和http请求、sql请求、jsp页面与业务接口方法（EJB3、Spring、 Guice）的执行数量，平均执行时间，错误百分比等。图表可以按天，周，月，年或自定义时间段查看。</p>
+<h1 id="监控配置">监控配置</h1><p>今天先介绍怎样简单的做项目监控，与spring或者Struts集成先不谈。<br>你需要做的只是拷贝两个jar包，添加10行xml的代码就OK了。</p>
+<h2 id="下载一个javamelody-1-58-0-zip_解压开来">下载一个javamelody-1.58.0.zip 解压开来</h2><p>下载地址在github上，<a href="https://github.com/javamelody/javamelody/releases，现在的最新版本是1.58，下载javamelody-1.58.0.zip" target="_blank" rel="external">https://github.com/javamelody/javamelody/releases，现在的最新版本是1.58，下载javamelody-1.58.0.zip</a><br>解压开，将里面的javamelody.jar和jrobin-1.5.9.1.jar拷贝到项目WEB-INF下的lib中。</p>
+<h1 id="配置web-xml">配置web.xml</h1><p>在web.xml中添加配置：</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">&lt;filter&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="variable">&lt;filter-name&gt;</span>monitoring<span class="variable">&lt;/filter-name&gt;</span></span><br><span class="line">      <span class="variable">&lt;filter-class&gt;</span>net.bull.javamelody.MonitoringFilter<span class="variable">&lt;/filter-class&gt;</span></span><br><span class="line"><span class="variable">&lt;/filter&gt;</span></span><br><span class="line"><span class="variable">&lt;filter-mapping&gt;</span></span><br><span class="line">       <span class="variable">&lt;filter-name&gt;</span>monitoring<span class="variable">&lt;/filter-name&gt;</span></span><br><span class="line">       <span class="variable">&lt;url-pattern&gt;</span>/<span class="keyword">*</span><span class="variable">&lt;/url-pattern&gt;</span></span><br><span class="line"><span class="variable">&lt;/filter-mapping&gt;</span></span><br><span class="line"><span class="variable">&lt;listener&gt;</span></span><br><span class="line">       <span class="variable">&lt;listener-class&gt;</span>net.bull.javamelody.SessionListener<span class="variable">&lt;/listener-class&gt;</span></span><br><span class="line"><span class="variable">&lt;/listener&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="重启应用，完成配置">重启应用，完成配置</h1><p>现在就可以启动应用服务器打开网址查看监控效果了。网址：http://<host>/monitoring<br>如：<a href="http://192.168.43.103:82/monitoring" target="_blank" rel="external">http://192.168.43.103:82/monitoring</a><br><img src="/img/javamelody/javamelody.PNG" alt="Alt text"></host></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>公司里大多都是java项目，之前监控一直用jprofiler，最近在论坛上发现JavaMelody这个监控神器，真是眼前一亮！<br><img src="/img/javamelody/javamelody_1.jpg" alt="Alt text"></p>]]>
+    
+    </summary>
+    
+      <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Druid连接池监控]]></title>
     <link href="http://tonylit.me/2015/12/15/druid%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9B%91%E6%8E%A7/"/>
     <id>http://tonylit.me/2015/12/15/druid连接池监控/</id>
@@ -4582,6 +4605,32 @@
     </summary>
     
       <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[性能测试葵花宝典]]></title>
+    <link href="http://tonylit.me/2015/12/10/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%91%B5%E8%8A%B1%E5%AE%9D%E5%85%B8/"/>
+    <id>http://tonylit.me/2015/12/10/性能测试葵花宝典/</id>
+    <published>2015-12-10T03:37:27.000Z</published>
+    <updated>2015-12-10T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>在此整理性能测试过程中的一些精华内容，并持续进行<br>为此命名为性能测试葵花宝典，我先练上！<br><img src="/img/葵花宝典.jpg" alt="Alt text"></p>
+<a id="more"></a>
+<h1 id="压力机的资源利用率">压力机的资源利用率</h1><blockquote>
+<p>cpu%&lt;50%<br>内存&lt;80%<br>network&lt;30%,高了容易丢包<br>disk的忙闲&lt;50%<br>disk的空间&lt;90%，高了会碎片整理</p>
+</blockquote>
+<h1 id="OS常用阀值">OS常用阀值</h1><blockquote>
+<p>TotalCPU%&lt;75%<br> sysCPU%&lt;30%<br>  load average&lt;5<br> wio%&lt;40%<br>  network%&lt;30%<br>mem%&lt;80%~90%<br> disk%busy&lt;60%<br> disk queueing &lt;5<br> disk usage&lt;90%</p>
+</blockquote>
+<h1 id="OSI7层模型">OSI7层模型</h1><p><img src="/img/OSI_7.gif" alt="Alt text"></p>
+<h1 id="线程状态">线程状态</h1><p><img src="/img/线程状态.jpg" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在此整理性能测试过程中的一些精华内容，并持续进行<br>为此命名为性能测试葵花宝典，我先练上！<br><img src="/img/葵花宝典.jpg" alt="Alt text"></p>]]>
+    
+    </summary>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
     
@@ -4622,32 +4671,6 @@
     </summary>
     
       <category term="Jmeter" scheme="http://tonylit.me/tags/Jmeter/"/>
-    
-      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[性能测试葵花宝典]]></title>
-    <link href="http://tonylit.me/2015/12/10/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%91%B5%E8%8A%B1%E5%AE%9D%E5%85%B8/"/>
-    <id>http://tonylit.me/2015/12/10/性能测试葵花宝典/</id>
-    <published>2015-12-10T03:37:27.000Z</published>
-    <updated>2015-12-10T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>在此整理性能测试过程中的一些精华内容，并持续进行<br>为此命名为性能测试葵花宝典，我先练上！<br><img src="/img/葵花宝典.jpg" alt="Alt text"></p>
-<a id="more"></a>
-<h1 id="压力机的资源利用率">压力机的资源利用率</h1><blockquote>
-<p>cpu%&lt;50%<br>内存&lt;80%<br>network&lt;30%,高了容易丢包<br>disk的忙闲&lt;50%<br>disk的空间&lt;90%，高了会碎片整理</p>
-</blockquote>
-<h1 id="OS常用阀值">OS常用阀值</h1><blockquote>
-<p>TotalCPU%&lt;75%<br> sysCPU%&lt;30%<br>  load average&lt;5<br> wio%&lt;40%<br>  network%&lt;30%<br>mem%&lt;80%~90%<br> disk%busy&lt;60%<br> disk queueing &lt;5<br> disk usage&lt;90%</p>
-</blockquote>
-<h1 id="OSI7层模型">OSI7层模型</h1><p><img src="/img/OSI_7.gif" alt="Alt text"></p>
-<h1 id="线程状态">线程状态</h1><p><img src="/img/线程状态.jpg" alt="Alt text"></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>在此整理性能测试过程中的一些精华内容，并持续进行<br>为此命名为性能测试葵花宝典，我先练上！<br><img src="/img/葵花宝典.jpg" alt="Alt text"></p>]]>
-    
-    </summary>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
     
@@ -5169,48 +5192,6 @@
     <![CDATA[<h1 id="性能分析过程">性能分析过程</h1><p>一般情况，该怎样定位性能问题：<br><img src="/img/xingnengfenxiguocheng.PNG" alt="Alt text"></p>
 <blockquote>
 <p>资源利用率：top、vmstat、iostat、netstat<br>进程：top，top -Hp  &lt; pid &gt;<br>系统调用：strace<br>应用监控：jstack、jprofile、jvisualvm<br>]]>
-    
-    </summary>
-    
-      <category term="work" scheme="http://tonylit.me/tags/work/"/>
-    
-      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[性能监控与分析-数据库]]></title>
-    <link href="http://tonylit.me/2015/11/13/%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E4%B8%8E%E5%88%86%E6%9E%90-%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    <id>http://tonylit.me/2015/11/13/性能监控与分析-数据库/</id>
-    <published>2015-11-13T03:37:27.000Z</published>
-    <updated>2015-11-13T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>  一个网站的性能分为很多方面，从网络、OS、中间件、code、sql、数据库，还有前端的很多方面，比如：page size、请求数、开启压缩等，实在是太多太多，估计一辈子搞完所有的是不可能了。<br>    大型网站在访问高峰的时候，实际上<strong>最大的瓶颈在数据库</strong>。很多互联网公司为了解决数据库瓶颈，会在DB端应用很多缓存机制，memcache、redis、包括减轻流复制的压力会应用MQ，kafka等消息队列。据统计，某宝和某度数据库的压力仅占期请求的10%~20%,大多数都是被redis等处理掉了。<br>    那么问题来了，我们在性能测试的时候遇到DB端的性能问题该怎么定位与分析呢？</p>
-<a id="more"></a>
-<p>数据库的性能无非就两个方面-<strong>sql和配置</strong></p>
-<h1 id="常见的数据库问题有哪些？">常见的数据库问题有哪些？</h1><blockquote>
-<p>SQL语句低效或高负载<br>应用程序使用ORCLE数据库效果不佳<br>数据库内存结构大小不足<br>并发问题<br>I/O问题<br>数据库配置问题<br>数据库性能随着时间下降</p>
-</blockquote>
-<h1 id="ORCLE性能监控-AWR报告和ADDM">ORCLE性能监控-AWR报告和ADDM</h1><h2 id="awr和addm介绍">awr和addm介绍</h2><blockquote>
-<p><strong>AWR</strong>:Automatic Workload Repository 是 10g 引入的一个重要组件，存贮着近期一段时间内数据库活动状态的详细信息、信息保留默认是7天。<br><img src="/img/ORACLE-AWR.png" alt="Alt text"></p>
-<p><strong>ADDM</strong>：Oracle10g中推出了新的优化诊断工具：就是通过诊断和分析awr得到的数据来推断数据库可能存在的问题，addm给出的建议是依照减少db_time为依据。每次收集完awr报告后，都会产生一个addm分析，分析结果在shared_pool里，mmon进程定期将其写入磁盘，AWR每产生一次快照，MMON进程就通知ADDM把AWR最近两次快照之间的差值进行分析。因此，在默认情况下，每当有AWR的快照产生，ADDM将自动运行。通过em可以查看。所以说白了，addm应该是帮助我们发现问题的一个很好的工具。<strong>addm可以定位出很多问题，或许你想不到的，它都能帮你想到。</strong></p>
-</blockquote>
-<h2 id="如何导出awr报告">如何导出awr报告</h2><p>首先进入$ORACLE_HOME/rdbms/admin目录，在sqlplus下运行<strong>@awrrpt</strong>脚本（记得切换oralce用户哦~），按照提示一步一步就可以达成，导出的格式有两种，txt格式和html格式</p>
-<p><img src="/img/login_oracle.PNG" alt="Alt text"></p>
-<p><img src="/img/awr-create.PNG" alt="Alt text"></p>
-<p><img src="/img/shengchengawr.PNG" alt="Alt text"></p>
-<p>我们看到最后生成一个awr报告文件，把它拿出来，改成html格式的文件。</p>
-<p><img src="/img/AWR-1.PNG" alt="Alt text"></p>
-<h2 id="如何快速定位问题">如何快速定位问题</h2><p>刚开始看到AWR报告的时候我就mengbi了，内容实在是太多，从上到下哗啦啦的好多屏。<br>其实大家别害怕，里面99%的内容可以忽略了，我们直接看核心的东东-<strong>Top 5 Timed Events</strong> ，这个是oracle占用时间最长的5个events，直接看这个就行了。<br><img src="/img/Top_5_Timed_Events.PNG" alt="Alt text"></p>
-<p>什么？里面写的啥，看不懂？？<br>其实，里面很多东西DBA也不懂，我们百度，谷歌搜起来，很多优化的方案都有，更专业的话，请看一些oracle自己的文章。<br>还有更懒省事、简单有效的方法，使用ADDM报告，上面也介绍了，它就像个私人医生，给你诊断oracle的性能问题并且给你解决方案。<br><strong>我们来看看ADDM能定位哪些问题</strong>：</p>
-<blockquote>
-<p>•操作系统内存页入页出问题<br>•由于Oracle负载和非Oracle负载导致的CPU瓶颈问题<br>•导致不同资源负载的Top SQL语句和对象——CPU消耗、IO带宽占用、潜在IO问题、RAC内部通讯繁忙<br>•按照PLSQL和JAVA执行时间排的Top SQL语句.<br>•过多地连接 (login/logoff).<br>•过多硬解析问题——由于shared pool过小、书写问题、绑定大小不适应、解析失败原因引起的。<br>•过多软解析问题<br>•索引查询过多导致资源争用.<br>•由于用户锁导致的过多的等待时间 (通过包dbms_lock加的锁)<br>•由于DML锁导致的过多等待时间(例如锁住表了)<br>•由于管道输出导致的过多等待时间(如通过包dbms_pipe.put进行管道输出)<br>•由于并发更新同一个记录导致的过多等待时间(行级锁等待)<br>•由于ITL不够导致的过多等待时间（大量的事务操作同一个数据块）<br>•系统中过多的commit和rollback(logfile sync事件).<br>•由于磁盘带宽太小和其他潜在问题（如由于logfile太小导致过多的checkpoint，MTTR设置问题，过多的undo操作等等）导致的IO性能问题I<br>•对于DBWR进程写数据块，磁盘IO吞吐量不足<br>•由于归档进程无法跟上redo日至产生的速度，导致系统变慢<br>•redo数据文件太小导致的问题<br>•由于扩展磁盘分配导致的争用<br>•由于移动一个对象的高水位导致的争用问题<br>•内存太小问题——SGA Target, PGA, Buffer Cache, Shared Pool<br>•在一个实例或者一个机群环境中存在频繁读写争用的热块<br>•在一个实例或者一个机群环境中存在频繁读写争用的热对象<br>•RAC环境中内部通讯问题<br>•LMS进程无法跟上导致锁请求阻塞<br>•在RAC环境中由于阻塞和争用导致的实例倾斜<br>•RMAN导致的IO和CPU问题<br>•Streams和AQ问题<br>•资源管理等待事件</p>
-</blockquote>
-<h2 id="如何导出ADDM报告">如何导出ADDM报告</h2><p>和上面导出AWR报告一样，首先进入$ORACLE_HOME/rdbms/admin目录，在sqlplus下运行<strong>@addmrpt</strong>脚本（记得切换oralce用户哦~），按照提示一步一步就可以达成。<br>我们把生成的addm报告拿出来，瞅一瞅~<br><img src="/img/addm-1.PNG" alt="Alt text"></p>
-<p>哎，我英语不好，很多看不懂，没办法啊！！！<br>去百度整片翻译一下吧~~<br><img src="/img/addm-2.PNG" alt="Alt text"></p>
-<p>好了，后面的事情不用多少了，调参数，优化sql，改bug吧~~</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>  一个网站的性能分为很多方面，从网络、OS、中间件、code、sql、数据库，还有前端的很多方面，比如：page size、请求数、开启压缩等，实在是太多太多，估计一辈子搞完所有的是不可能了。<br>    大型网站在访问高峰的时候，实际上<strong>最大的瓶颈在数据库</strong>。很多互联网公司为了解决数据库瓶颈，会在DB端应用很多缓存机制，memcache、redis、包括减轻流复制的压力会应用MQ，kafka等消息队列。据统计，某宝和某度数据库的压力仅占期请求的10%~20%,大多数都是被redis等处理掉了。<br>    那么问题来了，我们在性能测试的时候遇到DB端的性能问题该怎么定位与分析呢？</p>]]>
     
     </summary>
     
