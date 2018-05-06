@@ -90,9 +90,6 @@
 <p>使用的时候直接注入就行了。</p>
 <figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Autowired</span></span><br><span class="line">  <span class="keyword">private</span> UserProperties userProperties;</span><br></pre></td></tr></table></figure>
 <hr>
-<h1 id="Spring-data-jpa">Spring-data-jpa</h1><p>TO BE CONTINUE..</p>
-<hr>
-<h1 id="事务管理">事务管理</h1><p>TO BE CONTINUE..</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can “just run”.</p>
