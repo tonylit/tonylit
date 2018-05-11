@@ -6,24 +6,30 @@
   
   <title>jvisualvm JMX 监控wildfly8.1 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="修改module.xml/opt/wildfly/modules/system/layers/base/org/wildfly/extension/io/main/module.xml 
+  <meta name="description" content="jvisualvm JMX 监控wildfly8.1相关配置。
+
+修改module.xml/opt/wildfly/modules/system/layers/base/org/wildfly/extension/io/main/module.xml 
 加入：
-123&amp;lt;module name=&quot;org.jboss.remoting&quot; export=&quot;true&quot;/&amp;gt;&amp;lt;module name=&quot;org.jboss.remoting-jmx&quot; exp">
+123&amp;lt;module name=&quot;org.jboss.remoting&quot; export=&quot;true&quot;/&amp;gt;&amp;lt;module">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jvisualvm JMX 监控wildfly8.1">
 <meta property="og:url" content="http://tonylit.me/2018/05/11/jvisualvm JMX 监控wildfly8.1/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="修改module.xml/opt/wildfly/modules/system/layers/base/org/wildfly/extension/io/main/module.xml 
+<meta property="og:description" content="jvisualvm JMX 监控wildfly8.1相关配置。
+
+修改module.xml/opt/wildfly/modules/system/layers/base/org/wildfly/extension/io/main/module.xml 
 加入：
-123&amp;lt;module name=&quot;org.jboss.remoting&quot; export=&quot;true&quot;/&amp;gt;&amp;lt;module name=&quot;org.jboss.remoting-jmx&quot; exp">
+123&amp;lt;module name=&quot;org.jboss.remoting&quot; export=&quot;true&quot;/&amp;gt;&amp;lt;module">
 <meta property="og:image" content="http://tonylit.me/img/wildflyjmx监控/jmx.PNG">
 <meta property="og:image" content="http://tonylit.me/img/wildflyjmx监控/monitor.PNG">
 <meta property="og:updated_time" content="2018-05-11T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jvisualvm JMX 监控wildfly8.1">
-<meta name="twitter:description" content="修改module.xml/opt/wildfly/modules/system/layers/base/org/wildfly/extension/io/main/module.xml 
+<meta name="twitter:description" content="jvisualvm JMX 监控wildfly8.1相关配置。
+
+修改module.xml/opt/wildfly/modules/system/layers/base/org/wildfly/extension/io/main/module.xml 
 加入：
-123&amp;lt;module name=&quot;org.jboss.remoting&quot; export=&quot;true&quot;/&amp;gt;&amp;lt;module name=&quot;org.jboss.remoting-jmx&quot; exp">
+123&amp;lt;module name=&quot;org.jboss.remoting&quot; export=&quot;true&quot;/&amp;gt;&amp;lt;module">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -261,7 +267,9 @@
                                                         
                                                             
                                                                 
-                                                                            <h1 id="修改module-xml">修改module.xml</h1><p>/opt/wildfly/modules/system/layers/base/org/wildfly/extension/io/main/module.xml </p>
+                                                                            <p>jvisualvm JMX 监控wildfly8.1相关配置。</p>
+<hr>
+<h1 id="修改module-xml">修改module.xml</h1><p>/opt/wildfly/modules/system/layers/base/org/wildfly/extension/io/main/module.xml </p>
 <p>加入：</p>
 <figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="function"><span class="keyword">module</span> <span class="title">name</span>=</span><span class="string">"org.jboss.remoting"</span> export=<span class="string">"true"</span>/&gt;</span><br><span class="line">&lt;<span class="function"><span class="keyword">module</span> <span class="title">name</span>=</span><span class="string">"org.jboss.remoting-jmx"</span> export=<span class="string">"true"</span>/&gt;</span><br><span class="line">&lt;<span class="function"><span class="keyword">module</span> <span class="title">name</span>=</span><span class="string">"javax.api"</span>/&gt;</span><br></pre></td></tr></table></figure>
 <h1 id="修改standalone-xml">修改standalone.xml</h1><p>确定是domain还是standalone运行，我这边是standalone，修改s``tandalone.xml。如果是domain，修改domain.xml</p>

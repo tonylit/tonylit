@@ -20,7 +20,9 @@
     <id>http://tonylit.me/2018/05/11/jvisualvm JMX 监控wildfly8.1/</id>
     <published>2018-05-11T03:37:27.000Z</published>
     <updated>2018-05-11T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="修改module-xml">修改module.xml</h1><p>/opt/wildfly/modules/system/layers/base/org/wildfly/extension/io/main/module.xml </p>
+    <content type="html"><![CDATA[<p>jvisualvm JMX 监控wildfly8.1相关配置。</p>
+<hr>
+<h1 id="修改module-xml">修改module.xml</h1><p>/opt/wildfly/modules/system/layers/base/org/wildfly/extension/io/main/module.xml </p>
 <p>加入：</p>
 <figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="function"><span class="keyword">module</span> <span class="title">name</span>=</span><span class="string">"org.jboss.remoting"</span> export=<span class="string">"true"</span>/&gt;</span><br><span class="line">&lt;<span class="function"><span class="keyword">module</span> <span class="title">name</span>=</span><span class="string">"org.jboss.remoting-jmx"</span> export=<span class="string">"true"</span>/&gt;</span><br><span class="line">&lt;<span class="function"><span class="keyword">module</span> <span class="title">name</span>=</span><span class="string">"javax.api"</span>/&gt;</span><br></pre></td></tr></table></figure>
 <h1 id="修改standalone-xml">修改standalone.xml</h1><p>确定是domain还是standalone运行，我这边是standalone，修改s``tandalone.xml。如果是domain，修改domain.xml</p>
@@ -38,9 +40,9 @@
 <p><img src="/img/wildflyjmx监控/monitor.PNG" alt="Alt text"></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h1 id="修改module-xml">修改module.xml</h1><p>/opt/wildfly/modules/system/layers/base/org/wildfly/extension/io/main/module.xml </p>
-<p>加入：</p>
-<]]>
+    <![CDATA[<p>jvisualvm JMX 监控wildfly8.1相关配置。</p>
+<hr>
+<h1 id="修改module-xml">修改module.xml</h1><p>/opt/wildfly/modules/system/layers/base/org/wildfly/ex]]>
     </summary>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
