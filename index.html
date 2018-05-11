@@ -328,104 +328,6 @@
 
 
   
-    <article id="post-jvisualvm JMX 监控wildfly8.1" class="article article-type-post" itemscope itemprop="blogPost">
-    <script>
-        $("html").niceScroll({
-            cursorcolor: "#2a2929",
-            cursoropacitymax: 1,
-            touchbehavior: false,
-            cursorwidth: "6px",
-            cursorborder: "5",
-            cursorborderradius: "0px",
-            autohidemode: true
-        });
-    </script>
-    
-        <div class="article-meta">
-            <a href="/2018/05/11/jvisualvm JMX 监控wildfly8.1/" class="article-date">
-  	<time datetime="2018-05-11T03:37:27.000Z" itemprop="datePublished">2018-05-11</time>
-</a>
-
-        </div>
-        
-            <div class="article-inner">
-                
-                    <input type="hidden" class="isFancy" />
-                    
-                        
-                            <header class="article-header">
-                                
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/11/jvisualvm JMX 监控wildfly8.1/">jvisualvm JMX 监控wildfly8.1</a>
-    </h1>
-  
-
-
-                            </header>
-                            
-                                    
-                                        <div class="article-entry" itemprop="articleBody">
-                                            
-                                                    <!--02-->
-                                                    <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#修改module-xml"><span class="toc-number">1.</span> <span class="toc-text">修改module.xml</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#修改standalone-xml"><span class="toc-number">2.</span> <span class="toc-text">修改standalone.xml</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#添加jboss用户"><span class="toc-number">3.</span> <span class="toc-text">添加jboss用户</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#重启jboss"><span class="toc-number">4.</span> <span class="toc-text">重启jboss</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#启动jvisualvm"><span class="toc-number">5.</span> <span class="toc-text">启动jvisualvm</span></a></li></ol>
-</div>
-
-                                                        
-                                                            
-                                                                
-                                                                            <p>jvisualvm JMX 监控wildfly8.1相关配置。</p>
-<hr>
-<h1 id="修改module-xml">修改module.xml</h1><p>/opt/wildfly/modules/system/layers/base/org/wildfly/extension/io/main/module.xml </p>
-<p>加入：</p>
-<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="function"><span class="keyword">module</span> <span class="title">name</span>=</span><span class="string">"org.jboss.remoting"</span> export=<span class="string">"true"</span>/&gt;</span><br><span class="line">&lt;<span class="function"><span class="keyword">module</span> <span class="title">name</span>=</span><span class="string">"org.jboss.remoting-jmx"</span> export=<span class="string">"true"</span>/&gt;</span><br><span class="line">&lt;<span class="function"><span class="keyword">module</span> <span class="title">name</span>=</span><span class="string">"javax.api"</span>/&gt;</span><br></pre></td></tr></table></figure>
-<h1 id="修改standalone-xml">修改standalone.xml</h1><p>确定是domain还是standalone运行，我这边是standalone，修改s``tandalone.xml。如果是domain，修改domain.xml</p>
-<p>/opt/wildfly/standalone/configuration/ standalone.xml</p>
-<p>remoting-connector 修改为false<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">subsystem</span> <span class="attribute">xmlns</span>=<span class="value">"urn:jboss:domain:jmx:1.3"</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="title">expose-resolved-model</span>/&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="title">expose-expression-model</span>/&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="title">remoting-connector</span> <span class="attribute">use-management-endpoint</span>=<span class="value">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">subsystem</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h1 id="添加jboss用户">添加jboss用户</h1><p>添加用户 appuser, 密码 SecR3t</p>
-<p>到服务器上，执行下面的语句即可：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/opt/jboss/bin/add-user<span class="class">.sh</span> -<span class="tag">a</span> -u appuser -<span class="tag">p</span> SecR3t  </span><br><span class="line"></span><br><span class="line">/opt/wildfly/bin/jboss-cli<span class="class">.sh</span> --connect --commands=<span class="string">"/core-service=management/access=authorization/role-mapping=Administrator:add"</span> </span><br><span class="line"></span><br><span class="line">/opt/wildfly/bin/jboss-cli<span class="class">.sh</span> --connect --commands=<span class="string">" /core-service=management/access=authorization/role-mapping=Administrator/include=appuser:add(name=appuser,type=USER)"</span></span><br></pre></td></tr></table></figure>
-<h1 id="重启jboss">重启jboss</h1><p>/opt/wildfly/bin/stop.sh &amp;&amp; /opt/wildfly/bin/start.sh </p>
-<h1 id="启动jvisualvm">启动jvisualvm</h1><p>先将jboss的jboss-client.jar 拷贝到本地JAVA_HOME/lib下面</p>
-<p>执行：jvisualvm -cp:a “C:\Program Files (x86)\Java\jdk1.7.0_10\bin\jboss-client.jar”</p>
-<p>添加jmx连接，填写：service:jmx:http-remoting-jmx://10.244.119.229:8080</p>
-<p><img src="/img/wildflyjmx监控/jmx.PNG" alt="Alt text"></p>
-<p>监控完成：</p>
-<p><img src="/img/wildflyjmx监控/monitor.PNG" alt="Alt text"></p>
-
-                                                                                
-                                        </div>
-                                        
-                                            <div class="article-info article-info-index">
-                                                
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
-	</div>
-
-
-                                                    
-
-                                                        
-                                                                <div class="clearfix"></div>
-                                            </div>
-                                            
-            </div>
-            
-                    
-                                <!-- 多说评论框 start -->
-                                
-</article>
-
-<!--
-
--->
-<!--
-
--->
-
-  
     <article id="post-ngrinder post请求脚本demo" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
@@ -964,6 +866,86 @@
                                                         
                                                             <p class="article-more-link">
                                                                 <a  href="/2018/01/17/获取appPackage和appActivity/#more">More >></a>
+                                                            </p>
+                                                            
+                                                                <div class="clearfix"></div>
+                                            </div>
+                                            
+            </div>
+            
+                    
+                                <!-- 多说评论框 start -->
+                                
+</article>
+
+<!--
+
+-->
+<!--
+
+-->
+
+  
+    <article id="post-Appium Desktop" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2018/01/02/Appium Desktop/" class="article-date">
+  	<time datetime="2018-01-02T03:37:27.000Z" itemprop="datePublished">2018-01-02</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/02/Appium Desktop/">Appium Desktop</a>
+    </h1>
+  
+
+
+                            </header>
+                            
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+
+                                                
+                                                                
+                                                                    <p><img src="/img/appium-desktop/appium-desktop.PNG" alt="Alt text"></p>
+<p>Appium Desktop is an open source app for Mac, Windows, and Linux which gives you the power of the Appium automation server in a beautiful and flexible UI.</p>
+<p>by <strong><a href="https://github.com/appium/appium-desktop">https://github.com/appium/appium-desktop</a></strong></p>
+                                                                        
+                                        </div>
+                                        
+                                            <div class="article-info article-info-index">
+                                                
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Appium/">Appium</a></li></ul>
+	</div>
+
+
+                                                    
+
+                                                        
+                                                            <p class="article-more-link">
+                                                                <a  href="/2018/01/02/Appium Desktop/#more">More >></a>
                                                             </p>
                                                             
                                                                 <div class="clearfix"></div>
