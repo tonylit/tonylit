@@ -33,9 +33,9 @@
 <h1 id="启动jvisualvm">启动jvisualvm</h1><p>先将jboss的jboss-client.jar 拷贝到本地JAVA_HOME/lib下面</p>
 <p>执行：jvisualvm -cp:a “C:\Program Files (x86)\Java\jdk1.7.0_10\bin\jboss-client.jar”</p>
 <p>添加jmx连接，填写：service:jmx:http-remoting-jmx://10.244.119.229:8080</p>
-<p><img src="/img/wildfly jmx监控/jmx.PNG" alt="Alt text"></p>
+<p><img src="/img/wildflyjmx监控/jmx.PNG" alt="Alt text"></p>
 <p>监控完成：</p>
-<p><img src="/img/wildfly jmx监控/monitor.PNG" alt="Alt text"></p>
+<p><img src="/img/wildflyjmx监控/monitor.PNG" alt="Alt text"></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h1 id="修改module-xml">修改module.xml</h1><p>/opt/wildfly/modules/system/layers/base/org/wildfly/extension/io/main/module.xml </p>
