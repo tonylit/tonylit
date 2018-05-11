@@ -167,9 +167,12 @@
 <h2 id="部署pinpoint_agent">部署pinpoint agent</h2><p>下载地址：<a href="https://github.com/naver/pinpoint/releases/" target="_blank" rel="external">https://github.com/naver/pinpoint/releases/</a><br>这里使用resin容器</p>
 <h3 id="一、修改pinpoint-config">一、修改pinpoint.config</h3><p>修改 profiler.collector.ip=192.168.1.27， 改成collector服务器地址</p>
 <h3 id="二、停止resin">二、停止resin</h3><p>必须先停止，在进行一下操作（修改配置和jar都会导致resin重启）</p>
-<h3 id="三、配置resin容器">三、配置resin容器</h3><p>1)JVM持久代调大，推荐为：-XX:PermSize=128m -XX:MaxPermSize=256m<br>2)在resin.conf配置文件中，在class-loader标签下<br>(注意为web-app-default下prologue)，增加pinpoint插件的路径：<tree-loader path="${resin.home}/pinpoint-agent/plugin"><br>3)jvm启动参数增加 <jvm-arg>-javaagent:${resin.home}/pinpoint-agent/pinpoint-bootstrap.jar</jvm-arg><br>4)jvm启动参数增加应用标识参数${dcName}<em>${ appName } </em>${ IP后两位}，如电信点vo：<jvm-arg>-DappName=tc_vo_1_31 </jvm-arg></tree-loader></p>
+<h3 id="三、配置resin容器">三、配置resin容器</h3><p>1)JVM持久代调大，推荐为：-XX:PermSize=128m -XX:MaxPermSize=256m<br>2)在resin.conf配置文件中，在class-loader标签下<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(注意为web-app-<span class="keyword">default</span>下prologue)，增加pinpoint插件的路径：&lt;tree-loader path=<span class="string">"<span class="subst">$&#123;resin.home&#125;</span>/pinpoint-agent/plugin"</span> /&gt;</span><br></pre></td></tr></table></figure></p>
+<p>3)jvm启动参数增加<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">jvm-arg</span>&gt;</span>-javaagent:$&#123;resin.home&#125;/pinpoint-agent/pinpoint-bootstrap.jar<span class="tag">&lt;/<span class="title">jvm-arg</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>4)jvm启动参数增加应用标识参数${dcName}<em>${ appName } </em>${ IP后两位}<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如电信点vo：<span class="tag">&lt;<span class="title">jvm-arg</span>&gt;</span>-DappName=tc_vo_1_31 <span class="tag">&lt;/<span class="title">jvm-arg</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>5 ）拷贝pinpoint-bootstrap-core.jar 到resin lib目录下面</p>
 <h3 id="四、启动Resin">四、启动Resin</h3><p>启动后，应用信息会在pinpoint web上显示<br><img src="/img/pinpoint安装部署/test.PNG" alt="Alt text"></p>
+<h3 id="JBOSS配置参考：">JBOSS配置参考：</h3><p><a href="https://github.com/naver/pinpoint/tree/master/plugins/jboss" target="_blank" rel="external">https://github.com/naver/pinpoint/tree/master/plugins/jboss</a></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p><img src="/img/pinpoint安装部署/监控图片.PNG" alt="Alt text"></p>
