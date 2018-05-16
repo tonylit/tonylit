@@ -269,7 +269,7 @@
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/opt/jboss/bin/add-user<span class="class">.sh</span> -<span class="tag">a</span> -u appuser -<span class="tag">p</span> SecR3t  </span><br><span class="line"></span><br><span class="line">/opt/wildfly/bin/jboss-cli<span class="class">.sh</span> --connect --commands=<span class="string">"/core-service=management/access=authorization/role-mapping=Administrator:add"</span> </span><br><span class="line"></span><br><span class="line">/opt/wildfly/bin/jboss-cli<span class="class">.sh</span> --connect --commands=<span class="string">" /core-service=management/access=authorization/role-mapping=Administrator/include=appuser:add(name=appuser,type=USER)"</span></span><br></pre></td></tr></table></figure>
 <h1 id="重启jboss">重启jboss</h1><p>/opt/wildfly/bin/stop.sh &amp;&amp; /opt/wildfly/bin/start.sh </p>
 <h1 id="启动jvisualvm">启动jvisualvm</h1><p>先将jboss的jboss-client.jar 拷贝到本地JAVA_HOME/lib下面</p>
-<p>执行：jvisualvm -cp:a “C:\Program Files (x86)\Java\jdk1.7.0_10\bin\jboss-client.jar”</p>
+<p>执行：jvisualvm -cp:a “C:\Program Files (x86)\Java\jdk1.7.0_10\lib\jboss-client.jar”</p>
 <p>添加jmx连接，填写：service:jmx:http-remoting-jmx://10.244.119.229:8080</p>
 <p><img src="/img/wildflyjmx监控/jmx.PNG" alt="Alt text"></p>
 <p>监控完成：</p>
