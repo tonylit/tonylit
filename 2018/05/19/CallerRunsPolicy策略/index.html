@@ -4,17 +4,21 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>Archives | 淘淘的博客</title>
+  <title>CallerRunsPolicy策略 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="技术,性能,生活,互联网">
-<meta property="og:type" content="website">
-<meta property="og:title" content="淘淘的博客">
-<meta property="og:url" content="http://tonylit.me/archives/page/9/index.html">
+  <meta name="description" content="这两天碰到一个问题，业务处理从异步转为同步，很不解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CallerRunsPolicy策略">
+<meta property="og:url" content="http://tonylit.me/2018/05/19/CallerRunsPolicy策略/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="技术,性能,生活,互联网">
+<meta property="og:description" content="这两天碰到一个问题，业务处理从异步转为同步，很不解。">
+<meta property="og:image" content="http://tonylit.me/img/CallerRunsPolicy策略/callback.png">
+<meta property="og:image" content="http://tonylit.me/img/CallerRunsPolicy策略/yibu.PNG">
+<meta property="og:image" content="http://tonylit.me/img/CallerRunsPolicy策略/callerrunspolicy.PNG">
+<meta property="og:updated_time" content="2018-05-19T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="淘淘的博客">
-<meta name="twitter:description" content="技术,性能,生活,互联网">
+<meta name="twitter:title" content="CallerRunsPolicy策略">
+<meta name="twitter:description" content="这两天碰到一个问题，业务处理从异步转为同步，很不解。">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -192,307 +196,151 @@
 高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
 </div>
 
-      <div class="body-wrap">
-  
-  
+      <div class="body-wrap"><article id="post-CallerRunsPolicy策略" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/04/05/centos7自定义docker网桥/" class="archive-article-date">
-  	<time datetime="2016-04-05T03:37:27.000Z" itemprop="datePublished">Apr 5</time>
+        <div class="article-meta">
+            <a href="/2018/05/19/CallerRunsPolicy策略/" class="article-date">
+  	<time datetime="2018-05-19T03:37:27.000Z" itemprop="datePublished">2018-05-19</time>
 </a>
 
         </div>
-    	 
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/04/05/centos7自定义docker网桥/">centos7 自定义docker网桥</a>
+    <h1 class="article-title" itemprop="name">
+      CallerRunsPolicy策略
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
 	</div>
 
 
-          
+                                        
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p>这两天碰到一个问题，业务处理从异步转为同步，很不解。</p>
+<a id="more"></a>
+<p><img src="/img/CallerRunsPolicy策略/callback.png" alt="Alt text"></p>
+<p>这里有redis查询，走的异步处理。</p>
+<p>压测的时候，大量请求过来，监控堆栈线程发现，该业务有异步处理的，也有在主线程中Run的，一头雾水。<br><img src="/img/CallerRunsPolicy策略/yibu.PNG" alt="Alt text"></p>
+<p>随即查了线程池配置：<br><img src="/img/CallerRunsPolicy策略/callerrunspolicy.PNG" alt="Alt text"></p>
+<p>使用的CallerRunsPolicy策略，<strong>当线程池使用完以后，再过来的请求全部由调用者线程处理该任务。</strong></p>
+<p>之前没有关注过该策略，现在只能说：原来如此！</p>
+<hr>
+
+                                                                                
+                                        </div>
+                                        
+            </div>
+            
+                <div class="bdsharebuttonbox" style="margin-top:10px;margin-left:30px;float:left;">
+                    <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                    <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                    <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
+                    <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
+                    <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                    <a href="#" class="bds_more" data-cmd="more"></a>
+                </div>
+                <script>
+                    window._bd_share_config = {
+                        "common": {
+                            "bdSnsKey": {},
+                            "bdText": "",
+                            "bdMini": "1",
+                            "bdMiniList": false,
+                            "bdStyle": "2",
+                            "bdSize": "16"
+                        },
+                        "share": {}
+                    };
+                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
+  
+  
+    <a href="/2018/05/16/记一次session对象太多导致gc频繁问题/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">记一次session对象太多导致gc频繁问题</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-CallerRunsPolicy策略" data-title="CallerRunsPolicy策略" data-url="http://tonylit.me/2018/05/19/CallerRunsPolicy策略/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "tonylit"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
 </article>
 
-  
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/04/02/docker远程连接/" class="archive-article-date">
-  	<time datetime="2016-04-02T03:37:27.000Z" itemprop="datePublished">Apr 2</time>
-</a>
+-->
+<!--
 
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/04/02/docker远程连接/">Docker 远程访问</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
-	</div>
-
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/29/docker-weave网络互连/" class="archive-article-date">
-  	<time datetime="2016-03-29T03:37:27.000Z" itemprop="datePublished">Mar 29</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/29/docker-weave网络互连/">使用weave实现docker多宿主机互联</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
-	</div>
-
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/29/docker_pull_https_error/" class="archive-article-date">
-  	<time datetime="2016-03-29T03:37:27.000Z" itemprop="datePublished">Mar 29</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/29/docker_pull_https_error/">docker pull关于https的报错处理</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
-	</div>
-
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/22/docker四种网络模式/" class="archive-article-date">
-  	<time datetime="2016-03-22T03:37:27.000Z" itemprop="datePublished">Mar 22</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/22/docker四种网络模式/">docker网络学习</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
-	</div>
-
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/15/spring quartz配置/" class="archive-article-date">
-  	<time datetime="2016-03-15T03:37:27.000Z" itemprop="datePublished">Mar 15</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/15/spring quartz配置/">spring quartz执行定时任务</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-	</div>
-
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/12/java多线程的40个问题/" class="archive-article-date">
-  	<time datetime="2016-03-12T03:37:27.000Z" itemprop="datePublished">Mar 12</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/12/java多线程的40个问题/">40个Java多线程问题总结</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-	</div>
-
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/09/docker-compose/" class="archive-article-date">
-  	<time datetime="2016-03-09T03:37:27.000Z" itemprop="datePublished">Mar 9</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/09/docker-compose/">docker-compose</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
-	</div>
-
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/8/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/7/">7</a><a class="page-number" href="/archives/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/archives/page/10/">10</a><a class="page-number" href="/archives/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/14/">14</a><a class="extend next" rel="next" href="/archives/page/10/">Next &raquo;</a>
-    </nav>
-  
-
+-->
 
 </div>
       <!--<footer id="footer">
