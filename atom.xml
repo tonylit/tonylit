@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Nothing is given. Everything is earned.]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2018-06-01T14:12:30.276Z</updated>
+  <updated>2018-06-01T14:21:14.539Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -18,11 +18,9 @@
     <title></title>
     <link href="http://tonylit.me/2018/06/01/ngrinder%20%E6%B7%B7%E5%90%88%E5%9C%BA%E6%99%AF%E8%84%9A%E6%9C%AC/"/>
     <id>http://tonylit.me/2018/06/01/ngrinder 混合场景脚本/</id>
-    <published>2018-06-01T14:12:30.276Z</published>
-    <updated>2018-06-01T14:12:30.276Z</updated>
+    <published>2018-06-01T14:21:14.539Z</published>
+    <updated>2018-06-01T14:21:14.539Z</updated>
     <content type="html"><![CDATA[<hr>
-<p>#ngrinder 混合场景脚本</p>
-<p>nginder混合场景不如LR方便，多场景执行的比例可以用程序来控制。</p>
 <p>title: ngrinder 混合场景脚本<br>date: 2018-05-29 11:37:27<br>updated    : 2018-05-29 13:37:27<br>tags:</p>
 <pre><code><span class="bullet">- </span>性能
 </code></pre><p>categories: </p>
@@ -36,8 +34,6 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<hr>
-<p>#ngrinder 混合场景脚本</p>
-<p>nginder混合场景不如LR方便，多场景执行的比例可以用程序来控制。</p>
 <p>title: ngrinder 混合场景脚本<br>date: 2018-05-29 11:37:27<br>updated    : 2018-05-29 13:37:27<br>tags:</p>
 <pre><code><span class="bullet">- </span>性能
 </code></pre><p>categories: </p>
