@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Nothing is given. Everything is earned.]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2018-06-17T05:37:27.000Z</updated>
+  <updated>2018-06-29T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -13,6 +13,92 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[iBase4J windows 部署]]></title>
+    <link href="http://tonylit.me/2018/06/29/iBase4J%20windows%20%E9%83%A8%E7%BD%B2/"/>
+    <id>http://tonylit.me/2018/06/29/iBase4J windows 部署/</id>
+    <published>2018-06-29T03:37:27.000Z</published>
+    <updated>2018-06-29T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="/img/iBase4J部署/icon.PNG" alt="Alt text"></p>
+<p><a href="https://github.com/iBase4J/iBase4J" target="_blank" rel="external">iBase4J</a>确实是少有的开源精品之作，几位作者真是有心了。</p>
+<blockquote>
+<p>JAVA分布式快速开发平台：集成Spring，SpringBoot 2.0，SpringMVC，Mybatis，mybatis-plus，motan/dubbo分布式，Redis缓存，Shiro权限管理，Spring-Session单点登录，Quartz分布式集群调度，Restful服务，QQ/微信登录，App token登录，微信/支付宝支付；日期转换、数据类型转换、序列化、汉字转拼音、身份证号码验证、数字转人民币、发送短信、发送邮件、加密解密、图片处理、excel导入导出、FTP/SFTP/fastDFS上传下载、二维码、XML读写、高精度计算、系统配置工具类等等。</p>
+</blockquote>
+<a id="more"></a>
+<hr>
+<h1 id="iBase4J_windows_部署">iBase4J windows 部署</h1><p>作者搞了个qq群，要50大洋的门票，囊中羞涩。</p>
+<p>无奈手里又没有linux环境的机器，只能用windows搞起来了。</p>
+<h2 id="软件下载">软件下载</h2><p>需要安装部署的软件如下：</p>
+<blockquote>
+<p>jdk1.8<br>maven3.5.3<br>mysql<br>nginx<br>zookeeper<br>redis<br>activemq</p>
+</blockquote>
+<p>jdk1.8下载地址：<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="external">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a> ，安装配置自便。</p>
+<p>maven 下载地址：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="external">http://maven.apache.org/download.cgi</a> ，安装配置自便。</p>
+<p>mysql下载地址：<a href="https://dev.mysql.com/downloads/mysql/" target="_blank" rel="external">https://dev.mysql.com/downloads/mysql/</a> ，安装配置自便。</p>
+<p>其他软件和iBase4J 源码打成了一个包，地址：链接: <a href="https://pan.baidu.com/s/1aKO1qOEeXuFyStTwJWGJoA" target="_blank" rel="external">https://pan.baidu.com/s/1aKO1qOEeXuFyStTwJWGJoA</a>  密码: 4k7k</p>
+<hr>
+<h2 id="nginx安装部署">nginx安装部署</h2><h3 id="打开nginx-conf，更改配置">打开nginx.conf，更改配置</h3><p>root   F:\iBase4J\iBase4J\iBase4J-UI\iBase4J-UI-AngularJS\; </p>
+<p>这行改成iBase4J下的iBase4J-UI-AngularJS文件夹路径，其他配置不用改动。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  <span class="number">1024</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    sendfile        on;</span><br><span class="line">    keepalive_timeout  <span class="number">65</span>;</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       <span class="number">80</span>;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">		   <span class="preprocessor">#静态页面</span></span><br><span class="line">		   root   F:\\iBase4J\\iBase4J\\iBase4J-UI\\iBase4J-UI-AngularJS\\;</span><br><span class="line">           index  index.html index.htm;</span><br><span class="line">			</span><br><span class="line">        location / &#123;</span><br><span class="line">		</span><br><span class="line">		<span class="preprocessor">#设置用户浏览器缓存</span></span><br><span class="line">		location ~ .*\.(gif|jpg|png|htm|html|css|js|flv|ico|swf)(.*) &#123;</span><br><span class="line">                   expires <span class="number">1</span>h;</span><br><span class="line">				   <span class="keyword">if</span> ( -f $request_filename )&#123;</span><br><span class="line">				      <span class="keyword">break</span>;</span><br><span class="line">				   &#125;</span><br><span class="line">           &#125;</span><br><span class="line">		   </span><br><span class="line">		   <span class="preprocessor">#动态页面</span></span><br><span class="line">		   <span class="keyword">if</span> ( !-e $request_filename )&#123;</span><br><span class="line">		     proxy_pass http:<span class="comment">//127.0.0.1:8088;</span></span><br><span class="line">		   &#125;</span><br><span class="line">         </span><br><span class="line">        &#125;</span><br><span class="line">		</span><br><span class="line">        error_page   <span class="number">500</span> <span class="number">502</span> <span class="number">503</span> <span class="number">504</span>  /<span class="number">50</span>x.html;</span><br><span class="line">        location = /<span class="number">50</span>x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="启动nginx">启动nginx</h3><p>双击nginx.exe即可。</p>
+<h3 id="验证nginx">验证nginx</h3><p>cmd，命令行：netstat -aon|findstr 80</p>
+<p><img src="/img/iBase4J部署/nginxPNG.PNG" alt="Alt text"></p>
+<p>nginx做了动静分离，访问一下<a href="http://127.0.0.1/#/access/login" target="_blank" rel="external">http://127.0.0.1/#/access/login</a> ，页面已经出来了。</p>
+<p><img src="/img/iBase4J部署/nginx-login.PNG" alt="Alt text"></p>
+<hr>
+<h2 id="zookeeper安装部署">zookeeper安装部署</h2><h3 id="修改zoo-cfg配置文件">修改zoo.cfg配置文件</h3><p>进入zookeeper-3.4.8\conf 文件夹，修改zoo.cfg</p>
+<p>dataDir=F:\iBase4J\zookeeper-3.4.8\data<br>dataLogDir=F:\iBase4J\zookeeper-3.4.8\logs</p>
+<p>修改至对应文件路径，其他配置不用改动。</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># The number of milliseconds of each tick</span></span><br><span class="line">tickTime=<span class="number">2000</span></span><br><span class="line"><span class="preprocessor"># The number of ticks that the initial </span></span><br><span class="line"><span class="preprocessor"># synchronization phase can take</span></span><br><span class="line">initLimit=<span class="number">10</span></span><br><span class="line"><span class="preprocessor"># The number of ticks that can pass between </span></span><br><span class="line"><span class="preprocessor"># sending a request and getting an acknowledgement</span></span><br><span class="line">syncLimit=<span class="number">5</span></span><br><span class="line"><span class="preprocessor"># the directory where the snapshot is stored.</span></span><br><span class="line"><span class="preprocessor"># do not use /tmp for storage, /tmp here is just </span></span><br><span class="line"><span class="preprocessor"># example sakes.</span></span><br><span class="line">dataDir=F:\\iBase4J\\zookeeper-<span class="number">3.4</span><span class="number">.8</span>\\data</span><br><span class="line">dataLogDir=F:\\iBase4J\\zookeeper-<span class="number">3.4</span><span class="number">.8</span>\\logs</span><br><span class="line"><span class="preprocessor"># the port at which the clients will connect</span></span><br><span class="line">clientPort=<span class="number">2181</span></span><br><span class="line"><span class="preprocessor"># the maximum number of client connections.</span></span><br><span class="line"><span class="preprocessor"># increase this if you need to handle more clients</span></span><br><span class="line"><span class="preprocessor">#maxClientCnxns=60</span></span><br><span class="line"><span class="preprocessor">#</span></span><br><span class="line"><span class="preprocessor"># Be sure to read the maintenance section of the </span></span><br><span class="line"><span class="preprocessor"># administrator guide before turning on autopurge.</span></span><br><span class="line"><span class="preprocessor">#</span></span><br><span class="line"><span class="preprocessor"># http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance</span></span><br><span class="line"><span class="preprocessor">#</span></span><br><span class="line"><span class="preprocessor"># The number of snapshots to retain in dataDir</span></span><br><span class="line"><span class="preprocessor">#autopurge.snapRetainCount=3</span></span><br><span class="line"><span class="preprocessor"># Purge task interval in hours</span></span><br><span class="line"><span class="preprocessor"># Set to "0" to disable auto purge feature</span></span><br><span class="line"><span class="preprocessor">#autopurge.purgeInterval=1</span></span><br></pre></td></tr></table></figure>
+<h3 id="启动zk">启动zk</h3><p>进入 \zookeeper-3.4.8\bin，修改zkServer.cmd文件</p>
+<p>将set JAVA_HOME=”C:\Program Files (x86)\Java”，改成自己的jdk路径。</p>
+<p>双击zkServer.cmd即可启动。</p>
+<p><img src="/img/iBase4J部署/zk.PNG" alt="Alt text"></p>
+<hr>
+<h2 id="redis安装部署">redis安装部署</h2><p>进入Redis-x64-3.0.504文件夹，不用做任何配置改动，双击redis-server.exe即可。</p>
+<p><img src="/img/iBase4J部署/redis.PNG" alt="Alt text"></p>
+<hr>
+<h2 id="activemq安装部署">activemq安装部署</h2><p>进入apache-activemq-5.14.3\bin\win64，不用做任何配置改动，双击wrapper.exe即可。</p>
+<p><img src="/img/iBase4J部署/mq.PNG" alt="Alt text"></p>
+<hr>
+<h2 id="mysql_数据导入">mysql 数据导入</h2><p>在mysql中新建一个数据库，名字为：ibase4j</p>
+<p>进入\iBase4J\sqls文件夹，里面有sql文件：</p>
+<p><img src="/img/iBase4J部署/sql.PNG" alt="Alt text"></p>
+<p>按readme中的说明依次执行即可。</p>
+<hr>
+<p>以上，所有的基础配置都结束了，下面开始iBase4J源码部署。</p>
+<hr>
+<h1 id="iBase4J源码部署">iBase4J源码部署</h1><h2 id="修改iBase4J_源码中mysql的连接信息">修改iBase4J 源码中mysql的连接信息</h2><p>修改/iBase4J-SYS-Service/src/main/resources/config/jdbc.properties 中的mysql账号密码。<br><img src="/img/iBase4J部署/ibase-sql-config.PNG" alt="Alt text"></p>
+<p>密码加密 ibase4j提供了现成的类—-PropertiesUtil<br>/iBase4J-Common/src/main/java/org/ibase4j/core/util/PropertiesUtil.java</p>
+<p><img src="/img/iBase4J部署/passwd.PNG" alt="Alt text"></p>
+<p>改成mysql的密码，直接run即可。将加密结果复制到jdbc.properties中。</p>
+<hr>
+<h2 id="启动service">启动service</h2><p>cmd 进入iBase4J文件夹</p>
+<p>执行mvn命令，编译部署service服务：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn <span class="string">clean:</span>clean <span class="keyword">package</span> -P build <span class="string">tomcat7:</span>run-war-only -f pom-sys-service-server.xml</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/iBase4J部署/service.PNG" alt="Alt text"></p>
+<hr>
+<h2 id="启动web">启动web</h2><p>cmd 进入iBase4J文件夹</p>
+<p>执行mvn命令，编译部署web服务：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn <span class="string">clean:</span>clean <span class="keyword">package</span> -P build <span class="string">tomcat7:</span>run-war-only -f pom-sys-web-server.xml</span><br></pre></td></tr></table></figure>
+<p><img src="/img/iBase4J部署/web.PNG" alt="Alt text"></p>
+<hr>
+<p>至此，所有的配置部署已经完成。</p>
+<p><a href="http://127.0.0.1/#/access/login" target="_blank" rel="external">http://127.0.0.1/#/access/login</a> ，可以登录系统了。 账号：admin 密码：111111</p>
+<p><img src="/img/iBase4J部署/finish.PNG" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><img src="/img/iBase4J部署/icon.PNG" alt="Alt text"></p>
+<p><a href="https://github.com/iBase4J/iBase4J">iBase4J</a>确实是少有的开源精品之作，几位作者真是有心了。</p>
+<blockquote>
+<p>JAVA分布式快速开发平台：集成Spring，SpringBoot 2.0，SpringMVC，Mybatis，mybatis-plus，motan/dubbo分布式，Redis缓存，Shiro权限管理，Spring-Session单点登录，Quartz分布式集群调度，Restful服务，QQ/微信登录，App token登录，微信/支付宝支付；日期转换、数据类型转换、序列化、汉字转拼音、身份证号码验证、数字转人民币、发送短信、发送邮件、加密解密、图片处理、excel导入导出、FTP/SFTP/fastDFS上传下载、二维码、XML读写、高精度计算、系统配置工具类等等。</p>
+</blockquote>]]>
+    
+    </summary>
+    
+      <category term="java" scheme="http://tonylit.me/tags/java/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[db2top查看最耗cpu的sql]]></title>
@@ -2329,61 +2415,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[JAVA程序怎样使用jvm堆栈内存]]></title>
-    <link href="http://tonylit.me/2016/12/07/JAVA%E7%A8%8B%E5%BA%8F%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8jvm%E5%A0%86%E6%A0%88%E5%86%85%E5%AD%98/"/>
-    <id>http://tonylit.me/2016/12/07/JAVA程序怎样使用jvm堆栈内存/</id>
-    <published>2016-12-07T03:37:27.000Z</published>
-    <updated>2016-12-07T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>java是一门面向对象的编程语言，平时我们创建对象通常是通过new的方式。</p>
-<p>java虚拟机在遇到new指令的时候，首先去检查new的类是否已经被加载、链接、初始化；<br>如果没有，则必须先执行相应的类加载过程。<br><strong>类加载过程见下图：</strong><br><img src="/img/jvm/class_run_jvm/类加载过程.PNG" alt="Alt text"></p>
-<a id="more"></a>
-<hr>
-<h1 id="程序运行时jvm内存使用">程序运行时jvm内存使用</h1><p>类加载完成以后，程序运行的内存分配工作主要在堆与栈上面了。</p>
-<blockquote>
-<p>通俗来讲，栈上放局部变量，堆上放成员变量<br>基本类型的变量在栈中直接保存它所对应的值<br>引用类型的变量在栈中保存的是一个指向堆区对应对象存放地址的指针<br><a href="https://www.zhihu.com/question/31203609" target="_blank" rel="external">java是值传递还是引用传递？</a></p>
-</blockquote>
-<p>以下实例转载（<a href="http://blog.csdn.net/shimiso/article/details/8595564）" target="_blank" rel="external">http://blog.csdn.net/shimiso/article/details/8595564）</a></p>
-<p><img src="/img/jvm/class_run_jvm/调用过程一.PNG" alt="Alt text"></p>
-<p>1.JVM自动寻找main方法，执行第一句代码，创建一个Test类的实例，<br>在栈中分配一块内存，存放一个指向堆区对象的指针110925。</p>
-<p>2.创建一个int型的变量date，由于是基本类型，直接在栈中存放date对应的值9。</p>
-<p>3.创建两个BirthDate类的实例d1、d2，在栈中分别存放了对应的指针指向各自的对象。<br>他们在实例化时调用了有参数的构造方法，因此对象中有自定义初始值。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程二.PNG" alt="Alt text"></p>
-<p>调用test对象的change1方法，并且以date为参数。<br>JVM读到这段代码时，检测到i是局部变量，因此会把i放在栈中，并且把date的值赋给i。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程三.PNG" alt="Alt text"></p>
-<p>把1234赋给i。很简单的一步。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程四.PNG" alt="Alt text"></p>
-<p>change1方法执行完毕，立即释放局部变量i所占用的栈空间。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程五.PNG" alt="Alt text"></p>
-<p>调用test对象的change2方法，以实例d1为参数。<br>JVM检测到change2方法中的b参数为局部变量，立即加入到栈中，由于是引用类型的变量，<br>所以b中保存的是d1中的指针，此时b和d1指向同一个堆中的对象，在b和d1之间传递是指针。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程六.PNG" alt="Alt text"></p>
-<p>change2方法中又实例化了一个BirthDate对象，并且赋给b。<br>在内部执行过程是：在堆区new了一个对象，并且把该对象的指针保存在栈中的b对应空间，<br>此时实例b不再指向实例d1所指向的对象，但是实例d1所指向的对象并无变化，这样无法对d1造成任何影响。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程七.PNG" alt="Alt text"></p>
-<p>change2方法执行完毕，立即释放局部引用变量b所占的栈空间，<br><strong>注意只是释放了栈空间，堆空间要等待自动回收</strong>。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程八.PNG" alt="Alt text"></p>
-<p>调用test实例的change3方法，以实例d2为参数。<br>同理，JVM会在栈中为局部引用变量b分配空间，并且把d2中的指针存放在b中，此时d2和b指向同一个对象。<br>再调用实例b的setDay方法，其实就是调用d2指向的对象的setDay方法。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程九.PNG" alt="Alt text"></p>
-<p>调用实例b的setDay方法会影响d2，因为二者指向的是同一个对象。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程十.PNG" alt="Alt text"></p>
-<p>change3方法执行完毕，立即释放局部引用变量b。</p>
-<hr>
-<h1 id="String对象实例">String对象实例</h1><p>对于String对象的赋值，一直都很模糊，<br>比如下面的例子，</p>
-<blockquote>
-<p>str1=str2 ？<br>程序执行的时候，内存里到底有几个实例？<br>实例存在内存的哪里?</p>
-</blockquote>
-<p>String str1 = “Hello”;<br>String str2 = new String(“Hello”);</p>
-<p>想深入了解，可以参见：<br><a href="https://www.zhihu.com/question/29884421" target="_blank" rel="external">https://www.zhihu.com/question/29884421</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>java是一门面向对象的编程语言，平时我们创建对象通常是通过new的方式。</p>
-<p>java虚拟机在遇到new指令的时候，首先去检查new的类是否已经被加载、链接、初始化；<br>如果没有，则必须先执行相应的类加载过程。<br><strong>类加载过程见下图：</strong><br><img src="/img/jvm/class_run_jvm/类加载过程.PNG" alt="Alt text"></p>]]>
-    
-    </summary>
-    
-      <category term="java" scheme="http://tonylit.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[浅谈JVM垃圾收集器]]></title>
     <link href="http://tonylit.me/2016/12/07/%E6%B5%85%E8%B0%88JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/"/>
     <id>http://tonylit.me/2016/12/07/浅谈JVM垃圾收集器/</id>
@@ -2489,6 +2520,61 @@
     <![CDATA[<p>Java虚拟机规范中对垃圾收集器应该如何实现并没有任何规定，</p>
 <p>因此不同的厂商、不同版本的虚拟机所提供的垃圾收集器都可能会有很大差别，</p>
 <p>并且一般都会提供参数供用户根据自己的应用特点和要求组合出各个年代所使用的收集器。</p>]]>
+    
+    </summary>
+    
+      <category term="java" scheme="http://tonylit.me/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[JAVA程序怎样使用jvm堆栈内存]]></title>
+    <link href="http://tonylit.me/2016/12/07/JAVA%E7%A8%8B%E5%BA%8F%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8jvm%E5%A0%86%E6%A0%88%E5%86%85%E5%AD%98/"/>
+    <id>http://tonylit.me/2016/12/07/JAVA程序怎样使用jvm堆栈内存/</id>
+    <published>2016-12-07T03:37:27.000Z</published>
+    <updated>2016-12-07T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>java是一门面向对象的编程语言，平时我们创建对象通常是通过new的方式。</p>
+<p>java虚拟机在遇到new指令的时候，首先去检查new的类是否已经被加载、链接、初始化；<br>如果没有，则必须先执行相应的类加载过程。<br><strong>类加载过程见下图：</strong><br><img src="/img/jvm/class_run_jvm/类加载过程.PNG" alt="Alt text"></p>
+<a id="more"></a>
+<hr>
+<h1 id="程序运行时jvm内存使用">程序运行时jvm内存使用</h1><p>类加载完成以后，程序运行的内存分配工作主要在堆与栈上面了。</p>
+<blockquote>
+<p>通俗来讲，栈上放局部变量，堆上放成员变量<br>基本类型的变量在栈中直接保存它所对应的值<br>引用类型的变量在栈中保存的是一个指向堆区对应对象存放地址的指针<br><a href="https://www.zhihu.com/question/31203609" target="_blank" rel="external">java是值传递还是引用传递？</a></p>
+</blockquote>
+<p>以下实例转载（<a href="http://blog.csdn.net/shimiso/article/details/8595564）" target="_blank" rel="external">http://blog.csdn.net/shimiso/article/details/8595564）</a></p>
+<p><img src="/img/jvm/class_run_jvm/调用过程一.PNG" alt="Alt text"></p>
+<p>1.JVM自动寻找main方法，执行第一句代码，创建一个Test类的实例，<br>在栈中分配一块内存，存放一个指向堆区对象的指针110925。</p>
+<p>2.创建一个int型的变量date，由于是基本类型，直接在栈中存放date对应的值9。</p>
+<p>3.创建两个BirthDate类的实例d1、d2，在栈中分别存放了对应的指针指向各自的对象。<br>他们在实例化时调用了有参数的构造方法，因此对象中有自定义初始值。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程二.PNG" alt="Alt text"></p>
+<p>调用test对象的change1方法，并且以date为参数。<br>JVM读到这段代码时，检测到i是局部变量，因此会把i放在栈中，并且把date的值赋给i。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程三.PNG" alt="Alt text"></p>
+<p>把1234赋给i。很简单的一步。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程四.PNG" alt="Alt text"></p>
+<p>change1方法执行完毕，立即释放局部变量i所占用的栈空间。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程五.PNG" alt="Alt text"></p>
+<p>调用test对象的change2方法，以实例d1为参数。<br>JVM检测到change2方法中的b参数为局部变量，立即加入到栈中，由于是引用类型的变量，<br>所以b中保存的是d1中的指针，此时b和d1指向同一个堆中的对象，在b和d1之间传递是指针。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程六.PNG" alt="Alt text"></p>
+<p>change2方法中又实例化了一个BirthDate对象，并且赋给b。<br>在内部执行过程是：在堆区new了一个对象，并且把该对象的指针保存在栈中的b对应空间，<br>此时实例b不再指向实例d1所指向的对象，但是实例d1所指向的对象并无变化，这样无法对d1造成任何影响。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程七.PNG" alt="Alt text"></p>
+<p>change2方法执行完毕，立即释放局部引用变量b所占的栈空间，<br><strong>注意只是释放了栈空间，堆空间要等待自动回收</strong>。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程八.PNG" alt="Alt text"></p>
+<p>调用test实例的change3方法，以实例d2为参数。<br>同理，JVM会在栈中为局部引用变量b分配空间，并且把d2中的指针存放在b中，此时d2和b指向同一个对象。<br>再调用实例b的setDay方法，其实就是调用d2指向的对象的setDay方法。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程九.PNG" alt="Alt text"></p>
+<p>调用实例b的setDay方法会影响d2，因为二者指向的是同一个对象。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程十.PNG" alt="Alt text"></p>
+<p>change3方法执行完毕，立即释放局部引用变量b。</p>
+<hr>
+<h1 id="String对象实例">String对象实例</h1><p>对于String对象的赋值，一直都很模糊，<br>比如下面的例子，</p>
+<blockquote>
+<p>str1=str2 ？<br>程序执行的时候，内存里到底有几个实例？<br>实例存在内存的哪里?</p>
+</blockquote>
+<p>String str1 = “Hello”;<br>String str2 = new String(“Hello”);</p>
+<p>想深入了解，可以参见：<br><a href="https://www.zhihu.com/question/29884421" target="_blank" rel="external">https://www.zhihu.com/question/29884421</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>java是一门面向对象的编程语言，平时我们创建对象通常是通过new的方式。</p>
+<p>java虚拟机在遇到new指令的时候，首先去检查new的类是否已经被加载、链接、初始化；<br>如果没有，则必须先执行相应的类加载过程。<br><strong>类加载过程见下图：</strong><br><img src="/img/jvm/class_run_jvm/类加载过程.PNG" alt="Alt text"></p>]]>
     
     </summary>
     
@@ -3290,24 +3376,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[docker容器时间修改-通过时区偏移量]]></title>
-    <link href="http://tonylit.me/2016/07/19/docker%E5%AE%B9%E5%99%A8%E6%97%B6%E9%97%B4%E4%BF%AE%E6%94%B9-%E9%80%9A%E8%BF%87%E6%97%B6%E5%8C%BA%E5%81%8F%E7%A7%BB%E9%87%8F/"/>
-    <id>http://tonylit.me/2016/07/19/docker容器时间修改-通过时区偏移量/</id>
-    <published>2016-07-19T03:37:27.000Z</published>
-    <updated>2016-07-19T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。<br>如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。<br>but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。<br><a id="more"></a><br>这边写了个脚本，date.sh<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> != <span class="number">2</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">         <span class="built_in">echo</span> <span class="string">"Please input two parameter,like  '2016-05-20 12:00' "</span></span><br><span class="line">         <span class="built_in">exit</span> <span class="number">200</span>;</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#check /etc/profile exits 'export TZ' environment,if exits ,delete</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">checkProfile</span></span>()&#123;</span><br><span class="line">  <span class="built_in">return</span>Str=`grep -ri <span class="string">'export TZ'</span> /etc/profile`</span><br><span class="line">  <span class="keyword">if</span> [ <span class="string">"<span class="variable">$returnStr</span>"</span> !=  <span class="string">""</span>  ]</span><br><span class="line">   <span class="keyword">then</span></span><br><span class="line">     sed -i <span class="operator">-e</span> <span class="string">'/export TZ/d'</span>  /etc/profile</span><br><span class="line">       </span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line">checkProfile</span><br><span class="line"><span class="comment">#check time format</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">isValidDate</span></span>()&#123;  </span><br><span class="line">    date <span class="operator">-d</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="string">"+%F"</span>|grep -q <span class="string">"<span class="variable">$1</span>"</span> <span class="number">2</span>&gt;/dev/null </span><br><span class="line">    <span class="keyword">if</span> [ $? = <span class="number">0</span> ]; <span class="keyword">then</span>  </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"input:"</span> <span class="variable">$1</span> <span class="variable">$2</span> </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Time format is not correct ,please input like '2016-05-20 12:00' "</span> </span><br><span class="line">    <span class="keyword">fi</span>  </span><br><span class="line">&#125;</span><br><span class="line">isValidDate <span class="variable">$1</span> <span class="variable">$2</span></span><br><span class="line">CURTIME=`date <span class="string">"+%Y-%m-%d %H:%M"</span> `;</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"now:"</span> <span class="variable">$CURTIME</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">timeExport</span></span>()&#123;</span><br><span class="line">    <span class="keyword">if</span> [ <span class="string">"<span class="variable">$2</span>"</span> == <span class="number">1</span> ]</span><br><span class="line">     <span class="keyword">then</span></span><br><span class="line">     timeFormat=`awk <span class="string">'BEGIN&#123;printf "%.2f\n",'</span><span class="variable">$1</span><span class="string">'/3600&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$1</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeFormat</span></span><br><span class="line">     hour=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line">     mins=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     minm=`awk <span class="string">'BEGIN&#123;printf "%.0f\n",0.'</span><span class="variable">$mins</span><span class="string">'*60&#125;'</span>`</span><br><span class="line">     timeRetrunHour=`expr <span class="variable">$hour</span> + <span class="number">8</span>`</span><br><span class="line">      </span><br><span class="line">     <span class="comment">###分钟计算</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"input min:"</span><span class="variable">$3</span></span><br><span class="line">     inputmin=`<span class="built_in">echo</span> <span class="variable">$3</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     nowmin=`date |awk <span class="string">'&#123;print $4&#125;'</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$nowmin</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$inputmin</span></span><br><span class="line">     <span class="keyword">if</span> [ <span class="string">"<span class="variable">$nowmin</span>"</span> <span class="operator">-gt</span> <span class="string">"<span class="variable">$inputmin</span>"</span> ]</span><br><span class="line">      <span class="keyword">then</span> </span><br><span class="line">       <span class="built_in">let</span> hour=<span class="variable">$hour</span>-<span class="number">1</span></span><br><span class="line">     <span class="keyword">fi</span></span><br><span class="line">       </span><br><span class="line">     timeRetrunTime=<span class="variable">$timeRetrunHour</span>:<span class="variable">$minm</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"export TZ=RPC-<span class="variable">$timeRetrunTime</span>"</span>     </span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">       <span class="keyword">if</span> [ <span class="string">"<span class="variable">$2</span>"</span> == <span class="number">2</span> ]</span><br><span class="line">        <span class="keyword">then</span></span><br><span class="line">     timeFormat=`awk <span class="string">'BEGIN&#123;printf "%.2f\n",'</span><span class="variable">$1</span><span class="string">'/3600&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$1</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeFormat</span></span><br><span class="line">     hour=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line">     mins=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     minm=`awk <span class="string">'BEGIN&#123;printf "%.0f\n",0.'</span><span class="variable">$mins</span><span class="string">'*60&#125;'</span>`</span><br><span class="line">     <span class="built_in">let</span> timeRetrunHour=<span class="variable">$hour</span>-<span class="number">8</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeRetrunHour</span></span><br><span class="line">          <span class="comment">###分钟计算</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"input min:"</span><span class="variable">$3</span></span><br><span class="line">     inputmin=`<span class="built_in">echo</span> <span class="variable">$3</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     nowmin=`date |awk <span class="string">'&#123;print $4&#125;'</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$nowmin</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$inputmin</span></span><br><span class="line">     <span class="keyword">if</span> [ <span class="string">"<span class="variable">$nowmin</span>"</span> <span class="operator">-gt</span> <span class="string">"<span class="variable">$inputmin</span>"</span> ]</span><br><span class="line">      <span class="keyword">then</span> </span><br><span class="line">       <span class="built_in">let</span> hour=<span class="variable">$hour</span>-<span class="number">1</span></span><br><span class="line">     <span class="keyword">fi</span> </span><br><span class="line">     timeRetrunTime=<span class="variable">$timeRetrunHour</span>:<span class="variable">$minm</span></span><br><span class="line">          <span class="keyword">if</span> [ <span class="string">"<span class="variable">$timeRetrunHour</span>"</span> <span class="operator">-lt</span> <span class="number">0</span> ]</span><br><span class="line">        <span class="keyword">then</span></span><br><span class="line">           <span class="built_in">echo</span> <span class="string">"export TZ=RPC-<span class="variable">$&#123;timeRetrunTime#-&#125;</span>"</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">           <span class="built_in">echo</span> <span class="string">"export TZ=RPC+<span class="variable">$timeRetrunTime</span>"</span></span><br><span class="line">         <span class="keyword">fi</span></span><br><span class="line">     <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">Sys_data=`date <span class="operator">-d</span>  <span class="string">"<span class="variable">$CURTIME</span>"</span> +%s`    <span class="comment">#把当前时间转化为Linux时间</span></span><br><span class="line">In_data=`date <span class="operator">-d</span>  <span class="string">"<span class="variable">$1</span> <span class="variable">$2</span>"</span> +%s`</span><br><span class="line">  <span class="keyword">if</span> [ <span class="variable">$In_data</span> -ge <span class="variable">$Sys_data</span> ]</span><br><span class="line">   <span class="keyword">then</span></span><br><span class="line">    interval=`expr <span class="variable">$In_data</span> - <span class="variable">$Sys_data</span>`  <span class="comment">#计算2个时间的差</span></span><br><span class="line">    timeExport <span class="variable">$interval</span> <span class="number">1</span> <span class="variable">$2</span></span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">    interval=`expr  <span class="variable">$Sys_data</span> - <span class="variable">$In_data</span>`  </span><br><span class="line">    timeExport <span class="variable">$interval</span> <span class="number">2</span> <span class="variable">$2</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$interval</span></span><br></pre></td></tr></table></figure></p>
-<p>然后手动执行输出的结果：<br>export TZ=xxxx</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。<br>如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。<br>but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。<br>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[docker crontab不执行解决方法]]></title>
     <link href="http://tonylit.me/2016/07/19/docker%20crontab%E4%B8%8D%E6%89%A7%E8%A1%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
     <id>http://tonylit.me/2016/07/19/docker crontab不执行解决方法/</id>
@@ -3319,6 +3387,24 @@
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># The PAM configuration file for the cron daemon</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">auth       sufficient pam_env.so</span><br><span class="line">auth       sufficient   pam_rootok.so</span><br><span class="line">auth       <span class="built_in">include</span>    <span class="keyword">system</span>-auth</span><br><span class="line">account    sufficient   pam_access.so</span><br><span class="line">account    <span class="built_in">include</span>    <span class="keyword">system</span>-auth</span><br><span class="line">session    sufficient   pam_loginuid.so</span><br><span class="line">session    <span class="built_in">include</span>    <span class="keyword">system</span>-auth</span><br></pre></td></tr></table></figure>]]></content>
     <summary type="html">
     <![CDATA[<p>centos镜像，在该镜像中没有安装crond，通过yum安装成功后，crontab没有生效。</p>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[docker容器时间修改-通过时区偏移量]]></title>
+    <link href="http://tonylit.me/2016/07/19/docker%E5%AE%B9%E5%99%A8%E6%97%B6%E9%97%B4%E4%BF%AE%E6%94%B9-%E9%80%9A%E8%BF%87%E6%97%B6%E5%8C%BA%E5%81%8F%E7%A7%BB%E9%87%8F/"/>
+    <id>http://tonylit.me/2016/07/19/docker容器时间修改-通过时区偏移量/</id>
+    <published>2016-07-19T03:37:27.000Z</published>
+    <updated>2016-07-19T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。<br>如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。<br>but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。<br><a id="more"></a><br>这边写了个脚本，date.sh<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> != <span class="number">2</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">         <span class="built_in">echo</span> <span class="string">"Please input two parameter,like  '2016-05-20 12:00' "</span></span><br><span class="line">         <span class="built_in">exit</span> <span class="number">200</span>;</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#check /etc/profile exits 'export TZ' environment,if exits ,delete</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">checkProfile</span></span>()&#123;</span><br><span class="line">  <span class="built_in">return</span>Str=`grep -ri <span class="string">'export TZ'</span> /etc/profile`</span><br><span class="line">  <span class="keyword">if</span> [ <span class="string">"<span class="variable">$returnStr</span>"</span> !=  <span class="string">""</span>  ]</span><br><span class="line">   <span class="keyword">then</span></span><br><span class="line">     sed -i <span class="operator">-e</span> <span class="string">'/export TZ/d'</span>  /etc/profile</span><br><span class="line">       </span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line">checkProfile</span><br><span class="line"><span class="comment">#check time format</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">isValidDate</span></span>()&#123;  </span><br><span class="line">    date <span class="operator">-d</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="string">"+%F"</span>|grep -q <span class="string">"<span class="variable">$1</span>"</span> <span class="number">2</span>&gt;/dev/null </span><br><span class="line">    <span class="keyword">if</span> [ $? = <span class="number">0</span> ]; <span class="keyword">then</span>  </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"input:"</span> <span class="variable">$1</span> <span class="variable">$2</span> </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Time format is not correct ,please input like '2016-05-20 12:00' "</span> </span><br><span class="line">    <span class="keyword">fi</span>  </span><br><span class="line">&#125;</span><br><span class="line">isValidDate <span class="variable">$1</span> <span class="variable">$2</span></span><br><span class="line">CURTIME=`date <span class="string">"+%Y-%m-%d %H:%M"</span> `;</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"now:"</span> <span class="variable">$CURTIME</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">timeExport</span></span>()&#123;</span><br><span class="line">    <span class="keyword">if</span> [ <span class="string">"<span class="variable">$2</span>"</span> == <span class="number">1</span> ]</span><br><span class="line">     <span class="keyword">then</span></span><br><span class="line">     timeFormat=`awk <span class="string">'BEGIN&#123;printf "%.2f\n",'</span><span class="variable">$1</span><span class="string">'/3600&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$1</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeFormat</span></span><br><span class="line">     hour=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line">     mins=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     minm=`awk <span class="string">'BEGIN&#123;printf "%.0f\n",0.'</span><span class="variable">$mins</span><span class="string">'*60&#125;'</span>`</span><br><span class="line">     timeRetrunHour=`expr <span class="variable">$hour</span> + <span class="number">8</span>`</span><br><span class="line">      </span><br><span class="line">     <span class="comment">###分钟计算</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"input min:"</span><span class="variable">$3</span></span><br><span class="line">     inputmin=`<span class="built_in">echo</span> <span class="variable">$3</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     nowmin=`date |awk <span class="string">'&#123;print $4&#125;'</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$nowmin</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$inputmin</span></span><br><span class="line">     <span class="keyword">if</span> [ <span class="string">"<span class="variable">$nowmin</span>"</span> <span class="operator">-gt</span> <span class="string">"<span class="variable">$inputmin</span>"</span> ]</span><br><span class="line">      <span class="keyword">then</span> </span><br><span class="line">       <span class="built_in">let</span> hour=<span class="variable">$hour</span>-<span class="number">1</span></span><br><span class="line">     <span class="keyword">fi</span></span><br><span class="line">       </span><br><span class="line">     timeRetrunTime=<span class="variable">$timeRetrunHour</span>:<span class="variable">$minm</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"export TZ=RPC-<span class="variable">$timeRetrunTime</span>"</span>     </span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">       <span class="keyword">if</span> [ <span class="string">"<span class="variable">$2</span>"</span> == <span class="number">2</span> ]</span><br><span class="line">        <span class="keyword">then</span></span><br><span class="line">     timeFormat=`awk <span class="string">'BEGIN&#123;printf "%.2f\n",'</span><span class="variable">$1</span><span class="string">'/3600&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$1</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeFormat</span></span><br><span class="line">     hour=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line">     mins=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     minm=`awk <span class="string">'BEGIN&#123;printf "%.0f\n",0.'</span><span class="variable">$mins</span><span class="string">'*60&#125;'</span>`</span><br><span class="line">     <span class="built_in">let</span> timeRetrunHour=<span class="variable">$hour</span>-<span class="number">8</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeRetrunHour</span></span><br><span class="line">          <span class="comment">###分钟计算</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"input min:"</span><span class="variable">$3</span></span><br><span class="line">     inputmin=`<span class="built_in">echo</span> <span class="variable">$3</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     nowmin=`date |awk <span class="string">'&#123;print $4&#125;'</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$nowmin</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$inputmin</span></span><br><span class="line">     <span class="keyword">if</span> [ <span class="string">"<span class="variable">$nowmin</span>"</span> <span class="operator">-gt</span> <span class="string">"<span class="variable">$inputmin</span>"</span> ]</span><br><span class="line">      <span class="keyword">then</span> </span><br><span class="line">       <span class="built_in">let</span> hour=<span class="variable">$hour</span>-<span class="number">1</span></span><br><span class="line">     <span class="keyword">fi</span> </span><br><span class="line">     timeRetrunTime=<span class="variable">$timeRetrunHour</span>:<span class="variable">$minm</span></span><br><span class="line">          <span class="keyword">if</span> [ <span class="string">"<span class="variable">$timeRetrunHour</span>"</span> <span class="operator">-lt</span> <span class="number">0</span> ]</span><br><span class="line">        <span class="keyword">then</span></span><br><span class="line">           <span class="built_in">echo</span> <span class="string">"export TZ=RPC-<span class="variable">$&#123;timeRetrunTime#-&#125;</span>"</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">           <span class="built_in">echo</span> <span class="string">"export TZ=RPC+<span class="variable">$timeRetrunTime</span>"</span></span><br><span class="line">         <span class="keyword">fi</span></span><br><span class="line">     <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">Sys_data=`date <span class="operator">-d</span>  <span class="string">"<span class="variable">$CURTIME</span>"</span> +%s`    <span class="comment">#把当前时间转化为Linux时间</span></span><br><span class="line">In_data=`date <span class="operator">-d</span>  <span class="string">"<span class="variable">$1</span> <span class="variable">$2</span>"</span> +%s`</span><br><span class="line">  <span class="keyword">if</span> [ <span class="variable">$In_data</span> -ge <span class="variable">$Sys_data</span> ]</span><br><span class="line">   <span class="keyword">then</span></span><br><span class="line">    interval=`expr <span class="variable">$In_data</span> - <span class="variable">$Sys_data</span>`  <span class="comment">#计算2个时间的差</span></span><br><span class="line">    timeExport <span class="variable">$interval</span> <span class="number">1</span> <span class="variable">$2</span></span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">    interval=`expr  <span class="variable">$Sys_data</span> - <span class="variable">$In_data</span>`  </span><br><span class="line">    timeExport <span class="variable">$interval</span> <span class="number">2</span> <span class="variable">$2</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$interval</span></span><br></pre></td></tr></table></figure></p>
+<p>然后手动执行输出的结果：<br>export TZ=xxxx</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。<br>如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。<br>but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。<br>]]>
     
     </summary>
     
@@ -3601,6 +3687,29 @@
   </entry>
   
   <entry>
+    <title><![CDATA[rsync和scp传输时间比较]]></title>
+    <link href="http://tonylit.me/2016/05/18/scp%E5%92%8Crsync%E4%BC%A0%E8%BE%93%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83/"/>
+    <id>http://tonylit.me/2016/05/18/scp和rsync传输速度比较/</id>
+    <published>2016-05-18T03:37:27.000Z</published>
+    <updated>2016-05-18T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br><a id="more"></a><br>传输一个3.2G的文件，里面杂七杂八的图片、小文件、大文件、视频….</p>
+<h1 id="rsync传输">rsync传输</h1><p>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">rsync -avr --progress --delete /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
+<h2 id="第一次传输：">第一次传输：</h2><p><strong>时间：58s</strong></p>
+<h2 id="第二次传输：">第二次传输：</h2><p><strong>时间：1s</strong></p>
+<p>#scp传输<br>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">scp -r /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
+<p><strong>时间：511s</strong></p>
+<h1 id="结论：">结论：</h1><p>rsync的传输速度比scp快很多</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br>]]>
+    
+    </summary>
+    
+      <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[ssh 免登陆]]></title>
     <link href="http://tonylit.me/2016/05/18/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/"/>
     <id>http://tonylit.me/2016/05/18/ssh免密码登录/</id>
@@ -3621,29 +3730,6 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>配置A服务器ssh无密码登陆到B服务器<br>]]>
-    
-    </summary>
-    
-      <category term="work" scheme="http://tonylit.me/tags/work/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[rsync和scp传输时间比较]]></title>
-    <link href="http://tonylit.me/2016/05/18/scp%E5%92%8Crsync%E4%BC%A0%E8%BE%93%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83/"/>
-    <id>http://tonylit.me/2016/05/18/scp和rsync传输速度比较/</id>
-    <published>2016-05-18T03:37:27.000Z</published>
-    <updated>2016-05-18T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br><a id="more"></a><br>传输一个3.2G的文件，里面杂七杂八的图片、小文件、大文件、视频….</p>
-<h1 id="rsync传输">rsync传输</h1><p>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">rsync -avr --progress --delete /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
-<h2 id="第一次传输：">第一次传输：</h2><p><strong>时间：58s</strong></p>
-<h2 id="第二次传输：">第二次传输：</h2><p><strong>时间：1s</strong></p>
-<p>#scp传输<br>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">scp -r /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
-<p><strong>时间：511s</strong></p>
-<h1 id="结论：">结论：</h1><p>rsync的传输速度比scp快很多</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br>]]>
     
     </summary>
     
@@ -4471,47 +4557,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[export、import导出导入docker容器]]></title>
-    <link href="http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/"/>
-    <id>http://tonylit.me/2015/12/22/docker import和export/</id>
-    <published>2015-12-22T03:37:27.000Z</published>
-    <updated>2015-12-22T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/" target="_blank" rel="external">centos-6-x86_64.tar.gz</a></p>
-<blockquote>
-<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
-<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br><a id="more"></a></p>
-</blockquote>
-<h2 id="实例">实例</h2><blockquote>
-<p>cat centos-6-x86_64.tar.gz|docker import - test/centos-6:v1.0<br><img src="/img/docker/docker_import.PNG" alt="Alt text"></p>
-</blockquote>
-<p>此外，也可以通过指定 URL 或者某个目录来导入，例如</p>
-<blockquote>
-<p> docker import <a href="http://example.com/exampleimage.tgz" target="_blank" rel="external">http://example.com/exampleimage.tgz</a> example/imagerepo</p>
-</blockquote>
-<p>*注：用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p>
-<h1 id="导出容器">导出容器</h1><p>先启动一下容器：</p>
-<blockquote>
-<p>docker run -t -i 5de0ac2f6f7e /bin/bash</p>
-</blockquote>
-<p>两个参数，-t表示给容器tty终端，-i表示可以interactive，可以交互。</p>
-<p><img src="/img/docker/docker_ps.PNG" alt="Alt text"></p>
-<blockquote>
-<p>docker export 5d73efeb9a38 &gt; tonylit_centos6.tar</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/">centos-6-x86_64.tar.gz</a></p>
-<blockquote>
-<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
-<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[staf使用]]></title>
     <link href="http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/"/>
     <id>http://tonylit.me/2015/12/22/staf使用/</id>
@@ -4557,6 +4602,47 @@
     </summary>
     
       <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[export、import导出导入docker容器]]></title>
+    <link href="http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/"/>
+    <id>http://tonylit.me/2015/12/22/docker import和export/</id>
+    <published>2015-12-22T03:37:27.000Z</published>
+    <updated>2015-12-22T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/" target="_blank" rel="external">centos-6-x86_64.tar.gz</a></p>
+<blockquote>
+<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
+<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br><a id="more"></a></p>
+</blockquote>
+<h2 id="实例">实例</h2><blockquote>
+<p>cat centos-6-x86_64.tar.gz|docker import - test/centos-6:v1.0<br><img src="/img/docker/docker_import.PNG" alt="Alt text"></p>
+</blockquote>
+<p>此外，也可以通过指定 URL 或者某个目录来导入，例如</p>
+<blockquote>
+<p> docker import <a href="http://example.com/exampleimage.tgz" target="_blank" rel="external">http://example.com/exampleimage.tgz</a> example/imagerepo</p>
+</blockquote>
+<p>*注：用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p>
+<h1 id="导出容器">导出容器</h1><p>先启动一下容器：</p>
+<blockquote>
+<p>docker run -t -i 5de0ac2f6f7e /bin/bash</p>
+</blockquote>
+<p>两个参数，-t表示给容器tty终端，-i表示可以interactive，可以交互。</p>
+<p><img src="/img/docker/docker_ps.PNG" alt="Alt text"></p>
+<blockquote>
+<p>docker export 5d73efeb9a38 &gt; tonylit_centos6.tar</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/">centos-6-x86_64.tar.gz</a></p>
+<blockquote>
+<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
+<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   
@@ -4727,32 +4813,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[JavaMelody监控java应用]]></title>
-    <link href="http://tonylit.me/2015/12/16/javamelody%E7%9B%91%E6%8E%A7java%E5%BA%94%E7%94%A8/"/>
-    <id>http://tonylit.me/2015/12/16/javamelody监控java应用/</id>
-    <published>2015-12-16T03:37:27.000Z</published>
-    <updated>2015-12-16T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>公司里大多都是java项目，之前监控一直用jprofiler，最近在论坛上发现JavaMelody这个监控神器，真是眼前一亮！<br><img src="/img/javamelody/javamelody_1.jpg" alt="Alt text"></p>
-<a id="more"></a>
-<h1 id="JavaMelody介绍">JavaMelody介绍</h1><p>JavaMelody 能够监测Java或Java EE应用程序服务器，并以图表的方式显示：Java内存和Java  CPU使用情况，用户Session数量，JDBC连接数，和http请求、sql请求、jsp页面与业务接口方法（EJB3、Spring、 Guice）的执行数量，平均执行时间，错误百分比等。图表可以按天，周，月，年或自定义时间段查看。</p>
-<h1 id="监控配置">监控配置</h1><p>今天先介绍怎样简单的做项目监控，与spring或者Struts集成先不谈。<br>你需要做的只是拷贝两个jar包，添加10行xml的代码就OK了。</p>
-<h2 id="下载一个javamelody-1-58-0-zip_解压开来">下载一个javamelody-1.58.0.zip 解压开来</h2><p>下载地址在github上，<a href="https://github.com/javamelody/javamelody/releases，现在的最新版本是1.58，下载javamelody-1.58.0.zip" target="_blank" rel="external">https://github.com/javamelody/javamelody/releases，现在的最新版本是1.58，下载javamelody-1.58.0.zip</a><br>解压开，将里面的javamelody.jar和jrobin-1.5.9.1.jar拷贝到项目WEB-INF下的lib中。</p>
-<h1 id="配置web-xml">配置web.xml</h1><p>在web.xml中添加配置：</p>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">&lt;filter&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="variable">&lt;filter-name&gt;</span>monitoring<span class="variable">&lt;/filter-name&gt;</span></span><br><span class="line">      <span class="variable">&lt;filter-class&gt;</span>net.bull.javamelody.MonitoringFilter<span class="variable">&lt;/filter-class&gt;</span></span><br><span class="line"><span class="variable">&lt;/filter&gt;</span></span><br><span class="line"><span class="variable">&lt;filter-mapping&gt;</span></span><br><span class="line">       <span class="variable">&lt;filter-name&gt;</span>monitoring<span class="variable">&lt;/filter-name&gt;</span></span><br><span class="line">       <span class="variable">&lt;url-pattern&gt;</span>/<span class="keyword">*</span><span class="variable">&lt;/url-pattern&gt;</span></span><br><span class="line"><span class="variable">&lt;/filter-mapping&gt;</span></span><br><span class="line"><span class="variable">&lt;listener&gt;</span></span><br><span class="line">       <span class="variable">&lt;listener-class&gt;</span>net.bull.javamelody.SessionListener<span class="variable">&lt;/listener-class&gt;</span></span><br><span class="line"><span class="variable">&lt;/listener&gt;</span></span><br></pre></td></tr></table></figure>
-<h1 id="重启应用，完成配置">重启应用，完成配置</h1><p>现在就可以启动应用服务器打开网址查看监控效果了。网址：http://<host>/monitoring<br>如：<a href="http://192.168.43.103:82/monitoring" target="_blank" rel="external">http://192.168.43.103:82/monitoring</a><br><img src="/img/javamelody/javamelody.PNG" alt="Alt text"></host></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>公司里大多都是java项目，之前监控一直用jprofiler，最近在论坛上发现JavaMelody这个监控神器，真是眼前一亮！<br><img src="/img/javamelody/javamelody_1.jpg" alt="Alt text"></p>]]>
-    
-    </summary>
-    
-      <category term="work" scheme="http://tonylit.me/tags/work/"/>
-    
-      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[jenkins+maven+jmeter 性能自动化实践]]></title>
     <link href="http://tonylit.me/2015/12/16/jenkins+maven+jmeter%E6%80%A7%E8%83%BD%E8%87%AA%E5%8A%A8%E5%8C%96%E5%AE%9E%E8%B7%B5/"/>
     <id>http://tonylit.me/2015/12/16/jenkins+maven+jmeter性能自动化实践/</id>
@@ -4827,6 +4887,32 @@
   </entry>
   
   <entry>
+    <title><![CDATA[JavaMelody监控java应用]]></title>
+    <link href="http://tonylit.me/2015/12/16/javamelody%E7%9B%91%E6%8E%A7java%E5%BA%94%E7%94%A8/"/>
+    <id>http://tonylit.me/2015/12/16/javamelody监控java应用/</id>
+    <published>2015-12-16T03:37:27.000Z</published>
+    <updated>2015-12-16T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>公司里大多都是java项目，之前监控一直用jprofiler，最近在论坛上发现JavaMelody这个监控神器，真是眼前一亮！<br><img src="/img/javamelody/javamelody_1.jpg" alt="Alt text"></p>
+<a id="more"></a>
+<h1 id="JavaMelody介绍">JavaMelody介绍</h1><p>JavaMelody 能够监测Java或Java EE应用程序服务器，并以图表的方式显示：Java内存和Java  CPU使用情况，用户Session数量，JDBC连接数，和http请求、sql请求、jsp页面与业务接口方法（EJB3、Spring、 Guice）的执行数量，平均执行时间，错误百分比等。图表可以按天，周，月，年或自定义时间段查看。</p>
+<h1 id="监控配置">监控配置</h1><p>今天先介绍怎样简单的做项目监控，与spring或者Struts集成先不谈。<br>你需要做的只是拷贝两个jar包，添加10行xml的代码就OK了。</p>
+<h2 id="下载一个javamelody-1-58-0-zip_解压开来">下载一个javamelody-1.58.0.zip 解压开来</h2><p>下载地址在github上，<a href="https://github.com/javamelody/javamelody/releases，现在的最新版本是1.58，下载javamelody-1.58.0.zip" target="_blank" rel="external">https://github.com/javamelody/javamelody/releases，现在的最新版本是1.58，下载javamelody-1.58.0.zip</a><br>解压开，将里面的javamelody.jar和jrobin-1.5.9.1.jar拷贝到项目WEB-INF下的lib中。</p>
+<h1 id="配置web-xml">配置web.xml</h1><p>在web.xml中添加配置：</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">&lt;filter&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="variable">&lt;filter-name&gt;</span>monitoring<span class="variable">&lt;/filter-name&gt;</span></span><br><span class="line">      <span class="variable">&lt;filter-class&gt;</span>net.bull.javamelody.MonitoringFilter<span class="variable">&lt;/filter-class&gt;</span></span><br><span class="line"><span class="variable">&lt;/filter&gt;</span></span><br><span class="line"><span class="variable">&lt;filter-mapping&gt;</span></span><br><span class="line">       <span class="variable">&lt;filter-name&gt;</span>monitoring<span class="variable">&lt;/filter-name&gt;</span></span><br><span class="line">       <span class="variable">&lt;url-pattern&gt;</span>/<span class="keyword">*</span><span class="variable">&lt;/url-pattern&gt;</span></span><br><span class="line"><span class="variable">&lt;/filter-mapping&gt;</span></span><br><span class="line"><span class="variable">&lt;listener&gt;</span></span><br><span class="line">       <span class="variable">&lt;listener-class&gt;</span>net.bull.javamelody.SessionListener<span class="variable">&lt;/listener-class&gt;</span></span><br><span class="line"><span class="variable">&lt;/listener&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="重启应用，完成配置">重启应用，完成配置</h1><p>现在就可以启动应用服务器打开网址查看监控效果了。网址：http://<host>/monitoring<br>如：<a href="http://192.168.43.103:82/monitoring" target="_blank" rel="external">http://192.168.43.103:82/monitoring</a><br><img src="/img/javamelody/javamelody.PNG" alt="Alt text"></host></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>公司里大多都是java项目，之前监控一直用jprofiler，最近在论坛上发现JavaMelody这个监控神器，真是眼前一亮！<br><img src="/img/javamelody/javamelody_1.jpg" alt="Alt text"></p>]]>
+    
+    </summary>
+    
+      <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Druid连接池监控]]></title>
     <link href="http://tonylit.me/2015/12/15/druid%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9B%91%E6%8E%A7/"/>
     <id>http://tonylit.me/2015/12/15/druid连接池监控/</id>
@@ -4842,6 +4928,32 @@
     </summary>
     
       <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[性能测试葵花宝典]]></title>
+    <link href="http://tonylit.me/2015/12/10/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%91%B5%E8%8A%B1%E5%AE%9D%E5%85%B8/"/>
+    <id>http://tonylit.me/2015/12/10/性能测试葵花宝典/</id>
+    <published>2015-12-10T03:37:27.000Z</published>
+    <updated>2015-12-10T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>在此整理性能测试过程中的一些精华内容，并持续进行<br>为此命名为性能测试葵花宝典，我先练上！<br><img src="/img/葵花宝典.jpg" alt="Alt text"></p>
+<a id="more"></a>
+<h1 id="压力机的资源利用率">压力机的资源利用率</h1><blockquote>
+<p>cpu%&lt;50%<br>内存&lt;80%<br>network&lt;30%,高了容易丢包<br>disk的忙闲&lt;50%<br>disk的空间&lt;90%，高了会碎片整理</p>
+</blockquote>
+<h1 id="OS常用阀值">OS常用阀值</h1><blockquote>
+<p>TotalCPU%&lt;75%<br> sysCPU%&lt;30%<br>  load average&lt;5<br> wio%&lt;40%<br>  network%&lt;30%<br>mem%&lt;80%~90%<br> disk%busy&lt;60%<br> disk queueing &lt;5<br> disk usage&lt;90%</p>
+</blockquote>
+<h1 id="OSI7层模型">OSI7层模型</h1><p><img src="/img/OSI_7.gif" alt="Alt text"></p>
+<h1 id="线程状态">线程状态</h1><p><img src="/img/线程状态.jpg" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在此整理性能测试过程中的一些精华内容，并持续进行<br>为此命名为性能测试葵花宝典，我先练上！<br><img src="/img/葵花宝典.jpg" alt="Alt text"></p>]]>
+    
+    </summary>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
     
@@ -4882,32 +4994,6 @@
     </summary>
     
       <category term="Jmeter" scheme="http://tonylit.me/tags/Jmeter/"/>
-    
-      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[性能测试葵花宝典]]></title>
-    <link href="http://tonylit.me/2015/12/10/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%91%B5%E8%8A%B1%E5%AE%9D%E5%85%B8/"/>
-    <id>http://tonylit.me/2015/12/10/性能测试葵花宝典/</id>
-    <published>2015-12-10T03:37:27.000Z</published>
-    <updated>2015-12-10T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>在此整理性能测试过程中的一些精华内容，并持续进行<br>为此命名为性能测试葵花宝典，我先练上！<br><img src="/img/葵花宝典.jpg" alt="Alt text"></p>
-<a id="more"></a>
-<h1 id="压力机的资源利用率">压力机的资源利用率</h1><blockquote>
-<p>cpu%&lt;50%<br>内存&lt;80%<br>network&lt;30%,高了容易丢包<br>disk的忙闲&lt;50%<br>disk的空间&lt;90%，高了会碎片整理</p>
-</blockquote>
-<h1 id="OS常用阀值">OS常用阀值</h1><blockquote>
-<p>TotalCPU%&lt;75%<br> sysCPU%&lt;30%<br>  load average&lt;5<br> wio%&lt;40%<br>  network%&lt;30%<br>mem%&lt;80%~90%<br> disk%busy&lt;60%<br> disk queueing &lt;5<br> disk usage&lt;90%</p>
-</blockquote>
-<h1 id="OSI7层模型">OSI7层模型</h1><p><img src="/img/OSI_7.gif" alt="Alt text"></p>
-<h1 id="线程状态">线程状态</h1><p><img src="/img/线程状态.jpg" alt="Alt text"></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>在此整理性能测试过程中的一些精华内容，并持续进行<br>为此命名为性能测试葵花宝典，我先练上！<br><img src="/img/葵花宝典.jpg" alt="Alt text"></p>]]>
-    
-    </summary>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
     
@@ -5010,48 +5096,6 @@
       <category term="loadrunner" scheme="http://tonylit.me/tags/loadrunner/"/>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[centos7.1下docker安装]]></title>
-    <link href="http://tonylit.me/2015/12/02/centos7.1%E4%B8%8B%E5%AE%89%E8%A3%85docker/"/>
-    <id>http://tonylit.me/2015/12/02/centos7.1下安装docker/</id>
-    <published>2015-12-02T03:37:27.000Z</published>
-    <updated>2015-12-02T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>之前已经<a href="http://tonylit.me/2015/11/24/docker/">介绍了docker</a>，今天来安装一下。<br>首先，准备一个 CentOS 的操作系统<br>Ubuntu 或其它 Linux 操作系统也能玩 Docker，这里就不介绍了。<br><a id="more"></a><br><strong>CentOS 具体要求如下：</strong><br>必须是 64 位操作系统<br>建议内核在 3.8 以上<br>低版本的请升级系统~</p>
-<p>安装起来很简单：</p>
-<h1 id="安装docker">安装docker</h1><p>1.由于条件限制，只能把rpm包下载下来：<a href="http://pan.baidu.com/s/1c0C0X0G，" target="_blank" rel="external">http://pan.baidu.com/s/1c0C0X0G，</a> 也可以直接：</p>
-<blockquote>
-<p>rpm -Uvh<br><a href="https://get.docker.com/rpm/1.7.1/centos-7/RPMS/x86_64/docker-engine-1.7.1-1.el7.centos.x86_64.rpm" target="_blank" rel="external">https://get.docker.com/rpm/1.7.1/centos-7/RPMS/x86_64/docker-engine-1.7.1-1.el7.centos.x86_64.rpm</a></p>
-</blockquote>
-<p>2.然后rpm安装一下就可以了：</p>
-<blockquote>
-<p>rpm -Uvh docker-engine-1.7.1-1.el7.centos.x86_64.rpm</p>
-</blockquote>
-<p>或者(最新1.10版本，革命性的版本)</p>
-<h2 id="&gt;_yum_install_docker-engine">&gt; yum install docker-engine</h2><p><img src="/img/docker/docker-anzhuang2.PNG" alt="Alt text"></p>
-<p>如果有如下报错：</p>
-<blockquote>
-<p>error: Failed dependencies:     libcgroup is needed by<br>docker-engine-1.7.1-1.el7.centos.x86_64<br>请安装libcgroup<br><img src="/img/docker/docker-anzhuang1.png" alt="Alt text"></p>
-</blockquote>
-<h1 id="验证安装：">验证安装：</h1><p>安装完成看一看有木有安装好：</p>
-<blockquote>
-<p>docker version</p>
-</blockquote>
-<h1 id="启动docker">启动docker</h1><blockquote>
-<p>service docker start<br><img src="/img/docker/docker-begin.PNG" alt="Alt text"></p>
-</blockquote>
-<h1 id="加入开机启动">加入开机启动</h1><blockquote>
-<p>chkconfig docker on</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>之前已经<a href="http://tonylit.me/2015/11/24/docker/">介绍了docker</a>，今天来安装一下。<br>首先，准备一个 CentOS 的操作系统<br>Ubuntu 或其它 Linux 操作系统也能玩 Docker，这里就不介绍了。<br>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   

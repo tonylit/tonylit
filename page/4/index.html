@@ -328,6 +328,91 @@
 
 
   
+    <article id="post-字节流与字符流文件读写性能比较" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2017/07/07/字节流与字符流文件读写性能比较/" class="article-date">
+  	<time datetime="2017-07-07T03:37:27.000Z" itemprop="datePublished">2017-07-07</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/07/字节流与字符流文件读写性能比较/">字节流与字符流文件读写性能比较</a>
+    </h1>
+  
+
+
+                            </header>
+                            
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+
+                                                
+                                                                
+                                                                    <p>这里对java字节流与字符流文件读写进行简单的性能测试，分为以下四种方式：</p>
+<ol>
+<li>字节读写（InputStream/OutputStream）</li>
+<li>字符读取（FileReader/FileWriter）</li>
+<li>行读取（BufferedReader/BufferedWriter）</li>
+<li>NIO(FileChannel&amp;&amp;ByteBuffer)</li>
+</ol>
+<p>从实现原理上来看nio&gt;BufferedReader&amp;&amp;FileReader&gt;InputStream<br>
+                                                                        
+                                        </div>
+                                        
+                                            <div class="article-info article-info-index">
+                                                
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+	</div>
+
+
+                                                    
+
+                                                        
+                                                            <p class="article-more-link">
+                                                                <a  href="/2017/07/07/字节流与字符流文件读写性能比较/#more">More >></a>
+                                                            </p>
+                                                            
+                                                                <div class="clearfix"></div>
+                                            </div>
+                                            
+            </div>
+            
+                    
+                                <!-- 多说评论框 start -->
+                                
+</article>
+
+<!--
+
+-->
+<!--
+
+-->
+
+  
     <article id="post-Java中Arrays.asList不能使用add方法" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
@@ -859,88 +944,6 @@
                                                         
                                                             <p class="article-more-link">
                                                                 <a  href="/2017/02/22/loadrunner_https脚本/#more">More >></a>
-                                                            </p>
-                                                            
-                                                                <div class="clearfix"></div>
-                                            </div>
-                                            
-            </div>
-            
-                    
-                                <!-- 多说评论框 start -->
-                                
-</article>
-
-<!--
-
--->
-<!--
-
--->
-
-  
-    <article id="post-JVM 配置参数整理" class="article article-type-post" itemscope itemprop="blogPost">
-    <script>
-        $("html").niceScroll({
-            cursorcolor: "#2a2929",
-            cursoropacitymax: 1,
-            touchbehavior: false,
-            cursorwidth: "6px",
-            cursorborder: "5",
-            cursorborderradius: "0px",
-            autohidemode: true
-        });
-    </script>
-    
-        <div class="article-meta">
-            <a href="/2017/01/24/JVM 配置参数整理/" class="article-date">
-  	<time datetime="2017-01-24T03:37:27.000Z" itemprop="datePublished">2017-01-24</time>
-</a>
-
-        </div>
-        
-            <div class="article-inner">
-                
-                    <input type="hidden" class="isFancy" />
-                    
-                        
-                            <header class="article-header">
-                                
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/24/JVM 配置参数整理/">JVM 配置参数整理</a>
-    </h1>
-  
-
-
-                            </header>
-                            
-                                    
-                                        <div class="article-entry" itemprop="articleBody">
-                                            
-
-                                                
-                                                                
-                                                                    <h1 id="-XX:+PrintFlagsFinal">-XX:+PrintFlagsFinal</h1><p>当你在网上兴冲冲找到一个可优化的参数时，先用-XX: +PrintFlagsFinal看看，它可能已经默认打开了;<strong>不要轻信网上任何文章，一切以JDK打出来的为准</strong>。<br>-XX:+PrintFlagsFinal显示所有可设置的参数及它们的值（ JDK 6 update 21开始才可以用），默认是不包括diagnostic或experimental系的。<br>要在-XX:+PrintFlagsFinal的输出里看到这两种参数的信息，分别需要显式指定</p>
-<blockquote>
-<p>-XX:+UnlockDiagnosticVMOptions<br>-XX:+UnlockExperimentalVMOptions</p>
-</blockquote>
-<p>另外，可以先看一下R大的<a href="http://hllvm.group.iteye.com/group/topic/27945">JVM调优的”标准参数”的各种陷阱</a>这篇文章。</p>
-                                                                        
-                                        </div>
-                                        
-                                            <div class="article-info article-info-index">
-                                                
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-	</div>
-
-
-                                                    
-
-                                                        
-                                                            <p class="article-more-link">
-                                                                <a  href="/2017/01/24/JVM 配置参数整理/#more">More >></a>
                                                             </p>
                                                             
                                                                 <div class="clearfix"></div>
