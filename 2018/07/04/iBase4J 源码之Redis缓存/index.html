@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content=""/>
+  
+  <title>iBase4J 源码之Redis缓存 | 淘淘的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker.  It supports data structures such as strings, hashes, lists, sets, sorted sets wit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iBase4J 源码之Redis缓存">
+<meta property="og:url" content="http://tonylit.me/2018/07/04/iBase4J 源码之Redis缓存/index.html">
+<meta property="og:site_name" content="淘淘的博客">
+<meta property="og:description" content="Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker.  It supports data structures such as strings, hashes, lists, sets, sorted sets wit">
+<meta property="og:image" content="http://tonylit.me/img/iBase4J 源码之Redis缓存/Cacheable.PNG">
+<meta property="og:image" content="http://tonylit.me/img/iBase4J 源码之Redis缓存/CacheConfig.PNG">
+<meta property="og:image" content="http://tonylit.me/img/iBase4J 源码之Redis缓存/CachePut.PNG">
+<meta property="og:image" content="http://tonylit.me/img/iBase4J 源码之Redis缓存/CacheEvict.PNG">
+<meta property="og:updated_time" content="2018-07-04T05:37:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iBase4J 源码之Redis缓存">
+<meta name="twitter:description" content="Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker.  It supports data structures such as strings, hashes, lists, sets, sorted sets wit">
+  
+    <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/leaves.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script src="http://tonylit.me//js/jquery.nicescroll.js"></script>
+
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+<form class="search" method="get" accept-charset="utf-8">
+			<input type="text" id="chillax-search-input" class="st-search-input_my" maxlength="30" placeholder="search" />
+		</form>
+
+
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/c.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/" class="alluraregular">tonyli</a></h1>
+		</hgroup>
+        <!--
+		
+		<p class="header-subtitle">Nothing is given. Everything is earned.</p>
+		
+        -->
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/work">工作日志</a></li>
+				        
+							<li><a href="/tags/life">点滴生活</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Appium/" style="font-size: 12.86px;">Appium</a> <a href="/tags/Gatling/" style="font-size: 11.43px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.43px;">Jmeter</a> <a href="/tags/Python/" style="font-size: 12.86px;">Python</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 17.14px;">docker</a> <a href="/tags/java/" style="font-size: 18.57px;">java</a> <a href="/tags/kafka/" style="font-size: 11.43px;">kafka</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/loadrunner/" style="font-size: 14.29px;">loadrunner</a> <a href="/tags/pinpoint/" style="font-size: 10px;">pinpoint</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/work/" style="font-size: 15.71px;">work</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a>
+					</div>
+				</section>
+				
+
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">Nothing is given. Everything is earned.</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tonyli</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/c.jpg" class="js-avatar">
+				<hgroup>
+				  <h1 class="header-author">tonyli</h1>
+				</hgroup>
+			</div>
+			
+			<p class="header-subtitle">Nothing is given. Everything is earned.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/work">工作日志</a></li>
+		        
+					<li><a href="/tags/life">点滴生活</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+
+	  <div class="recent">
+高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
+</div>
+
+      <div class="body-wrap"><article id="post-iBase4J 源码之Redis缓存" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2018/07/04/iBase4J 源码之Redis缓存/" class="article-date">
+  	<time datetime="2018-07-04T03:37:27.000Z" itemprop="datePublished">2018-07-04</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      iBase4J 源码之Redis缓存
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+	</div>
+
+
+                                        
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一步：配置Redis连接池和RedisCacheManager对象"><span class="toc-number">1.</span> <span class="toc-text">第一步：配置Redis连接池和RedisCacheManager对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置KeyGenerator"><span class="toc-number">2.</span> <span class="toc-text">配置KeyGenerator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三步：使用对应的cache注解"><span class="toc-number">3.</span> <span class="toc-text">第三步：使用对应的cache注解</span></a></li></ol>
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p>Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker.  It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs and geospatial indexes with radius queries. Redis has built-in replication, Lua scripting, LRU eviction, transactions and different levels of on-disk persistence, and provides high availability via Redis Sentinel and automatic partitioning with Redis Cluster.</p>
+<p>by <a href="https://redis.io/" target="_blank" rel="external">https://redis.io/</a></p>
+<a id="more"></a>
+<hr>
+<p>springboot支持的缓存类型有很多</p>
+<p>Generic<br>JCache (JSR-107) (EhCache 3, Hazelcast,Infinispan, etc)<br>EhCache 2.x<br>Hazelcast<br>Infinispan<br>Couchbase<br>Redis<br>Caffeine<br>Guava (deprecated)<br>Simple</p>
+<p>如果没有显示指明所用的缓存，spring-boot会通过扫描classpath去寻找引入的jar包，并按照上面提到的缓存类型从上到下的优先级，把该类型的缓存作为使用的缓存。</p>
+<p>比如在classpath同时扫描到JCache和Redis的jar包，则把JCache作为缓存。</p>
+<hr>
+<p>iBase4J采用redis作为缓存服务，配置比较简单，分三个步骤：</p>
+<h2 id="第一步：配置Redis连接池和RedisCacheManager对象">第一步：配置Redis连接池和RedisCacheManager对象</h2><p>iBase4J中的redis.xml集成了Redis连接池、缓存序列化方式、RedisCacheManager对象配置。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">beans</span> <span class="attribute">xmlns:xsi</span>=<span class="value">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">	<span class="attribute">xmlns:p</span>=<span class="value">"http://www.springframework.org/schema/p"</span> <span class="attribute">xmlns:c</span>=<span class="value">"http://www.springframework.org/schema/c"</span></span><br><span class="line">	<span class="attribute">xmlns</span>=<span class="value">"http://www.springframework.org/schema/beans"</span> <span class="attribute">xmlns:context</span>=<span class="value">"http://www.springframework.org/schema/context"</span></span><br><span class="line">	<span class="attribute">xsi:schemaLocation</span>=<span class="value">"http://www.springframework.org/schema/beans</span><br><span class="line">        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd  </span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        http://www.springframework.org/schema/context/spring-context-4.0.xsd"</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- jedis 配置--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"jedisPoolConfig"</span> <span class="attribute">class</span>=<span class="value">"redis.clients.jedis.JedisPoolConfig"</span> &gt;</span></span><br><span class="line">        <span class="comment">&lt;!--最小空闲数--&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"minIdle"</span> <span class="attribute">value</span>=<span class="value">"$&#123;redis.minIdle&#125;"</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--最大空闲数--&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"maxIdle"</span> <span class="attribute">value</span>=<span class="value">"$&#123;redis.maxIdle&#125;"</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--最大连接数--&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"maxTotal"</span> <span class="attribute">value</span>=<span class="value">"$&#123;redis.maxTotal&#125;"</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--最大建立连接等待时间--&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"maxWaitMillis"</span> <span class="attribute">value</span>=<span class="value">"$&#123;redis.maxWaitMillis&#125;"</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--是否在从池中取出连接前进行检验,如果检验失败,则从池中去除连接并尝试取出另一个--&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"testOnBorrow"</span> <span class="attribute">value</span>=<span class="value">"$&#123;redis.testOnBorrow&#125;"</span> /&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="title">bean</span> &gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- redisCluster配置 --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- &lt;bean id="redisClusterConfiguration" class="org.springframework.data.redis.connection.RedisClusterConfiguration"&gt;</span><br><span class="line">		&lt;constructor-arg name="propertySource"&gt;</span><br><span class="line">        	&lt;bean id="resourcePropertySource" class="org.springframework.core.io.support.ResourcePropertySource"</span><br><span class="line">		        c:name="redis.properties" c:resource="classpath*:config/system.properties"/&gt;</span><br><span class="line">		    &lt;/bean&gt;</span><br><span class="line">		&lt;/constructor-arg&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	&lt;bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"</span><br><span class="line">		c:cluster-config-ref="redisClusterConfiguration" c:pool-config-ref="jedisPoolConfig" p:timeout="$&#123;redis.timeout&#125;"</span><br><span class="line">		p:password="$&#123;redis.password&#125;" /&gt; --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- redis服务器中心 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"jedisConnectionFactory"</span> <span class="attribute">class</span>=<span class="value">"org.springframework.data.redis.connection.jedis.JedisConnectionFactory"</span></span><br><span class="line">		<span class="attribute">p:host-name</span>=<span class="value">"$&#123;redis.host&#125;"</span> <span class="attribute">p:port</span>=<span class="value">"$&#123;redis.port&#125;"</span> <span class="attribute">p:password</span>=<span class="value">"$&#123;redis.password&#125;"</span></span><br><span class="line">		<span class="attribute">p:pool-config-ref</span>=<span class="value">"jedisPoolConfig"</span> <span class="attribute">p:timeout</span>=<span class="value">"$&#123;redis.timeout&#125;"</span> /&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 缓存序列化方式 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"keySerializer"</span> <span class="attribute">class</span>=<span class="value">"org.springframework.data.redis.serializer.StringRedisSerializer"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"valueSerializer"</span> <span class="attribute">class</span>=<span class="value">"org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"</span> /&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 缓存 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"redisTemplate"</span> <span class="attribute">class</span>=<span class="value">"org.springframework.data.redis.core.RedisTemplate"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"connectionFactory"</span> <span class="attribute">ref</span>=<span class="value">"jedisConnectionFactory"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"enableTransactionSupport"</span> <span class="attribute">value</span>=<span class="value">"true"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"keySerializer"</span> <span class="attribute">ref</span>=<span class="value">"keySerializer"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"valueSerializer"</span> <span class="attribute">ref</span>=<span class="value">"valueSerializer"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"hashKeySerializer"</span> <span class="attribute">ref</span>=<span class="value">"keySerializer"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"hashValueSerializer"</span> <span class="attribute">ref</span>=<span class="value">"valueSerializer"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">bean</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">bean</span> <span class="attribute">class</span>=<span class="value">"org.ibase4j.core.support.cache.RedisHelper"</span> &gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"redisTemplate"</span> <span class="attribute">ref</span>=<span class="value">"redisTemplate"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">bean</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 缓存管理 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"redisCacheManager"</span> <span class="attribute">class</span>=<span class="value">"org.springframework.data.redis.cache.RedisCacheManager"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">constructor-arg</span> <span class="attribute">index</span>=<span class="value">"0"</span> <span class="attribute">ref</span>=<span class="value">"redisTemplate"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"transactionAware"</span> <span class="attribute">value</span>=<span class="value">"true"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"defaultExpiration"</span> <span class="attribute">value</span>=<span class="value">"$&#123;redis.expiration&#125;"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="配置KeyGenerator">配置KeyGenerator</h2><p>缓存以key-value的形式保存在redis中，可以自定义KeyGenerator来规定想要保存的key的格式。</p>
+<p>RedisCacheConfig配置类：</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@EnableCaching</span><br><span class="line">public class RedisCacheConfig extends CachingConfigurerSupport &#123;</span><br><span class="line">	String prefix = Constants.CACHE_NAMESPACE + <span class="string">"M:"</span>;</span><br><span class="line"></span><br><span class="line">	@Bean</span><br><span class="line">	public KeyGenerator keyGenerator<span class="params">()</span> &#123;</span><br><span class="line">		return new KeyGenerator<span class="params">()</span> &#123;</span><br><span class="line">			<span class="comment">/** 重写生成key方法 */</span></span><br><span class="line">			public Object generate<span class="params">(Object o, Method method, Object... objects)</span> &#123;</span><br><span class="line">				StringBuilder sb = new StringBuilder<span class="params">(prefix)</span>;</span><br><span class="line">				CacheConfig cacheConfig = o.getClass<span class="params">()</span>.getAnnotation<span class="params">(CacheConfig.class)</span>;</span><br><span class="line">				Cacheable cacheable = method.getAnnotation<span class="params">(Cacheable.class)</span>;</span><br><span class="line">				CachePut cachePut = method.getAnnotation<span class="params">(CachePut.class)</span>;</span><br><span class="line">				CacheEvict cacheEvict = method.getAnnotation<span class="params">(CacheEvict.class)</span>;</span><br><span class="line">				<span class="keyword">if</span> <span class="params">(cacheable != null)</span> &#123;</span><br><span class="line">					String[] cacheNames = cacheable.value<span class="params">()</span>;</span><br><span class="line">					<span class="keyword">if</span> <span class="params">(ArrayUtils.isNotEmpty<span class="params">(cacheNames)</span>)</span> &#123;</span><br><span class="line">						sb.append<span class="params">(cacheNames[<span class="number">0</span>])</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="params">(cachePut != null)</span> &#123;</span><br><span class="line">					String[] cacheNames = cachePut.value<span class="params">()</span>;</span><br><span class="line">					<span class="keyword">if</span> <span class="params">(ArrayUtils.isNotEmpty<span class="params">(cacheNames)</span>)</span> &#123;</span><br><span class="line">						sb.append<span class="params">(cacheNames[<span class="number">0</span>])</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="params">(cacheEvict != null)</span> &#123;</span><br><span class="line">					String[] cacheNames = cacheEvict.value<span class="params">()</span>;</span><br><span class="line">					<span class="keyword">if</span> <span class="params">(ArrayUtils.isNotEmpty<span class="params">(cacheNames)</span>)</span> &#123;</span><br><span class="line">						sb.append<span class="params">(cacheNames[<span class="number">0</span>])</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span> <span class="params">(cacheConfig != null &amp;&amp; sb.toString<span class="params">()</span>.equals<span class="params">(prefix)</span>)</span> &#123;</span><br><span class="line">					String[] cacheNames = cacheConfig.cacheNames<span class="params">()</span>;</span><br><span class="line">					<span class="keyword">if</span> <span class="params">(ArrayUtils.isNotEmpty<span class="params">(cacheNames)</span>)</span> &#123;</span><br><span class="line">						sb.append<span class="params">(cacheNames[<span class="number">0</span>])</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span> <span class="params">(sb.toString<span class="params">()</span>.equals<span class="params">(prefix)</span>)</span> &#123;</span><br><span class="line">					sb.append<span class="params">(o.getClass<span class="params">()</span>.getName<span class="params">()</span>)</span>.append<span class="params">(<span class="string">"."</span>)</span>.append<span class="params">(method.getName<span class="params">()</span>)</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				sb.append<span class="params">(<span class="string">":"</span>)</span>;</span><br><span class="line">				<span class="keyword">if</span> <span class="params">(objects != null)</span> &#123;</span><br><span class="line">					<span class="keyword">for</span> <span class="params">(Object object : objects)</span> &#123;</span><br><span class="line">						sb.append<span class="params">(JSON.toJSONString<span class="params">(object)</span>)</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				return sb.toString<span class="params">()</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="第三步：使用对应的cache注解">第三步：使用对应的cache注解</h2><ol>
+<li>@Cacheable ：主要针对方法配置，能够根据方法的请求参数对其结果进行缓存。</li>
+</ol>
+<p><img src="/img/iBase4J 源码之Redis缓存/Cacheable.PNG" alt="Alt text"></p>
+<ol>
+<li>@CacheConfig：主要针对类配置，把@Cacheable中value＝“xxx”的属性统一声明在类上，方法上不用再声明。</li>
+</ol>
+<p><img src="/img/iBase4J 源码之Redis缓存/CacheConfig.PNG" alt="Alt text"></p>
+<ol>
+<li><p>@CachePut: 主要针对方法配置，能够根据方法的请求参数对其结果进行缓存。和 @Cacheable 不同的是，它每次都会触发真实方法的调用,因此经常用于更新方法，实现缓存与数据库的同步更新。<br><img src="/img/iBase4J 源码之Redis缓存/CachePut.PNG" alt="Alt text"></p>
+</li>
+<li><p>@CacheEvict：主要针对方法配置，能够根据一定的条件对缓存进行清空。</p>
+<pre><code><span class="built_in">value</span><span class="comment">--缓存的名称</span>
+</code></pre><p>  allEntries–是否清空所有缓存内容，缺省为 false，如果指定为 true，则方法调用后将立即清空所有缓存<br><img src="/img/iBase4J 源码之Redis缓存/CacheEvict.PNG" alt="Alt text"></p>
+</li>
+</ol>
+
+                                                                                
+                                        </div>
+                                        
+            </div>
+            
+                <div class="bdsharebuttonbox" style="margin-top:10px;margin-left:30px;float:left;">
+                    <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                    <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                    <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
+                    <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
+                    <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                    <a href="#" class="bds_more" data-cmd="more"></a>
+                </div>
+                <script>
+                    window._bd_share_config = {
+                        "common": {
+                            "bdSnsKey": {},
+                            "bdText": "",
+                            "bdMini": "1",
+                            "bdMiniList": false,
+                            "bdStyle": "2",
+                            "bdSize": "16"
+                        },
+                        "share": {}
+                    };
+                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
+  
+    <a href="/2018/07/05/iBase4J 源码之Shiro用户安全校验/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          iBase4J 源码之Shiro用户安全校验
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/29/iBase4J windows 部署/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iBase4J windows 部署</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-iBase4J 源码之Redis缓存" data-title="iBase4J 源码之Redis缓存" data-url="http://tonylit.me/2018/07/04/iBase4J 源码之Redis缓存/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "tonylit"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
+</article>
+
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+    
+-->
+<!--
+
+-->
+
+</div>
+      <!--<footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 tonyli
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+    
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+   
+  </div>
+</footer>-->
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/prefixfree.js" type="text/javascript"></script>
+<script src="/js/require-2.1.20.js" type="text/javascript"></script>
+<script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
+    <a title="返回顶部" style="opacity: 100%;">
+        <img src="/img/scrollup.png" />
+    </a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+
+  </div>
+</body>
+</html>

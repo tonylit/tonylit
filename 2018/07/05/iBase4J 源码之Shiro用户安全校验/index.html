@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content=""/>
+  
+  <title>iBase4J 源码之Shiro用户安全校验 | 淘淘的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Apache Shiro? is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iBase4J 源码之Shiro用户安全校验">
+<meta property="og:url" content="http://tonylit.me/2018/07/05/iBase4J 源码之Shiro用户安全校验/index.html">
+<meta property="og:site_name" content="淘淘的博客">
+<meta property="og:description" content="Apache Shiro? is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quic">
+<meta property="og:image" content="http://tonylit.me/img/iBase4J源码之Shiro/sys_user.PNG">
+<meta property="og:image" content="http://tonylit.me/img/iBase4J源码之Shiro/sys_user_menu.PNG">
+<meta property="og:image" content="http://tonylit.me/img/iBase4J源码之Shiro/sys_user_role.PNG">
+<meta property="og:image" content="http://tonylit.me/img/iBase4J源码之Shiro/sys_role_menu.PNG">
+<meta property="og:image" content="http://tonylit.me/img/iBase4J源码之Shiro/sys_menu.PNG">
+<meta property="og:image" content="http://tonylit.me/img/iBase4J源码之Shiro/sys_dic.PNG">
+<meta property="og:image" content="http://tonylit.me/img/iBase4J源码之Shiro/web-xml-shiro.PNG">
+<meta property="og:image" content="http://tonylit.me/img/iBase4J源码之Shiro/redis-cachemanager.PNG">
+<meta property="og:updated_time" content="2018-07-05T05:37:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iBase4J 源码之Shiro用户安全校验">
+<meta name="twitter:description" content="Apache Shiro? is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quic">
+  
+    <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/leaves.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script src="http://tonylit.me//js/jquery.nicescroll.js"></script>
+
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+<form class="search" method="get" accept-charset="utf-8">
+			<input type="text" id="chillax-search-input" class="st-search-input_my" maxlength="30" placeholder="search" />
+		</form>
+
+
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/c.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/" class="alluraregular">tonyli</a></h1>
+		</hgroup>
+        <!--
+		
+		<p class="header-subtitle">Nothing is given. Everything is earned.</p>
+		
+        -->
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/work">工作日志</a></li>
+				        
+							<li><a href="/tags/life">点滴生活</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Appium/" style="font-size: 12.86px;">Appium</a> <a href="/tags/Gatling/" style="font-size: 11.43px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.43px;">Jmeter</a> <a href="/tags/Python/" style="font-size: 12.86px;">Python</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 17.14px;">docker</a> <a href="/tags/java/" style="font-size: 18.57px;">java</a> <a href="/tags/kafka/" style="font-size: 11.43px;">kafka</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/loadrunner/" style="font-size: 14.29px;">loadrunner</a> <a href="/tags/pinpoint/" style="font-size: 10px;">pinpoint</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/work/" style="font-size: 15.71px;">work</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a>
+					</div>
+				</section>
+				
+
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">Nothing is given. Everything is earned.</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tonyli</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/c.jpg" class="js-avatar">
+				<hgroup>
+				  <h1 class="header-author">tonyli</h1>
+				</hgroup>
+			</div>
+			
+			<p class="header-subtitle">Nothing is given. Everything is earned.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/work">工作日志</a></li>
+		        
+					<li><a href="/tags/life">点滴生活</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+
+	  <div class="recent">
+高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
+</div>
+
+      <div class="body-wrap"><article id="post-iBase4J 源码之Shiro用户安全校验" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2018/07/05/iBase4J 源码之Shiro用户安全校验/" class="article-date">
+  	<time datetime="2018-07-05T03:37:27.000Z" itemprop="datePublished">2018-07-05</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      iBase4J 源码之Shiro用户安全校验
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+	</div>
+
+
+                                        
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第一步：创建实体类：用户，角色，权限。"><span class="toc-number">1.</span> <span class="toc-text">第一步：创建实体类：用户，角色，权限。</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第二步：创建自定义安全数据源Realm"><span class="toc-number">2.</span> <span class="toc-text">第二步：创建自定义安全数据源Realm</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第三步：创建Spring整合Shiro配置类"><span class="toc-number">3.</span> <span class="toc-text">第三步：创建Spring整合Shiro配置类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#shiro_redis_cache集成"><span class="toc-number">4.</span> <span class="toc-text">shiro redis cache集成</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一步：实现Shiro的Cache接口"><span class="toc-number">4.1.</span> <span class="toc-text">第一步：实现Shiro的Cache接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二步：自定义RedisCacheManager实现CacheManager"><span class="toc-number">4.2.</span> <span class="toc-text">第二步：自定义RedisCacheManager实现CacheManager</span></a></li></ol></li></ol>
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p>Apache Shiro? is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.</p>
+<p>by  <a href="https://shiro.apache.org/" target="_blank" rel="external">https://shiro.apache.org/</a></p>
+<a id="more"></a>
+<hr>
+<p>springboot与shiro整合教程具体参考：<a href="https://segmentfault.com/a/1190000013449167" target="_blank" rel="external">https://segmentfault.com/a/1190000013449167</a> ，送作者两个字：到位！</p>
+<p>SpringBoot 整合Shiro 三个步骤：</p>
+<p>第一步：创建实体类：用户，角色，权限。确定三者关系，以方便Realm的授权工作。</p>
+<p>第二步：创建自定义安全数据源Realm：负责用户登录认证，用户操作授权。</p>
+<p>第三步：创建Spring整合Shiro配置类：负责Shiro生命周期管理。</p>
+<p>根据以上步骤，咱们来阅码iBase4J关于shiro的具体实现。</p>
+<hr>
+<p>shiro的依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- shiro --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.apache.shiro<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>shiro-spring<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;shiro.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">properties</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">shiro.version</span>&gt;</span>1.2.4<span class="tag">&lt;/<span class="title">shiro.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="第一步：创建实体类：用户，角色，权限。">第一步：创建实体类：用户，角色，权限。</h1><p>iBase4J 关于用户，角色，权限的表如下，表中各字段解释详见iBase4J-SYS-Facade项目org.ibase4j.model包下的实体类。</p>
+<p>sys_user<br><img src="/img/iBase4J源码之Shiro/sys_user.PNG" alt="Alt text"></p>
+<p>sys_user_menu<br><img src="/img/iBase4J源码之Shiro/sys_user_menu.PNG" alt="Alt text"></p>
+<p>sys_user_role<br><img src="/img/iBase4J源码之Shiro/sys_user_role.PNG" alt="Alt text"></p>
+<p>sys_role_menu<br><img src="/img/iBase4J源码之Shiro/sys_role_menu.PNG" alt="Alt text"></p>
+<p>sys_menu<br><img src="/img/iBase4J源码之Shiro/sys_menu.PNG" alt="Alt text"></p>
+<p>sys_dic<br><img src="/img/iBase4J源码之Shiro/sys_dic.PNG" alt="Alt text"></p>
+<hr>
+<h1 id="第二步：创建自定义安全数据源Realm">第二步：创建自定义安全数据源Realm</h1><p>iBase4J 创建了Realm类，用于登录认证、用户授权、session保存操作。</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * 权限检查类</span><br><span class="line"> * </span><br><span class="line"> */</span></span><br><span class="line">public class Realm extends AuthorizingRealm &#123;</span><br><span class="line">	private final Logger logger = LogManager.getLogger<span class="params">()</span>;</span><br><span class="line">	@Autowired</span><br><span class="line">	@Qualifier<span class="params">(<span class="string">"sysProvider"</span>)</span></span><br><span class="line">	protected BaseProvider provider;</span><br><span class="line">	@Autowired</span><br><span class="line">	private RedisOperationsSessionRepository sessionRepository;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 权限-授权，身份认证通过后，再判断用户是否有权操作</span></span><br><span class="line">	protected AuthorizationInfo doGetAuthorizationInfo<span class="params">(PrincipalCollection principals)</span> &#123;</span><br><span class="line">		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo<span class="params">()</span>;</span><br><span class="line">		Long userId = <span class="params">(Long)</span> WebUtil.getCurrentUser<span class="params">()</span>;</span><br><span class="line">		Parameter parameter = new Parameter<span class="params">(<span class="string">"sysAuthorizeService"</span>, <span class="string">"queryPermissionByUserId"</span>, userId)</span>;</span><br><span class="line">		logger.info<span class="params">(<span class="string">"&#123;&#125; execute queryPermissionByUserId start..."</span>, parameter.getNo<span class="params">()</span>)</span>;</span><br><span class="line">		List&lt;?&gt; list = provider.execute<span class="params">(parameter)</span>.getResultList<span class="params">()</span>;</span><br><span class="line">		logger.info<span class="params">(<span class="string">"&#123;&#125; execute queryPermissionByUserId end."</span>, parameter.getNo<span class="params">()</span>)</span>;</span><br><span class="line">		<span class="keyword">for</span> <span class="params">(Object permission : list)</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> <span class="params">(StringUtils.isNotBlank<span class="params">(<span class="params">(String)</span> permission)</span>)</span> &#123;</span><br><span class="line">				<span class="comment">// 添加基于Permission的权限信息</span></span><br><span class="line">				info.addStringPermission<span class="params">(<span class="params">(String)</span> permission)</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 添加用户权限</span></span><br><span class="line">		info.addStringPermission<span class="params">(<span class="string">"user"</span>)</span>;</span><br><span class="line">		return info;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 登录验证-身份认证、登录-权限管理的第一个门槛</span></span><br><span class="line">	protected AuthenticationInfo doGetAuthenticationInfo<span class="params">(AuthenticationToken authcToken)</span></span><br><span class="line">			throws AuthenticationException &#123;</span><br><span class="line">		<span class="comment">//使用用户的登录信息创建令牌,token可以理解为用户令牌，登录的过程被抽象为Shiro验证令牌是否具有合法身份以及相关权限。</span></span><br><span class="line">		UsernamePasswordToken token = <span class="params">(UsernamePasswordToken)</span> authcToken;</span><br><span class="line">		Map&lt;String, Object&gt; params = new HashMap&lt;String, Object&gt;<span class="params">()</span>;</span><br><span class="line">		params.put<span class="params">(<span class="string">"enable"</span>, <span class="number">1</span>)</span>;</span><br><span class="line">		params.put<span class="params">(<span class="string">"account"</span>, token.getUsername<span class="params">()</span>)</span>;</span><br><span class="line">		Parameter parameter = new Parameter<span class="params">(<span class="string">"sysUserService"</span>, <span class="string">"queryList"</span>, params)</span>;</span><br><span class="line">		logger.info<span class="params">(<span class="string">"&#123;&#125; execute sysUserService.queryList start..."</span>, parameter.getNo<span class="params">()</span>)</span>;</span><br><span class="line">		List&lt;?&gt; list = provider.execute<span class="params">(parameter)</span>.getResultList<span class="params">()</span>;</span><br><span class="line">		logger.info<span class="params">(<span class="string">"&#123;&#125; execute sysUserService.queryList end."</span>, parameter.getNo<span class="params">()</span>)</span>;</span><br><span class="line">		<span class="keyword">if</span> <span class="params">(list.size<span class="params">()</span> == <span class="number">1</span>)</span> &#123;</span><br><span class="line">			SysUser user = <span class="params">(SysUser)</span> list.get<span class="params">(<span class="number">0</span>)</span>;</span><br><span class="line">			StringBuilder sb = new StringBuilder<span class="params">(<span class="number">100</span>)</span>;</span><br><span class="line">			<span class="keyword">for</span> <span class="params">(int i = <span class="number">0</span>; i &lt; token.getPassword<span class="params">()</span>.length; i++)</span> &#123;</span><br><span class="line">				sb.append<span class="params">(token.getPassword<span class="params">()</span>[i])</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> <span class="params">(user.getPassword<span class="params">()</span>.equals<span class="params">(sb.toString<span class="params">()</span>)</span>)</span> &#123;</span><br><span class="line">				WebUtil.saveCurrentUser<span class="params">(user.getId<span class="params">()</span>)</span>;</span><br><span class="line">				saveSession<span class="params">(user.getAccount<span class="params">()</span>, token.getHost<span class="params">()</span>)</span>;</span><br><span class="line">				AuthenticationInfo authcInfo = new SimpleAuthenticationInfo<span class="params">(user.getAccount<span class="params">()</span>, user.getPassword<span class="params">()</span>,</span><br><span class="line">						user.getUserName<span class="params">()</span>)</span>;</span><br><span class="line">				return authcInfo;</span><br><span class="line">			&#125;</span><br><span class="line">			logger.warn<span class="params">(<span class="string">"USER [&#123;&#125;] PASSWORD IS WRONG: &#123;&#125;"</span>, token.getUsername<span class="params">()</span>, sb.toString<span class="params">()</span>)</span>;</span><br><span class="line">			return null;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			logger.warn<span class="params">(<span class="string">"No user: &#123;&#125;"</span>, token.getUsername<span class="params">()</span>)</span>;</span><br><span class="line">			return null;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/** 保存session */</span></span><br><span class="line">	private void saveSession<span class="params">(String account, String host)</span> &#123;</span><br><span class="line">		<span class="comment">// 踢出用户</span></span><br><span class="line">		SysSession record = new SysSession<span class="params">()</span>;</span><br><span class="line">		record.setAccount<span class="params">(account)</span>;</span><br><span class="line">		Parameter parameter = new Parameter<span class="params">(<span class="string">"sysSessionService"</span>, <span class="string">"querySessionIdByAccount"</span>, record)</span>;</span><br><span class="line">		logger.info<span class="params">(<span class="string">"&#123;&#125; execute querySessionIdByAccount start..."</span>, parameter.getNo<span class="params">()</span>)</span>;</span><br><span class="line">		List&lt;?&gt; sessionIds = provider.execute<span class="params">(parameter)</span>.getResultList<span class="params">()</span>;</span><br><span class="line">		logger.info<span class="params">(<span class="string">"&#123;&#125; execute querySessionIdByAccount end."</span>, parameter.getNo<span class="params">()</span>)</span>;</span><br><span class="line">		Subject currentUser = SecurityUtils.getSubject<span class="params">()</span>;</span><br><span class="line">		Session session = currentUser.getSession<span class="params">()</span>;</span><br><span class="line">		String currentSessionId = session.getId<span class="params">()</span>.toString<span class="params">()</span>;</span><br><span class="line">		<span class="keyword">if</span> <span class="params">(sessionIds != null)</span> &#123;</span><br><span class="line">			<span class="keyword">for</span> <span class="params">(Object sessionId : sessionIds)</span> &#123;</span><br><span class="line">				record.setSessionId<span class="params">(<span class="params">(String)</span> sessionId)</span>;</span><br><span class="line">				parameter = new Parameter<span class="params">(<span class="string">"sysSessionService"</span>, <span class="string">"deleteBySessionId"</span>, record)</span>;</span><br><span class="line">				logger.info<span class="params">(<span class="string">"&#123;&#125; execute deleteBySessionId start..."</span>, parameter.getNo<span class="params">()</span>)</span>;</span><br><span class="line">				provider.execute<span class="params">(parameter)</span>;</span><br><span class="line">				logger.info<span class="params">(<span class="string">"&#123;&#125; execute deleteBySessionId end."</span>, parameter.getNo<span class="params">()</span>)</span>;</span><br><span class="line">				<span class="keyword">if</span> <span class="params">(!currentSessionId.equals<span class="params">(sessionId)</span>)</span> &#123;</span><br><span class="line">					sessionRepository.delete<span class="params">(<span class="params">(String)</span> sessionId)</span>;</span><br><span class="line">					sessionRepository.cleanupExpiredSessions<span class="params">()</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 保存用户</span></span><br><span class="line">		record.setSessionId<span class="params">(currentSessionId)</span>;</span><br><span class="line">		record.setIp<span class="params">(StringUtils.isBlank<span class="params">(host)</span> ? session.getHost<span class="params">()</span> : host)</span>;</span><br><span class="line">		record.setStartTime<span class="params">(session.getStartTimestamp<span class="params">()</span>)</span>;</span><br><span class="line">		parameter = new Parameter<span class="params">(<span class="string">"sysSessionService"</span>, <span class="string">"update"</span>, record)</span>;</span><br><span class="line">		logger.info<span class="params">(<span class="string">"&#123;&#125; execute sysSessionService.update start..."</span>, parameter.getNo<span class="params">()</span>)</span>;</span><br><span class="line">		provider.execute<span class="params">(parameter)</span>;</span><br><span class="line">		logger.info<span class="params">(<span class="string">"&#123;&#125; execute sysSessionService.update end."</span>, parameter.getNo<span class="params">()</span>)</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>doGetAuthorizationInfo()–负责授权，身份认证通过后，再判断用户是否有权操作。</p>
+<p>doGetAuthenticationInfo()–负责登录验证-身份认证、登录-权限管理的第一个门槛。</p>
+<p>saveSession()–负责保存session。</p>
+<hr>
+<h1 id="第三步：创建Spring整合Shiro配置类">第三步：创建Spring整合Shiro配置类</h1><p>iBase4J-SYS-Web项目的web.xml中配置spring跟shiro集成的过滤代理</p>
+<p><img src="/img/iBase4J源码之Shiro/web-xml-shiro.PNG" alt="Alt text"></p>
+<p>shiro.xml中配置securityManager和拦截规则。securityManager是shiro的核心，iBase4J是通过org.apache.shiro.spring.web.ShiroFilterFactoryBean，来创建一个org.apache.shiro.web.mgt.DefaultWebSecurityManager。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">beans</span> <span class="attribute">xmlns:xsi</span>=<span class="value">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">	<span class="attribute">xmlns</span>=<span class="value">"http://www.springframework.org/schema/beans"</span> <span class="attribute">xmlns:context</span>=<span class="value">"http://www.springframework.org/schema/context"</span></span><br><span class="line">	<span class="attribute">xsi:schemaLocation</span>=<span class="value">"http://www.springframework.org/schema/beans</span><br><span class="line">        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd  </span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        http://www.springframework.org/schema/context/spring-context-4.0.xsd"</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 这里主要是设置自定义的单Realm应用,若有多个Realm,可使用'realms'属性代替 --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 创建安全管理器 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"realm"</span> <span class="attribute">class</span>=<span class="value">"org.ibase4j.core.shiro.Realm"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"securityManager"</span> <span class="attribute">class</span>=<span class="value">"org.apache.shiro.web.mgt.DefaultWebSecurityManager"</span>&gt;</span></span><br><span class="line">	 <span class="comment">&lt;!-- 依赖自定义realms --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"realm"</span> <span class="attribute">ref</span>=<span class="value">"realm"</span> /&gt;</span></span><br><span class="line">		 <span class="comment">&lt;!-- 依赖缓存 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"cacheManager"</span>&gt;</span></span><br><span class="line">    		<span class="tag">&lt;<span class="title">bean</span> <span class="attribute">class</span>=<span class="value">"org.ibase4j.core.support.cache.shiro.RedisCacheManager"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">bean</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- Web应用中,Shiro可控制的Web请求必须经过Shiro主过滤器的拦截,Shiro对基于Spring的Web应用提供了完美的支持 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"shiroFilter"</span> <span class="attribute">class</span>=<span class="value">"org.apache.shiro.spring.web.ShiroFilterFactoryBean"</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- Shiro的核心安全接口,这个属性是必须的 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"securityManager"</span> <span class="attribute">ref</span>=<span class="value">"securityManager"</span> /&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 要求登录时的链接 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"loginUrl"</span> <span class="attribute">value</span>=<span class="value">"/unauthorized"</span> /&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 用户访问未对其授权的资源时,所显示的连接 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"unauthorizedUrl"</span> <span class="attribute">value</span>=<span class="value">"/forbidden"</span> /&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- Shiro连接约束配置,即过滤链的定义 --&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- anon：它对应的过滤器里面是空的,什么都没做 --&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- authc：该过滤器下的页面必须验证后才能访问,它是Shiro内置的一个拦截器org.apache.shiro.web.filter.authc.FormAuthenticationFilter --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"filterChainDefinitions"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">value</span>&gt;</span></span><br><span class="line">				/=anon</span><br><span class="line">				/app/**=anon</span><br><span class="line">				/index.jsp=anon</span><br><span class="line">				/regin=anon</span><br><span class="line">				/login=anon</span><br><span class="line">				/*.ico=anon</span><br><span class="line">				/upload/*=anon</span><br><span class="line">				/unauthorized=anon</span><br><span class="line">				/forbidden=anon</span><br><span class="line">				/sns*=anon</span><br><span class="line">				/*/api-docs=anon</span><br><span class="line">				/callback*=anon</span><br><span class="line">				/swagger*=anon</span><br><span class="line">				/configuration/*=anon</span><br><span class="line">				/*/configuration/*=anon</span><br><span class="line">				/webjars/**=anon</span><br><span class="line">				/**=authc,user</span><br><span class="line">			<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">bean</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- Shiro生命周期处理器 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"lifecycleBeanPostProcessor"</span> <span class="attribute">class</span>=<span class="value">"org.apache.shiro.spring.LifecycleBeanPostProcessor"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>以上，iBase4J完成了shiro的集成。</p>
+<hr>
+<h1 id="shiro_redis_cache集成">shiro redis cache集成</h1><p>iBase4J 中将Shiro的缓存交给redis来管理，三个步骤：</p>
+<h2 id="第一步：实现Shiro的Cache接口">第一步：实现Shiro的Cache接口</h2><p>将Shiro的缓存交给redis需要实现Shiro的Cache接口，iBase4J中RedisCache类对Cache接口进行了实现。</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> class RedisCache&lt;K, V&gt; implements Cache&lt;K, V&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Logger logger = LogManager.getLogger();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * The Redis key prefix for the sessions </span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">String</span> keyPrefix = <span class="string">"shiro_redis_session:"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Returns the Redis session keys</span><br><span class="line">     * prefix.</span><br><span class="line">     * @return The prefix</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">String</span> getKeyPrefix() &#123;</span><br><span class="line">        <span class="keyword">return</span> keyPrefix;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Sets the Redis sessions key </span><br><span class="line">     * prefix.</span><br><span class="line">     * @param keyPrefix The prefix</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> setKeyPrefix(<span class="keyword">String</span> keyPrefix) &#123;</span><br><span class="line">        <span class="keyword">this</span>.keyPrefix = keyPrefix;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Constructs a cache instance with the specified</span><br><span class="line">     * Redis manager and using a custom key prefix.</span><br><span class="line">     * @param prefix The Redis key prefix</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">public</span> RedisCache(<span class="keyword">String</span> prefix) &#123;</span><br><span class="line">        <span class="comment">// set the prefix</span></span><br><span class="line">        <span class="keyword">this</span>.keyPrefix = prefix;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> V <span class="built_in">get</span>(K <span class="variable">key</span>) <span class="keyword">throws</span> CacheException &#123;</span><br><span class="line">        logger.debug(<span class="string">"根据key从Redis中获取对象 key ["</span> + <span class="variable">key</span> + <span class="string">"]"</span>);</span><br><span class="line">        @SuppressWarnings(<span class="string">"unchecked"</span>)</span><br><span class="line">        V value = (V)CacheUtil.getCache().<span class="built_in">get</span>(getKey(<span class="variable">key</span>));</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> V put(K <span class="variable">key</span>, V value) <span class="keyword">throws</span> CacheException &#123;</span><br><span class="line">        logger.debug(<span class="string">"根据key从存储 key ["</span> + <span class="variable">key</span> + <span class="string">"]"</span>);</span><br><span class="line">        CacheUtil.getCache().<span class="built_in">set</span>(getKey(<span class="variable">key</span>), (Serializable)value);</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> V remove(K <span class="variable">key</span>) <span class="keyword">throws</span> CacheException &#123;</span><br><span class="line">        logger.debug(<span class="string">"从redis中删除 key ["</span> + <span class="variable">key</span> + <span class="string">"]"</span>);</span><br><span class="line">        V previous = <span class="built_in">get</span>(<span class="variable">key</span>);</span><br><span class="line">        CacheUtil.getCache().del(getKey(<span class="variable">key</span>));</span><br><span class="line">        <span class="keyword">return</span> previous;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="built_in">clear</span>() <span class="keyword">throws</span> CacheException &#123;</span><br><span class="line">        logger.debug(<span class="string">"从redis中删除所有元素"</span>);</span><br><span class="line">        CacheUtil.getCache().delAll(<span class="keyword">this</span>.keyPrefix + <span class="string">"*"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> <span class="built_in">size</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> CacheUtil.getCache().getAll(<span class="keyword">this</span>.keyPrefix + <span class="string">"*"</span>).<span class="built_in">size</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @SuppressWarnings(<span class="string">"unchecked"</span>)</span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> Set&lt;K&gt; keys() &#123;</span><br><span class="line">        Set&lt;<span class="keyword">Object</span>&gt; keys = CacheUtil.getCache().getAll(<span class="keyword">this</span>.keyPrefix + <span class="string">"*"</span>);</span><br><span class="line">        <span class="keyword">if</span> (CollectionUtils.isEmpty(keys)) &#123;</span><br><span class="line">            <span class="keyword">return</span> Collections.emptySet();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            Set&lt;K&gt; newKeys = <span class="keyword">new</span> HashSet&lt;K&gt;();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">Object</span> <span class="variable">key</span> : keys) &#123;</span><br><span class="line">                newKeys.<span class="built_in">add</span>((K)<span class="variable">key</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> newKeys;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> Collection&lt;V&gt; values() &#123;</span><br><span class="line">        Set&lt;<span class="keyword">Object</span>&gt; keys = CacheUtil.getCache().getAll(<span class="keyword">this</span>.keyPrefix + <span class="string">"*"</span>);</span><br><span class="line">        <span class="keyword">if</span> (!CollectionUtils.isEmpty(keys)) &#123;</span><br><span class="line">            List&lt;V&gt; values = <span class="keyword">new</span> ArrayList&lt;V&gt;(keys.<span class="built_in">size</span>());</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">Object</span> <span class="variable">key</span> : keys) &#123;</span><br><span class="line">                @SuppressWarnings(<span class="string">"unchecked"</span>)</span><br><span class="line">                V value = <span class="built_in">get</span>((K)<span class="variable">key</span>);</span><br><span class="line">                <span class="keyword">if</span> (value != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    values.<span class="built_in">add</span>(value);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> Collections.unmodifiableList(values);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> Collections.emptyList();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">String</span> getKey(K <span class="variable">key</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.keyPrefix + <span class="variable">key</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="第二步：自定义RedisCacheManager实现CacheManager">第二步：自定义RedisCacheManager实现CacheManager</h2><p>iBase4J的RedisCacheManager类对CacheManager进行实现。</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">@SuppressWarnings(&#123; <span class="string">"rawtypes"</span>, <span class="string">"unchecked"</span> &#125;)</span><br><span class="line"><span class="keyword">public</span> class RedisCacheManager implements CacheManager &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Logger logger = LogManager.getLogger();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// fast lookup by name map</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> ConcurrentMap&lt;<span class="keyword">String</span>, Cache&gt; caches = <span class="keyword">new</span> ConcurrentHashMap&lt;<span class="keyword">String</span>, Cache&gt;();</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * The Redis key prefix for caches</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">String</span> keyPrefix = Constants.CACHE_NAMESPACE + <span class="string">"shiro_redis_cache:"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * Sets the Redis sessions key prefix.</span><br><span class="line">	 * </span><br><span class="line">	 * @param keyPrefix</span><br><span class="line">	 *            The prefix</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> setKeyPrefix(<span class="keyword">String</span> keyPrefix) &#123;</span><br><span class="line">		<span class="keyword">this</span>.keyPrefix = keyPrefix;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span><br><span class="line">	 * (non-Javadoc)</span><br><span class="line">	 * </span><br><span class="line">	 * @see org.apache.shiro.cache.CacheManager#getCache(java.lang.String)</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">public</span> &lt;K, V&gt; Cache&lt;K, V&gt; getCache(<span class="keyword">String</span> name) <span class="keyword">throws</span> CacheException &#123;</span><br><span class="line">		logger.debug(<span class="string">"获取名称为: "</span> + name + <span class="string">" 的RedisCache实例"</span>);</span><br><span class="line"></span><br><span class="line">		Cache c = caches.<span class="built_in">get</span>(name);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (c == <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="comment">// create a new cache instance</span></span><br><span class="line">			c = <span class="keyword">new</span> RedisCache&lt;K, V&gt;(keyPrefix);</span><br><span class="line">			<span class="comment">// add it to the cache collection</span></span><br><span class="line">			caches.put(name, c);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> c;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>第三步：在Shiro的配置中配置cacheManager</p>
+<p>在shiro.xml配置文件中有这样一段：</p>
+<p><img src="/img/iBase4J源码之Shiro/redis-cachemanager.PNG" alt="Alt text"></p>
+<hr>
+<p>以上，完成 shiro redis cache的集成。</p>
+
+                                                                                
+                                        </div>
+                                        
+            </div>
+            
+                <div class="bdsharebuttonbox" style="margin-top:10px;margin-left:30px;float:left;">
+                    <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                    <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                    <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
+                    <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
+                    <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                    <a href="#" class="bds_more" data-cmd="more"></a>
+                </div>
+                <script>
+                    window._bd_share_config = {
+                        "common": {
+                            "bdSnsKey": {},
+                            "bdText": "",
+                            "bdMini": "1",
+                            "bdMiniList": false,
+                            "bdStyle": "2",
+                            "bdSize": "16"
+                        },
+                        "share": {}
+                    };
+                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
+  
+    <a href="/2018/07/05/iBase4J 源码之Swagger2接口管理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          iBase4J 源码之Swagger2接口管理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/07/04/iBase4J 源码之Redis缓存/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iBase4J 源码之Redis缓存</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-iBase4J 源码之Shiro用户安全校验" data-title="iBase4J 源码之Shiro用户安全校验" data-url="http://tonylit.me/2018/07/05/iBase4J 源码之Shiro用户安全校验/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "tonylit"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
+</article>
+
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+    
+-->
+<!--
+
+-->
+
+</div>
+      <!--<footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 tonyli
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+    
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+   
+  </div>
+</footer>-->
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/prefixfree.js" type="text/javascript"></script>
+<script src="/js/require-2.1.20.js" type="text/javascript"></script>
+<script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
+    <a title="返回顶部" style="opacity: 100%;">
+        <img src="/img/scrollup.png" />
+    </a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+
+  </div>
+</body>
+</html>
