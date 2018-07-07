@@ -328,6 +328,92 @@
 
 
   
+    <article id="post-jenkins+maven+jmeter性能自动化实践" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2015/12/16/jenkins+maven+jmeter性能自动化实践/" class="article-date">
+  	<time datetime="2015-12-16T03:37:27.000Z" itemprop="datePublished">2015-12-16</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/16/jenkins+maven+jmeter性能自动化实践/">jenkins+maven+jmeter 性能自动化实践</a>
+    </h1>
+  
+
+
+                            </header>
+                            
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+
+                                                
+                                                                
+                                                                    <p>先简单介绍这几个工具，其实都不陌生了，平时工作中都会接触到<br>jenkins：前身hudson，开源的CI服务器<br>maven：这里主要是要用到maven与jmeter集成的插件（jmeter-maven-plugin）<br>jmeter：java编写的apache下开源的性能测试工具</p>
+<h1 id="整个环境搭建过程：">整个环境搭建过程：</h1><blockquote>
+<ol>
+<li>新建maven工程，在pom中加入jmeter的插件，将jmeter脚本放入项目中，测试</li>
+<li>搭建jenkins（这里使用的linux环境 centos5.8）</li>
+<li>将maven项目配置在jenkins中</li>
+<li>在jenkins中集成jmeter结果展示的插件（Performance），进行jenkins构建，测试</li>
+</ol>
+</blockquote>
+                                                                        
+                                        </div>
+                                        
+                                            <div class="article-info article-info-index">
+                                                
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jmeter/">Jmeter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+	</div>
+
+
+                                                    
+
+                                                        
+                                                            <p class="article-more-link">
+                                                                <a  href="/2015/12/16/jenkins+maven+jmeter性能自动化实践/#more">More >></a>
+                                                            </p>
+                                                            
+                                                                <div class="clearfix"></div>
+                                            </div>
+                                            
+            </div>
+            
+                    
+                                <!-- 多说评论框 start -->
+                                
+</article>
+
+<!--
+
+-->
+<!--
+
+-->
+
+  
     <article id="post-javamelody监控java应用" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
@@ -484,84 +570,6 @@
 -->
 
   
-    <article id="post-性能测试葵花宝典" class="article article-type-post" itemscope itemprop="blogPost">
-    <script>
-        $("html").niceScroll({
-            cursorcolor: "#2a2929",
-            cursoropacitymax: 1,
-            touchbehavior: false,
-            cursorwidth: "6px",
-            cursorborder: "5",
-            cursorborderradius: "0px",
-            autohidemode: true
-        });
-    </script>
-    
-        <div class="article-meta">
-            <a href="/2015/12/10/性能测试葵花宝典/" class="article-date">
-  	<time datetime="2015-12-10T03:37:27.000Z" itemprop="datePublished">2015-12-10</time>
-</a>
-
-        </div>
-        
-            <div class="article-inner">
-                
-                    <input type="hidden" class="isFancy" />
-                    
-                        
-                            <header class="article-header">
-                                
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/10/性能测试葵花宝典/">性能测试葵花宝典</a>
-    </h1>
-  
-
-
-                            </header>
-                            
-                                    
-                                        <div class="article-entry" itemprop="articleBody">
-                                            
-
-                                                
-                                                                
-                                                                    <p>在此整理性能测试过程中的一些精华内容，并持续进行<br>为此命名为性能测试葵花宝典，我先练上！<br><img src="/img/葵花宝典.jpg" alt="Alt text"></p>
-                                                                        
-                                        </div>
-                                        
-                                            <div class="article-info article-info-index">
-                                                
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
-	</div>
-
-
-                                                    
-
-                                                        
-                                                            <p class="article-more-link">
-                                                                <a  href="/2015/12/10/性能测试葵花宝典/#more">More >></a>
-                                                            </p>
-                                                            
-                                                                <div class="clearfix"></div>
-                                            </div>
-                                            
-            </div>
-            
-                    
-                                <!-- 多说评论框 start -->
-                                
-</article>
-
-<!--
-
--->
-<!--
-
--->
-
-  
     <article id="post-jmeter测试java" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
@@ -620,6 +628,84 @@
                                                         
                                                             <p class="article-more-link">
                                                                 <a  href="/2015/12/10/jmeter测试java/#more">More >></a>
+                                                            </p>
+                                                            
+                                                                <div class="clearfix"></div>
+                                            </div>
+                                            
+            </div>
+            
+                    
+                                <!-- 多说评论框 start -->
+                                
+</article>
+
+<!--
+
+-->
+<!--
+
+-->
+
+  
+    <article id="post-性能测试葵花宝典" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2015/12/10/性能测试葵花宝典/" class="article-date">
+  	<time datetime="2015-12-10T03:37:27.000Z" itemprop="datePublished">2015-12-10</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/10/性能测试葵花宝典/">性能测试葵花宝典</a>
+    </h1>
+  
+
+
+                            </header>
+                            
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+
+                                                
+                                                                
+                                                                    <p>在此整理性能测试过程中的一些精华内容，并持续进行<br>为此命名为性能测试葵花宝典，我先练上！<br><img src="/img/葵花宝典.jpg" alt="Alt text"></p>
+                                                                        
+                                        </div>
+                                        
+                                            <div class="article-info article-info-index">
+                                                
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+	</div>
+
+
+                                                    
+
+                                                        
+                                                            <p class="article-more-link">
+                                                                <a  href="/2015/12/10/性能测试葵花宝典/#more">More >></a>
                                                             </p>
                                                             
                                                                 <div class="clearfix"></div>
@@ -718,84 +804,6 @@
 -->
 
   
-    <article id="post-tcp" class="article article-type-post" itemscope itemprop="blogPost">
-    <script>
-        $("html").niceScroll({
-            cursorcolor: "#2a2929",
-            cursoropacitymax: 1,
-            touchbehavior: false,
-            cursorwidth: "6px",
-            cursorborder: "5",
-            cursorborderradius: "0px",
-            autohidemode: true
-        });
-    </script>
-    
-        <div class="article-meta">
-            <a href="/2015/12/04/tcp/" class="article-date">
-  	<time datetime="2015-12-04T03:37:27.000Z" itemprop="datePublished">2015-12-04</time>
-</a>
-
-        </div>
-        
-            <div class="article-inner">
-                
-                    <input type="hidden" class="isFancy" />
-                    
-                        
-                            <header class="article-header">
-                                
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/04/tcp/">lrs_set_recv_timeout 解决长连接等待</a>
-    </h1>
-  
-
-
-                            </header>
-                            
-                                    
-                                        <div class="article-entry" itemprop="articleBody">
-                                            
-
-                                                
-                                                                
-                                                                    <p>最近又碰到坑爹的通讯项目，web端登录与客户端登录消息用的一套长连接机制。<br>脚本写的真是蛋疼、累死，不仅要用socket协议，还要模拟长连接接收消息，最后要看一堆无语的data.ws文件。<br>而且，两个部门协作起来真是无力吐槽了！<br>还好有<strong>lrs_set_recv_timeout</strong><br>
-                                                                        
-                                        </div>
-                                        
-                                            <div class="article-info article-info-index">
-                                                
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/loadrunner/">loadrunner</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
-	</div>
-
-
-                                                    
-
-                                                        
-                                                            <p class="article-more-link">
-                                                                <a  href="/2015/12/04/tcp/#more">More >></a>
-                                                            </p>
-                                                            
-                                                                <div class="clearfix"></div>
-                                            </div>
-                                            
-            </div>
-            
-                    
-                                <!-- 多说评论框 start -->
-                                
-</article>
-
-<!--
-
--->
-<!--
-
--->
-
-  
     <article id="post-tcpdump" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
@@ -874,7 +882,7 @@
 -->
 
   
-    <article id="post-centos7.1下安装docker" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-tcp" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -888,8 +896,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2015/12/02/centos7.1下安装docker/" class="article-date">
-  	<time datetime="2015-12-02T03:37:27.000Z" itemprop="datePublished">2015-12-02</time>
+            <a href="/2015/12/04/tcp/" class="article-date">
+  	<time datetime="2015-12-04T03:37:27.000Z" itemprop="datePublished">2015-12-04</time>
 </a>
 
         </div>
@@ -903,7 +911,7 @@
                                 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/02/centos7.1下安装docker/">centos7.1下docker安装</a>
+      <a class="article-title" href="/2015/12/04/tcp/">lrs_set_recv_timeout 解决长连接等待</a>
     </h1>
   
 
@@ -916,14 +924,14 @@
 
                                                 
                                                                 
-                                                                    <p>之前已经<a href="http://tonylit.me/2015/11/24/docker/">介绍了docker</a>，今天来安装一下。<br>首先，准备一个 CentOS 的操作系统<br>Ubuntu 或其它 Linux 操作系统也能玩 Docker，这里就不介绍了。<br>
+                                                                    <p>最近又碰到坑爹的通讯项目，web端登录与客户端登录消息用的一套长连接机制。<br>脚本写的真是蛋疼、累死，不仅要用socket协议，还要模拟长连接接收消息，最后要看一堆无语的data.ws文件。<br>而且，两个部门协作起来真是无力吐槽了！<br>还好有<strong>lrs_set_recv_timeout</strong><br>
                                                                         
                                         </div>
                                         
                                             <div class="article-info article-info-index">
                                                 
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/loadrunner/">loadrunner</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
 	</div>
 
 
@@ -931,7 +939,7 @@
 
                                                         
                                                             <p class="article-more-link">
-                                                                <a  href="/2015/12/02/centos7.1下安装docker/#more">More >></a>
+                                                                <a  href="/2015/12/04/tcp/#more">More >></a>
                                                             </p>
                                                             
                                                                 <div class="clearfix"></div>
