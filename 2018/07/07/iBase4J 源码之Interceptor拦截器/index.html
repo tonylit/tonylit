@@ -6,20 +6,17 @@
   
   <title>iBase4J 源码之Interceptor拦截器 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Interceptor拦截器作为AOP的一种实现，经常用于日志记录、权限验证、恶意请求、数据稽核、性能监控等。
-&quot;&amp;gt;">
+  <meta name="description" content="Interceptor拦截器作为AOP的一种实现，经常用于日志记录、权限验证、恶意请求、数据稽核、性能监控等。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iBase4J 源码之Interceptor拦截器">
 <meta property="og:url" content="http://tonylit.me/2018/07/07/iBase4J 源码之Interceptor拦截器/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="Interceptor拦截器作为AOP的一种实现，经常用于日志记录、权限验证、恶意请求、数据稽核、性能监控等。
-&quot;&amp;gt;">
+<meta property="og:description" content="Interceptor拦截器作为AOP的一种实现，经常用于日志记录、权限验证、恶意请求、数据稽核、性能监控等。">
 <meta property="og:image" content="http://tonylit.me/img/iBase4J源码之interceptors拦截器/Filter-Interceptor.PNG">
 <meta property="og:updated_time" content="2018-07-07T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iBase4J 源码之Interceptor拦截器">
-<meta name="twitter:description" content="Interceptor拦截器作为AOP的一种实现，经常用于日志记录、权限验证、恶意请求、数据稽核、性能监控等。
-&quot;&amp;gt;">
+<meta name="twitter:description" content="Interceptor拦截器作为AOP的一种实现，经常用于日志记录、权限验证、恶意请求、数据稽核、性能监控等。">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -251,14 +248,16 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#<!-_more_->"><span class="toc-number">1.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BaseInterceptor"><span class="toc-number">1.1.</span> <span class="toc-text">BaseInterceptor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#国际化信息设置(基于SESSION)-LocaleInterceptor"><span class="toc-number">1.2.</span> <span class="toc-text">国际化信息设置(基于SESSION)-LocaleInterceptor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志拦截器-EventInterceptor"><span class="toc-number">1.3.</span> <span class="toc-text">日志拦截器-EventInterceptor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#恶意请求拦截器-MaliciousRequestInterceptor"><span class="toc-number">1.4.</span> <span class="toc-text">恶意请求拦截器-MaliciousRequestInterceptor</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二步：注册interceptor"><span class="toc-number">2.</span> <span class="toc-text">第二步：注册interceptor</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#BaseInterceptor"><span class="toc-number">1.</span> <span class="toc-text">BaseInterceptor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#国际化信息设置(基于SESSION)-LocaleInterceptor"><span class="toc-number">2.</span> <span class="toc-text">国际化信息设置(基于SESSION)-LocaleInterceptor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志拦截器-EventInterceptor"><span class="toc-number">3.</span> <span class="toc-text">日志拦截器-EventInterceptor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#恶意请求拦截器-MaliciousRequestInterceptor"><span class="toc-number">4.</span> <span class="toc-text">恶意请求拦截器-MaliciousRequestInterceptor</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二步：注册interceptor"><span class="toc-number"></span> <span class="toc-text">第二步：注册interceptor</span></a>
 </div>
 
                                                         
                                                             
                                                                 
                                                                             <p>Interceptor拦截器作为AOP的一种实现，经常用于日志记录、权限验证、恶意请求、数据稽核、性能监控等。</p>
-<h2 id="<!-_more_->"><a id="more"></a></h2><p>提到Interceptor，我总会想到Filter，两者还是有很大区别的。当然springmvc 在处理请求的时候经常会集成两者。</p>
+<a id="more"></a>
+<hr>
+<p>提到Interceptor，我总会想到Filter，两者还是有很大区别的。当然springmvc 在处理请求的时候经常会集成两者。</p>
 <p>关于Filter与Interceptor的请求处理流程，参见下图<br><img src="/img/iBase4J源码之interceptors拦截器/Filter-Interceptor.PNG" alt="Alt text"></p>
 <p>在iBase4J-SYS中自定义了一个BaseInterceptor拦截器基类和三个子拦截器，分别处理</p>
 <ol>
