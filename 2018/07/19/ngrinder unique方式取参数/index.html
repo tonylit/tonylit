@@ -4,21 +4,23 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>staf使用 | 淘淘的博客</title>
+  <title>ngrinder unique方式取参数 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="STAF概念：全称：Software Testing AntoMation Framework,软件测试自动化框架，为测试人员提供了一个端到端的自动化测试解决方案。每台装有STAF环境的机器都是对等的，一个端可以直接调用另一个端提供服务。采用P2P架构，没有服务端、客户端之分，任何一台机器都可以向其他的机器发送请求。可以利用STAF的这种特性来实现分布式执行的功能。">
+  <meta name="description" content="ngrinder 参数化取值的时候，不如LR便捷。
+在做unique取参的时候，LR简单的设置即可，ngrinder就要相对麻烦一些。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="staf使用">
-<meta property="og:url" content="http://tonylit.me/2015/12/22/staf使用/index.html">
+<meta property="og:title" content="ngrinder unique方式取参数">
+<meta property="og:url" content="http://tonylit.me/2018/07/19/ngrinder unique方式取参数/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="STAF概念：全称：Software Testing AntoMation Framework,软件测试自动化框架，为测试人员提供了一个端到端的自动化测试解决方案。每台装有STAF环境的机器都是对等的，一个端可以直接调用另一个端提供服务。采用P2P架构，没有服务端、客户端之分，任何一台机器都可以向其他的机器发送请求。可以利用STAF的这种特性来实现分布式执行的功能。">
-<meta property="og:image" content="http://tonylit.me/img/staf/staf_1.PNG">
-<meta property="og:image" content="http://tonylit.me/img/staf/staf_2.PNG">
-<meta property="og:image" content="http://tonylit.me/img/staf/staf_3.PNG">
-<meta property="og:updated_time" content="2015-12-22T05:37:27.000Z">
+<meta property="og:description" content="ngrinder 参数化取值的时候，不如LR便捷。
+在做unique取参的时候，LR简单的设置即可，ngrinder就要相对麻烦一些。">
+<meta property="og:image" content="http://tonylit.me/img/ngrinder参数化unique方式/LR.PNG">
+<meta property="og:image" content="http://tonylit.me/img/ngrinder参数化unique方式/迭代.PNG">
+<meta property="og:updated_time" content="2018-07-19T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="staf使用">
-<meta name="twitter:description" content="STAF概念：全称：Software Testing AntoMation Framework,软件测试自动化框架，为测试人员提供了一个端到端的自动化测试解决方案。每台装有STAF环境的机器都是对等的，一个端可以直接调用另一个端提供服务。采用P2P架构，没有服务端、客户端之分，任何一台机器都可以向其他的机器发送请求。可以利用STAF的这种特性来实现分布式执行的功能。">
+<meta name="twitter:title" content="ngrinder unique方式取参数">
+<meta name="twitter:description" content="ngrinder 参数化取值的时候，不如LR便捷。
+在做unique取参的时候，LR简单的设置即可，ngrinder就要相对麻烦一些。">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -196,7 +198,7 @@
 高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
 </div>
 
-      <div class="body-wrap"><article id="post-staf使用" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-ngrinder unique方式取参数" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -210,8 +212,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2015/12/22/staf使用/" class="article-date">
-  	<time datetime="2015-12-22T03:37:27.000Z" itemprop="datePublished">2015-12-22</time>
+            <a href="/2018/07/19/ngrinder unique方式取参数/" class="article-date">
+  	<time datetime="2018-07-19T03:37:27.000Z" itemprop="datePublished">2018-07-19</time>
 </a>
 
         </div>
@@ -225,7 +227,7 @@
                                 
   
     <h1 class="article-title" itemprop="name">
-      staf使用
+      ngrinder unique方式取参数
     </h1>
   
 
@@ -235,7 +237,7 @@
                                 <div class="article-info article-info-post">
                                     
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
 	</div>
 
 
@@ -250,44 +252,31 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#STAF概念："><span class="toc-number">1.</span> <span class="toc-text">STAF概念：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#STAF在linunx下的安装："><span class="toc-number">2.</span> <span class="toc-text">STAF在linunx下的安装：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#STAF请求格式"><span class="toc-number">3.</span> <span class="toc-text">STAF请求格式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#STAF服务"><span class="toc-number">4.</span> <span class="toc-text">STAF服务</span></a></li></ol>
+    
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <h1 id="STAF概念：">STAF概念：</h1><p>全称：Software Testing AntoMation Framework,软件测试自动化框架，为测试人员提供了一个端到端的自动化测试解决方案。<br>每台装有STAF环境的机器都是对等的，一个端可以直接调用另一个端提供服务。采用P2P架构，没有服务端、客户端之分，任何一台机器都可以向其他的机器发送请求。可以利用STAF的这种特性来实现分布式执行的功能。</p>
-<hr>
+                                                                            <p>ngrinder 参数化取值的时候，不如LR便捷。</p>
+<p>在做unique取参的时候，LR简单的设置即可，ngrinder就要相对麻烦一些。</p>
+<p><img src="/img/ngrinder参数化unique方式/LR.PNG" alt="Alt text"></p>
 <a id="more"></a>
-<h1 id="STAF在linunx下的安装：">STAF在linunx下的安装：</h1><p>1.下载STAF的安装包STAF3412-linux.tar.gz</p>
-<p>2.解压：tar -xzvf  STAF3412-linux.tar.gz</p>
-<p>3.解压缩完进入staf文件夹，执行./STAFIns，一直回车，安装OK</p>
-<p>4.在环境变量中加入STAF配置<br>编辑 /etc/profile，加入以下配置信息<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PATH=<span class="string">"/usr/local/staf/bin:<span class="variable">$&#123;PATH&#125;</span>"</span> <span class="built_in">export</span> STAFCONVDIR=/usr/<span class="built_in">local</span>/staf/codepage <span class="built_in">export</span></span><br><span class="line">LD_LIBRARY_PATH=<span class="string">"/usr/local/staf/lib:<span class="variable">$&#123;LD_LIBRARY_PATH&#125;</span>"</span> <span class="built_in">export</span></span><br><span class="line">CLASSPATH=<span class="string">"/usr/local/staf/lib/JSTAF.jar:/usr/local/staf/samples/demo/STAFDemo.jar:<span class="variable">$&#123;CLASSPATH&#125;</span>"</span></span><br></pre></td></tr></table></figure></p>
-<p>5.输入source /etc/profile,让配置文件生效</p>
-<p>6.修改staf配置文件，在staf安装目录下（默认会安装在/usr/local/staf/）的bin文件夹中-STAF.cfg<br><strong>参数格式</strong></p>
-<blockquote>
-<p>#当错误条件发生的时候形成trace信息 trace enable tracepoints “error deprecated”  </p>
-<p>#Enable TCP/IP connections</p>
-<p>#在网络上发送和接受STAF请求，默认端口为6500。如果需要定义自己的端口可以使用interface tcp library STAFTCP option Secure=No  option Port=6600</p>
-<p>#interface ssl library STAFTCP option Secure=Yes option Port=6550 interface tcp library STAFTCP option Secure=No  option Port=55500  </p>
-<p>#Set default local trust</p>
-<p>#设置本地机器为full access 信任级别 trust machine local://local level 5 trust machine <em>.</em>.<em>.</em> level 5</p>
-<p>#Add default service loader</p>
-<p>#注册默认的Service Loader。可以动态加载Log,Monitor等服务 serviceloader library STAFDSLS</p>
-</blockquote>
-<p>TRUST LEVEL 5 MACHINE，利用命令staf local trust list. 可以查看本机的信任机器<br>每种请求都有安全级别的限制，只有你达到这种安全级别才能发送这种请求。<br>分为六级，级别0-5,0最低，5最高</p>
-<blockquote>
-<p> Level 0 - No access<br>    Level 1 - Restricted access. Only PING and helps available.<br>    Level 2 - Limited access. Only query/view facilities available.<br>    Level 3 - Standard access. Non-destructive updates allowed, e.g., logging.<br>    Level 4 - Advanced access. Update abilities, e.g., copying files, deleting log files.<br>    Level 5 - All access, e.g., SHUTDOWN, Process invocation, Trust definition manipulation</p>
-</blockquote>
-<p>默认是trust machine local://local level 5     //表示本地local的操作是5级权限<br>如果需要外部的pc能够 操作本地的staf，发送各种请求的话，需要执行ip地址或是网段<br>trust machine ssl://192.100.<em> level 5   //表示 对于192.100 网段开放 5级权限  针对ssl<br>trust machine tcp://192.100.</em> level 5    //表示 对于192.100 网段开放 5级权限  针对tcp</p>
-<p>7.启动STAF服务<br>cd /usr/local/staf/bin<br>./STAFProc &amp;<br>查看是否启动</p>
-<p>8.确认已经安装完成<br>staf local service list<br><img src="/img/staf/staf_1.PNG" alt="Alt text"></p>
-<p>说明安装成功了</p>
-<h1 id="STAF请求格式">STAF请求格式</h1><p>STAF  <endpoint>  &lt; Service&gt;  <request></request></endpoint></p>
-<p><endpoint> 远程机器的IP或者localhost。表示向哪台机器发送请求</endpoint></p>
-<p><server> Endpoint端机器上STAF环境中的服务名称。表示向哪个服务发送请求</server></p>
-<p><request>请求的内容。<br> 例子：<br>staf 192.168.10.18 ping ping<br><img src="/img/staf/staf_2.PNG" alt="Alt text"></request></p>
-<h1 id="STAF服务">STAF服务</h1><p>STAF所有功能都是通过服务实现的<br>主要有两种类型的服务：内部服务（Internal Service），外部服务(External Service)。每种服务都可以处理多种请求，每种请求都有安全级别限制<br>内部服务：开启staf这些服务就可以工作了。一般被集成到STAFProc,一般都是一些比较基本常用的服务。<br>外部服务：不是staf基本服务，必须将服务注册到staf才可以使用。需要动态载入，可执行代码不在STAFProc中，一般都在jar中或者外部dll库中。<br><img src="/img/staf/staf_3.PNG" alt="Alt text"></p>
+<hr>
+<p>比如有80W条数据，要求每次取的数据都不一样。</p>
+<p>思路：</p>
+<ol>
+<li>获取线程号</li>
+<li>给每个线程分配一定范围的数据，比如每个线程1W条数据-线程号*10000</li>
+<li>设置迭代运行</li>
+</ol>
+<p>获取线程号:</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">	<span class="comment">//vuser唯一编号，从0开始</span></span><br><span class="line">	<span class="keyword">int</span> vuserNO ;</span><br><span class="line">	<span class="comment">//用户总数</span></span><br><span class="line">	<span class="keyword">int</span> totalVusers ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//根据运行时配置计算唯一编号，调试时只有1个用户，返回值0</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">initNumbers</span>(<span class="params"><span class="keyword">int</span> iteration</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> intAgents = <span class="number">0</span></span><br><span class="line">		<span class="keyword">int</span> intProcs = <span class="number">0</span></span><br><span class="line">		<span class="keyword">int</span> intThreads = <span class="number">0</span></span><br><span class="line">		<span class="keyword">if</span> (grinder.getProperties() != <span class="keyword">null</span>) &#123;</span><br><span class="line">			intAgents = Integer.parseInt(grinder.properties.<span class="keyword">get</span>(<span class="string">"grinder.agents"</span>).toString())</span><br><span class="line">			intProcs = Integer.parseInt(grinder.properties.<span class="keyword">get</span>(<span class="string">"grinder.processes"</span>).toString())</span><br><span class="line">			intThreads = Integer.parseInt(grinder.properties.<span class="keyword">get</span>(<span class="string">"grinder.threads"</span>).toString())</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">int</span> agent_no = grinder.agentNumber</span><br><span class="line">		<span class="keyword">int</span> proc_no = grinder.processNumber</span><br><span class="line">		<span class="keyword">int</span> thread_no = grinder.threadNumber</span><br><span class="line"></span><br><span class="line">		totalVusers = intAgents * intProcs * intThreads</span><br><span class="line">		vuserNO = agent_no * intProcs * intThreads + proc_no * intThreads + thread_no + intAgents * intProcs * intThreads * iteration</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>读数据文件：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;String&gt; NoList ;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">def</span> NoRowNumber ;</span><br><span class="line"></span><br><span class="line">NoList = <span class="keyword">new</span> <span class="keyword">File</span>(<span class="string">"./resources/id.txt"</span>).<span class="keyword">readLines</span>();</span><br></pre></td></tr></table></figure>
+<p>每个线程分配一定范围的数据:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> rowNo;<span class="comment">//文件行</span></span><br><span class="line">initNumbers(<span class="number">0</span>) <span class="comment">//计算唯一编号</span></span><br><span class="line">rowNo=vuserNO*<span class="number">10000</span>;<span class="comment">//每个线程分1W条数据</span></span><br><span class="line"><span class="comment">//取数据</span></span><br><span class="line">String <span class="built_in">list</span>=NoList.get(rowNo);</span><br><span class="line"><span class="comment">//每次加一</span></span><br><span class="line">rowNo++;</span><br></pre></td></tr></table></figure>
+<p>场景中设置迭代：<br><img src="/img/ngrinder参数化unique方式/迭代.PNG" alt="Alt text"></p>
 
                                                                                 
                                         </div>
@@ -321,18 +310,9 @@
                         
 <nav id="article-nav">
   
-    <a href="/2016/01/13/loadrunner11录制app/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Loadrunner11录制APP
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/12/22/docker import和export/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">export、import导出导入docker容器</div>
+    <a href="/2018/07/07/iBase4J 源码之Interceptor拦截器/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iBase4J 源码之Interceptor拦截器</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -342,7 +322,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-staf使用" data-title="staf使用" data-url="http://tonylit.me/2015/12/22/staf使用/"></div>
+                                    <div class="ds-thread" data-thread-key="post-ngrinder unique方式取参数" data-title="ngrinder unique方式取参数" data-url="http://tonylit.me/2018/07/19/ngrinder unique方式取参数/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">
