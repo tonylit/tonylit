@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Nothing is given. Everything is earned.]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2018-08-21T05:37:27.000Z</updated>
+  <updated>2018-08-29T14:37:37.555Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -13,6 +13,60 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://tonylit.me/2018/08/29/nGrinder%20activeMQ%20%E6%B6%88%E6%81%AF%E5%8F%91%E9%80%81%E8%84%9A%E6%9C%AC/"/>
+    <id>http://tonylit.me/2018/08/29/nGrinder activeMQ 消息发送脚本/</id>
+    <published>2018-08-29T14:37:37.555Z</published>
+    <updated>2018-08-29T14:37:37.555Z</updated>
+    <content type="html"><![CDATA[<hr>
+<h1 id="nGrinder_activeMQ_消息发送脚本">nGrinder activeMQ 消息发送脚本</h1><p>最近有个项目想测试mq平台的性能，顺便测试自身业务的消费能力。</p>
+<p>本帅心里其实是拒绝的，MQ本身的性能实际上不需要做测试（公司MQ平台已上线多年，日均几十亿的流量完全没问题，该业务只有几百tps的消费能力），这种把消息抛出去没有返回的业务挺难过的。无奈项目组强烈要求，只能当成测试业务消费能力了。</p>
+<p>由于无法直接得知消息的消费情况，与项目组商议，从业务数据的入库情况，计算每秒入库的数据作为TPS。</p>
+<p>言归正传，来看看怎么写mq消息发送的脚本。</p>
+<hr>
+<p>使用spring&amp;&amp;jmstemplate发送mq消息。</p>
+<p>spring和jms的jar包（未筛选，比较多杂）<br><a href="https://pan.baidu.com/s/1cGQe5AJw2hMj-dyQPW9vBw" target="_blank" rel="external">https://pan.baidu.com/s/1cGQe5AJw2hMj-dyQPW9vBw</a></p>
+<p>title: nGrinder activeMQ 消息发送脚本<br>date: 2018-08-29 11:37:27<br>updated    : 2018-08-29 13:37:27<br>tags:</p>
+<pre><code><span class="bullet">- </span>性能
+</code></pre><p>categories: </p>
+<hr>
+<p>最近有个项目想测试mq平台的性能，顺便测试自身业务的消费能力。</p>
+<p>本帅心里其实是拒绝的，MQ本身的性能实际上不需要做测试（公司MQ平台已上线多年，日均几十亿的流量完全没问题，该业务只有几百tps的消费能力），这种把消息抛出去没有返回的业务挺难过的。无奈项目组强烈要求，只能当成测试业务消费能力了。</p>
+<p>由于无法直接得知消息的消费情况，与项目组商议，从业务数据的入库情况，计算每秒入库的数据作为TPS。</p>
+<p>言归正传，来看看怎么写mq消息发送的脚本。</p>
+<a id="more"></a>
+<hr>
+<h1 id="使用spring&amp;&amp;jmstemplate发送mq消息">使用spring&amp;&amp;jmstemplate发送mq消息</h1><p>spring和jms的jar包（未筛选，比较多杂）<br><a href="https://pan.baidu.com/s/1cGQe5AJw2hMj-dyQPW9vBw" target="_blank" rel="external">https://pan.baidu.com/s/1cGQe5AJw2hMj-dyQPW9vBw</a></p>
+<p>项目组提供mq配置信息，新建配置文件：applicationContext.xml</p>
+<p><img src="/img/nGrinder-activeMQ-消息发送脚本/parameter.PNG" alt="Alt text"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">beans</span> <span class="attribute">xmlns</span>=<span class="value">"http://www.springframework.org/schema/beans"</span></span><br><span class="line">	<span class="attribute">xmlns:xsi</span>=<span class="value">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attribute">xmlns:p</span>=<span class="value">"http://www.springframework.org/schema/p"</span></span><br><span class="line">	<span class="attribute">xmlns:context</span>=<span class="value">"http://www.springframework.org/schema/context"</span></span><br><span class="line">	<span class="attribute">xmlns:jee</span>=<span class="value">"http://www.springframework.org/schema/jee"</span> <span class="attribute">xmlns:tx</span>=<span class="value">"http://www.springframework.org/schema/tx"</span></span><br><span class="line">	<span class="attribute">xmlns:aop</span>=<span class="value">"http://www.springframework.org/schema/aop"</span></span><br><span class="line">	<span class="attribute">xmlns:util</span>=<span class="value">"http://www.springframework.org/schema/util"</span>	</span><br><span class="line">	<span class="attribute">xmlns:jms</span>=<span class="value">"http://www.springframework.org/schema/jms"</span>	</span><br><span class="line">	<span class="attribute">xsi:schemaLocation</span>=<span class="value">"</span><br><span class="line">			http://www.springframework.org/schema/beans </span><br><span class="line">			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd</span><br><span class="line">			http://www.springframework.org/schema/context </span><br><span class="line">			http://www.springframework.org/schema/context/spring-context-3.0.xsd</span><br><span class="line">			http://www.springframework.org/schema/jee </span><br><span class="line">			http://www.springframework.org/schema/jee/spring-jee-3.0.xsd</span><br><span class="line">			http://www.springframework.org/schema/tx </span><br><span class="line">			http://www.springframework.org/schema/tx/spring-tx-3.0.xsd</span><br><span class="line">			http://www.springframework.org/schema/aop </span><br><span class="line">			http://www.springframework.org/schema/aop/spring-aop-3.0.xsd</span><br><span class="line">			http://www.springframework.org/schema/util</span><br><span class="line">			http://www.springframework.org/schema/util/spring-util-3.0.xsd</span><br><span class="line">			http://www.springframework.org/schema/jms</span><br><span class="line">        	http://www.springframework.org/schema/jms/spring-jms-3.0.xsd"</span>			</span><br><span class="line">	<span class="attribute">default-autowire</span>=<span class="value">"byName"</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"> 	<span class="comment">&lt;!-- WMQ连接工厂--&gt;</span></span><br><span class="line"> 	<span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"connectionFactory"</span> <span class="attribute">class</span>=<span class="value">"com.ibm.mq.jms.MQConnectionFactory"</span>&gt;</span></span><br><span class="line">	    <span class="comment">&lt;!-- 交互类型 --&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"transportType"</span>&gt;</span></span><br><span class="line">	        <span class="tag">&lt;<span class="title">util:constant</span> <span class="attribute">static-field</span>=<span class="value">"com.ibm.mq.jms.JMSC.MQJMS_TP_CLIENT_MQ_TCPIP"</span> /&gt;</span></span><br><span class="line">	    <span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 管理器名称 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"queueManager"</span> <span class="attribute">value</span>=<span class="value">"LCBPS_QM"</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- ip地址 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"hostName"</span> <span class="attribute">value</span>=<span class="value">"10.244.154.221"</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 通道名称 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"channel"</span> <span class="attribute">value</span>=<span class="value">"LCBPS_CHANNEL"</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 端口号 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"port"</span> <span class="attribute">value</span>=<span class="value">"1432"</span> /&gt;</span></span><br><span class="line">	    <span class="comment">&lt;!-- 创建服务设置的CCSID 字符编码ID 437表示usa,1208表示UTF-8 Level 3 --&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"CCSID"</span> <span class="attribute">value</span>=<span class="value">"1208"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">bean</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">&lt;!-- Spring提供的JMS工具类，它可以进行消息发送、接收等 --&gt;</span> </span><br><span class="line">	<span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"jmsTemplate"</span> <span class="attribute">class</span>=<span class="value">"org.springframework.jms.core.JmsTemplate"</span>&gt;</span>  </span><br><span class="line">    	<span class="comment">&lt;!-- 这个connectionFactory对应的是我们定义的Spring提供的那个ConnectionFactory对象 --&gt;</span> </span><br><span class="line">	    <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"connectionFactory"</span> <span class="attribute">ref</span>=<span class="value">"connectionFactory"</span>/&gt;</span> </span><br><span class="line">	<span class="tag">&lt;/<span class="title">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 工厂连接适配器 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"connectionFactoryAdapter"</span> <span class="attribute">class</span>=<span class="value">"org.springframework.jms.connection.UserCredentialsConnectionFactoryAdapter"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"targetConnectionFactory"</span> <span class="attribute">ref</span>=<span class="value">"connectionFactory"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">bean</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 监听MQ收取队列信息的配置--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">jms:listener-container</span> <span class="attribute">container-class</span>=<span class="value">"org.springframework.jms.listener.DefaultMessageListenerContainer"</span></span><br><span class="line">                            <span class="attribute">connection-factory</span>=<span class="value">"connectionFactoryAdapter"</span> <span class="attribute">concurrency</span>=<span class="value">"5"</span>&gt;</span>        </span><br><span class="line">    <span class="tag">&lt;/<span class="title">jms:listener-container</span>&gt;</span> </span><br><span class="line">   </span><br><span class="line"><span class="tag">&lt;/<span class="title">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>编写grinder 测试脚本。</p>
+<figure class="highlight monkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">package BpsSendBatchApplyQueue</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> static net.grinder.script.Grinder.grinder</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> java.util.List;</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> net.grinder.plugin.http.HTTPRequest</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> net.grinder.plugin.http.HTTPPluginControl</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> net.grinder.script.GTest</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> net.grinder.scriptengine.groovy.junit.GrinderRunner</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> net.grinder.scriptengine.groovy.junit.annotation.BeforeProcess</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> net.grinder.scriptengine.groovy.junit.annotation.BeforeThread</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> org.junit.Before</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> org.junit.Test</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> org.junit.runner.RunWith</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> com.alibaba.fastjson.JSONObject;</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> static org.junit.Assert.*</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> HTTPClient.Cookie</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> HTTPClient.CookieModule</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> HTTPClient.HTTPResponse</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> HTTPClient.NVPair</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> java.math.BigDecimal;</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> java.text.SimpleDateFormat;</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> java.util.Date;</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> java.util.UUID;</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> javax.jms.JMSException;</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> org.junit.Test;</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> org.springframework.jms.core.JmsTemplate;</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> com.suning.fsp.common.mq.batchapply.dto.BpsBatchApplyAcceptance;</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> com.suning.fsp.common.mq.batchpay.dto.BpsBatchPayAcceptance;</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> com.suning.fsp.common.mq.eft.dto.BpsEftDetailAcceptance;</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> com.suning.fsp.common.mq.utils.JmsUtils;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@RunWith(GrinderRunner)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BpsSendBatchApplyQueueTestRunner</span> &#123;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> static GTest test;</span><br><span class="line">	/**</span><br><span class="line">	 * jms模板，封装链接工厂、队列、消息生产者</span><br><span class="line">	 */</span><br><span class="line">	<span class="keyword">private</span> static JmsTemplate jmsTemplate;</span><br><span class="line"></span><br><span class="line">	// spring上下文</span><br><span class="line">	<span class="keyword">private</span> ApplicationContext ctx = <span class="literal">null</span>;</span><br><span class="line">	<span class="keyword">private</span> String SPRING_FILE_NAME = <span class="string">"applicationContext_BPS.xml"</span>;</span><br><span class="line">	<span class="keyword">private</span> String JMS_TEMPLATE_NAME = <span class="string">"jmsTemplate"</span>;</span><br><span class="line">	<span class="keyword">private</span> String QUENE_NAME = <span class="string">"Bps_SendBatchApply_Queue"</span>; //queue name</span><br><span class="line"></span><br><span class="line">	&#123;</span><br><span class="line">		ctx = <span class="keyword">new</span> ClassPathXmlApplicationContext(SPRING_FILE_NAME);</span><br><span class="line">		jmsTemplate = (JmsTemplate) ctx.getBean(JMS_TEMPLATE_NAME);</span><br><span class="line">		jmsTemplate.setDefaultDestinationName(QUENE_NAME);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	Object obj;</span><br><span class="line"></span><br><span class="line">	@BeforeProcess</span><br><span class="line">	<span class="keyword">public</span> static void beforeProcess() &#123;</span><br><span class="line">		test = <span class="keyword">new</span> GTest(<span class="number">1</span>, <span class="string">"发送消息"</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@BeforeThread</span><br><span class="line">	<span class="keyword">public</span> void beforeThread() &#123;</span><br><span class="line">		test.record(this, <span class="string">"test"</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Before</span><br><span class="line">	<span class="keyword">public</span> void before() &#123;</span><br><span class="line"></span><br><span class="line">		obj = <span class="keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Test</span><br><span class="line">	<span class="keyword">public</span> void test()&#123;</span><br><span class="line">		<span class="keyword">try</span>&#123;</span><br><span class="line">			JmsUtils.sendObjMsg(jmsTemplate, obj, QUENE_NAME);</span><br><span class="line">			System.out.println(<span class="string">"发送完成"</span>);</span><br><span class="line">			assertTrue(<span class="literal">true</span>);</span><br><span class="line">			</span><br><span class="line">		&#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">			println <span class="string">"error"</span>+e</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行脚本时，将配置文件放在lib目录下即可。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<h1 id="nGrinder_activeMQ_消息发送脚本">nGrinder activeMQ 消息发送脚本</h1><p>最近有个项目想测试mq平台的性能，顺便测试自身业务的消费能力。</p>
+<p>本帅心里其实是拒绝的，MQ本身的性能实际上不需要做测试（公司MQ平台已上线多年，日均几十亿的流量完全没问题，该业务只有几百tps的消费能力），这种把消息抛出去没有返回的业务挺难过的。无奈项目组强烈要求，只能当成测试业务消费能力了。</p>
+<p>由于无法直接得知消息的消费情况，与项目组商议，从业务数据的入库情况，计算每秒入库的数据作为TPS。</p>
+<p>言归正传，来看看怎么写mq消息发送的脚本。</p>
+<hr>
+<p>使用spring&amp;&amp;jmstemplate发送mq消息。</p>
+<p>spring和jms的jar包（未筛选，比较多杂）<br><a href="https://pan.baidu.com/s/1cGQe5AJw2hMj-dyQPW9vBw">https://pan.baidu.com/s/1cGQe5AJw2hMj-dyQPW9vBw</a></p>
+<p>title: nGrinder activeMQ 消息发送脚本<br>date: 2018-08-29 11:37:27<br>updated    : 2018-08-29 13:37:27<br>tags:</p>
+<pre><code><span class="bullet">- </span>性能
+</code></pre><p>categories: </p>
+<hr>
+<p>最近有个项目想测试mq平台的性能，顺便测试自身业务的消费能力。</p>
+<p>本帅心里其实是拒绝的，MQ本身的性能实际上不需要做测试（公司MQ平台已上线多年，日均几十亿的流量完全没问题，该业务只有几百tps的消费能力），这种把消息抛出去没有返回的业务挺难过的。无奈项目组强烈要求，只能当成测试业务消费能力了。</p>
+<p>由于无法直接得知消息的消费情况，与项目组商议，从业务数据的入库情况，计算每秒入库的数据作为TPS。</p>
+<p>言归正传，来看看怎么写mq消息发送的脚本。</p>]]>
+    
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[perm区gc 导致tps不断下降]]></title>
@@ -139,6 +193,48 @@
   </entry>
   
   <entry>
+    <title><![CDATA[iBase4J 源码之Swagger2接口管理]]></title>
+    <link href="http://tonylit.me/2018/07/05/iBase4J%20%E6%BA%90%E7%A0%81%E4%B9%8BSwagger2%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/"/>
+    <id>http://tonylit.me/2018/07/05/iBase4J 源码之Swagger2接口管理/</id>
+    <published>2018-07-05T03:37:27.000Z</published>
+    <updated>2018-07-05T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>The Best APIs are Built with Swagger Tools.</p>
+<p>by  <a href="https://swagger.io/" target="_blank" rel="external">https://swagger.io/</a></p>
+<a id="more"></a>
+<hr>
+<p>Swagger2 作为RESTful API的好伙伴， 很容易与spring boot整合在一起，并组织成一套RESTful API文档。开发人员修改了接口，接口文档会自动更新，Swagger2同时为开发人员提供了强大的接口测试功能，省去了很多测试代码的编写工作。</p>
+<p>iBase4J 中使用Swagger2 来进行接口管理，项目启动后访问<a href="http://localhost:8088/swagger-ui.html" target="_blank" rel="external">http://localhost:8088/swagger-ui.html</a> ，可以看到接口管理页面。</p>
+<p><img src="/img/iBase4J源码之Swagger2/swagger-list.PNG" alt="Alt text"></p>
+<hr>
+<p>下面咱们结合iBase4J源码来介绍，如何在Spring Boot中使用Swagger2。</p>
+<h1 id="添加Swagger2依赖">添加Swagger2依赖</h1><p>在pom.xml中加入Swagger2的依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- swagger --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springfox-swagger2<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;springfox.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springfox-swagger-ui<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;springfox.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="title">properties</span>&gt;</span>	<span class="tag">&lt;<span class="title">springfox.version</span>&gt;</span>2.7.0<span class="tag">&lt;/<span class="title">springfox.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="创建Swagger2配置类。">创建Swagger2配置类。</h1><p>iBase4J提供了SwaggerConfig.java进行Swagger2配置。</p>
+<p><img src="/img/iBase4J源码之Swagger2/swagger-config.PNG" alt="Alt text"></p>
+<p>@EnableSwagger2 用于开启swagger2配置。</p>
+<p>apiInfo() 用来创建该Api的基本信息（这些基本信息会展现在文档页面中）。</p>
+<hr>
+<h1 id="配置Controller中的API">配置Controller中的API</h1><p>iBase4J-SYS-Web项目和iBase4J-Biz-Web项目中的RestFull API都使用iBase4J进行接口管理，这里看一个LoginController的例子。</p>
+<p><img src="/img/iBase4J源码之Swagger2/login-api.PNG" alt="Alt text"></p>
+<p>需要关注的注解：<a href="https://blog.csdn.net/xiaojin21cen/article/details/78654652" target="_blank" rel="external">参考</a></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Api</span>：标记一个Controller类做为swagger。</span><br><span class="line"></span><br><span class="line"><span class="variable">@ApiOperation</span>：注解在方法上,描述接口操作。</span><br><span class="line"></span><br><span class="line"><span class="variable">@ApiParam</span>：请求参数的描述。</span><br></pre></td></tr></table></figure>
+<h1 id="API文档访问与测试">API文档访问与测试</h1><p><a href="http://localhost:8088/swagger-ui.html#/" target="_blank" rel="external">http://localhost:8088/swagger-ui.html#/</a> —看到接口列表</p>
+<p><img src="/img/iBase4J源码之Swagger2/swagger-test.PNG" alt="Alt text"></p>
+<p>输入请求入参，点击Try it out即可进行接口测试。</p>
+<p><img src="/img/iBase4J源码之Swagger2/swagger-result.PNG" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>The Best APIs are Built with Swagger Tools.</p>
+<p>by  <a href="https://swagger.io/">https://swagger.io/</a></p>]]>
+    
+    </summary>
+    
+      <category term="java" scheme="http://tonylit.me/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[iBase4J 源码之Shiro用户安全校验]]></title>
     <link href="http://tonylit.me/2018/07/05/iBase4J%20%E6%BA%90%E7%A0%81%E4%B9%8BShiro%E7%94%A8%E6%88%B7%E5%AE%89%E5%85%A8%E6%A0%A1%E9%AA%8C/"/>
     <id>http://tonylit.me/2018/07/05/iBase4J 源码之Shiro用户安全校验/</id>
@@ -193,48 +289,6 @@
     <summary type="html">
     <![CDATA[<p>Apache Shiro? is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.</p>
 <p>by  <a href="https://shiro.apache.org/">https://shiro.apache.org/</a></p>]]>
-    
-    </summary>
-    
-      <category term="java" scheme="http://tonylit.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[iBase4J 源码之Swagger2接口管理]]></title>
-    <link href="http://tonylit.me/2018/07/05/iBase4J%20%E6%BA%90%E7%A0%81%E4%B9%8BSwagger2%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/"/>
-    <id>http://tonylit.me/2018/07/05/iBase4J 源码之Swagger2接口管理/</id>
-    <published>2018-07-05T03:37:27.000Z</published>
-    <updated>2018-07-05T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>The Best APIs are Built with Swagger Tools.</p>
-<p>by  <a href="https://swagger.io/" target="_blank" rel="external">https://swagger.io/</a></p>
-<a id="more"></a>
-<hr>
-<p>Swagger2 作为RESTful API的好伙伴， 很容易与spring boot整合在一起，并组织成一套RESTful API文档。开发人员修改了接口，接口文档会自动更新，Swagger2同时为开发人员提供了强大的接口测试功能，省去了很多测试代码的编写工作。</p>
-<p>iBase4J 中使用Swagger2 来进行接口管理，项目启动后访问<a href="http://localhost:8088/swagger-ui.html" target="_blank" rel="external">http://localhost:8088/swagger-ui.html</a> ，可以看到接口管理页面。</p>
-<p><img src="/img/iBase4J源码之Swagger2/swagger-list.PNG" alt="Alt text"></p>
-<hr>
-<p>下面咱们结合iBase4J源码来介绍，如何在Spring Boot中使用Swagger2。</p>
-<h1 id="添加Swagger2依赖">添加Swagger2依赖</h1><p>在pom.xml中加入Swagger2的依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- swagger --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springfox-swagger2<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;springfox.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springfox-swagger-ui<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;springfox.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="title">properties</span>&gt;</span>	<span class="tag">&lt;<span class="title">springfox.version</span>&gt;</span>2.7.0<span class="tag">&lt;/<span class="title">springfox.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h1 id="创建Swagger2配置类。">创建Swagger2配置类。</h1><p>iBase4J提供了SwaggerConfig.java进行Swagger2配置。</p>
-<p><img src="/img/iBase4J源码之Swagger2/swagger-config.PNG" alt="Alt text"></p>
-<p>@EnableSwagger2 用于开启swagger2配置。</p>
-<p>apiInfo() 用来创建该Api的基本信息（这些基本信息会展现在文档页面中）。</p>
-<hr>
-<h1 id="配置Controller中的API">配置Controller中的API</h1><p>iBase4J-SYS-Web项目和iBase4J-Biz-Web项目中的RestFull API都使用iBase4J进行接口管理，这里看一个LoginController的例子。</p>
-<p><img src="/img/iBase4J源码之Swagger2/login-api.PNG" alt="Alt text"></p>
-<p>需要关注的注解：<a href="https://blog.csdn.net/xiaojin21cen/article/details/78654652" target="_blank" rel="external">参考</a></p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Api</span>：标记一个Controller类做为swagger。</span><br><span class="line"></span><br><span class="line"><span class="variable">@ApiOperation</span>：注解在方法上,描述接口操作。</span><br><span class="line"></span><br><span class="line"><span class="variable">@ApiParam</span>：请求参数的描述。</span><br></pre></td></tr></table></figure>
-<h1 id="API文档访问与测试">API文档访问与测试</h1><p><a href="http://localhost:8088/swagger-ui.html#/" target="_blank" rel="external">http://localhost:8088/swagger-ui.html#/</a> —看到接口列表</p>
-<p><img src="/img/iBase4J源码之Swagger2/swagger-test.PNG" alt="Alt text"></p>
-<p>输入请求入参，点击Try it out即可进行接口测试。</p>
-<p><img src="/img/iBase4J源码之Swagger2/swagger-result.PNG" alt="Alt text"></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>The Best APIs are Built with Swagger Tools.</p>
-<p>by  <a href="https://swagger.io/">https://swagger.io/</a></p>]]>
     
     </summary>
     
@@ -3059,6 +3113,26 @@
   </entry>
   
   <entry>
+    <title><![CDATA[测试环境的docker实践]]></title>
+    <link href="http://tonylit.me/2016/10/12/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E7%9A%84docker%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://tonylit.me/2016/10/12/测试环境的docker实践/</id>
+    <published>2016-10-12T03:37:27.000Z</published>
+    <updated>2016-10-12T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>
+<a id="more"></a>
+<p>技术委员会也很有心，给出了分享后的反馈。<br><img src="/img/测试环境的docker实践/得分.PNG" alt="Alt text"></p>
+<h2 id="演讲内容">演讲内容</h2><p><img src="/img/测试环境的docker实践/幻灯片1.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片2.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片3.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片4.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片5.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片6.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片7.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片8.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片9.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片10.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片11.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片12.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片13.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片14.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片15.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片16.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片17.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片18.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片19.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片20.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片21.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片22.jpg" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[高级性能测试工程师成长计划]]></title>
     <link href="http://tonylit.me/2016/10/12/%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/"/>
     <id>http://tonylit.me/2016/10/12/工程师成长计划/</id>
@@ -3078,26 +3152,6 @@
     </summary>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[测试环境的docker实践]]></title>
-    <link href="http://tonylit.me/2016/10/12/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E7%9A%84docker%E5%AE%9E%E8%B7%B5/"/>
-    <id>http://tonylit.me/2016/10/12/测试环境的docker实践/</id>
-    <published>2016-10-12T03:37:27.000Z</published>
-    <updated>2016-10-12T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>
-<a id="more"></a>
-<p>技术委员会也很有心，给出了分享后的反馈。<br><img src="/img/测试环境的docker实践/得分.PNG" alt="Alt text"></p>
-<h2 id="演讲内容">演讲内容</h2><p><img src="/img/测试环境的docker实践/幻灯片1.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片2.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片3.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片4.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片5.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片6.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片7.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片8.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片9.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片10.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片11.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片12.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片13.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片14.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片15.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片16.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片17.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片18.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片19.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片20.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片21.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片22.jpg" alt="Alt text"></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   
@@ -3656,24 +3710,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[docker容器时间修改-通过时区偏移量]]></title>
-    <link href="http://tonylit.me/2016/07/19/docker%E5%AE%B9%E5%99%A8%E6%97%B6%E9%97%B4%E4%BF%AE%E6%94%B9-%E9%80%9A%E8%BF%87%E6%97%B6%E5%8C%BA%E5%81%8F%E7%A7%BB%E9%87%8F/"/>
-    <id>http://tonylit.me/2016/07/19/docker容器时间修改-通过时区偏移量/</id>
-    <published>2016-07-19T03:37:27.000Z</published>
-    <updated>2016-07-19T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。<br>如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。<br>but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。<br><a id="more"></a><br>这边写了个脚本，date.sh<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> != <span class="number">2</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">         <span class="built_in">echo</span> <span class="string">"Please input two parameter,like  '2016-05-20 12:00' "</span></span><br><span class="line">         <span class="built_in">exit</span> <span class="number">200</span>;</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#check /etc/profile exits 'export TZ' environment,if exits ,delete</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">checkProfile</span></span>()&#123;</span><br><span class="line">  <span class="built_in">return</span>Str=`grep -ri <span class="string">'export TZ'</span> /etc/profile`</span><br><span class="line">  <span class="keyword">if</span> [ <span class="string">"<span class="variable">$returnStr</span>"</span> !=  <span class="string">""</span>  ]</span><br><span class="line">   <span class="keyword">then</span></span><br><span class="line">     sed -i <span class="operator">-e</span> <span class="string">'/export TZ/d'</span>  /etc/profile</span><br><span class="line">       </span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line">checkProfile</span><br><span class="line"><span class="comment">#check time format</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">isValidDate</span></span>()&#123;  </span><br><span class="line">    date <span class="operator">-d</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="string">"+%F"</span>|grep -q <span class="string">"<span class="variable">$1</span>"</span> <span class="number">2</span>&gt;/dev/null </span><br><span class="line">    <span class="keyword">if</span> [ $? = <span class="number">0</span> ]; <span class="keyword">then</span>  </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"input:"</span> <span class="variable">$1</span> <span class="variable">$2</span> </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Time format is not correct ,please input like '2016-05-20 12:00' "</span> </span><br><span class="line">    <span class="keyword">fi</span>  </span><br><span class="line">&#125;</span><br><span class="line">isValidDate <span class="variable">$1</span> <span class="variable">$2</span></span><br><span class="line">CURTIME=`date <span class="string">"+%Y-%m-%d %H:%M"</span> `;</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"now:"</span> <span class="variable">$CURTIME</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">timeExport</span></span>()&#123;</span><br><span class="line">    <span class="keyword">if</span> [ <span class="string">"<span class="variable">$2</span>"</span> == <span class="number">1</span> ]</span><br><span class="line">     <span class="keyword">then</span></span><br><span class="line">     timeFormat=`awk <span class="string">'BEGIN&#123;printf "%.2f\n",'</span><span class="variable">$1</span><span class="string">'/3600&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$1</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeFormat</span></span><br><span class="line">     hour=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line">     mins=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     minm=`awk <span class="string">'BEGIN&#123;printf "%.0f\n",0.'</span><span class="variable">$mins</span><span class="string">'*60&#125;'</span>`</span><br><span class="line">     timeRetrunHour=`expr <span class="variable">$hour</span> + <span class="number">8</span>`</span><br><span class="line">      </span><br><span class="line">     <span class="comment">###分钟计算</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"input min:"</span><span class="variable">$3</span></span><br><span class="line">     inputmin=`<span class="built_in">echo</span> <span class="variable">$3</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     nowmin=`date |awk <span class="string">'&#123;print $4&#125;'</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$nowmin</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$inputmin</span></span><br><span class="line">     <span class="keyword">if</span> [ <span class="string">"<span class="variable">$nowmin</span>"</span> <span class="operator">-gt</span> <span class="string">"<span class="variable">$inputmin</span>"</span> ]</span><br><span class="line">      <span class="keyword">then</span> </span><br><span class="line">       <span class="built_in">let</span> hour=<span class="variable">$hour</span>-<span class="number">1</span></span><br><span class="line">     <span class="keyword">fi</span></span><br><span class="line">       </span><br><span class="line">     timeRetrunTime=<span class="variable">$timeRetrunHour</span>:<span class="variable">$minm</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"export TZ=RPC-<span class="variable">$timeRetrunTime</span>"</span>     </span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">       <span class="keyword">if</span> [ <span class="string">"<span class="variable">$2</span>"</span> == <span class="number">2</span> ]</span><br><span class="line">        <span class="keyword">then</span></span><br><span class="line">     timeFormat=`awk <span class="string">'BEGIN&#123;printf "%.2f\n",'</span><span class="variable">$1</span><span class="string">'/3600&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$1</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeFormat</span></span><br><span class="line">     hour=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line">     mins=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     minm=`awk <span class="string">'BEGIN&#123;printf "%.0f\n",0.'</span><span class="variable">$mins</span><span class="string">'*60&#125;'</span>`</span><br><span class="line">     <span class="built_in">let</span> timeRetrunHour=<span class="variable">$hour</span>-<span class="number">8</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeRetrunHour</span></span><br><span class="line">          <span class="comment">###分钟计算</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"input min:"</span><span class="variable">$3</span></span><br><span class="line">     inputmin=`<span class="built_in">echo</span> <span class="variable">$3</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     nowmin=`date |awk <span class="string">'&#123;print $4&#125;'</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$nowmin</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$inputmin</span></span><br><span class="line">     <span class="keyword">if</span> [ <span class="string">"<span class="variable">$nowmin</span>"</span> <span class="operator">-gt</span> <span class="string">"<span class="variable">$inputmin</span>"</span> ]</span><br><span class="line">      <span class="keyword">then</span> </span><br><span class="line">       <span class="built_in">let</span> hour=<span class="variable">$hour</span>-<span class="number">1</span></span><br><span class="line">     <span class="keyword">fi</span> </span><br><span class="line">     timeRetrunTime=<span class="variable">$timeRetrunHour</span>:<span class="variable">$minm</span></span><br><span class="line">          <span class="keyword">if</span> [ <span class="string">"<span class="variable">$timeRetrunHour</span>"</span> <span class="operator">-lt</span> <span class="number">0</span> ]</span><br><span class="line">        <span class="keyword">then</span></span><br><span class="line">           <span class="built_in">echo</span> <span class="string">"export TZ=RPC-<span class="variable">$&#123;timeRetrunTime#-&#125;</span>"</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">           <span class="built_in">echo</span> <span class="string">"export TZ=RPC+<span class="variable">$timeRetrunTime</span>"</span></span><br><span class="line">         <span class="keyword">fi</span></span><br><span class="line">     <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">Sys_data=`date <span class="operator">-d</span>  <span class="string">"<span class="variable">$CURTIME</span>"</span> +%s`    <span class="comment">#把当前时间转化为Linux时间</span></span><br><span class="line">In_data=`date <span class="operator">-d</span>  <span class="string">"<span class="variable">$1</span> <span class="variable">$2</span>"</span> +%s`</span><br><span class="line">  <span class="keyword">if</span> [ <span class="variable">$In_data</span> -ge <span class="variable">$Sys_data</span> ]</span><br><span class="line">   <span class="keyword">then</span></span><br><span class="line">    interval=`expr <span class="variable">$In_data</span> - <span class="variable">$Sys_data</span>`  <span class="comment">#计算2个时间的差</span></span><br><span class="line">    timeExport <span class="variable">$interval</span> <span class="number">1</span> <span class="variable">$2</span></span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">    interval=`expr  <span class="variable">$Sys_data</span> - <span class="variable">$In_data</span>`  </span><br><span class="line">    timeExport <span class="variable">$interval</span> <span class="number">2</span> <span class="variable">$2</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$interval</span></span><br></pre></td></tr></table></figure></p>
-<p>然后手动执行输出的结果：<br>export TZ=xxxx</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。<br>如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。<br>but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。<br>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[docker crontab不执行解决方法]]></title>
     <link href="http://tonylit.me/2016/07/19/docker%20crontab%E4%B8%8D%E6%89%A7%E8%A1%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
     <id>http://tonylit.me/2016/07/19/docker crontab不执行解决方法/</id>
@@ -3685,6 +3721,24 @@
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># The PAM configuration file for the cron daemon</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">auth       sufficient pam_env.so</span><br><span class="line">auth       sufficient   pam_rootok.so</span><br><span class="line">auth       <span class="built_in">include</span>    <span class="keyword">system</span>-auth</span><br><span class="line">account    sufficient   pam_access.so</span><br><span class="line">account    <span class="built_in">include</span>    <span class="keyword">system</span>-auth</span><br><span class="line">session    sufficient   pam_loginuid.so</span><br><span class="line">session    <span class="built_in">include</span>    <span class="keyword">system</span>-auth</span><br></pre></td></tr></table></figure>]]></content>
     <summary type="html">
     <![CDATA[<p>centos镜像，在该镜像中没有安装crond，通过yum安装成功后，crontab没有生效。</p>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[docker容器时间修改-通过时区偏移量]]></title>
+    <link href="http://tonylit.me/2016/07/19/docker%E5%AE%B9%E5%99%A8%E6%97%B6%E9%97%B4%E4%BF%AE%E6%94%B9-%E9%80%9A%E8%BF%87%E6%97%B6%E5%8C%BA%E5%81%8F%E7%A7%BB%E9%87%8F/"/>
+    <id>http://tonylit.me/2016/07/19/docker容器时间修改-通过时区偏移量/</id>
+    <published>2016-07-19T03:37:27.000Z</published>
+    <updated>2016-07-19T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。<br>如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。<br>but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。<br><a id="more"></a><br>这边写了个脚本，date.sh<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> != <span class="number">2</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">         <span class="built_in">echo</span> <span class="string">"Please input two parameter,like  '2016-05-20 12:00' "</span></span><br><span class="line">         <span class="built_in">exit</span> <span class="number">200</span>;</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#check /etc/profile exits 'export TZ' environment,if exits ,delete</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">checkProfile</span></span>()&#123;</span><br><span class="line">  <span class="built_in">return</span>Str=`grep -ri <span class="string">'export TZ'</span> /etc/profile`</span><br><span class="line">  <span class="keyword">if</span> [ <span class="string">"<span class="variable">$returnStr</span>"</span> !=  <span class="string">""</span>  ]</span><br><span class="line">   <span class="keyword">then</span></span><br><span class="line">     sed -i <span class="operator">-e</span> <span class="string">'/export TZ/d'</span>  /etc/profile</span><br><span class="line">       </span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line">checkProfile</span><br><span class="line"><span class="comment">#check time format</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">isValidDate</span></span>()&#123;  </span><br><span class="line">    date <span class="operator">-d</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="string">"+%F"</span>|grep -q <span class="string">"<span class="variable">$1</span>"</span> <span class="number">2</span>&gt;/dev/null </span><br><span class="line">    <span class="keyword">if</span> [ $? = <span class="number">0</span> ]; <span class="keyword">then</span>  </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"input:"</span> <span class="variable">$1</span> <span class="variable">$2</span> </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Time format is not correct ,please input like '2016-05-20 12:00' "</span> </span><br><span class="line">    <span class="keyword">fi</span>  </span><br><span class="line">&#125;</span><br><span class="line">isValidDate <span class="variable">$1</span> <span class="variable">$2</span></span><br><span class="line">CURTIME=`date <span class="string">"+%Y-%m-%d %H:%M"</span> `;</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"now:"</span> <span class="variable">$CURTIME</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">timeExport</span></span>()&#123;</span><br><span class="line">    <span class="keyword">if</span> [ <span class="string">"<span class="variable">$2</span>"</span> == <span class="number">1</span> ]</span><br><span class="line">     <span class="keyword">then</span></span><br><span class="line">     timeFormat=`awk <span class="string">'BEGIN&#123;printf "%.2f\n",'</span><span class="variable">$1</span><span class="string">'/3600&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$1</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeFormat</span></span><br><span class="line">     hour=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line">     mins=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     minm=`awk <span class="string">'BEGIN&#123;printf "%.0f\n",0.'</span><span class="variable">$mins</span><span class="string">'*60&#125;'</span>`</span><br><span class="line">     timeRetrunHour=`expr <span class="variable">$hour</span> + <span class="number">8</span>`</span><br><span class="line">      </span><br><span class="line">     <span class="comment">###分钟计算</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"input min:"</span><span class="variable">$3</span></span><br><span class="line">     inputmin=`<span class="built_in">echo</span> <span class="variable">$3</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     nowmin=`date |awk <span class="string">'&#123;print $4&#125;'</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$nowmin</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$inputmin</span></span><br><span class="line">     <span class="keyword">if</span> [ <span class="string">"<span class="variable">$nowmin</span>"</span> <span class="operator">-gt</span> <span class="string">"<span class="variable">$inputmin</span>"</span> ]</span><br><span class="line">      <span class="keyword">then</span> </span><br><span class="line">       <span class="built_in">let</span> hour=<span class="variable">$hour</span>-<span class="number">1</span></span><br><span class="line">     <span class="keyword">fi</span></span><br><span class="line">       </span><br><span class="line">     timeRetrunTime=<span class="variable">$timeRetrunHour</span>:<span class="variable">$minm</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"export TZ=RPC-<span class="variable">$timeRetrunTime</span>"</span>     </span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">       <span class="keyword">if</span> [ <span class="string">"<span class="variable">$2</span>"</span> == <span class="number">2</span> ]</span><br><span class="line">        <span class="keyword">then</span></span><br><span class="line">     timeFormat=`awk <span class="string">'BEGIN&#123;printf "%.2f\n",'</span><span class="variable">$1</span><span class="string">'/3600&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$1</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeFormat</span></span><br><span class="line">     hour=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line">     mins=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     minm=`awk <span class="string">'BEGIN&#123;printf "%.0f\n",0.'</span><span class="variable">$mins</span><span class="string">'*60&#125;'</span>`</span><br><span class="line">     <span class="built_in">let</span> timeRetrunHour=<span class="variable">$hour</span>-<span class="number">8</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeRetrunHour</span></span><br><span class="line">          <span class="comment">###分钟计算</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"input min:"</span><span class="variable">$3</span></span><br><span class="line">     inputmin=`<span class="built_in">echo</span> <span class="variable">$3</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     nowmin=`date |awk <span class="string">'&#123;print $4&#125;'</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$nowmin</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$inputmin</span></span><br><span class="line">     <span class="keyword">if</span> [ <span class="string">"<span class="variable">$nowmin</span>"</span> <span class="operator">-gt</span> <span class="string">"<span class="variable">$inputmin</span>"</span> ]</span><br><span class="line">      <span class="keyword">then</span> </span><br><span class="line">       <span class="built_in">let</span> hour=<span class="variable">$hour</span>-<span class="number">1</span></span><br><span class="line">     <span class="keyword">fi</span> </span><br><span class="line">     timeRetrunTime=<span class="variable">$timeRetrunHour</span>:<span class="variable">$minm</span></span><br><span class="line">          <span class="keyword">if</span> [ <span class="string">"<span class="variable">$timeRetrunHour</span>"</span> <span class="operator">-lt</span> <span class="number">0</span> ]</span><br><span class="line">        <span class="keyword">then</span></span><br><span class="line">           <span class="built_in">echo</span> <span class="string">"export TZ=RPC-<span class="variable">$&#123;timeRetrunTime#-&#125;</span>"</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">           <span class="built_in">echo</span> <span class="string">"export TZ=RPC+<span class="variable">$timeRetrunTime</span>"</span></span><br><span class="line">         <span class="keyword">fi</span></span><br><span class="line">     <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">Sys_data=`date <span class="operator">-d</span>  <span class="string">"<span class="variable">$CURTIME</span>"</span> +%s`    <span class="comment">#把当前时间转化为Linux时间</span></span><br><span class="line">In_data=`date <span class="operator">-d</span>  <span class="string">"<span class="variable">$1</span> <span class="variable">$2</span>"</span> +%s`</span><br><span class="line">  <span class="keyword">if</span> [ <span class="variable">$In_data</span> -ge <span class="variable">$Sys_data</span> ]</span><br><span class="line">   <span class="keyword">then</span></span><br><span class="line">    interval=`expr <span class="variable">$In_data</span> - <span class="variable">$Sys_data</span>`  <span class="comment">#计算2个时间的差</span></span><br><span class="line">    timeExport <span class="variable">$interval</span> <span class="number">1</span> <span class="variable">$2</span></span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">    interval=`expr  <span class="variable">$Sys_data</span> - <span class="variable">$In_data</span>`  </span><br><span class="line">    timeExport <span class="variable">$interval</span> <span class="number">2</span> <span class="variable">$2</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$interval</span></span><br></pre></td></tr></table></figure></p>
+<p>然后手动执行输出的结果：<br>export TZ=xxxx</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。<br>如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。<br>but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。<br>]]>
     
     </summary>
     
@@ -4054,25 +4108,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[如何不输出docker日志到控制台]]></title>
-    <link href="http://tonylit.me/2016/04/22/%E5%A6%82%E4%BD%95%E4%B8%8D%E8%BE%93%E5%87%BAdocker%E6%97%A5%E5%BF%97%E5%88%B0%E6%8E%A7%E5%88%B6%E5%8F%B0/"/>
-    <id>http://tonylit.me/2016/04/22/如何不输出docker日志到控制台/</id>
-    <published>2016-04-22T03:37:27.000Z</published>
-    <updated>2016-04-22T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>docker run 后一些日志会打印到控制台，怎样不让信息打印到控制台呢？<br><a id="more"></a></p>
-<p>解决方法：docker -d &gt; docker.log</p>
-<p>docker run -d &gt; docker.log –name test -v /app/webroot/:/app/webroot/ -P docker.vemic.com:5000/focustest-centos5:5.4  /opt/ActivePython-2.7/bin/supervisord -c /opt/supervisor/supervisord.conf &amp;</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>docker run 后一些日志会打印到控制台，怎样不让信息打印到控制台呢？<br>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[supervisor管理容器进程]]></title>
     <link href="http://tonylit.me/2016/04/22/supervisor%E7%AE%A1%E7%90%86docker%E8%BF%9B%E7%A8%8B/"/>
     <id>http://tonylit.me/2016/04/22/supervisor管理docker进程/</id>
@@ -4095,6 +4130,25 @@
     <![CDATA[<p>启动容器的时候，为了保证容器退出时保持UP状态，可以使用 /usr/sbin/sshd -D<br>我们经常会在后面加上若干启动命令：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -ti --name test docker<span class="class">.vemic</span><span class="class">.com</span>:<span class="number">5000</span>/focustest-centos5 -P <span class="number">22</span> -P <span class="number">80</span> /usr/sbin/sshd -D &amp;&amp; nginx &amp;&amp; /opt/resin<span class="class">.sh</span> restart</span><br></pre></td></tr></table></figure></p>
 <p>命令多的时候看起来会很乱<br>but，可以使用supervisor来进行优化（管理进程）<br>可以写成这样：</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[supervisord]</span></span><br><span class="line"><span class="setting">nodaemon=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"><span class="title">[program:sshd]</span></span><br><span class="line"><span class="setting">command=<span class="value">/usr/sbin/sshd -D</span></span></span><br><span class="line"><span class="title">[program:nginx]</span></span><br><span class="line"><span class="setting">command=<span class="value">nginx</span></span></span><br><span class="line"><span class="title">[program:resin]</span></span><br><span class="line"><span class="setting">command=<span class="value">/opt/resin.sh restart</span></span></span><br></pre></td></tr></table></figure>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[如何不输出docker日志到控制台]]></title>
+    <link href="http://tonylit.me/2016/04/22/%E5%A6%82%E4%BD%95%E4%B8%8D%E8%BE%93%E5%87%BAdocker%E6%97%A5%E5%BF%97%E5%88%B0%E6%8E%A7%E5%88%B6%E5%8F%B0/"/>
+    <id>http://tonylit.me/2016/04/22/如何不输出docker日志到控制台/</id>
+    <published>2016-04-22T03:37:27.000Z</published>
+    <updated>2016-04-22T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>docker run 后一些日志会打印到控制台，怎样不让信息打印到控制台呢？<br><a id="more"></a></p>
+<p>解决方法：docker -d &gt; docker.log</p>
+<p>docker run -d &gt; docker.log –name test -v /app/webroot/:/app/webroot/ -P docker.vemic.com:5000/focustest-centos5:5.4  /opt/ActivePython-2.7/bin/supervisord -c /opt/supervisor/supervisord.conf &amp;</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>docker run 后一些日志会打印到控制台，怎样不让信息打印到控制台呢？<br>]]>
     
     </summary>
     
@@ -4837,47 +4891,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[export、import导出导入docker容器]]></title>
-    <link href="http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/"/>
-    <id>http://tonylit.me/2015/12/22/docker import和export/</id>
-    <published>2015-12-22T03:37:27.000Z</published>
-    <updated>2015-12-22T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/" target="_blank" rel="external">centos-6-x86_64.tar.gz</a></p>
-<blockquote>
-<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
-<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br><a id="more"></a></p>
-</blockquote>
-<h2 id="实例">实例</h2><blockquote>
-<p>cat centos-6-x86_64.tar.gz|docker import - test/centos-6:v1.0<br><img src="/img/docker/docker_import.PNG" alt="Alt text"></p>
-</blockquote>
-<p>此外，也可以通过指定 URL 或者某个目录来导入，例如</p>
-<blockquote>
-<p> docker import <a href="http://example.com/exampleimage.tgz" target="_blank" rel="external">http://example.com/exampleimage.tgz</a> example/imagerepo</p>
-</blockquote>
-<p>*注：用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p>
-<h1 id="导出容器">导出容器</h1><p>先启动一下容器：</p>
-<blockquote>
-<p>docker run -t -i 5de0ac2f6f7e /bin/bash</p>
-</blockquote>
-<p>两个参数，-t表示给容器tty终端，-i表示可以interactive，可以交互。</p>
-<p><img src="/img/docker/docker_ps.PNG" alt="Alt text"></p>
-<blockquote>
-<p>docker export 5d73efeb9a38 &gt; tonylit_centos6.tar</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/">centos-6-x86_64.tar.gz</a></p>
-<blockquote>
-<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
-<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[staf使用]]></title>
     <link href="http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/"/>
     <id>http://tonylit.me/2015/12/22/staf使用/</id>
@@ -4923,6 +4936,47 @@
     </summary>
     
       <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[export、import导出导入docker容器]]></title>
+    <link href="http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/"/>
+    <id>http://tonylit.me/2015/12/22/docker import和export/</id>
+    <published>2015-12-22T03:37:27.000Z</published>
+    <updated>2015-12-22T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/" target="_blank" rel="external">centos-6-x86_64.tar.gz</a></p>
+<blockquote>
+<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
+<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br><a id="more"></a></p>
+</blockquote>
+<h2 id="实例">实例</h2><blockquote>
+<p>cat centos-6-x86_64.tar.gz|docker import - test/centos-6:v1.0<br><img src="/img/docker/docker_import.PNG" alt="Alt text"></p>
+</blockquote>
+<p>此外，也可以通过指定 URL 或者某个目录来导入，例如</p>
+<blockquote>
+<p> docker import <a href="http://example.com/exampleimage.tgz" target="_blank" rel="external">http://example.com/exampleimage.tgz</a> example/imagerepo</p>
+</blockquote>
+<p>*注：用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p>
+<h1 id="导出容器">导出容器</h1><p>先启动一下容器：</p>
+<blockquote>
+<p>docker run -t -i 5de0ac2f6f7e /bin/bash</p>
+</blockquote>
+<p>两个参数，-t表示给容器tty终端，-i表示可以interactive，可以交互。</p>
+<p><img src="/img/docker/docker_ps.PNG" alt="Alt text"></p>
+<blockquote>
+<p>docker export 5d73efeb9a38 &gt; tonylit_centos6.tar</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/">centos-6-x86_64.tar.gz</a></p>
+<blockquote>
+<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
+<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   
@@ -5113,61 +5167,6 @@
     </summary>
     
       <category term="work" scheme="http://tonylit.me/tags/work/"/>
-    
-      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[jenkins+maven+jmeter 性能自动化实践]]></title>
-    <link href="http://tonylit.me/2015/12/16/jenkins+maven+jmeter%E6%80%A7%E8%83%BD%E8%87%AA%E5%8A%A8%E5%8C%96%E5%AE%9E%E8%B7%B5/"/>
-    <id>http://tonylit.me/2015/12/16/jenkins+maven+jmeter性能自动化实践/</id>
-    <published>2015-12-16T03:37:27.000Z</published>
-    <updated>2015-12-16T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>先简单介绍这几个工具，其实都不陌生了，平时工作中都会接触到<br>jenkins：前身hudson，开源的CI服务器<br>maven：这里主要是要用到maven与jmeter集成的插件（jmeter-maven-plugin）<br>jmeter：java编写的apache下开源的性能测试工具</p>
-<h1 id="整个环境搭建过程：">整个环境搭建过程：</h1><blockquote>
-<ol>
-<li>新建maven工程，在pom中加入jmeter的插件，将jmeter脚本放入项目中，测试</li>
-<li>搭建jenkins（这里使用的linux环境 centos5.8）</li>
-<li>将maven项目配置在jenkins中</li>
-<li>在jenkins中集成jmeter结果展示的插件（Performance），进行jenkins构建，测试</li>
-</ol>
-</blockquote>
-<a id="more"></a>
-<h1 id="第一步：新建maven项目">第一步：新建maven项目</h1><p>1.新建maven项目，在pom中加入jmeter-maven-plugin插件（由于jmeter-maven插件运行时会自动引入jmeter所需要的类库，所以机器上可以不单独安装jmeter）</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>com.lazerycode.jmeter<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>jmeter-maven-plugin<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.10.1<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="title">id</span>&gt;</span>jmeter-tests<span class="tag">&lt;/<span class="title">id</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="title">phase</span>&gt;</span>verify<span class="tag">&lt;/<span class="title">phase</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="title">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="title">goal</span>&gt;</span>jmeter<span class="tag">&lt;/<span class="title">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="title">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="title">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="title">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>2.在项目中新建source Folder：src/test/jmeter，因为插件中指定在此目录下面查找jmeter脚本来执行，如果想更改路径的话，在pom中自己配置<br><img src="/img/jenkins/jenkins_1.PNG" alt="Alt text"></p>
-<p>3.在Command Line Shell中执行：mvn verify或者mvn jmeter:jmeter，这样jmeter的脚本运行了。<br><img src="/img/jenkins/jenkins_2.PNG" alt="Alt text"></p>
-<p>这里的jmeter脚本比较简单，就是打开一个页面，10个并发，我们可以看下执行结果，确实是按照我们的设置运行了。</p>
-<p><img src="/img/jenkins/jenkins_3.PNG" alt="Alt text"></p>
-<p>以上，我们集成Jmeter插件的maven项目就OK了。</p>
-<hr>
-<h1 id="第二步，搭建jenkins">第二步，搭建jenkins</h1><p>我是linux环境下安装的（下载地址：  <a href="http://pan.baidu.com/s/1bnYTisn" target="_blank" rel="external">jenkins.war</a> 和它常用的插件<a href="http://updates.jenkins-ci.org/download/plugins/" target="_blank" rel="external">jenkins_plugin</a>）（先下载performance，后面会用），jenkins启动直接采用java -jar，用nginx进行访问代理<br>1.将jenkins.war放入服务器上</p>
-<ol>
-<li>直接命令（java的版本需要jdk1.7+）：java -jar jenkins.war，jenkins就启动了，默认端口8080，也可以指定端口启动:加入启动参数 –httpPort=$HTTP_PORT(设置端口)，–httpsPort=$HTTP_PORT(便是使用https协议)；当然完全可以搭建在 tomcat或者resin服务器中。<br><img src="/img/jenkins/jenkins_4.PNG" alt="Alt text"></li>
-</ol>
-<p>3.启动完，我们可以访问jenkins了，输入ip:端口<br><img src="/img/jenkins/jenkins_5.PNG" alt="Alt text"><br>4.使用nginx代理访问jenkins，这一步可以不要，主要是我想用域名方式访问。我们在nginx中简单配置下就可以了：<br><img src="/img/jenkins/jenkins_6.PNG" alt="Alt text"><br><img src="/img/jenkins/jenkins_7.PNG" alt="Alt text"><br>以上，jenkins搭建完成了，比较简单。</p>
-<hr>
-<h1 id="第三步：将项目放在jenkins中构建">第三步：将项目放在jenkins中构建</h1><p>我这里实现的很简单，直接调用的服务器上的脚本运行的；而且本人对jenkins的配置刚开始了解，不太懂，关于项目配置大家可以具体学习下，网上资料比较多。<br>1.开始之前，需要在jenkins中加入上面下载的插件，在jenkins的插件管理中上传就可以了。<br>2.新建一个项目（我这里新建的构建一个自由风格的软件项目），直接运行服务器上的脚本<br><img src="/img/jenkins/jenkins_8.PNG" alt="Alt text"><br>脚本中实现如下：<br><img src="/img/jenkins/jenkins_9.PNG" alt="Alt text"></p>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">export LANG=en_US</span><br><span class="line">export LC_ALL=en_US</span><br><span class="line">export JAVA_HOME=/opt/jdk1.<span class="number">7.0_40</span>/</span><br><span class="line">export CLASSPATH=<span class="variable">$JAVA</span>_HOME/lib:<span class="variable">$JAVA</span>_HOME/jre/lib:<span class="variable">$CLASSPATH</span></span><br><span class="line">export MAVEN_HOME=/opt/apache-maven-<span class="number">3.0</span>.<span class="number">4</span>/</span><br><span class="line">export PATH=<span class="variable">$JAVA</span>_HOME/bin:$&#123;MAVEN_HOME&#125;/bin:<span class="variable">$PATH</span></span><br><span class="line">export MAVEN_OPTS=<span class="string">"-Xmx1024m -XX:MaxPermSize=512m"</span></span><br><span class="line"> </span><br><span class="line">cd  /app/maven_jmeter/</span><br><span class="line">/opt/apache-maven-<span class="number">3.0</span>.<span class="number">4</span>/bin/mvn -s /opt/apache-maven-<span class="number">3.0</span>.<span class="number">4</span>/conf/voen_setting.xml jmeter:jmeter</span><br></pre></td></tr></table></figure>
-<p>以上，jenkins的项目构建结束。</p>
-<hr>
-<h1 id="第四步：测试结果展示">第四步：测试结果展示</h1><p>测试的结果怎样在jenkins中显示呢？这里需要performance插件（上面svn中有）<br>1.我们先来看下结果放在哪<br><img src="/img/jenkins/jenkins_10.PNG" alt="Alt text"><br>2.在jenkins中加入publish perfoemance test result resport<br><img src="/img/jenkins/jenkins_11.PNG" alt="Alt text"><br>3.我们进行构建，看下结果<br><img src="/img/jenkins/jenkins_12.PNG" alt="Alt text"><br>这里展现的结果可以做优化，并且可以集成邮件功能<br>以上，整个实践结束，整体还是比较简单的。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>先简单介绍这几个工具，其实都不陌生了，平时工作中都会接触到<br>jenkins：前身hudson，开源的CI服务器<br>maven：这里主要是要用到maven与jmeter集成的插件（jmeter-maven-plugin）<br>jmeter：java编写的apache下开源的性能测试工具</p>
-<h1 id="整个环境搭建过程：">整个环境搭建过程：</h1><blockquote>
-<ol>
-<li>新建maven工程，在pom中加入jmeter的插件，将jmeter脚本放入项目中，测试</li>
-<li>搭建jenkins（这里使用的linux环境 centos5.8）</li>
-<li>将maven项目配置在jenkins中</li>
-<li>在jenkins中集成jmeter结果展示的插件（Performance），进行jenkins构建，测试</li>
-</ol>
-</blockquote>]]>
-    
-    </summary>
-    
-      <category term="Jmeter" scheme="http://tonylit.me/tags/Jmeter/"/>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
     

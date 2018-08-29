@@ -328,6 +328,83 @@
 
 
   
+    <article id="post-nGrinder activeMQ 消息发送脚本" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2018/08/29/nGrinder activeMQ 消息发送脚本/" class="article-date">
+  	<time datetime="2018-08-29T14:37:37.555Z" itemprop="datePublished">2018-08-29</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+
+                                                
+                                                                
+                                                                    <hr>
+<h1 id="nGrinder_activeMQ_消息发送脚本">nGrinder activeMQ 消息发送脚本</h1><p>最近有个项目想测试mq平台的性能，顺便测试自身业务的消费能力。</p>
+<p>本帅心里其实是拒绝的，MQ本身的性能实际上不需要做测试（公司MQ平台已上线多年，日均几十亿的流量完全没问题，该业务只有几百tps的消费能力），这种把消息抛出去没有返回的业务挺难过的。无奈项目组强烈要求，只能当成测试业务消费能力了。</p>
+<p>由于无法直接得知消息的消费情况，与项目组商议，从业务数据的入库情况，计算每秒入库的数据作为TPS。</p>
+<p>言归正传，来看看怎么写mq消息发送的脚本。</p>
+<hr>
+<p>使用spring&amp;&amp;jmstemplate发送mq消息。</p>
+<p>spring和jms的jar包（未筛选，比较多杂）<br><a href="https://pan.baidu.com/s/1cGQe5AJw2hMj-dyQPW9vBw">https://pan.baidu.com/s/1cGQe5AJw2hMj-dyQPW9vBw</a></p>
+<p>title: nGrinder activeMQ 消息发送脚本<br>date: 2018-08-29 11:37:27<br>updated    : 2018-08-29 13:37:27<br>tags:</p>
+<pre><code><span class="bullet">- </span>性能
+</code></pre><p>categories: </p>
+<hr>
+<p>最近有个项目想测试mq平台的性能，顺便测试自身业务的消费能力。</p>
+<p>本帅心里其实是拒绝的，MQ本身的性能实际上不需要做测试（公司MQ平台已上线多年，日均几十亿的流量完全没问题，该业务只有几百tps的消费能力），这种把消息抛出去没有返回的业务挺难过的。无奈项目组强烈要求，只能当成测试业务消费能力了。</p>
+<p>由于无法直接得知消息的消费情况，与项目组商议，从业务数据的入库情况，计算每秒入库的数据作为TPS。</p>
+<p>言归正传，来看看怎么写mq消息发送的脚本。</p>
+                                                                        
+                                        </div>
+                                        
+                                            <div class="article-info article-info-index">
+                                                
+
+                                                    
+
+                                                        
+                                                            <p class="article-more-link">
+                                                                <a  href="/2018/08/29/nGrinder activeMQ 消息发送脚本/#more">More >></a>
+                                                            </p>
+                                                            
+                                                                <div class="clearfix"></div>
+                                            </div>
+                                            
+            </div>
+            
+                    
+                                <!-- 多说评论框 start -->
+                                
+</article>
+
+<!--
+
+-->
+<!--
+
+-->
+
+  
     <article id="post-perm区gc 导致tps不断下降" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
@@ -564,85 +641,6 @@
 -->
 
   
-    <article id="post-iBase4J 源码之Shiro用户安全校验" class="article article-type-post" itemscope itemprop="blogPost">
-    <script>
-        $("html").niceScroll({
-            cursorcolor: "#2a2929",
-            cursoropacitymax: 1,
-            touchbehavior: false,
-            cursorwidth: "6px",
-            cursorborder: "5",
-            cursorborderradius: "0px",
-            autohidemode: true
-        });
-    </script>
-    
-        <div class="article-meta">
-            <a href="/2018/07/05/iBase4J 源码之Shiro用户安全校验/" class="article-date">
-  	<time datetime="2018-07-05T03:37:27.000Z" itemprop="datePublished">2018-07-05</time>
-</a>
-
-        </div>
-        
-            <div class="article-inner">
-                
-                    <input type="hidden" class="isFancy" />
-                    
-                        
-                            <header class="article-header">
-                                
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/05/iBase4J 源码之Shiro用户安全校验/">iBase4J 源码之Shiro用户安全校验</a>
-    </h1>
-  
-
-
-                            </header>
-                            
-                                    
-                                        <div class="article-entry" itemprop="articleBody">
-                                            
-
-                                                
-                                                                
-                                                                    <p>Apache Shiro? is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.</p>
-<p>by  <a href="https://shiro.apache.org/">https://shiro.apache.org/</a></p>
-                                                                        
-                                        </div>
-                                        
-                                            <div class="article-info article-info-index">
-                                                
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-	</div>
-
-
-                                                    
-
-                                                        
-                                                            <p class="article-more-link">
-                                                                <a  href="/2018/07/05/iBase4J 源码之Shiro用户安全校验/#more">More >></a>
-                                                            </p>
-                                                            
-                                                                <div class="clearfix"></div>
-                                            </div>
-                                            
-            </div>
-            
-                    
-                                <!-- 多说评论框 start -->
-                                
-</article>
-
-<!--
-
--->
-<!--
-
--->
-
-  
     <article id="post-iBase4J 源码之Swagger2接口管理" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
@@ -702,6 +700,85 @@
                                                         
                                                             <p class="article-more-link">
                                                                 <a  href="/2018/07/05/iBase4J 源码之Swagger2接口管理/#more">More >></a>
+                                                            </p>
+                                                            
+                                                                <div class="clearfix"></div>
+                                            </div>
+                                            
+            </div>
+            
+                    
+                                <!-- 多说评论框 start -->
+                                
+</article>
+
+<!--
+
+-->
+<!--
+
+-->
+
+  
+    <article id="post-iBase4J 源码之Shiro用户安全校验" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2018/07/05/iBase4J 源码之Shiro用户安全校验/" class="article-date">
+  	<time datetime="2018-07-05T03:37:27.000Z" itemprop="datePublished">2018-07-05</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/05/iBase4J 源码之Shiro用户安全校验/">iBase4J 源码之Shiro用户安全校验</a>
+    </h1>
+  
+
+
+                            </header>
+                            
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+
+                                                
+                                                                
+                                                                    <p>Apache Shiro? is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.</p>
+<p>by  <a href="https://shiro.apache.org/">https://shiro.apache.org/</a></p>
+                                                                        
+                                        </div>
+                                        
+                                            <div class="article-info article-info-index">
+                                                
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+	</div>
+
+
+                                                    
+
+                                                        
+                                                            <p class="article-more-link">
+                                                                <a  href="/2018/07/05/iBase4J 源码之Shiro用户安全校验/#more">More >></a>
                                                             </p>
                                                             
                                                                 <div class="clearfix"></div>
@@ -864,85 +941,6 @@
                                                         
                                                             <p class="article-more-link">
                                                                 <a  href="/2018/06/29/iBase4J windows 部署/#more">More >></a>
-                                                            </p>
-                                                            
-                                                                <div class="clearfix"></div>
-                                            </div>
-                                            
-            </div>
-            
-                    
-                                <!-- 多说评论框 start -->
-                                
-</article>
-
-<!--
-
--->
-<!--
-
--->
-
-  
-    <article id="post-db2top查看最耗cpu的sql" class="article article-type-post" itemscope itemprop="blogPost">
-    <script>
-        $("html").niceScroll({
-            cursorcolor: "#2a2929",
-            cursoropacitymax: 1,
-            touchbehavior: false,
-            cursorwidth: "6px",
-            cursorborder: "5",
-            cursorborderradius: "0px",
-            autohidemode: true
-        });
-    </script>
-    
-        <div class="article-meta">
-            <a href="/2018/06/17/db2top查看最耗cpu的sql/" class="article-date">
-  	<time datetime="2018-06-17T03:37:27.000Z" itemprop="datePublished">2018-06-17</time>
-</a>
-
-        </div>
-        
-            <div class="article-inner">
-                
-                    <input type="hidden" class="isFancy" />
-                    
-                        
-                            <header class="article-header">
-                                
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/17/db2top查看最耗cpu的sql/">db2top查看最耗cpu的sql</a>
-    </h1>
-  
-
-
-                            </header>
-                            
-                                    
-                                        <div class="article-entry" itemprop="articleBody">
-                                            
-
-                                                
-                                                                
-                                                                    <p>有台db2数据库，没有任何请求的情况cpu波动很大。</p>
-<p>通过db2top查看哪些sql在执行。<br>
-                                                                        
-                                        </div>
-                                        
-                                            <div class="article-info article-info-index">
-                                                
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
-	</div>
-
-
-                                                    
-
-                                                        
-                                                            <p class="article-more-link">
-                                                                <a  href="/2018/06/17/db2top查看最耗cpu的sql/#more">More >></a>
                                                             </p>
                                                             
                                                                 <div class="clearfix"></div>
