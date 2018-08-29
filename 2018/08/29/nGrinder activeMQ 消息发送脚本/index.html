@@ -4,25 +4,28 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>淘淘的博客</title>
+  <title>nGrinder activeMQ 消息发送脚本 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="nGrinder activeMQ 消息发送脚本最近有个项目想测试mq平台的性能，顺便测试自身业务的消费能力。
+  <meta name="description" content="最近有个项目想测试mq平台的性能，顺便测试自身业务的消费能力。
 本帅心里其实是拒绝的，MQ本身的性能实际上不需要做测试（公司MQ平台已上线多年，日均几十亿的流量完全没问题，该业务只有几百tps的消费能力），这种把消息抛出去没有返回的业务挺难过的。无奈项目组强烈要求，只能当成测试业务消费能力了。
-由于无法直接得知消息的消费情况，与项目组商议，从业务数据">
+由于无法直接得知消息的消费情况，与项目组商议，从业务数据的入库情况，计算每秒入库的数据作为TPS。
+言归">
 <meta property="og:type" content="article">
-<meta property="og:title" content="淘淘的博客">
+<meta property="og:title" content="nGrinder activeMQ 消息发送脚本">
 <meta property="og:url" content="http://tonylit.me/2018/08/29/nGrinder activeMQ 消息发送脚本/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="nGrinder activeMQ 消息发送脚本最近有个项目想测试mq平台的性能，顺便测试自身业务的消费能力。
+<meta property="og:description" content="最近有个项目想测试mq平台的性能，顺便测试自身业务的消费能力。
 本帅心里其实是拒绝的，MQ本身的性能实际上不需要做测试（公司MQ平台已上线多年，日均几十亿的流量完全没问题，该业务只有几百tps的消费能力），这种把消息抛出去没有返回的业务挺难过的。无奈项目组强烈要求，只能当成测试业务消费能力了。
-由于无法直接得知消息的消费情况，与项目组商议，从业务数据">
+由于无法直接得知消息的消费情况，与项目组商议，从业务数据的入库情况，计算每秒入库的数据作为TPS。
+言归">
 <meta property="og:image" content="http://tonylit.me/img/nGrinder-activeMQ-消息发送脚本/parameter.PNG">
-<meta property="og:updated_time" content="2018-08-29T14:37:37.555Z">
+<meta property="og:updated_time" content="2018-08-29T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="淘淘的博客">
-<meta name="twitter:description" content="nGrinder activeMQ 消息发送脚本最近有个项目想测试mq平台的性能，顺便测试自身业务的消费能力。
+<meta name="twitter:title" content="nGrinder activeMQ 消息发送脚本">
+<meta name="twitter:description" content="最近有个项目想测试mq平台的性能，顺便测试自身业务的消费能力。
 本帅心里其实是拒绝的，MQ本身的性能实际上不需要做测试（公司MQ平台已上线多年，日均几十亿的流量完全没问题，该业务只有几百tps的消费能力），这种把消息抛出去没有返回的业务挺难过的。无奈项目组强烈要求，只能当成测试业务消费能力了。
-由于无法直接得知消息的消费情况，与项目组商议，从业务数据">
+由于无法直接得知消息的消费情况，与项目组商议，从业务数据的入库情况，计算每秒入库的数据作为TPS。
+言归">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -215,7 +218,7 @@
     
         <div class="article-meta">
             <a href="/2018/08/29/nGrinder activeMQ 消息发送脚本/" class="article-date">
-  	<time datetime="2018-08-29T14:37:37.555Z" itemprop="datePublished">2018-08-29</time>
+  	<time datetime="2018-08-29T03:37:27.000Z" itemprop="datePublished">2018-08-29</time>
 </a>
 
         </div>
@@ -225,30 +228,42 @@
                     <input type="hidden" class="isFancy" />
                     
                         
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      nGrinder activeMQ 消息发送脚本
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+	</div>
+
+
+                                        
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
                                         <div class="article-entry" itemprop="articleBody">
                                             
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#nGrinder_activeMQ_消息发送脚本"><span class="toc-number">1.</span> <span class="toc-text">nGrinder activeMQ 消息发送脚本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用spring&&jmstemplate发送mq消息"><span class="toc-number">2.</span> <span class="toc-text">使用spring&&jmstemplate发送mq消息</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#使用spring&&jmstemplate发送mq消息"><span class="toc-number">1.</span> <span class="toc-text">使用spring&&jmstemplate发送mq消息</span></a></li></ol>
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <hr>
-<h1 id="nGrinder_activeMQ_消息发送脚本">nGrinder activeMQ 消息发送脚本</h1><p>最近有个项目想测试mq平台的性能，顺便测试自身业务的消费能力。</p>
-<p>本帅心里其实是拒绝的，MQ本身的性能实际上不需要做测试（公司MQ平台已上线多年，日均几十亿的流量完全没问题，该业务只有几百tps的消费能力），这种把消息抛出去没有返回的业务挺难过的。无奈项目组强烈要求，只能当成测试业务消费能力了。</p>
-<p>由于无法直接得知消息的消费情况，与项目组商议，从业务数据的入库情况，计算每秒入库的数据作为TPS。</p>
-<p>言归正传，来看看怎么写mq消息发送的脚本。</p>
-<hr>
-<p>使用spring&amp;&amp;jmstemplate发送mq消息。</p>
-<p>spring和jms的jar包（未筛选，比较多杂）<br><a href="https://pan.baidu.com/s/1cGQe5AJw2hMj-dyQPW9vBw" target="_blank" rel="external">https://pan.baidu.com/s/1cGQe5AJw2hMj-dyQPW9vBw</a></p>
-<p>title: nGrinder activeMQ 消息发送脚本<br>date: 2018-08-29 11:37:27<br>updated    : 2018-08-29 13:37:27<br>tags:</p>
-<pre><code><span class="bullet">- </span>性能
-</code></pre><p>categories: </p>
-<hr>
-<p>最近有个项目想测试mq平台的性能，顺便测试自身业务的消费能力。</p>
+                                                                            <p>最近有个项目想测试mq平台的性能，顺便测试自身业务的消费能力。</p>
 <p>本帅心里其实是拒绝的，MQ本身的性能实际上不需要做测试（公司MQ平台已上线多年，日均几十亿的流量完全没问题，该业务只有几百tps的消费能力），这种把消息抛出去没有返回的业务挺难过的。无奈项目组强烈要求，只能当成测试业务消费能力了。</p>
 <p>由于无法直接得知消息的消费情况，与项目组商议，从业务数据的入库情况，计算每秒入库的数据作为TPS。</p>
 <p>言归正传，来看看怎么写mq消息发送的脚本。</p>
@@ -306,7 +321,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-nGrinder activeMQ 消息发送脚本" data-title="" data-url="http://tonylit.me/2018/08/29/nGrinder activeMQ 消息发送脚本/"></div>
+                                    <div class="ds-thread" data-thread-key="post-nGrinder activeMQ 消息发送脚本" data-title="nGrinder activeMQ 消息发送脚本" data-url="http://tonylit.me/2018/08/29/nGrinder activeMQ 消息发送脚本/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">
