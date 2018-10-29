@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content=""/>
+  
+  <title>JAVA性能分析之火焰图 | 淘淘的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="JAVA火焰图可以方便的找到哪些代码消耗CPU，对性能分析和调优提供很大帮助。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA性能分析之火焰图">
+<meta property="og:url" content="http://tonylit.me/2018/10/26/JAVA性能分析之火焰图/index.html">
+<meta property="og:site_name" content="淘淘的博客">
+<meta property="og:description" content="JAVA火焰图可以方便的找到哪些代码消耗CPU，对性能分析和调优提供很大帮助。">
+<meta property="og:image" content="http://tonylit.me/img/JAVA火焰图/火焰图.PNG">
+<meta property="og:updated_time" content="2018-10-26T05:37:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JAVA性能分析之火焰图">
+<meta name="twitter:description" content="JAVA火焰图可以方便的找到哪些代码消耗CPU，对性能分析和调优提供很大帮助。">
+  
+    <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/leaves.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script src="http://tonylit.me//js/jquery.nicescroll.js"></script>
+
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+<form class="search" method="get" accept-charset="utf-8">
+			<input type="text" id="chillax-search-input" class="st-search-input_my" maxlength="30" placeholder="search" />
+		</form>
+
+
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/c.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/" class="alluraregular">tonyli</a></h1>
+		</hgroup>
+        <!--
+		
+		<p class="header-subtitle">Nothing is given. Everything is earned.</p>
+		
+        -->
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/work">工作日志</a></li>
+				        
+							<li><a href="/tags/life">点滴生活</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Appium/" style="font-size: 12.86px;">Appium</a> <a href="/tags/Gatling/" style="font-size: 11.43px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.43px;">Jmeter</a> <a href="/tags/Python/" style="font-size: 12.86px;">Python</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 17.14px;">docker</a> <a href="/tags/java/" style="font-size: 18.57px;">java</a> <a href="/tags/kafka/" style="font-size: 11.43px;">kafka</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/loadrunner/" style="font-size: 14.29px;">loadrunner</a> <a href="/tags/pinpoint/" style="font-size: 10px;">pinpoint</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/work/" style="font-size: 15.71px;">work</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a>
+					</div>
+				</section>
+				
+
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">Nothing is given. Everything is earned.</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tonyli</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/c.jpg" class="js-avatar">
+				<hgroup>
+				  <h1 class="header-author">tonyli</h1>
+				</hgroup>
+			</div>
+			
+			<p class="header-subtitle">Nothing is given. Everything is earned.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/work">工作日志</a></li>
+		        
+					<li><a href="/tags/life">点滴生活</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+
+	  <div class="recent">
+高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
+</div>
+
+      <div class="body-wrap"><article id="post-JAVA性能分析之火焰图" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2018/10/26/JAVA性能分析之火焰图/" class="article-date">
+  	<time datetime="2018-10-26T03:37:27.000Z" itemprop="datePublished">2018-10-26</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      JAVA性能分析之火焰图
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+	</div>
+
+
+                                        
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#安装环境"><span class="toc-number">1.</span> <span class="toc-text">安装环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装lightweight-java-profiler"><span class="toc-number">2.</span> <span class="toc-text">安装lightweight-java-profiler</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#解压lightweight-java-profiler"><span class="toc-number">2.1.</span> <span class="toc-text">解压lightweight-java-profiler</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改globals-h_[可使用默认配置]"><span class="toc-number">2.2.</span> <span class="toc-text">修改globals.h [可使用默认配置]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译"><span class="toc-number">2.3.</span> <span class="toc-text">编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置JVM参数，启动应用"><span class="toc-number">2.4.</span> <span class="toc-text">配置JVM参数，启动应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收集采样数据"><span class="toc-number">2.5.</span> <span class="toc-text">收集采样数据</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#生成火焰图"><span class="toc-number">3.</span> <span class="toc-text">生成火焰图</span></a></li></ol>
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p>JAVA火焰图可以方便的找到哪些代码消耗CPU，对性能分析和调优提供很大帮助。</p>
+<a id="more"></a>
+<hr>
+<h1 id="安装环境">安装环境</h1><ol>
+<li>jdk版本： openjdk-1.8.0_92 （只支持hotspot的vm）</li>
+<li>Centos 64位操作系统</li>
+<li>安装了4.6以上版本的gcc </li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="operator"><span class="keyword">install</span> gcc-<span class="keyword">c</span>*</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>配置JAVA环境变量</li>
+</ol>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">编辑 /etc/profile文件</span><br><span class="line">export JAVA_HOME=/opt/wildfly/openjdk/openjdk-<span class="number">1.8</span>.<span class="number">0_</span>92</span><br><span class="line">export PATH=<span class="variable">$JAVA</span>_HOME/bin:<span class="variable">$PATH</span></span><br><span class="line">export CLASSPATH=.:<span class="variable">$JAVA</span>_HOME/lib/dt.jar:<span class="variable">$JAVA</span>_HOME/lib/tools.jar</span><br><span class="line">记得执行source /etc/profile命令，使之生效。</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="安装lightweight-java-profiler">安装lightweight-java-profiler</h1><p>需要下载<a href="https://github.com/pandening/lightweight-java-profiler" target="_blank" rel="external">lightweight-java-profiler</a>进行编译。 这里提供<a href="https://pan.baidu.com/s/1E73gkbMHB8c_-YZZtEEeSQ" target="_blank" rel="external">我的百度云盘</a>下载。</p>
+<h2 id="解压lightweight-java-profiler">解压lightweight-java-profiler</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">tar</span> <span class="tag">-xvf</span> <span class="tag">lightweight-java-profiler-master</span><span class="class">.war</span></span><br></pre></td></tr></table></figure>
+<h2 id="修改globals-h_[可使用默认配置]">修改globals.h [可使用默认配置]</h2><p>有几个采样参数存于/lightweight-java-profiler-master/src/globals.h文件中，编译之前可做修改。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 采样的频率，缺省是每秒100次 </span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> kNumInterrupts = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 最大采样的线程栈，缺省3000，超过3000就忽略</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> kMaxStackTraces = <span class="number">3000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 栈的深度，缺省是128（对于调用层次深的应用需要调大）</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> kMaxFramesToCapture = <span class="number">128</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 采样数据保存至traces.txt文件中.</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">char</span> kDefaultOutFile[] = <span class="string">"traces.txt"</span></span><br></pre></td></tr></table></figure>
+<h2 id="编译">编译</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">make</span> BITS=<span class="number">64</span> <span class="keyword">all</span></span><br></pre></td></tr></table></figure>
+<p>执行成功后会生产build-64文件夹，里面有名为liblagent.so的文件。这就是我们需要的收集profile数据的.so文件。</p>
+<h2 id="配置JVM参数，启动应用">配置JVM参数，启动应用</h2><p>在JAVA应用启动参数中加入：</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"><span class="symbol">agentpath:</span><span class="variable">$&#123;</span>path&#125;/liblagent.so</span></span><br></pre></td></tr></table></figure>
+<h2 id="收集采样数据">收集采样数据</h2><p>traces.txt文件默认会在启动命令当前目录下生成（比如我使用的wildfly8，在启动目录/wildfly/bin目录下生产该文件）。</p>
+<p>应用运行过程中traces.txt不会即时记录数据，在应用shutdown时才写入，所以不可kill进程，否则收集不到数据。</p>
+<hr>
+<h1 id="生成火焰图">生成火焰图</h1><p>火焰图需要使用<a href="https://github.com/brendangregg/FlameGraph" target="_blank" rel="external">FlameGraph</a>工具进行转换。</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd FlameGraph</span><br><span class="line">./stackcollapse-ljp.awk &lt; $&#123;path&#125;/traces.txt | ./flamegraph.pl &gt; &#123;<span class="variable">$path</span>&#125;/traces.svg</span><br></pre></td></tr></table></figure>
+<p>得到一个火焰图的.svg文件，用浏览器打开就可以看到火焰图了。</p>
+<p><img src="/img/JAVA火焰图/火焰图.PNG" alt="Alt text"></p>
+<p>在看火焰图的时候，x轴横条宽度来度量时间指标，y轴代表线程栈的层次，越宽代表占用的CPU时间越多，也就越是性能瓶颈。</p>
+
+                                                                                
+                                        </div>
+                                        
+            </div>
+            
+                <div class="bdsharebuttonbox" style="margin-top:10px;margin-left:30px;float:left;">
+                    <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                    <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                    <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
+                    <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
+                    <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                    <a href="#" class="bds_more" data-cmd="more"></a>
+                </div>
+                <script>
+                    window._bd_share_config = {
+                        "common": {
+                            "bdSnsKey": {},
+                            "bdText": "",
+                            "bdMini": "1",
+                            "bdMiniList": false,
+                            "bdStyle": "2",
+                            "bdSize": "16"
+                        },
+                        "share": {}
+                    };
+                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
+  
+  
+    <a href="/2018/08/29/nGrinder activeMQ 消息发送脚本/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">nGrinder activeMQ 消息发送脚本</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-JAVA性能分析之火焰图" data-title="JAVA性能分析之火焰图" data-url="http://tonylit.me/2018/10/26/JAVA性能分析之火焰图/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "tonylit"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
+</article>
+
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+    
+-->
+<!--
+
+-->
+
+</div>
+      <!--<footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 tonyli
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+    
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+   
+  </div>
+</footer>-->
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/prefixfree.js" type="text/javascript"></script>
+<script src="/js/require-2.1.20.js" type="text/javascript"></script>
+<script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
+    <a title="返回顶部" style="opacity: 100%;">
+        <img src="/img/scrollup.png" />
+    </a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+
+  </div>
+</body>
+</html>
