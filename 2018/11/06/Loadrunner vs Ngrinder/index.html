@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content=""/>
+  
+  <title>Loadrunner vs Ngrinder | 淘淘的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="整理Loadrunner与Ngrinder的部分差异。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Loadrunner vs Ngrinder">
+<meta property="og:url" content="http://tonylit.me/2018/11/06/Loadrunner vs Ngrinder/index.html">
+<meta property="og:site_name" content="淘淘的博客">
+<meta property="og:description" content="整理Loadrunner与Ngrinder的部分差异。">
+<meta property="og:updated_time" content="2018-11-06T05:37:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Loadrunner vs Ngrinder">
+<meta name="twitter:description" content="整理Loadrunner与Ngrinder的部分差异。">
+  
+    <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/leaves.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script src="http://tonylit.me//js/jquery.nicescroll.js"></script>
+
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+<form class="search" method="get" accept-charset="utf-8">
+			<input type="text" id="chillax-search-input" class="st-search-input_my" maxlength="30" placeholder="search" />
+		</form>
+
+
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/c.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/" class="alluraregular">tonyli</a></h1>
+		</hgroup>
+        <!--
+		
+		<p class="header-subtitle">Nothing is given. Everything is earned.</p>
+		
+        -->
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/work">工作日志</a></li>
+				        
+							<li><a href="/tags/life">点滴生活</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Appium/" style="font-size: 12.86px;">Appium</a> <a href="/tags/Gatling/" style="font-size: 11.43px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.43px;">Jmeter</a> <a href="/tags/Python/" style="font-size: 12.86px;">Python</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 17.14px;">docker</a> <a href="/tags/java/" style="font-size: 18.57px;">java</a> <a href="/tags/kafka/" style="font-size: 11.43px;">kafka</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/loadrunner/" style="font-size: 14.29px;">loadrunner</a> <a href="/tags/pinpoint/" style="font-size: 10px;">pinpoint</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/work/" style="font-size: 15.71px;">work</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a>
+					</div>
+				</section>
+				
+
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">Nothing is given. Everything is earned.</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tonyli</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/c.jpg" class="js-avatar">
+				<hgroup>
+				  <h1 class="header-author">tonyli</h1>
+				</hgroup>
+			</div>
+			
+			<p class="header-subtitle">Nothing is given. Everything is earned.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/work">工作日志</a></li>
+		        
+					<li><a href="/tags/life">点滴生活</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+
+	  <div class="recent">
+高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
+</div>
+
+      <div class="body-wrap"><article id="post-Loadrunner vs Ngrinder" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2018/11/06/Loadrunner vs Ngrinder/" class="article-date">
+  	<time datetime="2018-11-06T03:37:27.000Z" itemprop="datePublished">2018-11-06</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      Loadrunner vs Ngrinder
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/loadrunner/">loadrunner</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+	</div>
+
+
+                                        
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p>整理Loadrunner与Ngrinder的部分差异。</p>
+<a id="more"></a>
+<hr>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">功能</th>
+<th style="text-align:left">LR</th>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+<th style="text-align:left">NGRINDER</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">参数化</td>
+<td style="text-align:left">参数类型</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">实现方式</td>
+<td style="text-align:left">实现方式</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">File</td>
+<td style="text-align:left">取值方式</td>
+<td style="text-align:left">迭代方式</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">sequential<br>（顺序取值）</td>
+<td style="text-align:left">Each Iteration<br>（每次迭代）</td>
+<td style="text-align:left">在参数列表中设置，按照参数化的数据顺序，依次取值，取到最后一行时继续从头开始取。迭代一次值改变一次，迭代内值不变。</td>
+<td style="text-align:left"><br>变量声明：<br>public static List<string> lineList //存放参数文件记录<br>public def custno<br>public def lineNumber = 0<br>读取文件，在BeforeProcess块中定义：<br>lineList = new File(“./resources/custno.dat”).readLines(“UTF-8”)<br>顺序取值，在@Before方法内部调用，减少代码在Test中的耗时：<br>  lineNumber = lineNumber%(lineList.size()-1)+1 //考虑了0行是列名行的情况，实际值从第1行开始<br>custno = lineList.get(lineNumber)</string></td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Each Occurrence<br>（每次出现）</td>
+<td style="text-align:left">在参数列表中设置，按照参数化的数据顺序，一个一个的来取，取到最后一行时继续从头开始取。每次出现的值都不一样</td>
+<td style="text-align:left"><br>变量声明：<br>public static List<string> lineList //存放参数文件记录<br>public def custno<br>public def lineNumber = 0<br>读取文件，在BeforeProcess块中定义：<br>lineList = new File(“./resources/custno.dat”).readLines(“UTF-8”)<br>顺序取值，在Test块中各出现处插入如下程序：<br>  lineNumber = lineNumber%(lineList.size()-1)+1 //考虑了0行是列名行的情况，实际值从第1行开始<br>custno = lineList.get(lineNumber)</string></td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Once(只取一次)</td>
+<td style="text-align:left">在参数列表中设置，实际只取第一行</td>
+<td style="text-align:left">lineNumber取固定值1</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Random<br>(随机取值)</td>
+<td style="text-align:left">Each Iteration<br>（每次迭代）</td>
+<td style="text-align:left">在参数列表中设置，随机取值</td>
+<td style="text-align:left">变量声明：<br>public static List<string> lineList //存放参数文件记录<br>public def custno<br>public def rowNumber<br>读取文件，在BeforeProcess块中定义：<br>lineList = new File(“./resources/custno.dat”).readLines(“UTF-8”)<br>随机取值，在某一个test中定义：<br>def rowNumbertemp = new Random().nextInt(lineList.size())<br>  if(rowNumbertemp == 0) {<br>   rowNumbertemp = 1<br>  }<br>  rowNumber = rowNumbertemp<br>  custno = lineList.get(rowNumber) //在其他需要使用的地方直接用rowNumber参数</string></td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Each Occurrence<br>（每次出现）</td>
+<td style="text-align:left">在参数列表中设置，每次出现的值都不一样</td>
+<td style="text-align:left">在出现处插入如下程序：<br>def rowNumber = new Random().nextInt(lineList.size())<br>  if(rowNumber == 0) {<br>   rowNumber = 1<br>  }<br>  custno = lineList.get(rowNumber)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Once(只取一次)</td>
+<td style="text-align:left">在参数列表中设置，每个虚拟用户值不一样，但每次迭代取值都一样</td>
+<td style="text-align:left">在BeforeThread处插入如下程序：<br>def rowNumber = new Random().nextInt(lineList.size())<br>  if(rowNumber == 0) {<br>   rowNumber = 1<br>  }<br>  custno = lineList.get(rowNumber)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Unique<br>(唯一性取值)</td>
+<td style="text-align:left">Each Iteration<br>（每次迭代）</td>
+<td style="text-align:left">在参数列表中设置，结束策略有三种，分别为：1、AbortVuser；2、ContinueInCycleManner；3、ContinueWithLastValue。通过下拉框选择结束策略</td>
+<td style="text-align:left">参数文件第一行是标题<br>文件最后不留空行<br>编码实现唯一性取值，参考TestRunner.groovy的代码：<br>首先声明全局类变量<br>//声明类的全局变量<br>public static final List<string> usernameList = new File(“./resources/username.txt”).readLines()<br>public def username<br>    private enum WhenOutOfValues {<br>        AbortVuser, ContinueInCycleManner, ContinueWithLastValue<br>    }<br>private int invokeTimes = 0 //调用方法计数，不可随意修改<br>//迭代唯一取值方法<br>  //update on Each Iteration<br>    private int getCounterByIteration() {<br>        assertTrue(grinder.runNumber &gt;= 0)<br>        int counter = getCounter(grinder.runNumber)<br>        int line2 =counter + 1 ;<br>  int MaxLine = usernameList.size() - 1;<br>  WhenOutOfValues outHandler = WhenOutOfValues.AbortVuser<br>  if (line2 &gt; MaxLine) {<br>            if (outHandler.equals(WhenOutOfValues.AbortVuser)) {<br>                grinder.stopThisWorkerThread()<br>            } else if (outHandler.equals(WhenOutOfValues.ContinueInCycleManner)) {<br>                line2 = (line2 - 1) % MaxLine + 1<br>            } else if (outHandler.equals(WhenOutOfValues.ContinueWithLastValue)) {<br>                line2 = MaxLine;<br>            }<br>        }<br>        return line2<br>    }<br> //取唯一值的计算方法<br>    private int getCounter(int iteration){<br>        int intAgents = Integer.parseInt(grinder.getProperties().get(“grinder.agents”).toString())<br>        int intProcs = Integer.parseInt(grinder.properties.get(“grinder.processes”).toString())<br>        int intThreads = Integer.parseInt(grinder.properties.get(“grinder.threads”).toString())<br>        int agent_no = grinder.agentNumber<br>        int proc_no = grinder.processNumber<br>        int thread_no = grinder.threadNumber<br><br>        int counter = agent_no <em> intProcs </em> intThreads + proc_no <em> intThreads + thread_no + intAgents </em> intProcs <em> intThreads </em> iteration<br>        return counter<br>    }<br>在@Before方法内部调用，减少唯一值代码在Test中的耗时<br>    int line = this.getCounterByIteration();<br>    username = usernameList.get(line)<br><br></string></td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Each Occurrence<br>（每次出现）</td>
+<td style="text-align:left">在参数列表中设置，结束策略有三种，分别为：1、AbortVuser；2、ContinueInCycleManner；3、ContinueWithLastValue。通过下拉框选择结束策略</td>
+<td style="text-align:left">参数文件第一行是标题<br>文件最后不留空行<br>编码实现唯一性取值，参考TestRunner.groovy的代码：<br>首先声明全局类变量<br>//声明类的全局变量<br>public static final List<string> usernameList = new File(“./resources/username.txt”).readLines()<br>    private enum WhenOutOfValues {<br>        AbortVuser, ContinueInCycleManner, ContinueWithLastValue<br>    }<br>private int invokeTimes = 0 //调用方法计数，不可随意修改<br><br>  //update on Each occurrrence<br>    private int getCounterByOccurrence() {<br>        int counter = getCounter(invokeTimes)<br>        invokeTimes++<br>        int line2 =counter + 1 ;<br>  int MaxLine = usernameList.size() - 1;<br>  WhenOutOfValues outHandler = WhenOutOfValues.AbortVuser<br>  if (line2 &gt; MaxLine) {<br>            if (outHandler.equals(WhenOutOfValues.AbortVuser)) {<br>                grinder.stopThisWorkerThread()<br>            } else if (outHandler.equals(WhenOutOfValues.ContinueInCycleManner)) {<br>                line2 = (line2 - 1) % MaxLine + 1<br>            } else if (outHandler.equals(WhenOutOfValues.ContinueWithLastValue)) {<br>                line2 = MaxLine;<br>            }<br>        }<br>        return line2<br>    }<br> //取唯一值的计算方法<br>    private int getCounter(int iteration){<br>        int intAgents = Integer.parseInt(grinder.getProperties().get(“grinder.agents”).toString())<br>        int intProcs = Integer.parseInt(grinder.properties.get(“grinder.processes”).toString())<br>        int intThreads = Integer.parseInt(grinder.properties.get(“grinder.threads”).toString())<br>        int agent_no = grinder.agentNumber<br>        int proc_no = grinder.processNumber<br>        int thread_no = grinder.threadNumber<br><br>        int counter = agent_no <em> intProcs </em> intThreads + proc_no <em> intThreads + thread_no + intAgents </em> intProcs <em> intThreads </em> iteration<br>        return counter<br>    }<br>在@Test方法内部各出现处调用<br>     int line = this.getCounterByOccurrence();<br>     String name = usernameList.get(line)<br><br></string></td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Once(只取一次)</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">参数文件第一行是标题<br>文件最后不留空行<br>编码实现唯一性取值，参考TestRunner.groovy的代码：<br>首先声明全局类变量<br>//声明类的全局变量<br>public static final List<string> usernameList = new File(“./resources/username.txt”).readLines()<br>    private enum WhenOutOfValues {<br>        AbortVuser, ContinueInCycleManner, ContinueWithLastValue<br>    }<br>private int invokeTimes = 0 //调用方法计数，不可随意修改<br>//迭代唯一取值方法<br>    //update Once<br>  private int getCounterByOnce() {<br>        int counter = getCounter(0)<br>        int line2 =counter + 1 ;<br>  int MaxLine = usernameList.size() - 1;<br>  if (line2 &gt; MaxLine) {<br>            if (outHandler.equals(WhenOutOfValues.AbortVuser)) {<br>                grinder.stopThisWorkerThread()<br>            } else if (outHandler.equals(WhenOutOfValues.ContinueInCycleManner)) {<br>                line2 = (line2 - 1) % MaxLine + 1 <br>            } else if (outHandler.equals(WhenOutOfValues.ContinueWithLastValue)) {<br>                line2 = MaxLine;<br>            }<br>        }<br>        return line2<br>    }<br><br> //取唯一值的计算方法<br>    private int getCounter(int iteration){<br>        int intAgents = Integer.parseInt(grinder.getProperties().get(“grinder.agents”).toString())<br>        int intProcs = Integer.parseInt(grinder.properties.get(“grinder.processes”).toString())<br>        int intThreads = Integer.parseInt(grinder.properties.get(“grinder.threads”).toString())<br>        int agent_no = grinder.agentNumber<br>        int proc_no = grinder.processNumber<br>        int thread_no = grinder.threadNumber<br><br>        int counter = agent_no <em> intProcs </em> intThreads + proc_no <em> intThreads + thread_no + intAgents </em> intProcs <em> intThreads </em> iteration<br>        return counter<br>    }<br>在@Before方法内部调用<br>    int line = this.getCounterByOnce();<br>    String name = usernameList.get(line)<br><br></string></td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">同行取值</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">变量声明：<br>public static List<string> cityLineList //存放参数文件记录<br>读取文件，在BeforeProcess块中定义：<br>cityLineList = new File(“./resources/City.txt”).readLines(“UTF-8”)<br>//x、y与city相关，需要同行取值，在Test方法内，city赋值处进行x、y的赋值<br>city = cityLineList.get(cityRowNumber).split(“,”)[1]<br>  x = cityLineList.get(cityRowNumber).split(“,”)[5]<br>  y = cityLineList.get(cityRowNumber).split(“,”)[4]</string></td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">文件读取方式</td>
+<td style="text-align:left">按列号取值</td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">支持，见同行取值中的[]</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">按列名取值</td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">不支持</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">文件列分隔符</td>
+<td style="text-align:left">支持逗号、tab键、空格做分隔符</td>
+<td style="text-align:left">支持所有分隔符，见同行取值中的.split(“,”)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">从第几行开始取值</td>
+<td style="text-align:left">支持从任何一行开始</td>
+<td style="text-align:left">支持从任何一行开始，见同行取值中cityRowNumber + n；同时cityLineList.size() - n</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">参数模拟(simulate parameter)</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">支持，将Test方法中实际发送的请求注释，并将取值打印到日志中grinder.logger.info(“x:”+x); 运行，查看日志中实际取值</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">Date/Time</td>
+<td style="text-align:left">原值</td>
+<td style="text-align:left">Each Occurrence<br>（每次出现）</td>
+<td style="text-align:left">参数类型选择Date/Time<br>选择格式化字符串，例如<br>%Y-%m-%dT%H:%M:%S.000得到结果是<br>2017-10-31T16:27:10.993</td>
+<td style="text-align:left">在Test()出现处插入如下程序：<br>SimpleDateFormat formatter = new SimpleDateFormat(“dd-MM-yyyy HH:mm:ss:SSS”);<br>  String formatStr =formatter.format(new Date());<br>//输出结果01-11-2017 16:51:11:251<br>可以指定不同的日期格式化字符串</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">增加偏移量</td>
+<td style="text-align:left">Each Occurrence<br>（每次出现）</td>
+<td style="text-align:left">日期时间参数，指定offset如增加1天和8小时，通过界面设置完成</td>
+<td style="text-align:left">在Test()出现处插入如下程序：<br>  SimpleDateFormat formatter = new SimpleDateFormat(“dd-MM-yyyy HH:mm:ss:SSS”);<br>  Date today = new Date()<br>  Calendar c = Calendar.getInstance();<br>  c.setTime(today);<br>  c.add(Calendar.DAY_OF_MONTH, 1);// 今天+1天<br>  c.add(Calendar.HOUR,8)//今天+8小时<br>  Date tomorrow = c.getTime();<br>  String formatStr =formatter.format(tomorrow);</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">Group Name</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">参数类型选择Group Name，场景中设置group的名称。</td>
+<td style="text-align:left">代码指定变量值即可。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">Iteration Number</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">当前某个agent某一进程下某线程已执行的迭代次数，从1开始计数，每次迭代加1</td>
+<td style="text-align:left">grinder.runNumber，从0开始</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">Load Generator Name</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">参数设置为Load Generator Name</td>
+<td style="text-align:left">InetAddress.getLocalHost().getHostName()</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">Random Number</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">参数设置类型Random，[min,max],包含最小值和最大值的闭区间，默认1~100</td>
+<td style="text-align:left">new Random().nextInt(MAX)，0~MAX的区间，包含0不包含MAX</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">Table</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">暂未实现</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">Unique Number</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Each Iteration<br>（每次迭代）</td>
+<td style="text-align:left">参数类型设置为”Unique Number”<br>指定取值范围，范围默认1-100<br>超出范围后的方法可选：终止；循环；取最后一次的结果</td>
+<td style="text-align:left">private int invokeTimes = 0 //调用方法计数，不可随意修改<br>private jobId               //全局变量，保存获取到的唯一值<br>    private enum WhenOutOfValues {<br>        AbortVuser, ContinueInCycleManner, ContinueWithLastValue<br>    }<br>  <br>//迭代唯一取值方法<br>  //update on Each Iteration<br>  private int getCounterByIteration() {<br>        assertTrue(grinder.runNumber &gt;= 0)<br>        int counter = getCounter(grinder.runNumber)<br>        int line2 =counter + 1 ;<br>  int MaxLine = 100;<br>WhenOutOfValues outHandler = WhenOutOfValues.AbortVuser<br>  if (line2 &gt; MaxLine) {<br>            if (outHandler.equals(WhenOutOfValues.AbortVuser)) {<br>                grinder.stopThisWorkerThread()<br>            } else if (outHandler.equals(WhenOutOfValues.ContinueInCycleManner)) {<br>                line2 = (line2 - 1) % MaxLine + 1 <br>            } else if (outHandler.equals(WhenOutOfValues.ContinueWithLastValue)) {<br>                line2 = MaxLine;<br>            }<br>        }<br>        return line2<br>    }<br> //取唯一值的计算方法<br>    private int getCounter(int iteration){<br>        int intAgents = Integer.parseInt(grinder.getProperties().get(“grinder.agents”).toString())<br>        int intProcs = Integer.parseInt(grinder.properties.get(“grinder.processes”).toString())<br>        int intThreads = Integer.parseInt(grinder.properties.get(“grinder.threads”).toString())<br>        int agent_no = grinder.agentNumber<br>        int proc_no = grinder.processNumber<br>        int thread_no = grinder.threadNumber<br><br>        int counter = agent_no <em> intProcs </em> intThreads + proc_no <em> intThreads + thread_no + intAgents </em> intProcs <em> intThreads </em> iteration<br>        return counter<br>    }<br>在@Before方法内部调用，减少唯一值代码在Test中的耗时<br>int uniqueNumber = this.getCounterByIteration();</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Each Occurrence<br>（每次出现）</td>
+<td style="text-align:left">参数类型设置为”Unique Number”<br>指定取值范围，范围默认1-100<br>超出范围后的方法可选：终止；循环；取最后一次的结果</td>
+<td style="text-align:left">编码实现唯一性取值，参考TestRunner.groovy的代码：<br><br>private int invokeTimes = 0 //调用方法计数，不可随意修改<br>    private enum WhenOutOfValues {<br>        AbortVuser, ContinueInCycleManner, ContinueWithLastValue<br>    }<br>  //update on Each occurrrence<br> private int getCounterByOccurrence() {<br>        int counter = getCounter(invokeTimes)<br>        invokeTimes++<br>        int line2 =counter + 1 ;<br>  int MaxLine = 100;<br>WhenOutOfValues outHandler = WhenOutOfValues.AbortVuser<br>  if (line2 &gt; MaxLine) {<br>            if (outHandler.equals(WhenOutOfValues.AbortVuser)) {<br>                grinder.stopThisWorkerThread()<br>            } else if (outHandler.equals(WhenOutOfValues.ContinueInCycleManner)) {<br>                line2 = (line2 - 1) % MaxLine + 1 <br>            } else if (outHandler.equals(WhenOutOfValues.ContinueWithLastValue)) {<br>                line2 = MaxLine;<br>            }<br>        }<br>        return line2<br>    }<br> //取唯一值的计算方法<br>    private int getCounter(int iteration){<br>        int intAgents = Integer.parseInt(grinder.getProperties().get(“grinder.agents”).toString())<br>        int intProcs = Integer.parseInt(grinder.properties.get(“grinder.processes”).toString())<br>        int intThreads = Integer.parseInt(grinder.properties.get(“grinder.threads”).toString())<br>        int agent_no = grinder.agentNumber<br>        int proc_no = grinder.processNumber<br>        int thread_no = grinder.threadNumber<br><br>        int counter = agent_no <em> intProcs </em> intThreads + proc_no <em> intThreads + thread_no + intAgents </em> intProcs <em> intThreads </em> iteration<br>        return counter<br>    }<br>在@Test方法内部出现处调用<br>int uniqueNumber = this.getCounterByOccurrence();</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Once(只取一次)</td>
+<td style="text-align:left">参数类型设置为”Unique Number”<br>指定取值范围，范围默认1-100<br>超出范围后的方法可选：终止；循环；取最后一次的结果</td>
+<td style="text-align:left">全局代码<br>private int invokeTimes = 0 //调用方法计数，不可随意修改<br>private jobId               //全局变量，保存获取到的唯一值<br>    private enum WhenOutOfValues {<br>        AbortVuser, ContinueInCycleManner, ContinueWithLastValue<br>    }<br>    //update Once<br> private int getCounterByOnce() {<br>        int counter = getCounter(0)<br>        int line2 =counter + 1 ;<br>  int MaxLine = 100;<br>  if (line2 &gt; MaxLine) {<br>            if (outHandler.equals(WhenOutOfValues.AbortVuser)) {<br>                grinder.stopThisWorkerThread()<br>            } else if (outHandler.equals(WhenOutOfValues.ContinueInCycleManner)) {<br>                line2 = (line2 - 1) % MaxLine + 1 <br>            } else if (outHandler.equals(WhenOutOfValues.ContinueWithLastValue)) {<br>                line2 = MaxLine;<br>            }<br>        }<br>        return line2<br>    }<br> //取唯一值的计算方法<br>    private int getCounter(int iteration){<br>        int intAgents = Integer.parseInt(grinder.getProperties().get(“grinder.agents”).toString())<br>        int intProcs = Integer.parseInt(grinder.properties.get(“grinder.processes”).toString())<br>        int intThreads = Integer.parseInt(grinder.properties.get(“grinder.threads”).toString())<br>        int agent_no = grinder.agentNumber<br>        int proc_no = grinder.processNumber<br>        int thread_no = grinder.threadNumber<br><br>        int counter = agent_no <em> intProcs </em> intThreads + proc_no <em> intThreads + thread_no + intAgents </em> intProcs <em> intThreads </em> iteration<br>        return counter<br>    }<br>在@Before方法内部的代码<br>int number = this.getCounterByOnce();</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">User Defined Function</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持动态加载库dll</td>
+<td style="text-align:left">暂未实现</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">Vuser ID</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">参数设置类型Vuser ID,从1开始的序号，所有用户不重复</td>
+<td style="text-align:left">声明VuserID为全局变量 public int VuserID=0;<br>放在before块中：<br>int intAgents = Integer.parseInt(grinder.getProperties().get(“grinder.agents”).toString())<br>        int intProcs = Integer.parseInt(grinder.properties.get(“grinder.processes”).toString())<br>        int intThreads = Integer.parseInt(grinder.properties.get(“grinder.threads”).toString())<br>        int agent_no = grinder.agentNumber<br>        int proc_no = grinder.processNumber<br>        int thread_no = grinder.threadNumber<br><br>        VuserID = agent_no <em> intProcs </em> intThreads + proc_no * intThreads + thread_no</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">XML</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">不支持</td>
+</tr>
+<tr>
+<td style="text-align:left">事务</td>
+<td style="text-align:left">实现方式</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">lr_start_transaction(“app_stats_page”);<br>lr_end_transaction(“app_stats_page”,LR_AUTO);</td>
+<td style="text-align:left">1、在类中定义事务：public static GTest test<br>2、在BeforeProcess方法体内进行事务初始化定义：test = new GTest(1, “Alluxio”)<br>3、在BeforeThread方法体内进行事务注册:test.record(this, “test”)<br>4、使用@Test标注分别定义方法名为test()的方法:<br> public void test(){}</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">事务嵌套</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持：<br>lr_start_transaction(“事务1”);<br>     lr_start_transaction(“事务2”);<br>     lr_end_transaction(“事务2);<br>lr_end_transaction(“事务1);</td>
+<td style="text-align:left">支持：<br>@Test<br>test1(){test2();}<br><br>test2(){}</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">执行顺序</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">多个事务之间顺序执行</td>
+<td style="text-align:left">导入包：<br>import org.junit.runners.MethodSorters<br>import org.junit.FixMethodOrder<br>在Class 前加<br>@FixMethodOrder(MethodSorters.NAME_ASCENDING)，按照事务名的ASCII升序执行</td>
+</tr>
+<tr>
+<td style="text-align:left">关联</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">web_reg_save_param(“test”,<br>        “LB=a”,<br>        “RB=c”,<br>        “NotFound=ERROR”,<br>        “Search=Body”,<br>        LAST);<br>—–备注：放置在请求发起之前</td>
+<td style="text-align:left">编写关联处理方法：                                           public static String ngrinder_save_param(String paramName, String target, String lb, String rb, int ord, HTTPRequest request)<br>  {<br>    String[] param = StringUtils.substringsBetween(target, lb, rb);<br>    String res = null;<br>    if ((null != param) &amp;&amp; (param.length &gt; 0)) {<br>      if (ord &lt;= 0) {<br>        res = param[0];<br>      } else if ((ord &gt; 0) &amp;&amp; (ord &lt;= param.length)) {<br>        res = param[(ord - 1)];<br>      } else {<br>        res = param[(param.length - 1)];<br>      }<br>    }<br>    request.setParam(paramName, res);<br>    <br>    Grinder.grinder.getLogger().info(“打印关联输出: {}={}”, paramName, res);<br>    <br>    return res;<br>  }                                RecorderUtils.ngrinder_save_param(“item1”, result.text, “a”, “c”, 1, request)—–备注：1为关联到的第一个值，该函数放置在请求发起之后<br>将脚本中定义的参数名称，替换.json文件中对应的报文，形如${paramName}</td>
+</tr>
+<tr>
+<td style="text-align:left">检查点</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">web_reg_find(“Fail=NotFound”,<br>  “Search=All”,<br>  “Text=success”,<br>  LAST);<br>——-备注：放在请求之前</td>
+<td style="text-align:left">result = RecorderUtils.sendBy(request, requestJson.Test.REQ_3385)<br>assertTrue(result.text.contains(“需要匹配的内容”)) <br>——备注：放在请求之后，检查body<br>assertThat(result.statusCode, is(200));——备注：检查状态码<br>assertTrue(result.Headers.contains(“需要匹配的内容”))  ——-备注：检查报头</td>
+</tr>
+<tr>
+<td style="text-align:left">初始化(登录)</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">在vuser_init脚本中进行设置</td>
+<td style="text-align:left">在groovy文件的BeforeThread块中编写登录请求，在json文件的”BeforeThread”块中设置登录json块</td>
+</tr>
+<tr>
+<td style="text-align:left">结束(退出)</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">在vuser_end脚本中设置</td>
+<td style="text-align:left">在groovy文件的AfterThread块中编写退出请求，在json文件的”AfterThread”块中设置退出json块</td>
+</tr>
+<tr>
+<td style="text-align:left">参数声明</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">在action初始处声明参数</td>
+<td style="text-align:left">根据参数最小作用范围进行声明，多线程时对参数进行多次修改的不可设置为静态变量</td>
+</tr>
+<tr>
+<td style="text-align:left">添加cookie</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">web_add_cookie(“sessionId=3a6c25f17f6a477a6af59e66a3d541bb;DOMAIN=spmtest.cloudytrace.com”);</td>
+<td style="text-align:left">// 在before中设置 cookie 信息，每个Test方法都能执行到<br>  List<cookie> cookieList = new ArrayList<cookie>()<br>  cookieList.add(new Cookie(“idsLoginUserIdLastTime”, “15071743”, “.cnsuning.com”, “/“, new Date(18503647599000L), false))<br>  cookieList.add(new Cookie(“authId”, “si260114758005824C3B6DD9BD1AE4909F”, “.cnsuning.com”, “/“, new Date(18503647599000L), false))<br>  cookies = cookieList.toArray()<br>  cookies.each { CookieModule.addCookie(it, HTTPPluginControl.getThreadHTTPClientContext()) }</cookie></cookie></td>
+</tr>
+<tr>
+<td style="text-align:left">添加header</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">web_add_header(“location”,<br>  “bbb”);</td>
+<td style="text-align:left">方法一：直接在json报文中设定<br>方法二：在脚本中设定<br>List<nvpair> headerList = new ArrayList<nvpair>()<br>  headerList.add(new NVPair(“User-Agent”, “nGrinder”))<br>  headers = headerList.toArray()<br>  request.setHeaders(headers)</nvpair></nvpair></td>
+</tr>
+<tr>
+<td style="text-align:left">思考时间</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">lr_think_time(1);</td>
+<td style="text-align:left">sleep(1000)</td>
+</tr>
+<tr>
+<td style="text-align:left">集合点</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">lr_rendezvous(“aaa”);</td>
+<td style="text-align:left">暂未实现</td>
+</tr>
+<tr>
+<td style="text-align:left">禁止重定向</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">web_set_option(“MaxRedirectionDepth”, “0”, LAST )</td>
+<td style="text-align:left">暂未实现</td>
+</tr>
+<tr>
+<td style="text-align:left">运行时设置</td>
+<td style="text-align:left">设置长连接</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持设置长连接</td>
+<td style="text-align:left">不支持HTTP协议的长连接</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">模拟浏览器缓存</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">不支持</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">下载非HTML资源</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">支持，录制时的所有非HTML资源，在脚本中可以自主定义是否下载</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">每次迭代模拟一个新用户</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">不支持</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">HTTP协议版本</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持HTTP1.0 HTTP1.1</td>
+<td style="text-align:left">支持HTTP1.0、HTTP1.1、HTTP1.2、HTTPS</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">UTF-8编码设置</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持将接收到的HTML和提交的数据转化为UTF-8编码</td>
+<td style="text-align:left">支持</td>
+</tr>
+<tr>
+<td style="text-align:left">执行</td>
+<td style="text-align:left">按执行次数执行</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">总执行次数=虚拟用户数<em>设置的执行次数</em>事务数</td>
+<td style="text-align:left">平台总执行次数=虚拟用户数<em>设置的执行次数</em>事务数</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">按执行时间执行</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">最大支持99天23小时59分59秒</td>
+<td style="text-align:left">最大支持11小时59分59秒</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">多个脚本按百分比执行</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">不支持</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">多个事务按百分比执行</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">不支持</td>
+<td style="text-align:left">导入import net.grinder.scriptengine.groovy.junit.annotation.RunRate;<br>在Test函数前加@RunRate(百分比)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">脚本调试时执行多次</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">导入import net.grinder.scriptengine.groovy.junit.annotation.Repeat;<br>在class前，@RunWith后添加@Repeat(次数)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">虚拟用户启动</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持同时启动和每隔多少时间启动多少用户策略</td>
+<td style="text-align:left">支持</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">动态增加虚拟用户</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">不支持</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">负载状态查看</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">只能看到状态机空闲、正常、繁忙状态，通过绿色、红、深红表示</td>
+<td style="text-align:left">能看到具体负载的CPU、内存消耗</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">日志功能关闭</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持，在运行时设置中去勾选日志</td>
+<td style="text-align:left">导入jar包<br>import org.slf4j.LoggerFactory;<br>import ch.qos.logback.classic.Level<br>在beforeProcess中添加<br>LoggerFactory.getLogger(“worker”).setLevel(Level.ERROR);</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">关闭重定向</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">HTTPPluginControl.getConnectionDefaults().setFollowRedirects(false)</td>
+</tr>
+</tbody>
+</table>
+
+                                                                                
+                                        </div>
+                                        
+            </div>
+            
+                <div class="bdsharebuttonbox" style="margin-top:10px;margin-left:30px;float:left;">
+                    <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                    <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                    <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
+                    <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
+                    <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                    <a href="#" class="bds_more" data-cmd="more"></a>
+                </div>
+                <script>
+                    window._bd_share_config = {
+                        "common": {
+                            "bdSnsKey": {},
+                            "bdText": "",
+                            "bdMini": "1",
+                            "bdMiniList": false,
+                            "bdStyle": "2",
+                            "bdSize": "16"
+                        },
+                        "share": {}
+                    };
+                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
+  
+  
+    <a href="/2018/11/01/Logback 异步日志/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Logback 异步日志</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-Loadrunner vs Ngrinder" data-title="Loadrunner vs Ngrinder" data-url="http://tonylit.me/2018/11/06/Loadrunner vs Ngrinder/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "tonylit"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
+</article>
+
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+    
+-->
+<!--
+
+-->
+
+</div>
+      <!--<footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 tonyli
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+    
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+   
+  </div>
+</footer>-->
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/prefixfree.js" type="text/javascript"></script>
+<script src="/js/require-2.1.20.js" type="text/javascript"></script>
+<script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
+    <a title="返回顶部" style="opacity: 100%;">
+        <img src="/img/scrollup.png" />
+    </a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+
+  </div>
+</body>
+</html>
