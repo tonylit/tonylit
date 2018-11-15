@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Nothing is given. Everything is earned.]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2018-11-15T14:22:44.108Z</updated>
+  <updated>2018-11-15T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -15,18 +15,12 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title><![CDATA[mytop 安装使用]]></title>
     <link href="http://tonylit.me/2018/11/15/mytop%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/"/>
     <id>http://tonylit.me/2018/11/15/mytop安装使用/</id>
-    <published>2018-11-15T14:22:44.108Z</published>
-    <updated>2018-11-15T14:22:44.108Z</updated>
-    <content type="html"><![CDATA[<hr>
-<h1 id="mytop_安装">mytop 安装</h1><p>mytop 是一个类似 top 命令的 MySQL 监控工具,可以监控当前正在执行的sql和连接数。</p>
-<p>———-title: mytop 安装使用<br>date: 2018-11-15 11:37:27<br>updated    : 2018-11-15 13:37:27<br>tags:</p>
-<pre><code><span class="bullet">- </span>性能
-</code></pre><p>categories: </p>
-<hr>
-<p>mytop 是一个类似 top 命令的 MySQL 监控工具,可以监控当前正在执行的sql和连接数。</p>
+    <published>2018-11-15T03:37:27.000Z</published>
+    <updated>2018-11-15T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>mytop 是一个类似 top 命令的 MySQL 监控工具,可以监控当前正在执行的sql和连接数。</p>
 <a id="more"></a>
 <hr>
 <h1 id="安装mytop">安装mytop</h1><p>下载地址：<a href="http://jeremy.zawodny.com/mysql/mytop/mytop-1.6.tar.gz" target="_blank" rel="external">http://jeremy.zawodny.com/mysql/mytop/mytop-1.6.tar.gz</a> </p>
@@ -43,15 +37,11 @@
 <p>参考：<br><a href="http://blog.itpub.net/25099483/viewspace-1867664/" target="_blank" rel="external">http://blog.itpub.net/25099483/viewspace-1867664/</a><br><a href="https://blog.csdn.net/zxnm55/article/details/19040205" target="_blank" rel="external">https://blog.csdn.net/zxnm55/article/details/19040205</a></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<hr>
-<h1 id="mytop_安装">mytop 安装</h1><p>mytop 是一个类似 top 命令的 MySQL 监控工具,可以监控当前正在执行的sql和连接数。</p>
-<p>———-title: mytop 安装使用<br>date: 2018-11-15 11:37:27<br>updated    : 2018-11-15 13:37:27<br>tags:</p>
-<pre><code><span class="bullet">- </span>性能
-</code></pre><p>categories: </p>
-<hr>
-<p>mytop 是一个类似 top 命令的 MySQL 监控工具,可以监控当前正在执行的sql和连接数。</p>]]>
+    <![CDATA[<p>mytop 是一个类似 top 命令的 MySQL 监控工具,可以监控当前正在执行的sql和连接数。</p>]]>
     
     </summary>
+    
+      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
     
   </entry>
   
