@@ -406,6 +406,84 @@
 -->
 
   
+    <article id="post-docker容器时间修改-通过时区偏移量" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2016/07/19/docker容器时间修改-通过时区偏移量/" class="article-date">
+  	<time datetime="2016-07-19T03:37:27.000Z" itemprop="datePublished">2016-07-19</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/19/docker容器时间修改-通过时区偏移量/">docker容器时间修改-通过时区偏移量</a>
+    </h1>
+  
+
+
+                            </header>
+                            
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+
+                                                
+                                                                
+                                                                    <p>我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。<br>如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。<br>but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。<br>
+                                                                        
+                                        </div>
+                                        
+                                            <div class="article-info article-info-index">
+                                                
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+	</div>
+
+
+                                                    
+
+                                                        
+                                                            <p class="article-more-link">
+                                                                <a  href="/2016/07/19/docker容器时间修改-通过时区偏移量/#more">More >></a>
+                                                            </p>
+                                                            
+                                                                <div class="clearfix"></div>
+                                            </div>
+                                            
+            </div>
+            
+                    
+                                <!-- 多说评论框 start -->
+                                
+</article>
+
+<!--
+
+-->
+<!--
+
+-->
+
+  
     <article id="post-jmagick安装jdk报错处理" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
@@ -720,84 +798,6 @@
 -->
 
   
-    <article id="post-scp和rsync传输速度比较" class="article article-type-post" itemscope itemprop="blogPost">
-    <script>
-        $("html").niceScroll({
-            cursorcolor: "#2a2929",
-            cursoropacitymax: 1,
-            touchbehavior: false,
-            cursorwidth: "6px",
-            cursorborder: "5",
-            cursorborderradius: "0px",
-            autohidemode: true
-        });
-    </script>
-    
-        <div class="article-meta">
-            <a href="/2016/05/18/scp和rsync传输速度比较/" class="article-date">
-  	<time datetime="2016-05-18T03:37:27.000Z" itemprop="datePublished">2016-05-18</time>
-</a>
-
-        </div>
-        
-            <div class="article-inner">
-                
-                    <input type="hidden" class="isFancy" />
-                    
-                        
-                            <header class="article-header">
-                                
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/18/scp和rsync传输速度比较/">rsync和scp传输时间比较</a>
-    </h1>
-  
-
-
-                            </header>
-                            
-                                    
-                                        <div class="article-entry" itemprop="articleBody">
-                                            
-
-                                                
-                                                                
-                                                                    <p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br>
-                                                                        
-                                        </div>
-                                        
-                                            <div class="article-info article-info-index">
-                                                
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li></ul>
-	</div>
-
-
-                                                    
-
-                                                        
-                                                            <p class="article-more-link">
-                                                                <a  href="/2016/05/18/scp和rsync传输速度比较/#more">More >></a>
-                                                            </p>
-                                                            
-                                                                <div class="clearfix"></div>
-                                            </div>
-                                            
-            </div>
-            
-                    
-                                <!-- 多说评论框 start -->
-                                
-</article>
-
-<!--
-
--->
-<!--
-
--->
-
-  
     <article id="post-ssh免密码登录" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
@@ -876,7 +876,7 @@
 -->
 
   
-    <article id="post-centos7NFS安装" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-scp和rsync传输速度比较" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -890,8 +890,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2016/05/06/centos7NFS安装/" class="article-date">
-  	<time datetime="2016-05-06T03:37:27.000Z" itemprop="datePublished">2016-05-06</time>
+            <a href="/2016/05/18/scp和rsync传输速度比较/" class="article-date">
+  	<time datetime="2016-05-18T03:37:27.000Z" itemprop="datePublished">2016-05-18</time>
 </a>
 
         </div>
@@ -905,7 +905,7 @@
                                 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/06/centos7NFS安装/">centos7 NFS搭建</a>
+      <a class="article-title" href="/2016/05/18/scp和rsync传输速度比较/">rsync和scp传输时间比较</a>
     </h1>
   
 
@@ -918,14 +918,14 @@
 
                                                 
                                                                 
-                                                                    <p>使用独立的物理机做应用代码的svn(git)和编译操作，将打包后的文件通过NFS共享到docker宿主机。<br>来看看centos7上怎么搭建NFS。<br>
+                                                                    <p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br>
                                                                         
                                         </div>
                                         
                                             <div class="article-info article-info-index">
                                                 
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li></ul>
 	</div>
 
 
@@ -933,7 +933,7 @@
 
                                                         
                                                             <p class="article-more-link">
-                                                                <a  href="/2016/05/06/centos7NFS安装/#more">More >></a>
+                                                                <a  href="/2016/05/18/scp和rsync传输速度比较/#more">More >></a>
                                                             </p>
                                                             
                                                                 <div class="clearfix"></div>
