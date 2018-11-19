@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://tonylit.me/2018/11/15/mytop安装使用/index.html">
 <meta property="og:site_name" content="淘淘的博客">
 <meta property="og:description" content="mytop 是一个类似 top 命令的 MySQL 监控工具,可以监控当前正在执行的sql和连接数。">
-<meta property="og:image" content="http://tonylit.me/./mytop执行结果.PNG">
+<meta property="og:image" content="http://tonylit.me/img/mytop/mytop执行结果.PNG">
 <meta property="og:updated_time" content="2018-11-15T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mytop 安装使用">
@@ -273,7 +273,7 @@
 <p>相关参数：</p>
 <figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">u / –user &lt;<span class="constant">USERNAME</span>&gt;：指定 username，默认： root</span><br><span class="line"></span>-<span class="ruby">p / –pass / –password &lt;<span class="constant">PASSWORD</span>&gt;：指定password，默认：none</span><br><span class="line"></span>-<span class="ruby">h / –host &lt;<span class="constant">HOSTNAME</span>[<span class="symbol">:PORT</span>]&gt;：指定 <span class="constant">MySQL</span> server的hostname，默认：localhost</span><br><span class="line"></span>-<span class="ruby"><span class="constant">P</span> / –port &lt;<span class="constant">PORT</span>&gt;：指定连接 <span class="constant">MySQL</span> server的port，默认：<span class="number">3306</span></span><br><span class="line"></span>-<span class="ruby">s / –delay &lt;<span class="constant">SECONDS</span>&gt;：更新的秒数，默认：<span class="number">5</span>秒</span><br><span class="line"></span>-<span class="ruby">d / –db / –database &lt;<span class="constant">DATABASE</span>&gt;：指定连接的资料库，默认：test</span><br><span class="line"></span>-<span class="ruby">b / –batch / –batchmode：指定为 batch mode，每次更新不会清除旧的显示结果，会将更新资料显示上最上方，预设是unset</span><br><span class="line"></span>-<span class="ruby"><span class="constant">S</span> / –socket &lt;<span class="constant">PATH_TO_SOCKET</span>&gt;：指定使用<span class="constant">MySQL</span> socket直接连线，而不使用<span class="constant">TCP</span>/<span class="constant">IP</span>连线，默认：none(当mytop和<span class="constant">MySQL</span>在同一台时才能使用)</span><br><span class="line"></span>–header or -noheader：是否要显示表头，默认：header</span><br><span class="line">–color or –nocolor：是否要使用颜色，默认：color</span><br><span class="line">-<span class="ruby">i / -idle <span class="keyword">or</span> -noidle：idle 的thread是否要出现在清单上，默认：idle</span></span><br></pre></td></tr></table></figure>
 <hr>
-<p><img src="./mytop执行结果.PNG" alt="Alt text"></p>
+<p><img src="/img/mytop/mytop执行结果.PNG" alt="Alt text"></p>
 <h2 id="各项指标">各项指标</h2><p>第1行为版本信息</p>
 <p>第2行为整体信息<br>Queries 服务器处理过的query总数<br>qps 每秒处理的query数量的平均值<br>Slow 慢查询总数<br>Se/In/Up/De(%) Select,Insert,Update,Delete 各自的占比</p>
 <p>第3行为实时信息<br>qps now 本周期内的每秒处理query的数量<br>Slow qps 本周期内的每秒慢查询数量<br>Threads 当前连接线程数量，后面括号内的第一个数字是active状态的线程数量，第二个数字是在线程缓存中的数量<br>最后一列为本周期内的 Select,Insert,Update,Delete 各自的占比<br>Key Efficiency 表示有多少key是从缓存中读取，而不是从磁盘读取的<br>Bps in/out 表示mysql平均的流入流出数据量<br>Now in/out 表示本周期内的流入流出数据量</p>
