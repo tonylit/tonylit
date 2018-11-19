@@ -493,7 +493,7 @@
 <tr>
 <td style="text-align:left">添加cookie</td>
 <td style="text-align:left">web_add_cookie(“sessionId=3a6c25f17f6a477a6af59e66a3d541bb;DOMAIN=spmtest.cloudytrace.com”);</td>
-<td style="text-align:left">// 在before中设置 cookie 信息，每个Test方法都能执行到<br>  List<cookie> cookieList = new ArrayList<cookie>()<br>  cookieList.add(new Cookie(“idsLoginUserIdLastTime”, “15071743”, “.cnsuning.com”, “/“, new Date(18503647599000L), false))<br>  cookieList.add(new Cookie(“authId”, “si260114758005824C3B6DD9BD1AE4909F”, “.cnsuning.com”, “/“, new Date(18503647599000L), false))<br>  cookies = cookieList.toArray()<br>  cookies.each { CookieModule.addCookie(it, HTTPPluginControl.getThreadHTTPClientContext()) }</cookie></cookie></td>
+<td style="text-align:left">// 在before中设置 cookie 信息，每个Test方法都能执行到<br>  List<cookie> cookieList = new ArrayList<cookie>()<br>  cookieList.add(new Cookie(“idsLoginUserIdLastTime”, “111222”, “www.test.com”, “/“, new Date(18503647599000L), false))<br>  cookieList.add(new Cookie(“authId”, “si260114758005824C3B6DD9BD1AE4909F”, “www.test.com”, “/“, new Date(18503647599000L), false))<br>  cookies = cookieList.toArray()<br>  cookies.each { CookieModule.addCookie(it, HTTPPluginControl.getThreadHTTPClientContext()) }</cookie></cookie></td>
 </tr>
 </tbody>
 </table>

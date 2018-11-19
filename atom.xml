@@ -34,7 +34,20 @@
 <p>解决：<br>编辑mytop</p>
 <figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">找到 <span class="string">"long|!"</span> =&gt; \<span class="variable">$config</span>&#123;long_nums&#125;, </span><br><span class="line">修改成 <span class="string">"long|long_nums|l!"</span> =&gt; \<span class="variable">$config</span>&#123;long_nums&#125;,</span><br></pre></td></tr></table></figure>
 <hr>
-<p>参考：<br><a href="http://blog.itpub.net/25099483/viewspace-1867664/" target="_blank" rel="external">http://blog.itpub.net/25099483/viewspace-1867664/</a><br><a href="https://blog.csdn.net/zxnm55/article/details/19040205" target="_blank" rel="external">https://blog.csdn.net/zxnm55/article/details/19040205</a></p>
+<hr>
+<h1 id="mytop使用">mytop使用</h1><p>执行命令：<br>./mytop<br>或者<br>./mytop -u用户名 -p密码 -d 库名 -h ip地址 …</p>
+<p>相关参数：</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">u / –user &lt;<span class="constant">USERNAME</span>&gt;：指定 username，默认： root</span><br><span class="line"></span>-<span class="ruby">p / –pass / –password &lt;<span class="constant">PASSWORD</span>&gt;：指定password，默认：none</span><br><span class="line"></span>-<span class="ruby">h / –host &lt;<span class="constant">HOSTNAME</span>[<span class="symbol">:PORT</span>]&gt;：指定 <span class="constant">MySQL</span> server的hostname，默认：localhost</span><br><span class="line"></span>-<span class="ruby"><span class="constant">P</span> / –port &lt;<span class="constant">PORT</span>&gt;：指定连接 <span class="constant">MySQL</span> server的port，默认：<span class="number">3306</span></span><br><span class="line"></span>-<span class="ruby">s / –delay &lt;<span class="constant">SECONDS</span>&gt;：更新的秒数，默认：<span class="number">5</span>秒</span><br><span class="line"></span>-<span class="ruby">d / –db / –database &lt;<span class="constant">DATABASE</span>&gt;：指定连接的资料库，默认：test</span><br><span class="line"></span>-<span class="ruby">b / –batch / –batchmode：指定为 batch mode，每次更新不会清除旧的显示结果，会将更新资料显示上最上方，预设是unset</span><br><span class="line"></span>-<span class="ruby"><span class="constant">S</span> / –socket &lt;<span class="constant">PATH_TO_SOCKET</span>&gt;：指定使用<span class="constant">MySQL</span> socket直接连线，而不使用<span class="constant">TCP</span>/<span class="constant">IP</span>连线，默认：none(当mytop和<span class="constant">MySQL</span>在同一台时才能使用)</span><br><span class="line"></span>–header or -noheader：是否要显示表头，默认：header</span><br><span class="line">–color or –nocolor：是否要使用颜色，默认：color</span><br><span class="line">-<span class="ruby">i / -idle <span class="keyword">or</span> -noidle：idle 的thread是否要出现在清单上，默认：idle</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><img src="./mytop执行结果.PNG" alt="Alt text"></p>
+<h2 id="各项指标">各项指标</h2><p>第1行为版本信息</p>
+<p>第2行为整体信息<br>Queries 服务器处理过的query总数<br>qps 每秒处理的query数量的平均值<br>Slow 慢查询总数<br>Se/In/Up/De(%) Select,Insert,Update,Delete 各自的占比</p>
+<p>第3行为实时信息<br>qps now 本周期内的每秒处理query的数量<br>Slow qps 本周期内的每秒慢查询数量<br>Threads 当前连接线程数量，后面括号内的第一个数字是active状态的线程数量，第二个数字是在线程缓存中的数量<br>最后一列为本周期内的 Select,Insert,Update,Delete 各自的占比<br>Key Efficiency 表示有多少key是从缓存中读取，而不是从磁盘读取的<br>Bps in/out 表示mysql平均的流入流出数据量<br>Now in/out 表示本周期内的流入流出数据量</p>
+<hr>
+<h2 id="线程列表">线程列表</h2><p>最下方区域为线程列表，列出了当前的mysql线程，根据idle状态时间排序，通过<br>o 键可以选择升序或降序</p>
+<p> 会发现”show full processlist” 一直都在，因为 mytop 会使用这个语句收集 mysql 信息</p>
+<p> mytop 提供了一些有用的命令，在运行界面按下相应按键即可<br> s 根据用户名进行过滤<br> k 杀死某个线程<br> m 进入QPS模式，只是动态显示QPS数量<br> f 了解特定线程的信息</p>
+<p>参考：<br><a href="http://blog.itpub.net/25099483/viewspace-1867664/" target="_blank" rel="external">http://blog.itpub.net/25099483/viewspace-1867664/</a><br><a href="https://blog.csdn.net/zxnm55/article/details/19040205" target="_blank" rel="external">https://blog.csdn.net/zxnm55/article/details/19040205</a><br><a href="https://www.kancloud.cn/kkk1/cnqf/467623" target="_blank" rel="external">https://www.kancloud.cn/kkk1/cnqf/467623</a></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>mytop 是一个类似 top 命令的 MySQL 监控工具,可以监控当前正在执行的sql和连接数。</p>]]>
@@ -291,7 +304,7 @@
 <tr>
 <td style="text-align:left">添加cookie</td>
 <td style="text-align:left">web_add_cookie(“sessionId=3a6c25f17f6a477a6af59e66a3d541bb;DOMAIN=spmtest.cloudytrace.com”);</td>
-<td style="text-align:left">// 在before中设置 cookie 信息，每个Test方法都能执行到<br>  List<cookie> cookieList = new ArrayList<cookie>()<br>  cookieList.add(new Cookie(“idsLoginUserIdLastTime”, “15071743”, “.cnsuning.com”, “/“, new Date(18503647599000L), false))<br>  cookieList.add(new Cookie(“authId”, “si260114758005824C3B6DD9BD1AE4909F”, “.cnsuning.com”, “/“, new Date(18503647599000L), false))<br>  cookies = cookieList.toArray()<br>  cookies.each { CookieModule.addCookie(it, HTTPPluginControl.getThreadHTTPClientContext()) }</cookie></cookie></td>
+<td style="text-align:left">// 在before中设置 cookie 信息，每个Test方法都能执行到<br>  List<cookie> cookieList = new ArrayList<cookie>()<br>  cookieList.add(new Cookie(“idsLoginUserIdLastTime”, “111222”, “www.test.com”, “/“, new Date(18503647599000L), false))<br>  cookieList.add(new Cookie(“authId”, “si260114758005824C3B6DD9BD1AE4909F”, “www.test.com”, “/“, new Date(18503647599000L), false))<br>  cookies = cookieList.toArray()<br>  cookies.each { CookieModule.addCookie(it, HTTPPluginControl.getThreadHTTPClientContext()) }</cookie></cookie></td>
 </tr>
 </tbody>
 </table>

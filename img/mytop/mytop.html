@@ -4,19 +4,28 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>mytop 安装使用 | 淘淘的博客</title>
+  <title>淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="mytop 是一个类似 top 命令的 MySQL 监控工具,可以监控当前正在执行的sql和连接数。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="mytop 安装使用">
-<meta property="og:url" content="http://tonylit.me/2018/11/15/mytop安装使用/index.html">
+  <meta name="description" content="mytop ��װmytop ��һ������ top ������ MySQL ���ع���,���Լ��ص�ǰ����ִ�е�sql����������
+
+��װmytop���ص�ַ��http://jeremy.zawodny.com/mysql/mytop/mytop-1.6.tar.gz 
+123456tar xzvf mytop-1.6.tar.gzcd mytop-1.6per">
+<meta property="og:type" content="website">
+<meta property="og:title" content="淘淘的博客">
+<meta property="og:url" content="http://tonylit.me/img/mytop/mytop.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="mytop 是一个类似 top 命令的 MySQL 监控工具,可以监控当前正在执行的sql和连接数。">
-<meta property="og:image" content="http://tonylit.me/./mytop执行结果.PNG">
-<meta property="og:updated_time" content="2018-11-15T05:37:27.000Z">
+<meta property="og:description" content="mytop ��װmytop ��һ������ top ������ MySQL ���ع���,���Լ��ص�ǰ����ִ�е�sql����������
+
+��װmytop���ص�ַ��http://jeremy.zawodny.com/mysql/mytop/mytop-1.6.tar.gz 
+123456tar xzvf mytop-1.6.tar.gzcd mytop-1.6per">
+<meta property="og:image" content="http://tonylit.me/./mytopִ�н���.PNG">
+<meta property="og:updated_time" content="2018-11-16T02:07:13.059Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mytop 安装使用">
-<meta name="twitter:description" content="mytop 是一个类似 top 命令的 MySQL 监控工具,可以监控当前正在执行的sql和连接数。">
+<meta name="twitter:title" content="淘淘的博客">
+<meta name="twitter:description" content="mytop ��װmytop ��һ������ top ������ MySQL ���ع���,���Լ��ص�ǰ����ִ�е�sql����������
+
+��װmytop���ص�ַ��http://jeremy.zawodny.com/mysql/mytop/mytop-1.6.tar.gz 
+123456tar xzvf mytop-1.6.tar.gzcd mytop-1.6per">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -194,7 +203,7 @@
 高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
 </div>
 
-      <div class="body-wrap"><article id="post-mytop安装使用" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -208,8 +217,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2018/11/15/mytop安装使用/" class="article-date">
-  	<time datetime="2018-11-15T03:37:27.000Z" itemprop="datePublished">2018-11-15</time>
+            <a href="/img/mytop/mytop.html" class="article-date">
+  	<time datetime="2018-11-19T14:19:13.516Z" itemprop="datePublished">2018-11-19</time>
 </a>
 
         </div>
@@ -219,69 +228,44 @@
                     <input type="hidden" class="isFancy" />
                     
                         
-                            <header class="article-header">
-                                
-  
-    <h1 class="article-title" itemprop="name">
-      mytop 安装使用
-    </h1>
-  
-
-
-                            </header>
-                            
-                                <div class="article-info article-info-post">
-                                    
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
-	</div>
-
-
-                                        
-
-                                            <div class="clearfix"></div>
-                                </div>
-                                
-                                    
                                         <div class="article-entry" itemprop="articleBody">
                                             
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#安装mytop"><span class="toc-number">1.</span> <span class="toc-text">安装mytop</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#遇到的问题："><span class="toc-number">1.1.</span> <span class="toc-text">遇到的问题：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题一："><span class="toc-number">1.1.1.</span> <span class="toc-text">问题一：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题二："><span class="toc-number">1.1.2.</span> <span class="toc-text">问题二：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mytop使用"><span class="toc-number">2.</span> <span class="toc-text">mytop使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#各项指标"><span class="toc-number">2.1.</span> <span class="toc-text">各项指标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程列表"><span class="toc-number">2.2.</span> <span class="toc-text">线程列表</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mytop_��װ"><span class="toc-number">1.</span> <span class="toc-text">mytop ��װ</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#��װmytop"><span class="toc-number">2.</span> <span class="toc-text">��װmytop</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#���������⣺"><span class="toc-number">2.1.</span> <span class="toc-text">���������⣺</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#����һ��"><span class="toc-number">2.1.1.</span> <span class="toc-text">����һ��</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#��������"><span class="toc-number">2.1.2.</span> <span class="toc-text">��������</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mytopʹ��"><span class="toc-number">3.</span> <span class="toc-text">mytopʹ��</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#����ָ��"><span class="toc-number">3.1.</span> <span class="toc-text">����ָ��</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#�߳��б�"><span class="toc-number">3.2.</span> <span class="toc-text">�߳��б�</span></a></li></ol></li></ol>
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <p>mytop 是一个类似 top 命令的 MySQL 监控工具,可以监控当前正在执行的sql和连接数。</p>
-<a id="more"></a>
+                                                                            <hr>
+<h1 id="mytop_��װ">mytop ��װ</h1><p>mytop ��һ������ top ������ MySQL ���ع���,���Լ��ص�ǰ����ִ�е�sql����������</p>
 <hr>
-<h1 id="安装mytop">安装mytop</h1><p>下载地址：<a href="http://jeremy.zawodny.com/mysql/mytop/mytop-1.6.tar.gz" target="_blank" rel="external">http://jeremy.zawodny.com/mysql/mytop/mytop-1.6.tar.gz</a> </p>
+<h1 id="��װmytop">��װmytop</h1><p>���ص�ַ��<a href="http://jeremy.zawodny.com/mysql/mytop/mytop-1.6.tar.gz" target="_blank" rel="external">http://jeremy.zawodny.com/mysql/mytop/mytop-1.6.tar.gz</a> </p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">tar</span> <span class="tag">xzvf</span> <span class="tag">mytop-1</span><span class="class">.6</span><span class="class">.tar</span><span class="class">.gz</span></span><br><span class="line"><span class="tag">cd</span> <span class="tag">mytop-1</span><span class="class">.6</span></span><br><span class="line"><span class="tag">perl</span> <span class="tag">Makefile</span><span class="class">.pl</span></span><br><span class="line"><span class="tag">make</span></span><br><span class="line"><span class="tag">make</span> <span class="tag">test</span></span><br><span class="line"><span class="tag">make</span> <span class="tag">install</span></span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="遇到的问题：">遇到的问题：</h2><h3 id="问题一：">问题一：</h3><p><strong>Use of uninitialized value in substitution (s///) at /usr/bin/mytop line 958.</strong></p>
-<p>解决方法：<br>编辑mytop</p>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$thread-</span>&gt;&#123;Host&#125; =~ s/:\d+$//;</span><br><span class="line"></span><br><span class="line">           my <span class="variable">$host</span> = gethostbyaddr(inet_aton(<span class="variable">$thread-</span>&gt;&#123;Host&#125;), AF_INET);</span><br><span class="line"></span><br><span class="line">          <span class="variable">$host</span> =~ s/^([^.]+).*/<span class="variable">$1</span>/;  (删除或者注释)</span><br><span class="line"></span><br><span class="line">           <span class="variable">$thread-</span>&gt;&#123;Host&#125; = <span class="variable">$host</span>;(删除或者注释)</span><br><span class="line"></span><br><span class="line">           <span class="keyword">if</span> (<span class="variable">$host</span>)  （添加）</span><br><span class="line"></span><br><span class="line">           &#123;        （添加）</span><br><span class="line"></span><br><span class="line">             <span class="variable">$host</span> =~ s/^([^.]+).*/<span class="variable">$1</span>/;（添加）</span><br><span class="line"></span><br><span class="line">             <span class="variable">$thread-</span>&gt;&#123;Host&#125; = <span class="variable">$host</span>;（添加）</span><br><span class="line"></span><br><span class="line">           &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="���������⣺">���������⣺</h2><h3 id="����һ��">����һ��</h3><p><strong>Use of uninitialized value in substitution (s///) at /usr/bin/mytop line 958.</strong></p>
+<p>����������<br>�༭mytop</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$thread-</span>&gt;&#123;Host&#125; =~ s/:\d+$//;</span><br><span class="line"></span><br><span class="line">           my <span class="variable">$host</span> = gethostbyaddr(inet_aton(<span class="variable">$thread-</span>&gt;&#123;Host&#125;), AF_INET);</span><br><span class="line"></span><br><span class="line">          <span class="variable">$host</span> =~ s/^([^.]+).*/<span class="variable">$1</span>/;  (ɾ������ע��)</span><br><span class="line"></span><br><span class="line">           <span class="variable">$thread-</span>&gt;&#123;Host&#125; = <span class="variable">$host</span>;(ɾ������ע��)</span><br><span class="line"></span><br><span class="line">           <span class="keyword">if</span> (<span class="variable">$host</span>)  �����ӣ�</span><br><span class="line"></span><br><span class="line">           &#123;        �����ӣ�</span><br><span class="line"></span><br><span class="line">             <span class="variable">$host</span> =~ s/^([^.]+).*/<span class="variable">$1</span>/;�����ӣ�</span><br><span class="line"></span><br><span class="line">             <span class="variable">$thread-</span>&gt;&#123;Host&#125; = <span class="variable">$host</span>;�����ӣ�</span><br><span class="line"></span><br><span class="line">           &#125;</span><br></pre></td></tr></table></figure>
 <hr>
-<h3 id="问题二：">问题二：</h3><p><strong>Error in option spec: “long|!”</strong> </p>
-<p>解决：<br>编辑mytop</p>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">找到 <span class="string">"long|!"</span> =&gt; \<span class="variable">$config</span>&#123;long_nums&#125;, </span><br><span class="line">修改成 <span class="string">"long|long_nums|l!"</span> =&gt; \<span class="variable">$config</span>&#123;long_nums&#125;,</span><br></pre></td></tr></table></figure>
+<h3 id="��������">��������</h3><p><strong>Error in option spec: “long|!”</strong> </p>
+<p>������<br>�༭mytop</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">�ҵ� <span class="string">"long|!"</span> =&gt; \<span class="variable">$config</span>&#123;long_nums&#125;, </span><br><span class="line">�޸ĳ� <span class="string">"long|long_nums|l!"</span> =&gt; \<span class="variable">$config</span>&#123;long_nums&#125;,</span><br></pre></td></tr></table></figure>
 <hr>
+<h1 id="mytopʹ��">mytopʹ��</h1><p>ִ�����<br>./mytop<br>����<br>./mytop -u�û��� -p���� -d ���� -h ip��ַ …</p>
+<p>���ز�����</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">u / �<span class="constant">Cuser</span> &lt;<span class="constant">USERNAME</span>&gt;��ָ�� username��Ĭ�ϣ� root</span><br><span class="line"></span>-<span class="ruby">p / �<span class="constant">Cpass</span> / �<span class="constant">Cpassword</span> &lt;<span class="constant">PASSWORD</span>&gt;��ָ��password��Ĭ�ϣ�none</span><br><span class="line"></span>-<span class="ruby">h / �<span class="constant">Chost</span> &lt;<span class="constant">HOSTNAME</span>[<span class="symbol">:PORT</span>]&gt;��ָ�� <span class="constant">MySQL</span> server��hostname��Ĭ�ϣ�localhost</span><br><span class="line"></span>-<span class="ruby"><span class="constant">P</span> / �<span class="constant">Cport</span> &lt;<span class="constant">PORT</span>&gt;��ָ������ <span class="constant">MySQL</span> server��port��Ĭ�ϣ�<span class="number">3306</span></span><br><span class="line"></span>-<span class="ruby">s / �<span class="constant">Cdelay</span> &lt;<span class="constant">SECONDS</span>&gt;�����µ�������Ĭ�ϣ�<span class="number">5</span>��</span><br><span class="line"></span>-<span class="ruby">d / �<span class="constant">Cdb</span> / �<span class="constant">Cdatabase</span> &lt;<span class="constant">DATABASE</span>&gt;��ָ�����ӵ����Ͽ⣬Ĭ�ϣ�test</span><br><span class="line"></span>-<span class="ruby">b / �<span class="constant">Cbatch</span> / �<span class="constant">Cbatchmode</span>��ָ��Ϊ batch mode��ÿ�θ��²��������ɵ���ʾ�������Ὣ����������ʾ�����Ϸ���Ԥ����unset</span><br><span class="line"></span>-<span class="ruby"><span class="constant">S</span> / �<span class="constant">Csocket</span> &lt;<span class="constant">PATH_TO_SOCKET</span>&gt;��ָ��ʹ��<span class="constant">MySQL</span> socketֱ�����ߣ�����ʹ��<span class="constant">TCP</span>/<span class="constant">IP</span>���ߣ�Ĭ�ϣ�none(��mytop��<span class="constant">MySQL</span>��ͬһ̨ʱ����ʹ��)</span><br><span class="line"></span>�Cheader or -noheader���Ƿ�Ҫ��ʾ��ͷ��Ĭ�ϣ�header</span><br><span class="line">�Ccolor or �Cnocolor���Ƿ�Ҫʹ����ɫ��Ĭ�ϣ�color</span><br><span class="line">-<span class="ruby">i / -idle <span class="keyword">or</span> -noidle��idle ��thread�Ƿ�Ҫ�������嵥�ϣ�Ĭ�ϣ�idle</span></span><br></pre></td></tr></table></figure>
 <hr>
-<h1 id="mytop使用">mytop使用</h1><p>执行命令：<br>./mytop<br>或者<br>./mytop -u用户名 -p密码 -d 库名 -h ip地址 …</p>
-<p>相关参数：</p>
-<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">u / –user &lt;<span class="constant">USERNAME</span>&gt;：指定 username，默认： root</span><br><span class="line"></span>-<span class="ruby">p / –pass / –password &lt;<span class="constant">PASSWORD</span>&gt;：指定password，默认：none</span><br><span class="line"></span>-<span class="ruby">h / –host &lt;<span class="constant">HOSTNAME</span>[<span class="symbol">:PORT</span>]&gt;：指定 <span class="constant">MySQL</span> server的hostname，默认：localhost</span><br><span class="line"></span>-<span class="ruby"><span class="constant">P</span> / –port &lt;<span class="constant">PORT</span>&gt;：指定连接 <span class="constant">MySQL</span> server的port，默认：<span class="number">3306</span></span><br><span class="line"></span>-<span class="ruby">s / –delay &lt;<span class="constant">SECONDS</span>&gt;：更新的秒数，默认：<span class="number">5</span>秒</span><br><span class="line"></span>-<span class="ruby">d / –db / –database &lt;<span class="constant">DATABASE</span>&gt;：指定连接的资料库，默认：test</span><br><span class="line"></span>-<span class="ruby">b / –batch / –batchmode：指定为 batch mode，每次更新不会清除旧的显示结果，会将更新资料显示上最上方，预设是unset</span><br><span class="line"></span>-<span class="ruby"><span class="constant">S</span> / –socket &lt;<span class="constant">PATH_TO_SOCKET</span>&gt;：指定使用<span class="constant">MySQL</span> socket直接连线，而不使用<span class="constant">TCP</span>/<span class="constant">IP</span>连线，默认：none(当mytop和<span class="constant">MySQL</span>在同一台时才能使用)</span><br><span class="line"></span>–header or -noheader：是否要显示表头，默认：header</span><br><span class="line">–color or –nocolor：是否要使用颜色，默认：color</span><br><span class="line">-<span class="ruby">i / -idle <span class="keyword">or</span> -noidle：idle 的thread是否要出现在清单上，默认：idle</span></span><br></pre></td></tr></table></figure>
+<p><img src="./mytopִ�н���.PNG" alt="Alt text"></p>
+<h2 id="����ָ��">����ָ��</h2><p>��1��Ϊ�汾��Ϣ</p>
+<p>��2��Ϊ������Ϣ<br>Queries ��������������query����<br>qps ÿ�봦����query������ƽ��ֵ<br>Slow ����ѯ����<br>Se/In/Up/De(%) Select,Insert,Update,Delete ���Ե�ռ��</p>
+<p>��3��Ϊʵʱ��Ϣ<br>qps now �������ڵ�ÿ�봦��query������<br>Slow qps �������ڵ�ÿ������ѯ����<br>Threads ��ǰ�����߳����������������ڵĵ�һ��������active״̬���߳��������ڶ������������̻߳����е�����<br>����һ��Ϊ�������ڵ� Select,Insert,Update,Delete ���Ե�ռ��<br>Key Efficiency ��ʾ�ж���key�Ǵӻ����ж�ȡ�������ǴӴ��̶�ȡ��<br>Bps in/out ��ʾmysqlƽ������������������<br>Now in/out ��ʾ�������ڵ���������������</p>
 <hr>
-<p><img src="./mytop执行结果.PNG" alt="Alt text"></p>
-<h2 id="各项指标">各项指标</h2><p>第1行为版本信息</p>
-<p>第2行为整体信息<br>Queries 服务器处理过的query总数<br>qps 每秒处理的query数量的平均值<br>Slow 慢查询总数<br>Se/In/Up/De(%) Select,Insert,Update,Delete 各自的占比</p>
-<p>第3行为实时信息<br>qps now 本周期内的每秒处理query的数量<br>Slow qps 本周期内的每秒慢查询数量<br>Threads 当前连接线程数量，后面括号内的第一个数字是active状态的线程数量，第二个数字是在线程缓存中的数量<br>最后一列为本周期内的 Select,Insert,Update,Delete 各自的占比<br>Key Efficiency 表示有多少key是从缓存中读取，而不是从磁盘读取的<br>Bps in/out 表示mysql平均的流入流出数据量<br>Now in/out 表示本周期内的流入流出数据量</p>
-<hr>
-<h2 id="线程列表">线程列表</h2><p>最下方区域为线程列表，列出了当前的mysql线程，根据idle状态时间排序，通过<br>o 键可以选择升序或降序</p>
-<p> 会发现”show full processlist” 一直都在，因为 mytop 会使用这个语句收集 mysql 信息</p>
-<p> mytop 提供了一些有用的命令，在运行界面按下相应按键即可<br> s 根据用户名进行过滤<br> k 杀死某个线程<br> m 进入QPS模式，只是动态显示QPS数量<br> f 了解特定线程的信息</p>
-<p>参考：<br><a href="http://blog.itpub.net/25099483/viewspace-1867664/" target="_blank" rel="external">http://blog.itpub.net/25099483/viewspace-1867664/</a><br><a href="https://blog.csdn.net/zxnm55/article/details/19040205" target="_blank" rel="external">https://blog.csdn.net/zxnm55/article/details/19040205</a><br><a href="https://www.kancloud.cn/kkk1/cnqf/467623" target="_blank" rel="external">https://www.kancloud.cn/kkk1/cnqf/467623</a></p>
+<h2 id="�߳��б�">�߳��б�</h2><p>���·�����Ϊ�߳��б����г��˵�ǰ��mysql�̣߳�����idle״̬ʱ��������ͨ��<br>o ������ѡ������������</p>
+<p> �ᷢ��”show full processlist” һֱ���ڣ���Ϊ mytop ��ʹ�����������ռ� mysql ��Ϣ</p>
+<p> mytop �ṩ��һЩ���õ���������н��水����Ӧ��������<br> s �����û������й���<br> k ɱ��ĳ���߳�<br> m ����QPSģʽ��ֻ�Ƕ�̬��ʾQPS����<br> f �˽��ض��̵߳���Ϣ</p>
+<p>�ο���<br><a href="http://blog.itpub.net/25099483/viewspace-1867664/" target="_blank" rel="external">http://blog.itpub.net/25099483/viewspace-1867664/</a><br><a href="https://blog.csdn.net/zxnm55/article/details/19040205" target="_blank" rel="external">https://blog.csdn.net/zxnm55/article/details/19040205</a><br><a href="https://www.kancloud.cn/kkk1/cnqf/467623" target="_blank" rel="external">https://www.kancloud.cn/kkk1/cnqf/467623</a></p>
 
                                                                                 
                                         </div>
@@ -313,21 +297,11 @@
                 
                     
                         
-<nav id="article-nav">
-  
-  
-    <a href="/2018/11/06/Loadrunner vs Ngrinder/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Loadrunner vs Ngrinder</div>
-      <strong class="article-nav-caption">></strong>
-    </a>
-  
-</nav>
-
 
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-mytop安装使用" data-title="mytop 安装使用" data-url="http://tonylit.me/2018/11/15/mytop安装使用/"></div>
+                                    <div class="ds-thread" data-thread-key="page-undefined" data-title="" data-url="http://tonylit.me/img/mytop/mytop.html"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">
