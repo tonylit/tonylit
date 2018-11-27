@@ -4,19 +4,26 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>抽奖性能测试 | 淘淘的博客</title>
+  <title>聊聊磁盘I/O | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="公司成立20周年在网站上搞了个抽奖活动，应邀给项目组做一次压力测试。之前也没有过类似业务的测试，无指标参考，在此记录下，下次类似测试可以参考参考。">
+  <meta name="description" content="由于SSD在价格方面昂贵，企业级应用服务存储大多还是选择HDD。
+毕竟性价比高嘛，但随着计算机硬件-CPU，内存的不断发展，磁盘I/O在性能方面越来越拖后腿。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="抽奖性能测试">
-<meta property="og:url" content="http://tonylit.me/2015/11/30/抽奖性能测试/index.html">
+<meta property="og:title" content="聊聊磁盘I/O">
+<meta property="og:url" content="http://tonylit.me/2018/11/26/聊聊磁盘IO/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="公司成立20周年在网站上搞了个抽奖活动，应邀给项目组做一次压力测试。之前也没有过类似业务的测试，无指标参考，在此记录下，下次类似测试可以参考参考。">
-<meta property="og:image" content="http://tonylit.me/img/redis.png">
-<meta property="og:updated_time" content="2015-11-13T05:37:27.000Z">
+<meta property="og:description" content="由于SSD在价格方面昂贵，企业级应用服务存储大多还是选择HDD。
+毕竟性价比高嘛，但随着计算机硬件-CPU，内存的不断发展，磁盘I/O在性能方面越来越拖后腿。">
+<meta property="og:image" content="http://tonylit.me/img/磁盘io/hdd.jpg">
+<meta property="og:image" content="http://tonylit.me/img/磁盘io/hdd.PNG">
+<meta property="og:image" content="http://tonylit.me/img/磁盘io/硬盘的物理结构.png">
+<meta property="og:image" content="http://tonylit.me/img/磁盘io/iostat.png">
+<meta property="og:image" content="http://tonylit.me/img/磁盘io/iotop.PNG">
+<meta property="og:updated_time" content="2018-11-26T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="抽奖性能测试">
-<meta name="twitter:description" content="公司成立20周年在网站上搞了个抽奖活动，应邀给项目组做一次压力测试。之前也没有过类似业务的测试，无指标参考，在此记录下，下次类似测试可以参考参考。">
+<meta name="twitter:title" content="聊聊磁盘I/O">
+<meta name="twitter:description" content="由于SSD在价格方面昂贵，企业级应用服务存储大多还是选择HDD。
+毕竟性价比高嘛，但随着计算机硬件-CPU，内存的不断发展，磁盘I/O在性能方面越来越拖后腿。">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -122,7 +129,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Appium/" style="font-size: 12.86px;">Appium</a> <a href="/tags/Gatling/" style="font-size: 11.43px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.43px;">Jmeter</a> <a href="/tags/Python/" style="font-size: 12.86px;">Python</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 17.14px;">docker</a> <a href="/tags/java/" style="font-size: 18.57px;">java</a> <a href="/tags/kafka/" style="font-size: 11.43px;">kafka</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/loadrunner/" style="font-size: 14.29px;">loadrunner</a> <a href="/tags/pinpoint/" style="font-size: 10px;">pinpoint</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/work/" style="font-size: 15.71px;">work</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a>
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Appium/" style="font-size: 12.86px;">Appium</a> <a href="/tags/Gatling/" style="font-size: 11.43px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.43px;">Jmeter</a> <a href="/tags/Python/" style="font-size: 12.86px;">Python</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 17.14px;">docker</a> <a href="/tags/java/" style="font-size: 18.57px;">java</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/loadrunner/" style="font-size: 14.29px;">loadrunner</a> <a href="/tags/pinpoint/" style="font-size: 10px;">pinpoint</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/work/" style="font-size: 15.71px;">work</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a>
 					</div>
 				</section>
 				
@@ -194,7 +201,7 @@
 高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
 </div>
 
-      <div class="body-wrap"><article id="post-抽奖性能测试" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-聊聊磁盘IO" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -208,8 +215,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2015/11/30/抽奖性能测试/" class="article-date">
-  	<time datetime="2015-11-30T03:37:27.000Z" itemprop="datePublished">2015-11-30</time>
+            <a href="/2018/11/26/聊聊磁盘IO/" class="article-date">
+  	<time datetime="2018-11-26T03:37:27.000Z" itemprop="datePublished">2018-11-26</time>
 </a>
 
         </div>
@@ -223,7 +230,7 @@
                                 
   
     <h1 class="article-title" itemprop="name">
-      抽奖性能测试
+      聊聊磁盘I/O
     </h1>
   
 
@@ -233,7 +240,7 @@
                                 <div class="article-info article-info-post">
                                     
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
 	</div>
 
 
@@ -248,27 +255,68 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#业务说明"><span class="toc-number">1.</span> <span class="toc-text">业务说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#技术架构："><span class="toc-number">2.</span> <span class="toc-text">技术架构：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试环境："><span class="toc-number">3.</span> <span class="toc-text">测试环境：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#被测系统硬件"><span class="toc-number">4.</span> <span class="toc-text">被测系统硬件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#结果："><span class="toc-number">5.</span> <span class="toc-text">结果：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#其他："><span class="toc-number">6.</span> <span class="toc-text">其他：</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#why_slow？"><span class="toc-number">1.</span> <span class="toc-text">why slow？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#物理结构"><span class="toc-number">2.</span> <span class="toc-text">物理结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#衡量性能的指标"><span class="toc-number">3.</span> <span class="toc-text">衡量性能的指标</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#IOPS"><span class="toc-number">3.1.</span> <span class="toc-text">IOPS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#吞吐量"><span class="toc-number">3.2.</span> <span class="toc-text">吞吐量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#I/O压力分析"><span class="toc-number">4.</span> <span class="toc-text">I/O压力分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#iostat"><span class="toc-number">4.1.</span> <span class="toc-text">iostat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#iotop"><span class="toc-number">4.2.</span> <span class="toc-text">iotop</span></a></li></ol></li></ol>
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <p>公司成立20周年在网站上搞了个<strong>抽奖活动</strong>，应邀给项目组做一次压力测试。<br>之前也没有过类似业务的测试，无指标参考，在此记录下，下次类似测试可以参考参考。<br><a id="more"></a></p>
-<h1 id="业务说明">业务说明</h1><ul>
-<li>第一步：填写祝福语</li>
-<li>第二步：抽奖</li>
-</ul>
-<h1 id="技术架构：">技术架构：</h1><p>所有的记录先提交至redis中，<br>数据由定时程序1分钟从redis同步至数据库。</p>
-<h1 id="测试环境：">测试环境：</h1><p><img src="/img/redis.png" alt="Alt text"></p>
-<h1 id="被测系统硬件">被测系统硬件</h1><p>应用服务器    Intel(R) Xeon(R) CPU E5-2650<br>Processor :  1×2<br>Memory：1.5G</p>
-<h1 id="结果：">结果：</h1><p>发送祝福语TPS:222<br>抽奖TPS：192</p>
-<h1 id="其他：">其他：</h1><p>抽奖需要考虑的点：</p>
-<ul>
-<li>cache和db端持久化问题<br>redis这边数据不能每次入库就清空，保证要在redis中有持久化。</li>
-<li>数据量保证一致<br>有多少奖就抽多少，不能发现多抽的情况</li>
-<li>单个奖项数量一致<br>一等奖只有一个，不会被几个人同时抽中</li>
-</ul>
+                                                                            <p><img src="/img/磁盘io/hdd.jpg" alt="Alt text"></p>
+<p>由于SSD在价格方面昂贵，企业级应用服务存储大多还是选择HDD。</p>
+<p>毕竟性价比高嘛，但随着计算机硬件-CPU，内存的不断发展，磁盘I/O在性能方面越来越拖后腿。</p>
+<a id="more"></a>
+<hr>
+<h1 id="why_slow？">why slow？</h1><p>HDD对数据的操作，95%的耗时在机械运动上。</p>
+<p>磁盘完成一个I/O请求所花费的时间，由寻道时间、旋转延迟和数据传输时间三部分构成。</p>
+<p>寻道时间（Tseek），是指将读写磁头移动至正确的磁道上所需要的时间。寻道时间越短，I/O操作越快，目前磁盘的平均寻道时间一般在3－15ms；</p>
+<p>旋转延迟（Trotation），是指盘片旋转将请求数据所在扇区移至读写磁头下方所需要的时间。旋转延迟取决于磁盘转速，通常使用磁盘旋转一周所需时间的1/2表示。比如，7200rpm的磁盘平均旋转延迟大约为60*1000/7200/2 = 4.17ms</p>
+<p>内部接口传送时间，即从磁盘盘片到内部磁盘缓冲传送的时间，量级是440微秒。</p>
+<p>外部接口传输时间，即从磁盘缓冲到接口传送的时间，量级是110微秒。</p>
+<p>数据传输时间通常远小于前两部分消耗时间，简单计算时可忽略。</p>
+<hr>
+<h1 id="物理结构">物理结构</h1><p>熟悉寻道时间和旋转延迟，必须了解HDD的物理结构。硬盘内部主要部件为磁盘盘片、传动手臂、读写磁头和主轴马达。</p>
+<p>实际数据都是写在盘片上，读写主要是通过传动手臂上的读写磁头来完成。</p>
+<p>实际运行时，主轴让磁盘盘片转动，然后传动手臂可伸展让读取头在盘片上进行读写操作。</p>
+<p>磁盘物理结构如下图所示：<br><img src="/img/磁盘io/hdd.PNG" alt="Alt text"></p>
+<p>由于单一盘片容量有限，一般硬盘都有两张以上的盘片，每个盘片有两面，都可记录信息，所以一张盘片对应着两个磁头。</p>
+<p>盘片被分为许多扇形的区域，每个区域叫一个扇区，硬盘中每个扇区的大小固定为512字节。</p>
+<p>盘片表面上以盘片中心为圆心，不同半径的同心圆称为磁道，不同盘片相同半径的磁道所组成的圆柱称为柱面。</p>
+<p>磁道与柱面都是表示不同半径的圆，在许多场合，磁道和柱面可以互换使用。</p>
+<p><img src="/img/磁盘io/硬盘的物理结构.png" alt="Alt text"></p>
+<hr>
+<h1 id="衡量性能的指标">衡量性能的指标</h1><p>机械硬盘的连续读写性能很好，但随机读写性能很差，这主要是因为磁头移动到正确的磁道上需要时间，随机读写时，磁头需要不停的移动，时间都浪费在了磁头寻址上，所以性能不高。</p>
+<p>衡量磁盘的重要主要指标是<strong>IOPS</strong>和<strong>吞吐量</strong>。</p>
+<h2 id="IOPS">IOPS</h2><p>IOPS（Input/Output Per Second）即每秒的输入输出量（或读写次数），即指每秒内系统能处理的I/O请求数量。</p>
+<p>随机读写频繁的应用，如小文件存储等，关注随机读写性能，IOPS是关键衡量指标。</p>
+<p>可以推算出磁盘的IOPS = 1000ms / (Tseek + Trotation + Transfer)，如果忽略数据传输时间，理论上可以计算出随机读写最大的IOPS。</p>
+<p>常见磁盘的随机读写最大IOPS为：</p>
+<blockquote>
+<p>7200rpm的磁盘 IOPS = 76 IOPS<br>10000rpm的磁盘IOPS = 111 IOPS<br>15000rpm的磁盘IOPS = 166 IOPS</p>
+</blockquote>
+<h2 id="吞吐量">吞吐量</h2><p>吞吐量（Throughput），指单位时间内可以成功传输的数据数量。</p>
+<p>顺序读写频繁的应用，如视频点播，关注连续读写性能、数据吞吐量是关键衡量指标。</p>
+<blockquote>
+<p>实例： 写入10000个大小为1kb的文件到硬盘上,耗费的时间要比写入一个10mb大小的文件多得多,虽然数据总量都是10mb,因为写入10000个文件时,根据文件分布情况和大小情况,可能需要做几万甚至十几万次IO才能完成.而写入一个10mb 的大文件,如果这个文件在磁盘上是连续存放的,那么只需要几十个io就可双完成. 对于写入10000个小文件的情况,因为每秒需要的IO非常高,所以此时如果用具有较高IOPS的磁盘,将会提速不少,而写入一个10mb文件的情况,就算用了有较高IOPS的硬盘来做,也不会有提升,因为只需要很少的IO就可以完成了,只有换用具有较大传输带宽的硬盘,才能体现出优势</p>
+</blockquote>
+<hr>
+<h1 id="I/O压力分析">I/O压力分析</h1><h2 id="iostat">iostat</h2><p>通过iostat命令可以很透彻的分析当前系统IO的压力情况，本人习惯使用 iostat -x </p>
+<p><img src="/img/磁盘io/iostat.png" alt="Alt text"></p>
+<p>-x   示每个设备的详细的数据</p>
+<p>rrqm/wrqm：io读写会进入queue，并被合并，这里就被合并的次数</p>
+<p>rw/s: 设备每秒的读写次数</p>
+<p>rwsec/s:设备每秒的读写扇区数目，基本与Blk_wrtn/s等保持相同</p>
+<p>avgrq-sz：设备读写块大小（扇区数），上面用8k进行dd测试的话，这个数字就是16=8×1024/512</p>
+<p>avgqu-sz：设备的queue平均大小，越大代表压力大</p>
+<p>await：io请求在queue中被堵塞的平均时长+io被处理完成的平均时长，相当于成功一次io的时间<br>svctm：io被处理完成的平均时长，看await就可以</p>
+<p>%util：io利用率</p>
+<blockquote>
+<p>如果 %iowait 的值过高，表示磁盘存在 I/O 瓶颈。<br>如果 %util 接近 100%，说明产生的 I/O 请求太多，I/O 系统已经满负荷，该磁盘可能存在瓶颈。<br>如果 svctm 比较接近 await，说明 I/O 几乎没有等待时间；<br>如果 await 远大于 svctm，说明 I/O 队列太长，I/O 响应太慢，则需要进行必要优化。<br>如果 avgqu-sz 比较大，也表示有大量 IO 在等待。</p>
+</blockquote>
+<hr>
+<h2 id="iotop">iotop</h2><p>通过iotop来监控io压力大的进程</p>
+<p>按C键，按照cpu消耗排名</p>
+<p><img src="/img/磁盘io/iotop.PNG" alt="Alt text"></p>
+<p>参考：<br><a href="https://www.mtyun.com/library/about-desk-io" target="_blank" rel="external">https://www.mtyun.com/library/about-desk-io</a><br><a href="https://github.com/ColZer/DigAndBuried/blob/master/system/disk-io.md" target="_blank" rel="external">https://github.com/ColZer/DigAndBuried/blob/master/system/disk-io.md</a></p>
 
                                                                                 
                                         </div>
@@ -302,18 +350,9 @@
                         
 <nav id="article-nav">
   
-    <a href="/2015/12/01/atom编辑器/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          atom编辑器爆爆爆
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/11/25/Jprofiler安装/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Jprofiler安装</div>
+    <a href="/2018/11/15/mytop安装使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mytop 安装使用</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -323,7 +362,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-抽奖性能测试" data-title="抽奖性能测试" data-url="http://tonylit.me/2015/11/30/抽奖性能测试/"></div>
+                                    <div class="ds-thread" data-thread-key="post-聊聊磁盘IO" data-title="聊聊磁盘I/O" data-url="http://tonylit.me/2018/11/26/聊聊磁盘IO/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">

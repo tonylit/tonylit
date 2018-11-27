@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Nothing is given. Everything is earned.]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2018-11-15T05:37:27.000Z</updated>
+  <updated>2018-11-26T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -13,6 +13,80 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[聊聊磁盘I/O]]></title>
+    <link href="http://tonylit.me/2018/11/26/%E8%81%8A%E8%81%8A%E7%A3%81%E7%9B%98IO/"/>
+    <id>http://tonylit.me/2018/11/26/聊聊磁盘IO/</id>
+    <published>2018-11-26T03:37:27.000Z</published>
+    <updated>2018-11-26T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="/img/磁盘io/hdd.jpg" alt="Alt text"></p>
+<p>由于SSD在价格方面昂贵，企业级应用服务存储大多还是选择HDD。</p>
+<p>毕竟性价比高嘛，但随着计算机硬件-CPU，内存的不断发展，磁盘I/O在性能方面越来越拖后腿。</p>
+<a id="more"></a>
+<hr>
+<h1 id="why_slow？">why slow？</h1><p>HDD对数据的操作，95%的耗时在机械运动上。</p>
+<p>磁盘完成一个I/O请求所花费的时间，由寻道时间、旋转延迟和数据传输时间三部分构成。</p>
+<p>寻道时间（Tseek），是指将读写磁头移动至正确的磁道上所需要的时间。寻道时间越短，I/O操作越快，目前磁盘的平均寻道时间一般在3－15ms；</p>
+<p>旋转延迟（Trotation），是指盘片旋转将请求数据所在扇区移至读写磁头下方所需要的时间。旋转延迟取决于磁盘转速，通常使用磁盘旋转一周所需时间的1/2表示。比如，7200rpm的磁盘平均旋转延迟大约为60*1000/7200/2 = 4.17ms</p>
+<p>内部接口传送时间，即从磁盘盘片到内部磁盘缓冲传送的时间，量级是440微秒。</p>
+<p>外部接口传输时间，即从磁盘缓冲到接口传送的时间，量级是110微秒。</p>
+<p>数据传输时间通常远小于前两部分消耗时间，简单计算时可忽略。</p>
+<hr>
+<h1 id="物理结构">物理结构</h1><p>熟悉寻道时间和旋转延迟，必须了解HDD的物理结构。硬盘内部主要部件为磁盘盘片、传动手臂、读写磁头和主轴马达。</p>
+<p>实际数据都是写在盘片上，读写主要是通过传动手臂上的读写磁头来完成。</p>
+<p>实际运行时，主轴让磁盘盘片转动，然后传动手臂可伸展让读取头在盘片上进行读写操作。</p>
+<p>磁盘物理结构如下图所示：<br><img src="/img/磁盘io/hdd.PNG" alt="Alt text"></p>
+<p>由于单一盘片容量有限，一般硬盘都有两张以上的盘片，每个盘片有两面，都可记录信息，所以一张盘片对应着两个磁头。</p>
+<p>盘片被分为许多扇形的区域，每个区域叫一个扇区，硬盘中每个扇区的大小固定为512字节。</p>
+<p>盘片表面上以盘片中心为圆心，不同半径的同心圆称为磁道，不同盘片相同半径的磁道所组成的圆柱称为柱面。</p>
+<p>磁道与柱面都是表示不同半径的圆，在许多场合，磁道和柱面可以互换使用。</p>
+<p><img src="/img/磁盘io/硬盘的物理结构.png" alt="Alt text"></p>
+<hr>
+<h1 id="衡量性能的指标">衡量性能的指标</h1><p>机械硬盘的连续读写性能很好，但随机读写性能很差，这主要是因为磁头移动到正确的磁道上需要时间，随机读写时，磁头需要不停的移动，时间都浪费在了磁头寻址上，所以性能不高。</p>
+<p>衡量磁盘的重要主要指标是<strong>IOPS</strong>和<strong>吞吐量</strong>。</p>
+<h2 id="IOPS">IOPS</h2><p>IOPS（Input/Output Per Second）即每秒的输入输出量（或读写次数），即指每秒内系统能处理的I/O请求数量。</p>
+<p>随机读写频繁的应用，如小文件存储等，关注随机读写性能，IOPS是关键衡量指标。</p>
+<p>可以推算出磁盘的IOPS = 1000ms / (Tseek + Trotation + Transfer)，如果忽略数据传输时间，理论上可以计算出随机读写最大的IOPS。</p>
+<p>常见磁盘的随机读写最大IOPS为：</p>
+<blockquote>
+<p>7200rpm的磁盘 IOPS = 76 IOPS<br>10000rpm的磁盘IOPS = 111 IOPS<br>15000rpm的磁盘IOPS = 166 IOPS</p>
+</blockquote>
+<h2 id="吞吐量">吞吐量</h2><p>吞吐量（Throughput），指单位时间内可以成功传输的数据数量。</p>
+<p>顺序读写频繁的应用，如视频点播，关注连续读写性能、数据吞吐量是关键衡量指标。</p>
+<blockquote>
+<p>实例： 写入10000个大小为1kb的文件到硬盘上,耗费的时间要比写入一个10mb大小的文件多得多,虽然数据总量都是10mb,因为写入10000个文件时,根据文件分布情况和大小情况,可能需要做几万甚至十几万次IO才能完成.而写入一个10mb 的大文件,如果这个文件在磁盘上是连续存放的,那么只需要几十个io就可双完成. 对于写入10000个小文件的情况,因为每秒需要的IO非常高,所以此时如果用具有较高IOPS的磁盘,将会提速不少,而写入一个10mb文件的情况,就算用了有较高IOPS的硬盘来做,也不会有提升,因为只需要很少的IO就可以完成了,只有换用具有较大传输带宽的硬盘,才能体现出优势</p>
+</blockquote>
+<hr>
+<h1 id="I/O压力分析">I/O压力分析</h1><h2 id="iostat">iostat</h2><p>通过iostat命令可以很透彻的分析当前系统IO的压力情况，本人习惯使用 iostat -x </p>
+<p><img src="/img/磁盘io/iostat.png" alt="Alt text"></p>
+<p>-x   示每个设备的详细的数据</p>
+<p>rrqm/wrqm：io读写会进入queue，并被合并，这里就被合并的次数</p>
+<p>rw/s: 设备每秒的读写次数</p>
+<p>rwsec/s:设备每秒的读写扇区数目，基本与Blk_wrtn/s等保持相同</p>
+<p>avgrq-sz：设备读写块大小（扇区数），上面用8k进行dd测试的话，这个数字就是16=8×1024/512</p>
+<p>avgqu-sz：设备的queue平均大小，越大代表压力大</p>
+<p>await：io请求在queue中被堵塞的平均时长+io被处理完成的平均时长，相当于成功一次io的时间<br>svctm：io被处理完成的平均时长，看await就可以</p>
+<p>%util：io利用率</p>
+<blockquote>
+<p>如果 %iowait 的值过高，表示磁盘存在 I/O 瓶颈。<br>如果 %util 接近 100%，说明产生的 I/O 请求太多，I/O 系统已经满负荷，该磁盘可能存在瓶颈。<br>如果 svctm 比较接近 await，说明 I/O 几乎没有等待时间；<br>如果 await 远大于 svctm，说明 I/O 队列太长，I/O 响应太慢，则需要进行必要优化。<br>如果 avgqu-sz 比较大，也表示有大量 IO 在等待。</p>
+</blockquote>
+<hr>
+<h2 id="iotop">iotop</h2><p>通过iotop来监控io压力大的进程</p>
+<p>按C键，按照cpu消耗排名</p>
+<p><img src="/img/磁盘io/iotop.PNG" alt="Alt text"></p>
+<p>参考：<br><a href="https://www.mtyun.com/library/about-desk-io" target="_blank" rel="external">https://www.mtyun.com/library/about-desk-io</a><br><a href="https://github.com/ColZer/DigAndBuried/blob/master/system/disk-io.md" target="_blank" rel="external">https://github.com/ColZer/DigAndBuried/blob/master/system/disk-io.md</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><img src="/img/磁盘io/hdd.jpg" alt="Alt text"></p>
+<p>由于SSD在价格方面昂贵，企业级应用服务存储大多还是选择HDD。</p>
+<p>毕竟性价比高嘛，但随着计算机硬件-CPU，内存的不断发展，磁盘I/O在性能方面越来越拖后腿。</p>]]>
+    
+    </summary>
+    
+      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[mytop 安装使用]]></title>
@@ -3669,26 +3743,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[测试环境的docker实践]]></title>
-    <link href="http://tonylit.me/2016/10/12/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E7%9A%84docker%E5%AE%9E%E8%B7%B5/"/>
-    <id>http://tonylit.me/2016/10/12/测试环境的docker实践/</id>
-    <published>2016-10-12T03:37:27.000Z</published>
-    <updated>2016-10-12T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>
-<a id="more"></a>
-<p>技术委员会也很有心，给出了分享后的反馈。<br><img src="/img/测试环境的docker实践/得分.PNG" alt="Alt text"></p>
-<h2 id="演讲内容">演讲内容</h2><p><img src="/img/测试环境的docker实践/幻灯片1.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片2.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片3.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片4.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片5.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片6.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片7.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片8.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片9.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片10.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片11.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片12.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片13.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片14.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片15.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片16.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片17.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片18.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片19.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片20.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片21.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片22.jpg" alt="Alt text"></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[高级性能测试工程师成长计划]]></title>
     <link href="http://tonylit.me/2016/10/12/%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/"/>
     <id>http://tonylit.me/2016/10/12/工程师成长计划/</id>
@@ -3708,6 +3762,26 @@
     </summary>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[测试环境的docker实践]]></title>
+    <link href="http://tonylit.me/2016/10/12/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E7%9A%84docker%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://tonylit.me/2016/10/12/测试环境的docker实践/</id>
+    <published>2016-10-12T03:37:27.000Z</published>
+    <updated>2016-10-12T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>
+<a id="more"></a>
+<p>技术委员会也很有心，给出了分享后的反馈。<br><img src="/img/测试环境的docker实践/得分.PNG" alt="Alt text"></p>
+<h2 id="演讲内容">演讲内容</h2><p><img src="/img/测试环境的docker实践/幻灯片1.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片2.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片3.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片4.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片5.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片6.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片7.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片8.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片9.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片10.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片11.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片12.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片13.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片14.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片15.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片16.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片17.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片18.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片19.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片20.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片21.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片22.jpg" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   
@@ -4577,6 +4651,29 @@
   </entry>
   
   <entry>
+    <title><![CDATA[rsync和scp传输时间比较]]></title>
+    <link href="http://tonylit.me/2016/05/18/scp%E5%92%8Crsync%E4%BC%A0%E8%BE%93%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83/"/>
+    <id>http://tonylit.me/2016/05/18/scp和rsync传输速度比较/</id>
+    <published>2016-05-18T03:37:27.000Z</published>
+    <updated>2016-05-18T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br><a id="more"></a><br>传输一个3.2G的文件，里面杂七杂八的图片、小文件、大文件、视频….</p>
+<h1 id="rsync传输">rsync传输</h1><p>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">rsync -avr --progress --delete /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
+<h2 id="第一次传输：">第一次传输：</h2><p><strong>时间：58s</strong></p>
+<h2 id="第二次传输：">第二次传输：</h2><p><strong>时间：1s</strong></p>
+<p>#scp传输<br>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">scp -r /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
+<p><strong>时间：511s</strong></p>
+<h1 id="结论：">结论：</h1><p>rsync的传输速度比scp快很多</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br>]]>
+    
+    </summary>
+    
+      <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[ssh 免登陆]]></title>
     <link href="http://tonylit.me/2016/05/18/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/"/>
     <id>http://tonylit.me/2016/05/18/ssh免密码登录/</id>
@@ -4597,29 +4694,6 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>配置A服务器ssh无密码登陆到B服务器<br>]]>
-    
-    </summary>
-    
-      <category term="work" scheme="http://tonylit.me/tags/work/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[rsync和scp传输时间比较]]></title>
-    <link href="http://tonylit.me/2016/05/18/scp%E5%92%8Crsync%E4%BC%A0%E8%BE%93%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83/"/>
-    <id>http://tonylit.me/2016/05/18/scp和rsync传输速度比较/</id>
-    <published>2016-05-18T03:37:27.000Z</published>
-    <updated>2016-05-18T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br><a id="more"></a><br>传输一个3.2G的文件，里面杂七杂八的图片、小文件、大文件、视频….</p>
-<h1 id="rsync传输">rsync传输</h1><p>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">rsync -avr --progress --delete /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
-<h2 id="第一次传输：">第一次传输：</h2><p><strong>时间：58s</strong></p>
-<h2 id="第二次传输：">第二次传输：</h2><p><strong>时间：1s</strong></p>
-<p>#scp传输<br>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">scp -r /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
-<p><strong>时间：511s</strong></p>
-<h1 id="结论：">结论：</h1><p>rsync的传输速度比scp快很多</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br>]]>
     
     </summary>
     
@@ -4951,6 +5025,32 @@
   </entry>
   
   <entry>
+    <title><![CDATA[docker pull关于https的报错处理]]></title>
+    <link href="http://tonylit.me/2016/03/29/docker_pull_https_error/"/>
+    <id>http://tonylit.me/2016/03/29/docker_pull_https_error/</id>
+    <published>2016-03-29T03:37:27.000Z</published>
+    <updated>2016-03-29T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>
+<a id="more"></a>
+<p>网上很多解决方法都是Ubuntu系统的，centos7 docker的配置文件真是难找。</p>
+<h1 id="修改docker配置文件">修改docker配置文件</h1><p>刚开始修改/etc/sysconfig/docker文件，加入–insecure-registry docker.vemic.com:5000，没启作用。<br>起作用的配置如下修改：<br>vi /usr/lib/systemd/system/docker.service</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[Unit]</span></span><br><span class="line"><span class="setting">Description=<span class="value">Docker Application Container Engine</span></span></span><br><span class="line"><span class="comment">##这里讲https-&gt;http</span></span><br><span class="line"><span class="setting">Documentation=<span class="value">http://docs.docker.com</span></span></span><br><span class="line"><span class="setting">After=<span class="value">network.target docker.socket</span></span></span><br><span class="line"><span class="setting">Requires=<span class="value">docker.socket</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Service]</span></span><br><span class="line"><span class="comment">##这里加入-d  --insecure-registry docker.vemic.com:5000</span></span><br><span class="line"><span class="setting">ExecStart=<span class="value">/usr/bin/docker -d  --insecure-registry docker.vemic.com:<span class="number">5000</span> -H fd:// <span class="variable">$OPTIONS</span> <span class="variable">$DOCKER_STORAGE_OPTIONS</span>  </span></span></span><br><span class="line"><span class="setting">MountFlags=<span class="value">slave</span></span></span><br><span class="line"><span class="setting">LimitNOFILE=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitNPROC=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitCORE=<span class="value">infinity</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Install]</span></span><br><span class="line"><span class="setting">WantedBy=<span class="value">multi-user.target</span></span></span><br></pre></td></tr></table></figure>
+<p>以上修改后重启docker</p>
+<blockquote>
+<p>service docker restart<br>systemctl daemon-reload</p>
+</blockquote>
+<p>OK了</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[使用weave实现docker多宿主机互联]]></title>
     <link href="http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/"/>
     <id>http://tonylit.me/2016/03/29/docker-weave网络互连/</id>
@@ -4974,32 +5074,6 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>使用weave实现docker多宿主机互联<br>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[docker pull关于https的报错处理]]></title>
-    <link href="http://tonylit.me/2016/03/29/docker_pull_https_error/"/>
-    <id>http://tonylit.me/2016/03/29/docker_pull_https_error/</id>
-    <published>2016-03-29T03:37:27.000Z</published>
-    <updated>2016-03-29T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>
-<a id="more"></a>
-<p>网上很多解决方法都是Ubuntu系统的，centos7 docker的配置文件真是难找。</p>
-<h1 id="修改docker配置文件">修改docker配置文件</h1><p>刚开始修改/etc/sysconfig/docker文件，加入–insecure-registry docker.vemic.com:5000，没启作用。<br>起作用的配置如下修改：<br>vi /usr/lib/systemd/system/docker.service</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[Unit]</span></span><br><span class="line"><span class="setting">Description=<span class="value">Docker Application Container Engine</span></span></span><br><span class="line"><span class="comment">##这里讲https-&gt;http</span></span><br><span class="line"><span class="setting">Documentation=<span class="value">http://docs.docker.com</span></span></span><br><span class="line"><span class="setting">After=<span class="value">network.target docker.socket</span></span></span><br><span class="line"><span class="setting">Requires=<span class="value">docker.socket</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Service]</span></span><br><span class="line"><span class="comment">##这里加入-d  --insecure-registry docker.vemic.com:5000</span></span><br><span class="line"><span class="setting">ExecStart=<span class="value">/usr/bin/docker -d  --insecure-registry docker.vemic.com:<span class="number">5000</span> -H fd:// <span class="variable">$OPTIONS</span> <span class="variable">$DOCKER_STORAGE_OPTIONS</span>  </span></span></span><br><span class="line"><span class="setting">MountFlags=<span class="value">slave</span></span></span><br><span class="line"><span class="setting">LimitNOFILE=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitNPROC=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitCORE=<span class="value">infinity</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Install]</span></span><br><span class="line"><span class="setting">WantedBy=<span class="value">multi-user.target</span></span></span><br></pre></td></tr></table></figure>
-<p>以上修改后重启docker</p>
-<blockquote>
-<p>service docker restart<br>systemctl daemon-reload</p>
-</blockquote>
-<p>OK了</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>]]>
     
     </summary>
     
@@ -5430,47 +5504,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[export、import导出导入docker容器]]></title>
-    <link href="http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/"/>
-    <id>http://tonylit.me/2015/12/22/docker import和export/</id>
-    <published>2015-12-22T03:37:27.000Z</published>
-    <updated>2015-12-22T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/" target="_blank" rel="external">centos-6-x86_64.tar.gz</a></p>
-<blockquote>
-<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
-<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br><a id="more"></a></p>
-</blockquote>
-<h2 id="实例">实例</h2><blockquote>
-<p>cat centos-6-x86_64.tar.gz|docker import - test/centos-6:v1.0<br><img src="/img/docker/docker_import.PNG" alt="Alt text"></p>
-</blockquote>
-<p>此外，也可以通过指定 URL 或者某个目录来导入，例如</p>
-<blockquote>
-<p> docker import <a href="http://example.com/exampleimage.tgz" target="_blank" rel="external">http://example.com/exampleimage.tgz</a> example/imagerepo</p>
-</blockquote>
-<p>*注：用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p>
-<h1 id="导出容器">导出容器</h1><p>先启动一下容器：</p>
-<blockquote>
-<p>docker run -t -i 5de0ac2f6f7e /bin/bash</p>
-</blockquote>
-<p>两个参数，-t表示给容器tty终端，-i表示可以interactive，可以交互。</p>
-<p><img src="/img/docker/docker_ps.PNG" alt="Alt text"></p>
-<blockquote>
-<p>docker export 5d73efeb9a38 &gt; tonylit_centos6.tar</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/">centos-6-x86_64.tar.gz</a></p>
-<blockquote>
-<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
-<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[staf使用]]></title>
     <link href="http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/"/>
     <id>http://tonylit.me/2015/12/22/staf使用/</id>
@@ -5516,6 +5549,47 @@
     </summary>
     
       <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[export、import导出导入docker容器]]></title>
+    <link href="http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/"/>
+    <id>http://tonylit.me/2015/12/22/docker import和export/</id>
+    <published>2015-12-22T03:37:27.000Z</published>
+    <updated>2015-12-22T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/" target="_blank" rel="external">centos-6-x86_64.tar.gz</a></p>
+<blockquote>
+<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
+<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br><a id="more"></a></p>
+</blockquote>
+<h2 id="实例">实例</h2><blockquote>
+<p>cat centos-6-x86_64.tar.gz|docker import - test/centos-6:v1.0<br><img src="/img/docker/docker_import.PNG" alt="Alt text"></p>
+</blockquote>
+<p>此外，也可以通过指定 URL 或者某个目录来导入，例如</p>
+<blockquote>
+<p> docker import <a href="http://example.com/exampleimage.tgz" target="_blank" rel="external">http://example.com/exampleimage.tgz</a> example/imagerepo</p>
+</blockquote>
+<p>*注：用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p>
+<h1 id="导出容器">导出容器</h1><p>先启动一下容器：</p>
+<blockquote>
+<p>docker run -t -i 5de0ac2f6f7e /bin/bash</p>
+</blockquote>
+<p>两个参数，-t表示给容器tty终端，-i表示可以interactive，可以交互。</p>
+<p><img src="/img/docker/docker_ps.PNG" alt="Alt text"></p>
+<blockquote>
+<p>docker export 5d73efeb9a38 &gt; tonylit_centos6.tar</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/">centos-6-x86_64.tar.gz</a></p>
+<blockquote>
+<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
+<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   
@@ -5598,48 +5672,6 @@
       <category term="java" scheme="http://tonylit.me/tags/java/"/>
     
       <category term="work" scheme="http://tonylit.me/tags/work/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[java线程状态学习]]></title>
-    <link href="http://tonylit.me/2015/12/18/java%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://tonylit.me/2015/12/18/java线程状态学习/</id>
-    <published>2015-12-18T03:37:27.000Z</published>
-    <updated>2015-12-18T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>一直对java线程的几种状态认识的模模糊糊，平时在对java进行监控的时候，用jstack打出一堆线程状态，看的不是很懂，另外网上一堆乌七八糟的东西，看着着实难受，自己学习一下，整理整理。<br><a id="more"></a></p>
-<h1 id="可以直接看java-lang-Thread-State类，里面对几种状态有详细解释。">可以直接看java.lang.Thread.State类，里面对几种状态有详细解释。</h1><blockquote>
-<p><strong>NEW</strong> 状态是指线程刚创建, 尚未启动</p>
-<p><strong>RUNNABLE</strong> 状态是线程正在正常运行中, 当然可能会有某种耗时计算/IO等待的操作/CPU时间片切换等, 这个状态下发生的等待一般是其他系统资源, 而不是锁, Sleep等</p>
-<p><strong>BLOCKED </strong> 这个状态下, 是在多个线程有同步操作的场景, 比如正在等待另一个线程的synchronized 块的执行释放, 或者可重入的 synchronized块里别人调用wait() 方法, 也就是这里是线程在等待进入临界区  </p>
-<p><strong>WAITING</strong>  这个状态下是指线程拥有了某个锁之后, 调用了他的wait方法, 等待其他线程/锁拥有者调用 notify / notifyAll 一遍该线程可以继续下一步操作, 这里要区分 BLOCKED 和 WATING 的区别, 一个是在临界点外面等待进入. 一个是在理解点里面wait等待别人notify, 线程调用了join方法 join了另外的线程的时候, 也会进入WAITING状态,等待被他join的线程执行结束</p>
-<p><strong>TIMED_WAITING</strong>  这个状态就是有限的(时间限制)的WAITING, 一般出现在调用wait(long), join(long)等情况下, 另外一个线程sleep后, 也会进入TIMED_WAITING状态</p>
-<p><strong>TERMINATED</strong> 这个状态下表示 该线程的run方法已经执行完毕了, 基本上就等于死亡了(当时如果线程被持久持有, 可能不会被回收)</p>
-</blockquote>
-<hr>
-<p> 上面的几段话仔细读一读，想一想</p>
-<h1 id="下面我们来写写代码，让这些线程进入以上几种状态：">下面我们来写写代码，让这些线程进入以上几种状态：</h1><h2 id="NEW，这个比较easy：">NEW，这个比较easy：</h2><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Thread</span> <span class="keyword">thread</span> = <span class="literal">new</span> <span class="keyword">Thread</span>();</span><br><span class="line"> System<span class="built_in">.</span>out<span class="built_in">.</span>println(<span class="keyword">thread</span><span class="built_in">.</span>getState());</span><br></pre></td></tr></table></figure>
-<p>输出NEW</p>
-<h2 id="RUNABLE，也easy，将线程start，同时代码里面不要wait或者sleep">RUNABLE，也easy，将线程start，同时代码里面不要wait或者sleep</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Thread thread = <span class="keyword">new</span> Thread() &#123;</span><br><span class="line">     @<span class="function">Override</span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">10</span>; i++) &#123;</span><br><span class="line">             System.out.println(currentThread().getState());</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line"> &#125;;</span><br><span class="line"> thread.start();</span><br></pre></td></tr></table></figure>
-<p>输出：</p>
-<blockquote>
-<p>RUNNABLE<br>RUNNABLE<br>RUNNABLE<br>RUNNABLE<br>RUNNABLE<br>RUNNABLE<br>RUNNABLE<br>RUNNABLE<br>RUNNABLE<br>RUNNABLE<br>RUNNABLE<br><img src="/img/thread/runnable.png" alt="Alt text"></p>
-</blockquote>
-<h2 id="BLOCKED，这个需要至少两个线程，然后互相等待synchronized">BLOCKED，这个需要至少两个线程，然后互相等待synchronized</h2><pre><code><span class="comment"><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">final Object lock = new Object<span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> Thread run = new Thread<span class="params">()</span> &#123;</span><br><span class="line">     @Override</span><br><span class="line">     public void run<span class="params">()</span> &#123;</span><br><span class="line">         <span class="keyword">for</span> <span class="params">(int i = <span class="number">0</span>; i &lt;= <span class="number">10</span>; i++)</span> &#123;</span><br><span class="line">             synchronized <span class="params">(lock)</span> &#123;</span><br><span class="line">                 System.out.println<span class="params">(currentThread<span class="params">()</span>.getState<span class="params">()</span>)</span>;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line"> &#125;;</span><br><span class="line"></span><br><span class="line"> Thread t1 = new Thread<span class="params">(run)</span>;</span><br><span class="line"> t1.setName<span class="params">( “t1”)</span>;</span><br><span class="line"> Thread t2 = new Thread<span class="params">(run)</span>;</span><br><span class="line"> t2.setName<span class="params">( “t2”)</span>;</span><br><span class="line"> t1.start<span class="params">()</span>;</span><br><span class="line"> t2.start<span class="params">()</span>;</span><br></pre></td></tr></table></figure></span>
-</code></pre><p><img src="/img/thread/BLOCKED.png" alt="Alt text"><br>这时候, 一个在RUNNABLE, 另一个就会在BLOCKED (等待另一个线程的 System.out.println.. 这是个IO操作, 属于系统资源, 不会造成WAITING</p>
-<h2 id="WAITING,这个需要用到生产者消费者模型,_当生产者生产过慢的时候,_消费者就会等待生产者的下一次notify">WAITING,这个需要用到生产者消费者模型, 当生产者生产过慢的时候, 消费者就会等待生产者的下一次notify</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">final Object <span class="keyword">lock</span> = <span class="keyword">new</span> Object();</span><br><span class="line">         Thread t1 = <span class="keyword">new</span> Thread()&#123;</span><br><span class="line">              @<span class="function">Override</span><br><span class="line">              <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                 </span><br><span class="line">                  <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">                 </span><br><span class="line">                  <span class="keyword">while</span>(<span class="keyword">true</span> )&#123;</span><br><span class="line">                       synchronized (<span class="keyword">lock</span>) &#123;</span><br><span class="line">                           <span class="keyword">try</span> &#123;</span><br><span class="line">                               <span class="keyword">lock</span>.wait();</span><br><span class="line">                          &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                          &#125;</span><br><span class="line">                          System. <span class="keyword">out</span>.println(i++);</span><br><span class="line">                      &#125;</span><br><span class="line">                 &#125;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;;</span><br><span class="line">         </span><br><span class="line">         Thread t2 = <span class="keyword">new</span> Thread()&#123;</span><br><span class="line">              @<span class="function">Override</span><br><span class="line">              <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                 </span><br><span class="line">                  <span class="keyword">while</span>(<span class="keyword">true</span> )&#123;</span><br><span class="line">                       synchronized (<span class="keyword">lock</span>) &#123;</span><br><span class="line">                           <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; <span class="number">10000000</span>; i++)&#123;</span><br><span class="line">                              System. <span class="keyword">out</span>.println(i);</span><br><span class="line">                          &#125;</span><br><span class="line">                          <span class="keyword">lock</span>.notifyAll();</span><br><span class="line">                      &#125;</span><br><span class="line">                      </span><br><span class="line">                 &#125;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;;</span><br><span class="line">         </span><br><span class="line">         t1.setName( “^^t1^^”);</span><br><span class="line">         t2.setName( “^^t2^^”);</span><br><span class="line">         </span><br><span class="line">         t1.start();</span><br><span class="line">         t2.start();</span><br></pre></td></tr></table></figure>
-<p><img src="/img/thread/WAITTING.png" alt="Alt text"></p>
-<h1 id="TIMED_WAITING,_这个仅需要在4的基础上,_在wait方法加上一个时间参数进行限制就OK了">TIMED_WAITING, 这个仅需要在4的基础上, 在wait方法加上一个时间参数进行限制就OK了</h1><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">synchronized (<span class="keyword">lock</span>) &#123;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">lock</span>.wait(<span class="number">60</span> * <span class="number">1000</span>L);</span><br><span class="line">   &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">   &#125;</span><br><span class="line">   System. <span class="keyword">out</span> .println(i++);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<p> <img src="/img/thread/TIMED_WAITING.png" alt="Alt text"></p>
-<p>另外看stack的输出,  他叫 TIMED_WAITING(on  object monitor) , 说明括号后面还有其他的情况, 比如sleep, 我们直接把t2的for循环改成sleep试试:<br> <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">synchronized (lock) &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">          sleep(<span class="number">30</span>*<span class="number">1000L</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    lock.notifyAll();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><img src="/img/thread/TIMED_WAITING_2.png" alt="Alt text"><br>t2的state是 TIMED_WAITING( sleeping),  而t1依然是on object monitor , 因为t1还是wait在等待t2 notify, 而t2是自己sleep</p>
-<h2 id="TERMINATED,_这个状态只要线程结束了run方法,_就会进入了">TERMINATED, 这个状态只要线程结束了run方法, 就会进入了</h2>]]></content>
-    <summary type="html">
-    <![CDATA[<p>一直对java线程的几种状态认识的模模糊糊，平时在对java进行监控的时候，用jstack打出一堆线程状态，看的不是很懂，另外网上一堆乌七八糟的东西，看着着实难受，自己学习一下，整理整理。<br>]]>
-    
-    </summary>
-    
-      <category term="java" scheme="http://tonylit.me/tags/java/"/>
     
   </entry>
   

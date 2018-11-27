@@ -4,6 +4,23 @@
 
     
   <url>
+    <loc>http://tonylit.me/2018/11/26/%E8%81%8A%E8%81%8A%E7%A3%81%E7%9B%98IO/</loc>
+    <lastmod>2018-11-26T05:37:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>聊聊磁盘I/O</title>
+        <pubTime>2018-11-26T03:37:27.000Z</pubTime>
+        
+        <tag>性能</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://tonylit.me/2018/11/15/mytop%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2018-11-15T05:37:27.000Z</lastmod>
     <data>
@@ -878,14 +895,14 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/10/12/%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/</loc>
+    <loc>http://tonylit.me/2016/10/12/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E7%9A%84docker%E5%AE%9E%E8%B7%B5/</loc>
     <lastmod>2016-10-12T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>高级性能测试工程师成长计划</title>
+        <title>测试环境的docker实践</title>
         <pubTime>2016-10-12T03:37:27.000Z</pubTime>
         
-        <tag>性能</tag>
+        <tag>docker</tag>
          
          
            
@@ -895,14 +912,14 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/10/12/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E7%9A%84docker%E5%AE%9E%E8%B7%B5/</loc>
+    <loc>http://tonylit.me/2016/10/12/%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/</loc>
     <lastmod>2016-10-12T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>测试环境的docker实践</title>
+        <title>高级性能测试工程师成长计划</title>
         <pubTime>2016-10-12T03:37:27.000Z</pubTime>
         
-        <tag>docker</tag>
+        <tag>性能</tag>
          
          
            
@@ -963,14 +980,14 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/08/15/docker%20network%20%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE/</loc>
+    <loc>http://tonylit.me/2016/08/15/%E4%BD%BF%E7%94%A8strace%E5%AE%9A%E4%BD%8D%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2016-08-15T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>docker network 网络设置</title>
+        <title>使用strace定位性能问题</title>
         <pubTime>2016-08-15T03:37:27.000Z</pubTime>
         
-        <tag>docker</tag>
+        <tag>性能</tag>
          
          
            
@@ -980,14 +997,14 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/08/15/%E4%BD%BF%E7%94%A8strace%E5%AE%9A%E4%BD%8D%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/</loc>
+    <loc>http://tonylit.me/2016/08/15/docker%20network%20%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE/</loc>
     <lastmod>2016-08-15T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>使用strace定位性能问题</title>
+        <title>docker network 网络设置</title>
         <pubTime>2016-08-15T03:37:27.000Z</pubTime>
         
-        <tag>性能</tag>
+        <tag>docker</tag>
          
          
            
@@ -1205,11 +1222,11 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/05/18/scp%E5%92%8Crsync%E4%BC%A0%E8%BE%93%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83/</loc>
+    <loc>http://tonylit.me/2016/05/18/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/</loc>
     <lastmod>2016-05-18T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>rsync和scp传输时间比较</title>
+        <title>ssh 免登陆</title>
         <pubTime>2016-05-18T03:37:27.000Z</pubTime>
         
         <tag>work</tag>
@@ -1222,11 +1239,11 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/05/18/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/</loc>
+    <loc>http://tonylit.me/2016/05/18/scp%E5%92%8Crsync%E4%BC%A0%E8%BE%93%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83/</loc>
     <lastmod>2016-05-18T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>ssh 免登陆</title>
+        <title>rsync和scp传输时间比较</title>
         <pubTime>2016-05-18T03:37:27.000Z</pubTime>
         
         <tag>work</tag>
@@ -1256,11 +1273,11 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/04/22/supervisor%E7%AE%A1%E7%90%86docker%E8%BF%9B%E7%A8%8B/</loc>
+    <loc>http://tonylit.me/2016/04/22/%E5%A6%82%E4%BD%95%E4%B8%8D%E8%BE%93%E5%87%BAdocker%E6%97%A5%E5%BF%97%E5%88%B0%E6%8E%A7%E5%88%B6%E5%8F%B0/</loc>
     <lastmod>2016-04-22T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>supervisor管理容器进程</title>
+        <title>如何不输出docker日志到控制台</title>
         <pubTime>2016-04-22T03:37:27.000Z</pubTime>
         
         <tag>docker</tag>
@@ -1273,11 +1290,11 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/04/22/%E5%A6%82%E4%BD%95%E4%B8%8D%E8%BE%93%E5%87%BAdocker%E6%97%A5%E5%BF%97%E5%88%B0%E6%8E%A7%E5%88%B6%E5%8F%B0/</loc>
+    <loc>http://tonylit.me/2016/04/22/supervisor%E7%AE%A1%E7%90%86docker%E8%BF%9B%E7%A8%8B/</loc>
     <lastmod>2016-04-22T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>如何不输出docker日志到控制台</title>
+        <title>supervisor管理容器进程</title>
         <pubTime>2016-04-22T03:37:27.000Z</pubTime>
         
         <tag>docker</tag>
@@ -1392,11 +1409,11 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/03/29/docker_pull_https_error/</loc>
+    <loc>http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/</loc>
     <lastmod>2016-03-29T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>docker pull关于https的报错处理</title>
+        <title>使用weave实现docker多宿主机互联</title>
         <pubTime>2016-03-29T03:37:27.000Z</pubTime>
         
         <tag>docker</tag>
@@ -1409,11 +1426,11 @@
 
     
   <url>
-    <loc>http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/</loc>
+    <loc>http://tonylit.me/2016/03/29/docker_pull_https_error/</loc>
     <lastmod>2016-03-29T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>使用weave实现docker多宿主机互联</title>
+        <title>docker pull关于https的报错处理</title>
         <pubTime>2016-03-29T03:37:27.000Z</pubTime>
         
         <tag>docker</tag>
@@ -1766,14 +1783,14 @@
 
     
   <url>
-    <loc>http://tonylit.me/2015/12/16/jenkins+maven+jmeter%E6%80%A7%E8%83%BD%E8%87%AA%E5%8A%A8%E5%8C%96%E5%AE%9E%E8%B7%B5/</loc>
+    <loc>http://tonylit.me/2015/12/16/javamelody%E7%9B%91%E6%8E%A7java%E5%BA%94%E7%94%A8/</loc>
     <lastmod>2015-12-16T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>jenkins+maven+jmeter 性能自动化实践</title>
+        <title>JavaMelody监控java应用</title>
         <pubTime>2015-12-16T03:37:27.000Z</pubTime>
         
-        <tag>Jmeter</tag>
+        <tag>work</tag>
          
         <tag>性能</tag>
          
@@ -1785,14 +1802,14 @@
 
     
   <url>
-    <loc>http://tonylit.me/2015/12/16/javamelody%E7%9B%91%E6%8E%A7java%E5%BA%94%E7%94%A8/</loc>
+    <loc>http://tonylit.me/2015/12/16/jenkins+maven+jmeter%E6%80%A7%E8%83%BD%E8%87%AA%E5%8A%A8%E5%8C%96%E5%AE%9E%E8%B7%B5/</loc>
     <lastmod>2015-12-16T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>JavaMelody监控java应用</title>
+        <title>jenkins+maven+jmeter 性能自动化实践</title>
         <pubTime>2015-12-16T03:37:27.000Z</pubTime>
         
-        <tag>work</tag>
+        <tag>Jmeter</tag>
          
         <tag>性能</tag>
          
@@ -1861,23 +1878,6 @@
 
     
   <url>
-    <loc>http://tonylit.me/2015/12/04/tcpdump/</loc>
-    <lastmod>2015-12-04T05:37:27.000Z</lastmod>
-    <data>
-        <display>
-        <title>Linux系统抓包-tcpdump与tcpflow</title>
-        <pubTime>2015-12-04T03:37:27.000Z</pubTime>
-        
-        <tag>work</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://tonylit.me/2015/12/04/tcp/</loc>
     <lastmod>2015-12-04T05:37:27.000Z</lastmod>
     <data>
@@ -1888,6 +1888,23 @@
         <tag>loadrunner</tag>
          
         <tag>性能</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://tonylit.me/2015/12/04/tcpdump/</loc>
+    <lastmod>2015-12-04T05:37:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>Linux系统抓包-tcpdump与tcpflow</title>
+        <pubTime>2015-12-04T03:37:27.000Z</pubTime>
+        
+        <tag>work</tag>
          
          
            
@@ -1939,25 +1956,6 @@
         <pubTime>2015-11-25T03:37:27.000Z</pubTime>
         
         <tag>java</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://tonylit.me/2015/11/24/kafka%E4%B8%8Ecountdownlatch/</loc>
-    <lastmod>2015-11-24T05:37:27.000Z</lastmod>
-    <data>
-        <display>
-        <title>kafka与countdownlatch</title>
-        <pubTime>2015-11-24T03:37:27.000Z</pubTime>
-        
-        <tag>java</tag>
-         
-        <tag>kafka</tag>
          
          
            
@@ -2048,25 +2046,6 @@
     </url>
 
     
-  <url>
-    <loc>http://tonylit.me/2015/11/30/%E6%8A%BD%E5%A5%96%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</loc>
-    <lastmod>2015-11-13T05:37:27.000Z</lastmod>
-    <data>
-        <display>
-        <title>抽奖性能测试</title>
-        <pubTime>2015-11-30T03:37:27.000Z</pubTime>
-        
-        <tag>work</tag>
-         
-        <tag>性能</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
     
     
     
@@ -2096,15 +2075,13 @@
 
     
   <url>
-    <loc>http://tonylit.me/2015/10/14/loadrunner%E7%9B%91%E6%8E%A7linux%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
+    <loc>http://tonylit.me/2015/10/14/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</loc>
     <lastmod>2015-10-14T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>loadrunner监控linux服务器</title>
+        <title>前端性能测试</title>
         <pubTime>2015-10-14T03:37:27.000Z</pubTime>
         
-        <tag>loadrunner</tag>
-         
         <tag>work</tag>
          
         <tag>性能</tag>
@@ -2117,13 +2094,15 @@
 
     
   <url>
-    <loc>http://tonylit.me/2015/10/14/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</loc>
+    <loc>http://tonylit.me/2015/10/14/loadrunner%E7%9B%91%E6%8E%A7linux%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
     <lastmod>2015-10-14T05:37:27.000Z</lastmod>
     <data>
         <display>
-        <title>前端性能测试</title>
+        <title>loadrunner监控linux服务器</title>
         <pubTime>2015-10-14T03:37:27.000Z</pubTime>
         
+        <tag>loadrunner</tag>
+         
         <tag>work</tag>
          
         <tag>性能</tag>
