@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content=""/>
+  
+  <title>mybatis-generator | 淘淘的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="mybatis-generator 可以生成开发中需要的dao、mapper.xml、实体类，很方便。这里推荐两种生成方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mybatis-generator">
+<meta property="og:url" content="http://tonylit.me/2018/12/09/mybatis-generator/index.html">
+<meta property="og:site_name" content="淘淘的博客">
+<meta property="og:description" content="mybatis-generator 可以生成开发中需要的dao、mapper.xml、实体类，很方便。这里推荐两种生成方法。">
+<meta property="og:image" content="http://tonylit.me/img/mybatis-generator/mybatis-generator-gui.png">
+<meta property="og:updated_time" content="2018-12-09T05:37:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mybatis-generator">
+<meta name="twitter:description" content="mybatis-generator 可以生成开发中需要的dao、mapper.xml、实体类，很方便。这里推荐两种生成方法。">
+  
+    <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/leaves.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script src="http://tonylit.me//js/jquery.nicescroll.js"></script>
+
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+<form class="search" method="get" accept-charset="utf-8">
+			<input type="text" id="chillax-search-input" class="st-search-input_my" maxlength="30" placeholder="search" />
+		</form>
+
+
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/c.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/" class="alluraregular">tonyli</a></h1>
+		</hgroup>
+        <!--
+		
+		<p class="header-subtitle">Nothing is given. Everything is earned.</p>
+		
+        -->
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/work">工作日志</a></li>
+				        
+							<li><a href="/tags/life">点滴生活</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Appium/" style="font-size: 12.86px;">Appium</a> <a href="/tags/Gatling/" style="font-size: 11.43px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.43px;">Jmeter</a> <a href="/tags/Python/" style="font-size: 12.86px;">Python</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 17.14px;">docker</a> <a href="/tags/java/" style="font-size: 18.57px;">java</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/loadrunner/" style="font-size: 14.29px;">loadrunner</a> <a href="/tags/pinpoint/" style="font-size: 10px;">pinpoint</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/springboot/" style="font-size: 11.43px;">springboot</a> <a href="/tags/work/" style="font-size: 15.71px;">work</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a>
+					</div>
+				</section>
+				
+
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">Nothing is given. Everything is earned.</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tonyli</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/c.jpg" class="js-avatar">
+				<hgroup>
+				  <h1 class="header-author">tonyli</h1>
+				</hgroup>
+			</div>
+			
+			<p class="header-subtitle">Nothing is given. Everything is earned.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/work">工作日志</a></li>
+		        
+					<li><a href="/tags/life">点滴生活</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+
+	  <div class="recent">
+高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
+</div>
+
+      <div class="body-wrap"><article id="post-mybatis-generator" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2018/12/09/mybatis-generator/" class="article-date">
+  	<time datetime="2018-12-09T03:37:27.000Z" itemprop="datePublished">2018-12-09</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      mybatis-generator
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li></ul>
+	</div>
+
+
+                                        
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#mybatis-generator-gui"><span class="toc-number">1.</span> <span class="toc-text">mybatis-generator-gui</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mybatis-generator_插件"><span class="toc-number">2.</span> <span class="toc-text">mybatis-generator 插件</span></a></li></ol>
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p>mybatis-generator 可以生成开发中需要的dao、mapper.xml、实体类，很方便。这里推荐两种生成方法。</p>
+<a id="more"></a>
+<hr>
+<h2 id="mybatis-generator-gui">mybatis-generator-gui</h2><p>比较推荐第一种方式-界面填写生成。</p>
+<p>mybatis-generator-gui是基于mybatis generator开发一款界面工具，可以使你非常容易及快速生成Mybatis的Java POJO文件及数据库Mapping文件。</p>
+<p><img src="/img/mybatis-generator/mybatis-generator-gui.png" alt="Alt text"></p>
+<p>Github上有详细的使用说明：<br><a href="https://github.com/zouzg/mybatis-generator-gui" target="_blank" rel="external">https://github.com/zouzg/mybatis-generator-gui</a></p>
+<hr>
+<h2 id="mybatis-generator_插件">mybatis-generator 插件</h2><p>第二种为常见的mybatis-generator插件生成方式。</p>
+<p><strong>第一步，在pom.xml中增加mybatis-generator配置</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">plugins</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.mybatis.generator<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>mybatis-generator-maven-plugin<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">version</span>&gt;</span>1.3.2<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">executions</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="title">execution</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="title">id</span>&gt;</span>Generate MyBatis Artifacts<span class="tag">&lt;/<span class="title">id</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="title">phase</span>&gt;</span>deploy<span class="tag">&lt;/<span class="title">phase</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="title">goals</span>&gt;</span></span><br><span class="line">							<span class="tag">&lt;<span class="title">goal</span>&gt;</span>generate<span class="tag">&lt;/<span class="title">goal</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;/<span class="title">goals</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;/<span class="title">execution</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="title">executions</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">configuration</span>&gt;</span></span><br><span class="line">					<span class="comment">&lt;!-- generator 工具配置文件的位置 --&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="title">configurationFile</span>&gt;</span>src/main/resources/mybatis-generator/generatorConfig.xml<span class="tag">&lt;/<span class="title">configurationFile</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="title">verbose</span>&gt;</span>true<span class="tag">&lt;/<span class="title">verbose</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="title">overwrite</span>&gt;</span>true<span class="tag">&lt;/<span class="title">overwrite</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">dependencies</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="title">version</span>&gt;</span>5.1.34<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.mybatis.generator<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>mybatis-generator-core<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="title">version</span>&gt;</span>1.3.2<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="title">dependencies</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="title">plugin</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">configuration</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="title">classifier</span>&gt;</span>exec<span class="tag">&lt;/<span class="title">classifier</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="title">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>第二步，在resources/mybatis-generator/文件夹中添加mybatis-generator.xml</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="doctype">&lt;!DOCTYPE generatorConfiguration</span><br><span class="line">        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"</span><br><span class="line">        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 配置生成器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">generatorConfiguration</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--执行generator插件生成文件的命令： call mvn mybatis-generator:generate -e --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 引入配置文件 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">properties</span> <span class="attribute">resource</span>=<span class="value">"mybatis-generator/mybatisGeneratorinit.properties"</span> /&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--classPathEntry:数据库的JDBC驱动,换成你自己的驱动位置 可选 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">classPathEntry</span></span><br><span class="line">		<span class="attribute">location</span>=<span class="value">"D:\generator_mybatis\mysql-connector-java-5.1.38.jar"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- 一个数据库一个context --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--defaultModelType="flat" 大数据字段，不分表 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">context</span> <span class="attribute">id</span>=<span class="value">"MysqlTables"</span> <span class="attribute">targetRuntime</span>=<span class="value">"MyBatis3Simple"</span></span><br><span class="line">		<span class="attribute">defaultModelType</span>=<span class="value">"flat"</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表； 一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"autoDelimitKeywords"</span> <span class="attribute">value</span>=<span class="value">"true"</span> /&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 生成的Java文件的编码 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"javaFileEncoding"</span> <span class="attribute">value</span>=<span class="value">"utf-8"</span> /&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"beginningDelimiter"</span> <span class="attribute">value</span>=<span class="value">"`"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"endingDelimiter"</span> <span class="attribute">value</span>=<span class="value">"`"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">&lt;!-- 格式化java代码 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"javaFormatter"</span></span><br><span class="line">			<span class="attribute">value</span>=<span class="value">"org.mybatis.generator.api.dom.DefaultJavaFormatter"</span> /&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 格式化XML代码 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"xmlFormatter"</span></span><br><span class="line">			<span class="attribute">value</span>=<span class="value">"org.mybatis.generator.api.dom.DefaultXmlFormatter"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">plugin</span> <span class="attribute">type</span>=<span class="value">"org.mybatis.generator.plugins.SerializablePlugin"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="tag">&lt;<span class="title">plugin</span> <span class="attribute">type</span>=<span class="value">"org.mybatis.generator.plugins.ToStringPlugin"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">&lt;!-- 注释 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">commentGenerator</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"suppressAllComments"</span> <span class="attribute">value</span>=<span class="value">"false"</span> /&gt;</span><span class="comment">&lt;!-- 是否取消注释 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"suppressDate"</span> <span class="attribute">value</span>=<span class="value">"true"</span> /&gt;</span> <span class="comment">&lt;!-- 是否生成注释代时间戳 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">commentGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">&lt;!-- jdbc连接 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">jdbcConnection</span> <span class="attribute">driverClass</span>=<span class="value">"$&#123;jdbc_driver&#125;"</span></span><br><span class="line">			<span class="attribute">connectionURL</span>=<span class="value">"$&#123;jdbc_url&#125;"</span> <span class="attribute">userId</span>=<span class="value">"$&#123;jdbc_user&#125;"</span> <span class="attribute">password</span>=<span class="value">"$&#123;jdbc_password&#125;"</span> /&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 类型转换 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">javaTypeResolver</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"forceBigDecimals"</span> <span class="attribute">value</span>=<span class="value">"false"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">javaTypeResolver</span>&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">&lt;!-- 生成实体类地址 需要修改targetPackage--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">javaModelGenerator</span> <span class="attribute">targetPackage</span>=<span class="value">"org.spring.springboot.domain"</span></span><br><span class="line">			<span class="attribute">targetProject</span>=<span class="value">"$&#123;project&#125;"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"enableSubPackages"</span> <span class="attribute">value</span>=<span class="value">"false"</span> /&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"trimStrings"</span> <span class="attribute">value</span>=<span class="value">"true"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">javaModelGenerator</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 生成mapxml文件  需要修改targetPackage--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">sqlMapGenerator</span> <span class="attribute">targetPackage</span>=<span class="value">"mappers"</span></span><br><span class="line">			<span class="attribute">targetProject</span>=<span class="value">"$&#123;resources&#125;"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"enableSubPackages"</span> <span class="attribute">value</span>=<span class="value">"false"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">sqlMapGenerator</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 生成mapxml对应client，也就是接口dao 需要修改targetPackage--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">javaClientGenerator</span> <span class="attribute">targetPackage</span>=<span class="value">"org.spring.springboot.dao"</span></span><br><span class="line">			<span class="attribute">targetProject</span>=<span class="value">"$&#123;project&#125;"</span> <span class="attribute">type</span>=<span class="value">"XMLMAPPER"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"enableSubPackages"</span> <span class="attribute">value</span>=<span class="value">"false"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">javaClientGenerator</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- table可以有多个,每个数据库中的表都可以写一个table，tableName表示要匹配的数据库表,也可以在tableName属性中通过使用%通配符来匹配所有数据库表,只有匹配的表才会自动生成文件 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">table</span> <span class="attribute">tableName</span>=<span class="value">"book"</span> <span class="attribute">enableCountByExample</span>=<span class="value">"true"</span></span><br><span class="line">			<span class="attribute">enableUpdateByExample</span>=<span class="value">"true"</span> <span class="attribute">enableDeleteByExample</span>=<span class="value">"true"</span></span><br><span class="line">			<span class="attribute">enableSelectByExample</span>=<span class="value">"true"</span> <span class="attribute">selectByExampleQueryId</span>=<span class="value">"true"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"useActualColumnNames"</span> <span class="attribute">value</span>=<span class="value">"false"</span> /&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 数据库表主键 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">generatedKey</span> <span class="attribute">column</span>=<span class="value">"id"</span> <span class="attribute">sqlStatement</span>=<span class="value">"Mysql"</span> <span class="attribute">identity</span>=<span class="value">"true"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">table</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">context</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">generatorConfiguration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>里面需要替换成自己的配置。</p>
+<p><strong>第三步，在resources/mybatis-generator/文件夹中添加mybatisGeneratorinit.properties文件</strong></p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Mybatis Generator configuration</span></span><br><span class="line"><span class="comment">#dao类和实体类的位置</span></span><br><span class="line"><span class="setting">project =<span class="value">src/main/java</span></span></span><br><span class="line"><span class="comment">#mapper文件的位置</span></span><br><span class="line"><span class="setting">resources=<span class="value">src/main/resources</span></span></span><br><span class="line"><span class="comment">#根据数据库中的表生成对应的pojo类、dao、mapper</span></span><br><span class="line"><span class="setting">jdbc_driver =<span class="value">com.mysql.jdbc.Driver</span></span></span><br><span class="line"><span class="setting">jdbc_url=<span class="value">jdbc:mysql://localhost:<span class="number">3306</span>/springboot</span></span></span><br><span class="line"><span class="setting">jdbc_user=<span class="value">root</span></span></span><br><span class="line"><span class="setting">jdbc_password=<span class="value"><span class="number">123456</span></span></span></span><br></pre></td></tr></table></figure>
+<p>到此，整个配置就完成了。执行如下命令:</p>
+<blockquote>
+<p>mvn mybatis-generator:generate</p>
+</blockquote>
+<p>可以看到在指定目录下已经生成了对应的文件.</p>
+
+                                                                                
+                                        </div>
+                                        
+            </div>
+            
+                <div class="bdsharebuttonbox" style="margin-top:10px;margin-left:30px;float:left;">
+                    <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                    <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                    <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
+                    <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
+                    <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                    <a href="#" class="bds_more" data-cmd="more"></a>
+                </div>
+                <script>
+                    window._bd_share_config = {
+                        "common": {
+                            "bdSnsKey": {},
+                            "bdText": "",
+                            "bdMini": "1",
+                            "bdMiniList": false,
+                            "bdStyle": "2",
+                            "bdSize": "16"
+                        },
+                        "share": {}
+                    };
+                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
+  
+    <a href="/2018/12/09/spring-boot-starter-parent/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          spring-boot-starter-parent
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/26/聊聊磁盘IO/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">聊聊磁盘I/O</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-mybatis-generator" data-title="mybatis-generator" data-url="http://tonylit.me/2018/12/09/mybatis-generator/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "tonylit"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
+</article>
+
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+    
+-->
+<!--
+
+-->
+
+</div>
+      <!--<footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 tonyli
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+    
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+   
+  </div>
+</footer>-->
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/prefixfree.js" type="text/javascript"></script>
+<script src="/js/require-2.1.20.js" type="text/javascript"></script>
+<script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
+    <a title="返回顶部" style="opacity: 100%;">
+        <img src="/img/scrollup.png" />
+    </a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+
+  </div>
+</body>
+</html>

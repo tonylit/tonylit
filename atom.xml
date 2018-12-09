@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Nothing is given. Everything is earned.]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2018-11-26T05:37:27.000Z</updated>
+  <updated>2018-12-09T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -13,6 +13,72 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[spring-boot-starter-parent]]></title>
+    <link href="http://tonylit.me/2018/12/09/spring-boot-starter-parent/"/>
+    <id>http://tonylit.me/2018/12/09/spring-boot-starter-parent/</id>
+    <published>2018-12-09T03:37:27.000Z</published>
+    <updated>2018-12-09T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>Spring Boot��Ŀpom.xml�У������������ã�</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.5.1.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>����Spring Boot���еĸ���������</p>
+<p>ʹ��spring-boot-starter-parent�󣬳��õ�Spring Boot���������Բ���дversion��ǩ�ˡ�</p>
+<a id="more"></a>
+<hr>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">project</span> <span class="attribute">xmlns</span>=<span class="value">"http://maven.apache.org/POM/4.0.0"</span></span><br><span class="line">       <span class="attribute">xmlns:xsi</span>=<span class="value">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">     <span class="attribute">xsi:schemaLocation</span>=<span class="value">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="title">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>demo.springboot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-quickstart<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">version</span>&gt;</span>2.0.0.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="title">dependencies</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="title">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="���β�ʹ��spring-boot-starter-parent">���β�ʹ��spring-boot-starter-parent</h2><p>��ĳЩ�����£�Spring Boot��Ŀ��Ϊһ��module���Ѿ�������parent���������������£��޷�����������parent��</p>
+<p>��������������Ҫɾ��spring-boot-starter-parent ������spring-boot-dependencies���ɡ�</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">project</span> <span class="attribute">xmlns</span>=<span class="value">"http://maven.apache.org/POM/4.0.0"</span></span><br><span class="line">       <span class="attribute">xmlns:xsi</span>=<span class="value">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">     <span class="attribute">xsi:schemaLocation</span>=<span class="value">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="title">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>demo.springboot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-quickstart<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="title">dependencyManagement</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependencies</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-dependencies<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">version</span>&gt;</span>2.0.0.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="title">type</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="title">scope</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">dependencyManagement</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="title">dependencies</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="title">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">project</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+    <summary type="html">
+    <![CDATA[<p>Spring Boot��Ŀpom.xml�У������������ã�</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.5.1.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>����Spring Boot���еĸ���������</p>
+<p>ʹ��spring-boot-starter-parent�󣬳��õ�Spring Boot���������Բ���дversion��ǩ�ˡ�</p>]]>
+    
+    </summary>
+    
+      <category term="springboot" scheme="http://tonylit.me/tags/springboot/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[mybatis-generator]]></title>
+    <link href="http://tonylit.me/2018/12/09/mybatis-generator/"/>
+    <id>http://tonylit.me/2018/12/09/mybatis-generator/</id>
+    <published>2018-12-09T03:37:27.000Z</published>
+    <updated>2018-12-09T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>mybatis-generator 可以生成开发中需要的dao、mapper.xml、实体类，很方便。这里推荐两种生成方法。</p>
+<a id="more"></a>
+<hr>
+<h2 id="mybatis-generator-gui">mybatis-generator-gui</h2><p>比较推荐第一种方式-界面填写生成。</p>
+<p>mybatis-generator-gui是基于mybatis generator开发一款界面工具，可以使你非常容易及快速生成Mybatis的Java POJO文件及数据库Mapping文件。</p>
+<p><img src="/img/mybatis-generator/mybatis-generator-gui.png" alt="Alt text"></p>
+<p>Github上有详细的使用说明：<br><a href="https://github.com/zouzg/mybatis-generator-gui" target="_blank" rel="external">https://github.com/zouzg/mybatis-generator-gui</a></p>
+<hr>
+<h2 id="mybatis-generator_插件">mybatis-generator 插件</h2><p>第二种为常见的mybatis-generator插件生成方式。</p>
+<p><strong>第一步，在pom.xml中增加mybatis-generator配置</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">plugins</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.mybatis.generator<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>mybatis-generator-maven-plugin<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">version</span>&gt;</span>1.3.2<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">executions</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="title">execution</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="title">id</span>&gt;</span>Generate MyBatis Artifacts<span class="tag">&lt;/<span class="title">id</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="title">phase</span>&gt;</span>deploy<span class="tag">&lt;/<span class="title">phase</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="title">goals</span>&gt;</span></span><br><span class="line">							<span class="tag">&lt;<span class="title">goal</span>&gt;</span>generate<span class="tag">&lt;/<span class="title">goal</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;/<span class="title">goals</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;/<span class="title">execution</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="title">executions</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">configuration</span>&gt;</span></span><br><span class="line">					<span class="comment">&lt;!-- generator 工具配置文件的位置 --&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="title">configurationFile</span>&gt;</span>src/main/resources/mybatis-generator/generatorConfig.xml<span class="tag">&lt;/<span class="title">configurationFile</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="title">verbose</span>&gt;</span>true<span class="tag">&lt;/<span class="title">verbose</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="title">overwrite</span>&gt;</span>true<span class="tag">&lt;/<span class="title">overwrite</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">dependencies</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="title">version</span>&gt;</span>5.1.34<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.mybatis.generator<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>mybatis-generator-core<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="title">version</span>&gt;</span>1.3.2<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="title">dependencies</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="title">plugin</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">configuration</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="title">classifier</span>&gt;</span>exec<span class="tag">&lt;/<span class="title">classifier</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="title">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>第二步，在resources/mybatis-generator/文件夹中添加mybatis-generator.xml</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="doctype">&lt;!DOCTYPE generatorConfiguration</span><br><span class="line">        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"</span><br><span class="line">        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 配置生成器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">generatorConfiguration</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--执行generator插件生成文件的命令： call mvn mybatis-generator:generate -e --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 引入配置文件 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">properties</span> <span class="attribute">resource</span>=<span class="value">"mybatis-generator/mybatisGeneratorinit.properties"</span> /&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--classPathEntry:数据库的JDBC驱动,换成你自己的驱动位置 可选 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">classPathEntry</span></span><br><span class="line">		<span class="attribute">location</span>=<span class="value">"D:\generator_mybatis\mysql-connector-java-5.1.38.jar"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- 一个数据库一个context --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--defaultModelType="flat" 大数据字段，不分表 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">context</span> <span class="attribute">id</span>=<span class="value">"MysqlTables"</span> <span class="attribute">targetRuntime</span>=<span class="value">"MyBatis3Simple"</span></span><br><span class="line">		<span class="attribute">defaultModelType</span>=<span class="value">"flat"</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表； 一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"autoDelimitKeywords"</span> <span class="attribute">value</span>=<span class="value">"true"</span> /&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 生成的Java文件的编码 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"javaFileEncoding"</span> <span class="attribute">value</span>=<span class="value">"utf-8"</span> /&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"beginningDelimiter"</span> <span class="attribute">value</span>=<span class="value">"`"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"endingDelimiter"</span> <span class="attribute">value</span>=<span class="value">"`"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">&lt;!-- 格式化java代码 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"javaFormatter"</span></span><br><span class="line">			<span class="attribute">value</span>=<span class="value">"org.mybatis.generator.api.dom.DefaultJavaFormatter"</span> /&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 格式化XML代码 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"xmlFormatter"</span></span><br><span class="line">			<span class="attribute">value</span>=<span class="value">"org.mybatis.generator.api.dom.DefaultXmlFormatter"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">plugin</span> <span class="attribute">type</span>=<span class="value">"org.mybatis.generator.plugins.SerializablePlugin"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="tag">&lt;<span class="title">plugin</span> <span class="attribute">type</span>=<span class="value">"org.mybatis.generator.plugins.ToStringPlugin"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">&lt;!-- 注释 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">commentGenerator</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"suppressAllComments"</span> <span class="attribute">value</span>=<span class="value">"false"</span> /&gt;</span><span class="comment">&lt;!-- 是否取消注释 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"suppressDate"</span> <span class="attribute">value</span>=<span class="value">"true"</span> /&gt;</span> <span class="comment">&lt;!-- 是否生成注释代时间戳 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">commentGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">&lt;!-- jdbc连接 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">jdbcConnection</span> <span class="attribute">driverClass</span>=<span class="value">"$&#123;jdbc_driver&#125;"</span></span><br><span class="line">			<span class="attribute">connectionURL</span>=<span class="value">"$&#123;jdbc_url&#125;"</span> <span class="attribute">userId</span>=<span class="value">"$&#123;jdbc_user&#125;"</span> <span class="attribute">password</span>=<span class="value">"$&#123;jdbc_password&#125;"</span> /&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 类型转换 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">javaTypeResolver</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"forceBigDecimals"</span> <span class="attribute">value</span>=<span class="value">"false"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">javaTypeResolver</span>&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">&lt;!-- 生成实体类地址 需要修改targetPackage--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">javaModelGenerator</span> <span class="attribute">targetPackage</span>=<span class="value">"org.spring.springboot.domain"</span></span><br><span class="line">			<span class="attribute">targetProject</span>=<span class="value">"$&#123;project&#125;"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"enableSubPackages"</span> <span class="attribute">value</span>=<span class="value">"false"</span> /&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"trimStrings"</span> <span class="attribute">value</span>=<span class="value">"true"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">javaModelGenerator</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 生成mapxml文件  需要修改targetPackage--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">sqlMapGenerator</span> <span class="attribute">targetPackage</span>=<span class="value">"mappers"</span></span><br><span class="line">			<span class="attribute">targetProject</span>=<span class="value">"$&#123;resources&#125;"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"enableSubPackages"</span> <span class="attribute">value</span>=<span class="value">"false"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">sqlMapGenerator</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 生成mapxml对应client，也就是接口dao 需要修改targetPackage--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">javaClientGenerator</span> <span class="attribute">targetPackage</span>=<span class="value">"org.spring.springboot.dao"</span></span><br><span class="line">			<span class="attribute">targetProject</span>=<span class="value">"$&#123;project&#125;"</span> <span class="attribute">type</span>=<span class="value">"XMLMAPPER"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"enableSubPackages"</span> <span class="attribute">value</span>=<span class="value">"false"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">javaClientGenerator</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- table可以有多个,每个数据库中的表都可以写一个table，tableName表示要匹配的数据库表,也可以在tableName属性中通过使用%通配符来匹配所有数据库表,只有匹配的表才会自动生成文件 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">table</span> <span class="attribute">tableName</span>=<span class="value">"book"</span> <span class="attribute">enableCountByExample</span>=<span class="value">"true"</span></span><br><span class="line">			<span class="attribute">enableUpdateByExample</span>=<span class="value">"true"</span> <span class="attribute">enableDeleteByExample</span>=<span class="value">"true"</span></span><br><span class="line">			<span class="attribute">enableSelectByExample</span>=<span class="value">"true"</span> <span class="attribute">selectByExampleQueryId</span>=<span class="value">"true"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"useActualColumnNames"</span> <span class="attribute">value</span>=<span class="value">"false"</span> /&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 数据库表主键 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">generatedKey</span> <span class="attribute">column</span>=<span class="value">"id"</span> <span class="attribute">sqlStatement</span>=<span class="value">"Mysql"</span> <span class="attribute">identity</span>=<span class="value">"true"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">table</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">context</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">generatorConfiguration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>里面需要替换成自己的配置。</p>
+<p><strong>第三步，在resources/mybatis-generator/文件夹中添加mybatisGeneratorinit.properties文件</strong></p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Mybatis Generator configuration</span></span><br><span class="line"><span class="comment">#dao类和实体类的位置</span></span><br><span class="line"><span class="setting">project =<span class="value">src/main/java</span></span></span><br><span class="line"><span class="comment">#mapper文件的位置</span></span><br><span class="line"><span class="setting">resources=<span class="value">src/main/resources</span></span></span><br><span class="line"><span class="comment">#根据数据库中的表生成对应的pojo类、dao、mapper</span></span><br><span class="line"><span class="setting">jdbc_driver =<span class="value">com.mysql.jdbc.Driver</span></span></span><br><span class="line"><span class="setting">jdbc_url=<span class="value">jdbc:mysql://localhost:<span class="number">3306</span>/springboot</span></span></span><br><span class="line"><span class="setting">jdbc_user=<span class="value">root</span></span></span><br><span class="line"><span class="setting">jdbc_password=<span class="value"><span class="number">123456</span></span></span></span><br></pre></td></tr></table></figure>
+<p>到此，整个配置就完成了。执行如下命令:</p>
+<blockquote>
+<p>mvn mybatis-generator:generate</p>
+</blockquote>
+<p>可以看到在指定目录下已经生成了对应的文件.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>mybatis-generator 可以生成开发中需要的dao、mapper.xml、实体类，很方便。这里推荐两种生成方法。</p>]]>
+    
+    </summary>
+    
+      <category term="springboot" scheme="http://tonylit.me/tags/springboot/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[聊聊磁盘I/O]]></title>
@@ -823,48 +889,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[iBase4J 源码之Swagger2接口管理]]></title>
-    <link href="http://tonylit.me/2018/07/05/iBase4J%20%E6%BA%90%E7%A0%81%E4%B9%8BSwagger2%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/"/>
-    <id>http://tonylit.me/2018/07/05/iBase4J 源码之Swagger2接口管理/</id>
-    <published>2018-07-05T03:37:27.000Z</published>
-    <updated>2018-07-05T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>The Best APIs are Built with Swagger Tools.</p>
-<p>by  <a href="https://swagger.io/" target="_blank" rel="external">https://swagger.io/</a></p>
-<a id="more"></a>
-<hr>
-<p>Swagger2 作为RESTful API的好伙伴， 很容易与spring boot整合在一起，并组织成一套RESTful API文档。开发人员修改了接口，接口文档会自动更新，Swagger2同时为开发人员提供了强大的接口测试功能，省去了很多测试代码的编写工作。</p>
-<p>iBase4J 中使用Swagger2 来进行接口管理，项目启动后访问<a href="http://localhost:8088/swagger-ui.html" target="_blank" rel="external">http://localhost:8088/swagger-ui.html</a> ，可以看到接口管理页面。</p>
-<p><img src="/img/iBase4J源码之Swagger2/swagger-list.PNG" alt="Alt text"></p>
-<hr>
-<p>下面咱们结合iBase4J源码来介绍，如何在Spring Boot中使用Swagger2。</p>
-<h1 id="添加Swagger2依赖">添加Swagger2依赖</h1><p>在pom.xml中加入Swagger2的依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- swagger --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springfox-swagger2<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;springfox.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springfox-swagger-ui<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;springfox.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="title">properties</span>&gt;</span>	<span class="tag">&lt;<span class="title">springfox.version</span>&gt;</span>2.7.0<span class="tag">&lt;/<span class="title">springfox.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h1 id="创建Swagger2配置类。">创建Swagger2配置类。</h1><p>iBase4J提供了SwaggerConfig.java进行Swagger2配置。</p>
-<p><img src="/img/iBase4J源码之Swagger2/swagger-config.PNG" alt="Alt text"></p>
-<p>@EnableSwagger2 用于开启swagger2配置。</p>
-<p>apiInfo() 用来创建该Api的基本信息（这些基本信息会展现在文档页面中）。</p>
-<hr>
-<h1 id="配置Controller中的API">配置Controller中的API</h1><p>iBase4J-SYS-Web项目和iBase4J-Biz-Web项目中的RestFull API都使用iBase4J进行接口管理，这里看一个LoginController的例子。</p>
-<p><img src="/img/iBase4J源码之Swagger2/login-api.PNG" alt="Alt text"></p>
-<p>需要关注的注解：<a href="https://blog.csdn.net/xiaojin21cen/article/details/78654652" target="_blank" rel="external">参考</a></p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Api</span>：标记一个Controller类做为swagger。</span><br><span class="line"></span><br><span class="line"><span class="variable">@ApiOperation</span>：注解在方法上,描述接口操作。</span><br><span class="line"></span><br><span class="line"><span class="variable">@ApiParam</span>：请求参数的描述。</span><br></pre></td></tr></table></figure>
-<h1 id="API文档访问与测试">API文档访问与测试</h1><p><a href="http://localhost:8088/swagger-ui.html#/" target="_blank" rel="external">http://localhost:8088/swagger-ui.html#/</a> —看到接口列表</p>
-<p><img src="/img/iBase4J源码之Swagger2/swagger-test.PNG" alt="Alt text"></p>
-<p>输入请求入参，点击Try it out即可进行接口测试。</p>
-<p><img src="/img/iBase4J源码之Swagger2/swagger-result.PNG" alt="Alt text"></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>The Best APIs are Built with Swagger Tools.</p>
-<p>by  <a href="https://swagger.io/">https://swagger.io/</a></p>]]>
-    
-    </summary>
-    
-      <category term="java" scheme="http://tonylit.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[iBase4J 源码之Shiro用户安全校验]]></title>
     <link href="http://tonylit.me/2018/07/05/iBase4J%20%E6%BA%90%E7%A0%81%E4%B9%8BShiro%E7%94%A8%E6%88%B7%E5%AE%89%E5%85%A8%E6%A0%A1%E9%AA%8C/"/>
     <id>http://tonylit.me/2018/07/05/iBase4J 源码之Shiro用户安全校验/</id>
@@ -919,6 +943,48 @@
     <summary type="html">
     <![CDATA[<p>Apache Shiro? is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.</p>
 <p>by  <a href="https://shiro.apache.org/">https://shiro.apache.org/</a></p>]]>
+    
+    </summary>
+    
+      <category term="java" scheme="http://tonylit.me/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[iBase4J 源码之Swagger2接口管理]]></title>
+    <link href="http://tonylit.me/2018/07/05/iBase4J%20%E6%BA%90%E7%A0%81%E4%B9%8BSwagger2%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/"/>
+    <id>http://tonylit.me/2018/07/05/iBase4J 源码之Swagger2接口管理/</id>
+    <published>2018-07-05T03:37:27.000Z</published>
+    <updated>2018-07-05T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>The Best APIs are Built with Swagger Tools.</p>
+<p>by  <a href="https://swagger.io/" target="_blank" rel="external">https://swagger.io/</a></p>
+<a id="more"></a>
+<hr>
+<p>Swagger2 作为RESTful API的好伙伴， 很容易与spring boot整合在一起，并组织成一套RESTful API文档。开发人员修改了接口，接口文档会自动更新，Swagger2同时为开发人员提供了强大的接口测试功能，省去了很多测试代码的编写工作。</p>
+<p>iBase4J 中使用Swagger2 来进行接口管理，项目启动后访问<a href="http://localhost:8088/swagger-ui.html" target="_blank" rel="external">http://localhost:8088/swagger-ui.html</a> ，可以看到接口管理页面。</p>
+<p><img src="/img/iBase4J源码之Swagger2/swagger-list.PNG" alt="Alt text"></p>
+<hr>
+<p>下面咱们结合iBase4J源码来介绍，如何在Spring Boot中使用Swagger2。</p>
+<h1 id="添加Swagger2依赖">添加Swagger2依赖</h1><p>在pom.xml中加入Swagger2的依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- swagger --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springfox-swagger2<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;springfox.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springfox-swagger-ui<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;springfox.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="title">properties</span>&gt;</span>	<span class="tag">&lt;<span class="title">springfox.version</span>&gt;</span>2.7.0<span class="tag">&lt;/<span class="title">springfox.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="创建Swagger2配置类。">创建Swagger2配置类。</h1><p>iBase4J提供了SwaggerConfig.java进行Swagger2配置。</p>
+<p><img src="/img/iBase4J源码之Swagger2/swagger-config.PNG" alt="Alt text"></p>
+<p>@EnableSwagger2 用于开启swagger2配置。</p>
+<p>apiInfo() 用来创建该Api的基本信息（这些基本信息会展现在文档页面中）。</p>
+<hr>
+<h1 id="配置Controller中的API">配置Controller中的API</h1><p>iBase4J-SYS-Web项目和iBase4J-Biz-Web项目中的RestFull API都使用iBase4J进行接口管理，这里看一个LoginController的例子。</p>
+<p><img src="/img/iBase4J源码之Swagger2/login-api.PNG" alt="Alt text"></p>
+<p>需要关注的注解：<a href="https://blog.csdn.net/xiaojin21cen/article/details/78654652" target="_blank" rel="external">参考</a></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Api</span>：标记一个Controller类做为swagger。</span><br><span class="line"></span><br><span class="line"><span class="variable">@ApiOperation</span>：注解在方法上,描述接口操作。</span><br><span class="line"></span><br><span class="line"><span class="variable">@ApiParam</span>：请求参数的描述。</span><br></pre></td></tr></table></figure>
+<h1 id="API文档访问与测试">API文档访问与测试</h1><p><a href="http://localhost:8088/swagger-ui.html#/" target="_blank" rel="external">http://localhost:8088/swagger-ui.html#/</a> —看到接口列表</p>
+<p><img src="/img/iBase4J源码之Swagger2/swagger-test.PNG" alt="Alt text"></p>
+<p>输入请求入参，点击Try it out即可进行接口测试。</p>
+<p><img src="/img/iBase4J源码之Swagger2/swagger-result.PNG" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>The Best APIs are Built with Swagger Tools.</p>
+<p>by  <a href="https://swagger.io/">https://swagger.io/</a></p>]]>
     
     </summary>
     
@@ -3743,6 +3809,26 @@
   </entry>
   
   <entry>
+    <title><![CDATA[测试环境的docker实践]]></title>
+    <link href="http://tonylit.me/2016/10/12/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E7%9A%84docker%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://tonylit.me/2016/10/12/测试环境的docker实践/</id>
+    <published>2016-10-12T03:37:27.000Z</published>
+    <updated>2016-10-12T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>
+<a id="more"></a>
+<p>技术委员会也很有心，给出了分享后的反馈。<br><img src="/img/测试环境的docker实践/得分.PNG" alt="Alt text"></p>
+<h2 id="演讲内容">演讲内容</h2><p><img src="/img/测试环境的docker实践/幻灯片1.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片2.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片3.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片4.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片5.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片6.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片7.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片8.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片9.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片10.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片11.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片12.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片13.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片14.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片15.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片16.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片17.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片18.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片19.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片20.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片21.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片22.jpg" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[高级性能测试工程师成长计划]]></title>
     <link href="http://tonylit.me/2016/10/12/%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/"/>
     <id>http://tonylit.me/2016/10/12/工程师成长计划/</id>
@@ -3762,26 +3848,6 @@
     </summary>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[测试环境的docker实践]]></title>
-    <link href="http://tonylit.me/2016/10/12/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E7%9A%84docker%E5%AE%9E%E8%B7%B5/"/>
-    <id>http://tonylit.me/2016/10/12/测试环境的docker实践/</id>
-    <published>2016-10-12T03:37:27.000Z</published>
-    <updated>2016-10-12T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>
-<a id="more"></a>
-<p>技术委员会也很有心，给出了分享后的反馈。<br><img src="/img/测试环境的docker实践/得分.PNG" alt="Alt text"></p>
-<h2 id="演讲内容">演讲内容</h2><p><img src="/img/测试环境的docker实践/幻灯片1.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片2.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片3.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片4.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片5.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片6.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片7.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片8.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片9.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片10.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片11.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片12.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片13.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片14.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片15.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片16.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片17.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片18.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片19.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片20.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片21.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片22.jpg" alt="Alt text"></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   
@@ -3910,6 +3976,35 @@
   </entry>
   
   <entry>
+    <title><![CDATA[docker network 网络设置]]></title>
+    <link href="http://tonylit.me/2016/08/15/docker%20network%20%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE/"/>
+    <id>http://tonylit.me/2016/08/15/docker network 网络设置/</id>
+    <published>2016-08-15T03:37:27.000Z</published>
+    <updated>2016-08-15T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>
+<a id="more"></a>
+<p>使用docker network(1.9以后新特性)解决该问题。</p>
+<h1 id="新建docker网桥：">新建docker网桥：</h1><blockquote>
+<p>docker network create –subnet=192.168.42.0/24 -d=bridge   –gateway=192.168.42.3  mynetwork</p>
+</blockquote>
+<h1 id="启动网桥并把网卡桥接上">启动网桥并把网卡桥接上</h1><blockquote>
+<p>ifconfig   br-353aab8b89f2  up 0<br>brctl   addif  br-353aab8b89f2 eth1</p>
+</blockquote>
+<h1 id="docker启动时指定ip和网桥">docker启动时指定ip和网桥</h1><blockquote>
+<p>docker  run -it –rm  –ip=192.168.42.130  –net=mynetwork  docker.vemic.com/focustest/centos5:6.18 /bin/bash</p>
+</blockquote>
+<p>以上就可以了，不再需要pipework修改网络。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[使用strace定位性能问题]]></title>
     <link href="http://tonylit.me/2016/08/15/%E4%BD%BF%E7%94%A8strace%E5%AE%9A%E4%BD%8D%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/"/>
     <id>http://tonylit.me/2016/08/15/使用strace定位性能问题/</id>
@@ -3942,35 +4037,6 @@
     </summary>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[docker network 网络设置]]></title>
-    <link href="http://tonylit.me/2016/08/15/docker%20network%20%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE/"/>
-    <id>http://tonylit.me/2016/08/15/docker network 网络设置/</id>
-    <published>2016-08-15T03:37:27.000Z</published>
-    <updated>2016-08-15T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>
-<a id="more"></a>
-<p>使用docker network(1.9以后新特性)解决该问题。</p>
-<h1 id="新建docker网桥：">新建docker网桥：</h1><blockquote>
-<p>docker network create –subnet=192.168.42.0/24 -d=bridge   –gateway=192.168.42.3  mynetwork</p>
-</blockquote>
-<h1 id="启动网桥并把网卡桥接上">启动网桥并把网卡桥接上</h1><blockquote>
-<p>ifconfig   br-353aab8b89f2  up 0<br>brctl   addif  br-353aab8b89f2 eth1</p>
-</blockquote>
-<h1 id="docker启动时指定ip和网桥">docker启动时指定ip和网桥</h1><blockquote>
-<p>docker  run -it –rm  –ip=192.168.42.130  –net=mynetwork  docker.vemic.com/focustest/centos5:6.18 /bin/bash</p>
-</blockquote>
-<p>以上就可以了，不再需要pipework修改网络。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   
@@ -5025,32 +5091,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[docker pull关于https的报错处理]]></title>
-    <link href="http://tonylit.me/2016/03/29/docker_pull_https_error/"/>
-    <id>http://tonylit.me/2016/03/29/docker_pull_https_error/</id>
-    <published>2016-03-29T03:37:27.000Z</published>
-    <updated>2016-03-29T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>
-<a id="more"></a>
-<p>网上很多解决方法都是Ubuntu系统的，centos7 docker的配置文件真是难找。</p>
-<h1 id="修改docker配置文件">修改docker配置文件</h1><p>刚开始修改/etc/sysconfig/docker文件，加入–insecure-registry docker.vemic.com:5000，没启作用。<br>起作用的配置如下修改：<br>vi /usr/lib/systemd/system/docker.service</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[Unit]</span></span><br><span class="line"><span class="setting">Description=<span class="value">Docker Application Container Engine</span></span></span><br><span class="line"><span class="comment">##这里讲https-&gt;http</span></span><br><span class="line"><span class="setting">Documentation=<span class="value">http://docs.docker.com</span></span></span><br><span class="line"><span class="setting">After=<span class="value">network.target docker.socket</span></span></span><br><span class="line"><span class="setting">Requires=<span class="value">docker.socket</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Service]</span></span><br><span class="line"><span class="comment">##这里加入-d  --insecure-registry docker.vemic.com:5000</span></span><br><span class="line"><span class="setting">ExecStart=<span class="value">/usr/bin/docker -d  --insecure-registry docker.vemic.com:<span class="number">5000</span> -H fd:// <span class="variable">$OPTIONS</span> <span class="variable">$DOCKER_STORAGE_OPTIONS</span>  </span></span></span><br><span class="line"><span class="setting">MountFlags=<span class="value">slave</span></span></span><br><span class="line"><span class="setting">LimitNOFILE=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitNPROC=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitCORE=<span class="value">infinity</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Install]</span></span><br><span class="line"><span class="setting">WantedBy=<span class="value">multi-user.target</span></span></span><br></pre></td></tr></table></figure>
-<p>以上修改后重启docker</p>
-<blockquote>
-<p>service docker restart<br>systemctl daemon-reload</p>
-</blockquote>
-<p>OK了</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[使用weave实现docker多宿主机互联]]></title>
     <link href="http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/"/>
     <id>http://tonylit.me/2016/03/29/docker-weave网络互连/</id>
@@ -5074,6 +5114,32 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>使用weave实现docker多宿主机互联<br>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[docker pull关于https的报错处理]]></title>
+    <link href="http://tonylit.me/2016/03/29/docker_pull_https_error/"/>
+    <id>http://tonylit.me/2016/03/29/docker_pull_https_error/</id>
+    <published>2016-03-29T03:37:27.000Z</published>
+    <updated>2016-03-29T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>
+<a id="more"></a>
+<p>网上很多解决方法都是Ubuntu系统的，centos7 docker的配置文件真是难找。</p>
+<h1 id="修改docker配置文件">修改docker配置文件</h1><p>刚开始修改/etc/sysconfig/docker文件，加入–insecure-registry docker.vemic.com:5000，没启作用。<br>起作用的配置如下修改：<br>vi /usr/lib/systemd/system/docker.service</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[Unit]</span></span><br><span class="line"><span class="setting">Description=<span class="value">Docker Application Container Engine</span></span></span><br><span class="line"><span class="comment">##这里讲https-&gt;http</span></span><br><span class="line"><span class="setting">Documentation=<span class="value">http://docs.docker.com</span></span></span><br><span class="line"><span class="setting">After=<span class="value">network.target docker.socket</span></span></span><br><span class="line"><span class="setting">Requires=<span class="value">docker.socket</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Service]</span></span><br><span class="line"><span class="comment">##这里加入-d  --insecure-registry docker.vemic.com:5000</span></span><br><span class="line"><span class="setting">ExecStart=<span class="value">/usr/bin/docker -d  --insecure-registry docker.vemic.com:<span class="number">5000</span> -H fd:// <span class="variable">$OPTIONS</span> <span class="variable">$DOCKER_STORAGE_OPTIONS</span>  </span></span></span><br><span class="line"><span class="setting">MountFlags=<span class="value">slave</span></span></span><br><span class="line"><span class="setting">LimitNOFILE=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitNPROC=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitCORE=<span class="value">infinity</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Install]</span></span><br><span class="line"><span class="setting">WantedBy=<span class="value">multi-user.target</span></span></span><br></pre></td></tr></table></figure>
+<p>以上修改后重启docker</p>
+<blockquote>
+<p>service docker restart<br>systemctl daemon-reload</p>
+</blockquote>
+<p>OK了</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>]]>
     
     </summary>
     
@@ -5504,6 +5570,47 @@
   </entry>
   
   <entry>
+    <title><![CDATA[export、import导出导入docker容器]]></title>
+    <link href="http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/"/>
+    <id>http://tonylit.me/2015/12/22/docker import和export/</id>
+    <published>2015-12-22T03:37:27.000Z</published>
+    <updated>2015-12-22T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/" target="_blank" rel="external">centos-6-x86_64.tar.gz</a></p>
+<blockquote>
+<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
+<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br><a id="more"></a></p>
+</blockquote>
+<h2 id="实例">实例</h2><blockquote>
+<p>cat centos-6-x86_64.tar.gz|docker import - test/centos-6:v1.0<br><img src="/img/docker/docker_import.PNG" alt="Alt text"></p>
+</blockquote>
+<p>此外，也可以通过指定 URL 或者某个目录来导入，例如</p>
+<blockquote>
+<p> docker import <a href="http://example.com/exampleimage.tgz" target="_blank" rel="external">http://example.com/exampleimage.tgz</a> example/imagerepo</p>
+</blockquote>
+<p>*注：用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p>
+<h1 id="导出容器">导出容器</h1><p>先启动一下容器：</p>
+<blockquote>
+<p>docker run -t -i 5de0ac2f6f7e /bin/bash</p>
+</blockquote>
+<p>两个参数，-t表示给容器tty终端，-i表示可以interactive，可以交互。</p>
+<p><img src="/img/docker/docker_ps.PNG" alt="Alt text"></p>
+<blockquote>
+<p>docker export 5d73efeb9a38 &gt; tonylit_centos6.tar</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/">centos-6-x86_64.tar.gz</a></p>
+<blockquote>
+<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
+<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[staf使用]]></title>
     <link href="http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/"/>
     <id>http://tonylit.me/2015/12/22/staf使用/</id>
@@ -5553,47 +5660,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[export、import导出导入docker容器]]></title>
-    <link href="http://tonylit.me/2015/12/22/docker%20import%E5%92%8Cexport/"/>
-    <id>http://tonylit.me/2015/12/22/docker import和export/</id>
-    <published>2015-12-22T03:37:27.000Z</published>
-    <updated>2015-12-22T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/" target="_blank" rel="external">centos-6-x86_64.tar.gz</a></p>
-<blockquote>
-<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
-<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br><a id="more"></a></p>
-</blockquote>
-<h2 id="实例">实例</h2><blockquote>
-<p>cat centos-6-x86_64.tar.gz|docker import - test/centos-6:v1.0<br><img src="/img/docker/docker_import.PNG" alt="Alt text"></p>
-</blockquote>
-<p>此外，也可以通过指定 URL 或者某个目录来导入，例如</p>
-<blockquote>
-<p> docker import <a href="http://example.com/exampleimage.tgz" target="_blank" rel="external">http://example.com/exampleimage.tgz</a> example/imagerepo</p>
-</blockquote>
-<p>*注：用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p>
-<h1 id="导出容器">导出容器</h1><p>先启动一下容器：</p>
-<blockquote>
-<p>docker run -t -i 5de0ac2f6f7e /bin/bash</p>
-</blockquote>
-<p>两个参数，-t表示给容器tty终端，-i表示可以interactive，可以交互。</p>
-<p><img src="/img/docker/docker_ps.PNG" alt="Alt text"></p>
-<blockquote>
-<p>docker export 5d73efeb9a38 &gt; tonylit_centos6.tar</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="导入容器快照">导入容器快照</h1><p>可以使用docker import导入docker的镜像，已centos系统为例，我们导入<a href="http://download.openvz.org/template/precreated/">centos-6-x86_64.tar.gz</a></p>
-<blockquote>
-<p>Usage: docker import [OPTIONS] URL|- [REPOSITORY[:TAG]]</p>
-<p>Create an empty filesystem image and import the contents of the<br>tarball (.tar, .tar.gz, .tgz, .bzip, .tar.xz, .txz) into it, then<br>optionally tag it.<br>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[loadrunner常用函数]]></title>
     <link href="http://tonylit.me/2015/12/21/loadrunner%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/"/>
     <id>http://tonylit.me/2015/12/21/loadrunner常用函数/</id>
@@ -5617,61 +5683,6 @@
       <category term="loadrunner" scheme="http://tonylit.me/tags/loadrunner/"/>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[loadrunner测试webservice]]></title>
-    <link href="http://tonylit.me/2015/12/20/loadrunner%E6%B5%8B%E8%AF%95webservice/"/>
-    <id>http://tonylit.me/2015/12/20/loadrunner测试webservice/</id>
-    <published>2015-12-20T03:37:27.000Z</published>
-    <updated>2015-12-20T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>现在很多应用都提供webservice服务，在做性能测试的时候免不了去测试webservice，我们来看看怎样使用LR进行测试。<br><a id="more"></a></p>
-<h1 id="什么是webservice">什么是webservice</h1><p>测试之前先了解下什么是webservice<br>WebService是一个SOA（面向服务的编程）的结构，它不依赖语言、不依赖平台，可以实现不同语言间的相互调用，通过网络进行基于Http协议的网络应用间的交互。<br>一句话概括：WebService是一种跨编程语言和跨操作系统平台的远程调用技术。<br>WebService=WSDL+SOAP+UDDI（webservice的注册）<br><img src="/img/webservice/webservice_1.PNG" alt="Alt text"></p>
-<h1 id="loadruner怎样测试webservice">loadruner怎样测试webservice</h1><p>1.打开vugen，选择webservice协议<br><img src="/img/webservice/webservice_2.PNG" alt="Alt text"></p>
-<p>2.导入WSDL<br><img src="/img/webservice/webservice_3.PNG" alt="Alt text"></p>
-<p>3.点击import后，输入url，这里的url是开发提供的wsdl接口url（如：<a href="http://localhost:9001/Service/ServiceHello?wsdl）" target="_blank" rel="external">http://localhost:9001/Service/ServiceHello?wsdl）</a></p>
-<p><img src="/img/webservice/webservice_4.PNG" alt="Alt text"></p>
-<p>4.点击OK<br>5.选择目标测试函数<br><img src="/img/webservice/webservice_5.PNG" alt="Alt text"></p>
-<p>6.填写参数值，将返回值放入变量中<br><img src="/img/webservice/webservice_6.PNG" alt="Alt text"><br><img src="/img/webservice/webservice_7.PNG" alt="Alt text"></p>
-<p>7.点击OK后，自动生成脚本<br><img src="/img/webservice/webservice_8.PNG" alt="Alt text"></p>
-<p>8.我们可以进行参数化<br><img src="/img/webservice/webservice_9.PNG" alt="Alt text"></p>
-<p>9.运行脚本<br><img src="/img/webservice/webservice_10.PNG" alt="Alt text"></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>现在很多应用都提供webservice服务，在做性能测试的时候免不了去测试webservice，我们来看看怎样使用LR进行测试。<br>]]>
-    
-    </summary>
-    
-      <category term="loadrunner" scheme="http://tonylit.me/tags/loadrunner/"/>
-    
-      <category term="work" scheme="http://tonylit.me/tags/work/"/>
-    
-      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[java调用shell脚本]]></title>
-    <link href="http://tonylit.me/2015/12/19/java%E8%B0%83%E7%94%A8shell%E8%84%9A%E6%9C%AC/"/>
-    <id>http://tonylit.me/2015/12/19/java调用shell脚本/</id>
-    <published>2015-12-19T03:37:27.000Z</published>
-    <updated>2015-12-19T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>测试环境发布系统，通过java调用远程机器上的shell脚本，实现自动化发布工作。<br>在此记录一下java调用shell脚本的实现。<br><a id="more"></a><br>需要的jar包：ganymed-ssh2-build210-sources.jar 和apache的commons-io包commons-io-1.3.2.jar<br>pom.xml依赖：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>commons-io<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.3.2<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">     </span><br><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>ch.ethz.ganymed<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>ganymed-ssh2<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>build210<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>最终实现的情况：<br>远程机器：192.168.xx.xx<br>用户名：xxxx<br>密码：xxxx<br>登陆后执行服务器上的脚本 /master/bin/a.sh<br> 代码比较简单，如下 a.sh脚本：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"aaa"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"bbb"</span></span><br><span class="line"><span class="built_in">exit</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>java实现：<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.focustech.fds.common.utils;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.UnsupportedEncodingException;</span><br><span class="line"><span class="keyword">import</span> java.nio.charset.Charset;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.io.IOUtils;</span><br><span class="line"><span class="keyword">import</span> ch.ethz.ssh2.ChannelCondition;</span><br><span class="line"><span class="keyword">import</span> ch.ethz.ssh2.Connection;</span><br><span class="line"><span class="keyword">import</span> ch.ethz.ssh2.Session;</span><br><span class="line"><span class="keyword">import</span> ch.ethz.ssh2.StreamGobbler;</span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * RmtShellExecutor.java</span><br><span class="line"> * </span><br><span class="line"> * @author lit</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> class RmtShellExecutor &#123;</span><br><span class="line">    <span class="comment">/** */</span></span><br><span class="line">    <span class="comment">/**  */</span></span><br><span class="line">    <span class="keyword">private</span> Connection conn;</span><br><span class="line">    <span class="comment">/** */</span></span><br><span class="line">    <span class="comment">/** 远程机器IP */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">String</span> ip;</span><br><span class="line">    <span class="comment">/** */</span></span><br><span class="line">    <span class="comment">/** 用户名 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">String</span> usr;</span><br><span class="line">    <span class="comment">/** */</span></span><br><span class="line">    <span class="comment">/** 密码 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">String</span> psword;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">String</span> charset = Charset.defaultCharset().toString();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">int</span> TIME_OUT = <span class="number">1000</span> * <span class="number">5</span> * <span class="number">60</span>;</span><br><span class="line">    <span class="comment">/** */</span></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 构造函数</span><br><span class="line">     * </span><br><span class="line">     * @param ip</span><br><span class="line">     * @param usr</span><br><span class="line">     * @param ps</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">public</span> RmtShellExecutor() &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> RmtShellExecutor(<span class="keyword">String</span> ip, <span class="keyword">String</span> usr, <span class="keyword">String</span> ps) &#123;</span><br><span class="line">        <span class="keyword">this</span>.ip = ip;</span><br><span class="line">        <span class="keyword">this</span>.usr = usr;</span><br><span class="line">        psword = ps;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/** */</span></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 登录</span><br><span class="line">     * </span><br><span class="line">     * @return</span><br><span class="line">     * @throws IOException</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">boolean</span> login() <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        conn = <span class="keyword">new</span> Connection(ip);</span><br><span class="line">        conn.connect();</span><br><span class="line">        <span class="keyword">return</span> conn.authenticateWithPassword(usr, psword);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/** */</span></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 执行脚本</span><br><span class="line">     * </span><br><span class="line">     * @param cmds</span><br><span class="line">     * @return</span><br><span class="line">     * @throws Exception</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> exec(<span class="keyword">String</span> cmds) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        InputStream stdOut = <span class="keyword">null</span>;</span><br><span class="line">        InputStream stdErr = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">String</span> outStr = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">String</span> outErr = <span class="string">""</span>;</span><br><span class="line">        <span class="built_in">int</span> ret = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (login()) &#123;</span><br><span class="line">                <span class="comment">// 创建session</span></span><br><span class="line">                Session session = conn.openSession();</span><br><span class="line">                <span class="comment">// 执行远程脚本.</span></span><br><span class="line">                session.execCommand(cmds);</span><br><span class="line">                stdOut = <span class="keyword">new</span> StreamGobbler(session.getStdout());</span><br><span class="line">                outStr = processStream(stdOut, charset);</span><br><span class="line">                stdErr = <span class="keyword">new</span> StreamGobbler(session.getStderr());</span><br><span class="line">                outErr = processStream(stdErr, charset);</span><br><span class="line">                session.waitForCondition(ChannelCondition.EXIT_STATUS, TIME_OUT);</span><br><span class="line">                ret = session.getExitStatus();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"登录远程机器失败"</span> + ip); </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (conn != <span class="keyword">null</span>) &#123;</span><br><span class="line">                conn.close();</span><br><span class="line">            &#125;</span><br><span class="line">            IOUtils.closeQuietly(stdOut);</span><br><span class="line">            IOUtils.closeQuietly(stdErr);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/** */</span></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * @param in</span><br><span class="line">     * @param charset</span><br><span class="line">     * @return</span><br><span class="line">     * @throws IOException</span><br><span class="line">     * @throws UnsupportedEncodingException</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">String</span> processStream(InputStream in, <span class="keyword">String</span> charset) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="built_in">byte</span>[] buf = <span class="keyword">new</span> <span class="built_in">byte</span>[<span class="number">1024</span>];</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">while</span> (in.read(buf) != -<span class="number">1</span>) &#123;</span><br><span class="line">            sb.<span class="built_in">append</span>(<span class="keyword">new</span> <span class="keyword">String</span>(buf, charset));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// bash参数：bash /master/bin/a.sh</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> execute(<span class="keyword">String</span> bash) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        RmtShellExecutor exe = <span class="keyword">new</span> RmtShellExecutor(<span class="string">"192.168.10.199"</span>, <span class="string">"admin"</span>, <span class="string">"focus1234"</span>);</span><br><span class="line">        System.out.<span class="built_in">println</span>(exe.exec(bash));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">~</span><br></pre></td></tr></table></figure></p>
-<p>结果如下：<br>aaa<br>bbb<br>1</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>测试环境发布系统，通过java调用远程机器上的shell脚本，实现自动化发布工作。<br>在此记录一下java调用shell脚本的实现。<br>]]>
-    
-    </summary>
-    
-      <category term="java" scheme="http://tonylit.me/tags/java/"/>
-    
-      <category term="work" scheme="http://tonylit.me/tags/work/"/>
     
   </entry>
   
