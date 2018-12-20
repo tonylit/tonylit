@@ -15,20 +15,20 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[ͳ��DB2���������ع��������ȴ�]]></title>
+    <title><![CDATA[统计DB2并发数、回滚数、锁等待]]></title>
     <link href="http://tonylit.me/2018/12/19/%E7%BB%9F%E8%AE%A1DB2%E5%B9%B6%E5%8F%91%E6%95%B0%E3%80%81%E5%9B%9E%E6%BB%9A%E6%95%B0%E3%80%81%E9%94%81%E7%AD%89%E5%BE%85/"/>
     <id>http://tonylit.me/2018/12/19/统计DB2并发数、回滚数、锁等待/</id>
     <published>2018-12-19T03:37:27.000Z</published>
     <updated>2018-12-19T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>��DB2�Ĳ������������ع��������ȴ���ÿ��5sд��ָ���ļ��У�����ͳ�Ʒ�����</p>
-<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#�����û� </span></span><br><span class="line">su - �û���     ���磺      su -  db2ins</span><br><span class="line"><span class="comment">#�������ݿ�</span></span><br><span class="line">db2 <span class="keyword">connect</span> to ���ݿ�����    ���磺db2 <span class="keyword">connect</span> to insdb  </span><br><span class="line"></span><br><span class="line"><span class="comment"># ִ������</span></span><br><span class="line"><span class="keyword">while</span> :; <span class="keyword">do</span> db2 -tx <span class="string">"select APPLS_IN_DB2,LOCK_TIMEOUTS,DEADLOCKS,LOCK_ESCALS,ROLLBACK_SQL_STMTS from sysibmadm.snapdb"</span>&gt;&gt;statistics.out; <span class="keyword">sleep</span> <span class="number">5</span><span class="keyword">s</span>; done</span><br></pre></td></tr></table></figure>
+    <content type="html"><![CDATA[<p>将DB2的并发数、事物回滚数、锁等待数每隔5s写入指定文件中，用于统计分析。</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#连接用户 </span></span><br><span class="line">su - 用户名     例如：      su -  db2ins</span><br><span class="line"><span class="comment">#连接数据库</span></span><br><span class="line">db2 <span class="keyword">connect</span> to 数据库名称    例如：db2 <span class="keyword">connect</span> to insdb  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行命令</span></span><br><span class="line"><span class="keyword">while</span> :; <span class="keyword">do</span> db2 -tx <span class="string">"select APPLS_IN_DB2,LOCK_TIMEOUTS,DEADLOCKS,LOCK_ESCALS,ROLLBACK_SQL_STMTS from sysibmadm.snapdb"</span>&gt;&gt;statistics.out; <span class="keyword">sleep</span> <span class="number">5</span><span class="keyword">s</span>; done</span><br></pre></td></tr></table></figure>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>��DB2�Ĳ������������ع��������ȴ���ÿ��5sд��ָ���ļ��У�����ͳ�Ʒ�����</p>
-<figure class="highlight perl"><table><tr><td class="gutter"><pre><span]]>
+    <![CDATA[<p>将DB2的并发数、事物回滚数、锁等待数每隔5s写入指定文件中，用于统计分析。</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><]]>
     </summary>
     
-      <category term="����" scheme="http://tonylit.me/tags/%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD/"/>
+      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
     
   </entry>
   
