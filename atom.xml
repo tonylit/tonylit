@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Nothing is given. Everything is earned.]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2018-12-19T05:37:27.000Z</updated>
+  <updated>2018-12-20T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -13,6 +13,68 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[pinpoint 监控wildfly]]></title>
+    <link href="http://tonylit.me/2018/12/20/pinpoint%20%E7%9B%91%E6%8E%A7wildfly%2010+/"/>
+    <id>http://tonylit.me/2018/12/20/pinpoint 监控wildfly 10+/</id>
+    <published>2018-12-20T03:37:27.000Z</published>
+    <updated>2018-12-20T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>苦苦等待一年的时间，pinpoint-1.8.1-RC1 版本终于支持了对wildfly的监控。</p>
+<a id="more"></a>
+<hr>
+<h1 id="wildfly必须10-0版本以上">wildfly必须10.0版本以上</h1><p>由于公司目前在使用wildfly8.0版本，需要升级至10.0以上才可以，最好直接升级到14.0以上。</p>
+<h2 id="为何不支持wildfly10-0以下版本">为何不支持wildfly10.0以下版本</h2><p>wildfly10.0以下版本启动会报错：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[INFO ](ectorsExecuteRootHandlerInterceptor) Failed to servlet request event handle<span class="class">.java</span><span class="class">.lang</span><span class="class">.NoSuchMethodError</span>: io<span class="class">.undertow</span><span class="class">.server</span><span class="class">.HttpServerExchange</span><span class="class">.getStatusCode</span>()I</span><br><span class="line">        at com<span class="class">.navercorp</span><span class="class">.pinpoint</span><span class="class">.plugin</span><span class="class">.undertow</span><span class="class">.interceptor</span><span class="class">.ConnectorsExecuteRootHandlerInterceptor</span><span class="class">.getStatusCode</span>(ConnectorsExecuteRootHandlerInterceptor<span class="class">.java</span>:<span class="number">104</span>)</span><br><span class="line">        at com<span class="class">.navercorp</span><span class="class">.pinpoint</span><span class="class">.plugin</span><span class="class">.undertow</span><span class="class">.interceptor</span><span class="class">.ConnectorsExecuteRootHandlerInterceptor</span><span class="class">.after</span>(ConnectorsExecuteRootHandlerInterceptor<span class="class">.java</span>:<span class="number">92</span>)</span><br><span class="line">        at com<span class="class">.navercorp</span><span class="class">.pinpoint</span><span class="class">.bootstrap</span><span class="class">.interceptor</span><span class="class">.ExceptionHandleAroundInterceptor</span><span class="class">.after</span>(ExceptionHandleAroundInterceptor<span class="class">.java</span>:<span class="number">49</span>)</span><br><span class="line">        at io<span class="class">.undertow</span><span class="class">.server</span><span class="class">.Connectors</span><span class="class">.executeRootHandler</span>(Connectors<span class="class">.java</span>:<span class="number">203</span>)</span><br><span class="line">        at io<span class="class">.undertow</span><span class="class">.server</span><span class="class">.HttpServerExchange</span>$<span class="number">1</span>.<span class="function"><span class="title">run</span><span class="params">(HttpServerExchange.java:<span class="number">727</span>)</span></span></span><br><span class="line">        at java<span class="class">.util</span><span class="class">.concurrent</span><span class="class">.ThreadPoolExecutor</span><span class="class">.runWorker</span>(ThreadPoolExecutor<span class="class">.java</span>:<span class="number">1142</span>)</span><br><span class="line">        at java<span class="class">.util</span><span class="class">.concurrent</span><span class="class">.ThreadPoolExecutor</span><span class="variable">$Worker</span>.<span class="function"><span class="title">run</span><span class="params">(ThreadPoolExecutor.java:<span class="number">617</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>报错原因为io.undertow.server.HttpServerExchange类中没有实现getStatusCode()的方法（<a href="https://github.com/undertow-io/undertow/blob/1.0.x/core/src/main/java/io/undertow/server/HttpServerExchange.java）。" target="_blank" rel="external">https://github.com/undertow-io/undertow/blob/1.0.x/core/src/main/java/io/undertow/server/HttpServerExchange.java）。</a></p>
+<p>io.undertow.server.HttpServerExchange类为undertow服务器源码，对应的jar包放在wildfly下的modules/system/layers/base/io/undertow/core/main目录中。</p>
+<blockquote>
+<p>wildfly8+ 对应 undertow-core-1.0.15.Final.jar<br>wildfly10+ 对应 undertow-core-1.3.15.Final.jar</p>
+</blockquote>
+<p>io.undertow.server.HttpServerExchange.getStatusCode()方法的实现在undertow-core-1.3.X版本中才加入进来（<a href="https://github.com/undertow-io/undertow/branches）。" target="_blank" rel="external">https://github.com/undertow-io/undertow/branches）。</a></p>
+<hr>
+<h1 id="pinpoint安装部署">pinpoint安装部署</h1><p>1.8.1-RC1版本下载地址：<br><a href="https://github.com/naver/pinpoint/releases/tag/1.8.1-RC1" target="_blank" rel="external">https://github.com/naver/pinpoint/releases/tag/1.8.1-RC1</a></p>
+<p>pinpoint的安装部署分为三块。</p>
+<ol>
+<li>Hbase</li>
+<li>pinpoint-collector和pinpoint-web</li>
+<li>pinpoint agent</li>
+</ol>
+<p>其中1,2两点参照之前的文章即可（<a href="http://tonylit.me/2018/04/13/APM%20pinpoint%20%E9%83%A8%E7%BD%B2/">APM pinpoint 部署</a>）</p>
+<p>pinpoint agent的部署跟主流的tomcat、resin服务器有一些区别。</p>
+<h2 id="pinpoint_agent安装部署">pinpoint agent安装部署</h2><p><strong>步骤一、</strong> 将下载好的pinpoint-agent-1.8.1-RC1.zip包放至机器上，unzip pinpoint-agent-1.8.1-RC1.zip解压出来。</p>
+<p><strong>步骤二、</strong>修改pinpoint.config， 将profiler.collector.ip=192.168.1.27， 改成collector服务器地址</p>
+<p><strong>步骤三、</strong>在wildfly服务器 /bin/ 目录下，修改standalone.conf文件，加入以下配置：</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">JAV<span class="built_in">A_OPTS</span>=<span class="string">"$JAVA_OPTS -Djboss.modules.system.pkgs=org.jboss.byteman,org.jboss.logmanager,com.navercorp.pinpoint.bootstrap,com.navercorp.pinpoint.common,com.navercorp.pinpoint.exception"</span></span><br><span class="line">JAV<span class="built_in">A_OPTS</span>=<span class="string">"$JAVA_OPTS -Djava.util.logging.manager=org.jboss.logmanager.LogManager"</span></span><br><span class="line">JAV<span class="built_in">A_OPTS</span>=<span class="string">"$JAVA_OPTS -Xbootclasspath/p:/opt/pinpoint/wildfly-10.0.0.Final/modules/system/layers/base/org/jboss/logmanager/main/jboss-logmanager-2.0.3.Final.jar"</span></span><br><span class="line">JAV<span class="built_in">A_OPTS</span>=<span class="string">"$JAVA_OPTS -javaagent:/opt/pinpoint/pinpoint-bootstrap-1.8.1-RC1.jar"</span></span><br><span class="line">JAV<span class="built_in">A_OPTS</span>=<span class="string">"$JAVA_OPTS -Dpinpoint.applicationName=sffs-test"</span> </span><br><span class="line">JAV<span class="built_in">A_OPTS</span>=<span class="string">"$JAVA_OPTS -Dpinpoint.agentId=sffs-90"</span></span><br></pre></td></tr></table></figure>
+<p>注意修改成自己的配置。</p>
+<p><strong>步骤四、</strong> 继续修改standalone.conf文件，加入-Djava.security.auth.login.config=配置。</p>
+<p>加入-Djava.security.auth.login.config=后的配置如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ <span class="string">"x<span class="variable">$JAVA_OPTS</span>"</span> = <span class="string">"x"</span> ]; <span class="keyword">then</span></span><br><span class="line">   JAVA_OPTS=<span class="string">"-XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dsun.jnu.encoding=UTF-8 -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintHeapAtGC -XX:+PrintGCDateStamps -Xloggc:<span class="variable">$JBOSS_HOME</span>/standalone/log/verbose.gc -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=<span class="variable">$JBOSS_HOME</span>/standalone/log/  -Djava.security.auth.login.config="</span></span><br><span class="line">   JAVA_OPTS=<span class="string">"<span class="variable">$JAVA_OPTS</span> -Djboss.modules.system.pkgs=<span class="variable">$JBOSS_MODULES_SYSTEM_PKGS</span> -Djava.awt.headless=true"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"JAVA_OPTS already set in environment; overriding default settings with values: <span class="variable">$JAVA_OPTS</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure></p>
+<p>这里如果不加上以上配置，会报错：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Caused by: java<span class="class">.lang</span><span class="class">.IllegalArgumentException</span>: File jar:file:/opt/pinpoint/wildfly-<span class="number">10.0</span>.<span class="number">0</span>.Final/modules/system/layers/base/org/picketbox/main/picketbox-<span class="number">4.9</span>.<span class="number">4</span><span class="class">.Final</span><span class="class">.jar</span>!/auth<span class="class">.confcannot</span> be read.</span><br><span class="line">	at com<span class="class">.suning</span><span class="class">.framework</span><span class="class">.zookeeper</span><span class="class">.ZkClient</span><span class="class">.isZkSaslEnabled</span>(ZkClient<span class="class">.java</span>:<span class="number">840</span>)</span><br><span class="line">	at com<span class="class">.suning</span><span class="class">.framework</span><span class="class">.zookeeper</span><span class="class">.ZkClient</span>.&lt;init&gt;(ZkClient<span class="class">.java</span>:<span class="number">108</span>)</span><br><span class="line">	at com<span class="class">.suning</span><span class="class">.framework</span><span class="class">.zookeeper</span><span class="class">.ZkClient</span>.&lt;init&gt;(ZkClient<span class="class">.java</span>:<span class="number">77</span>)</span><br><span class="line">	at com<span class="class">.suning</span><span class="class">.framework</span><span class="class">.scm</span><span class="class">.client</span><span class="class">.SCMClientImpl</span>.&lt;init&gt;(SCMClientImpl<span class="class">.java</span>:<span class="number">55</span>)</span><br><span class="line">	at com<span class="class">.suning</span><span class="class">.framework</span><span class="class">.scm</span><span class="class">.client</span><span class="class">.SCMClientFactory</span><span class="class">.getSCMClient</span>(SCMClientFactory<span class="class">.java</span>:<span class="number">30</span>)</span><br><span class="line">	at com<span class="class">.suning</span><span class="class">.rsf</span><span class="class">.consumer</span><span class="class">.ConsumerContextImpl</span>.&lt;init&gt;(ConsumerContextImpl<span class="class">.java</span>:<span class="number">92</span>)</span><br><span class="line">	at com<span class="class">.suning</span><span class="class">.rsf</span><span class="class">.consumer</span><span class="class">.ConsumerContextFactory</span><span class="class">.getConsumerContext</span>(ConsumerContextFactory<span class="class">.java</span>:<span class="number">29</span>)</span><br><span class="line">	at com<span class="class">.suning</span><span class="class">.rsf</span><span class="class">.consumer</span><span class="class">.ServiceLocator</span>.&lt;clinit&gt;(ServiceLocator<span class="class">.java</span>:<span class="number">10</span>)</span><br><span class="line">	... <span class="number">31</span> more</span><br></pre></td></tr></table></figure>
+<p><strong>步骤五、</strong>  修改/standalone/configuration/standalone.xml文件中的 jboss.bind.address:127.0.0.1替换成jboss.bind.address:0.0.0.0，目的是放开外部访问权限。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">interface</span> <span class="attribute">name</span>=<span class="value">"public"</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="title">inet-address</span> <span class="attribute">value</span>=<span class="value">"$&#123;jboss.bind.address:0.0.0.0&#125;"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="title">interface</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="wildfly数据源配置">wildfly数据源配置</h3><p>项目中集成了mysql和db2的数据源，wildfly中需要加载相关的module。</p>
+<p><strong>步骤一：</strong> 将<a href="https://pan.baidu.com/s/1N7JSnXi5Lxe1pNu2qb7rqQ" target="_blank" rel="external">com文件夹</a>拷贝到modules目录下。（com文件夹里面包括db2、mysql、oracle、postgresql、sybase的驱动和module.xml配置）</p>
+<p><strong>步骤二：</strong>在/standalone/configuration/standalone.xml文件中添加datasource和driver。</p>
+<p>先将 <subsystem xmlns="urn:jboss:domain:datasources:4.0"> 修改成<br> <subsystem xmlns="urn:jboss:domain:datasources:2.0">，把4.0改成2.0，不改的话我这边wildfly启动会一直报错。</subsystem></subsystem></p>
+<p>以DB2为例，添加datasource：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">datasource</span> <span class="attribute">jta</span>=<span class="value">"false"</span> <span class="attribute">jndi-name</span>=<span class="value">"java:jboss/Fares2DS"</span> <span class="attribute">pool-name</span>=<span class="value">"Fares2DS"</span> <span class="attribute">enabled</span>=<span class="value">"true"</span> <span class="attribute">use-ccm</span>=<span class="value">"false"</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="title">connection-url</span>&gt;</span>jdbc:db2://10.244.201.206:60006/FAREDB2:currentSchema=FAREUSR;<span class="tag">&lt;/<span class="title">connection-url</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="title">driver-class</span>&gt;</span>com.ibm.db2.jcc.DB2Driver<span class="tag">&lt;/<span class="title">driver-class</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="title">driver</span>&gt;</span>com.db2<span class="tag">&lt;/<span class="title">driver</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="title">transaction-isolation</span>&gt;</span>TRANSACTION_READ_COMMITTED<span class="tag">&lt;/<span class="title">transaction-isolation</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="title">pool</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="title">min-pool-size</span>&gt;</span>5<span class="tag">&lt;/<span class="title">min-pool-size</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="title">max-pool-size</span>&gt;</span>50<span class="tag">&lt;/<span class="title">max-pool-size</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="title">flush-strategy</span>&gt;</span>FailingConnectionOnly<span class="tag">&lt;/<span class="title">flush-strategy</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;/<span class="title">pool</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="title">security</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="title">user-name</span>&gt;</span>fareusr<span class="tag">&lt;/<span class="title">user-name</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="title">password</span>&gt;</span>GFaUNhRgRIdC<span class="tag">&lt;/<span class="title">password</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;/<span class="title">security</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="title">validation</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="title">validate-on-match</span>&gt;</span>false<span class="tag">&lt;/<span class="title">validate-on-match</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="title">background-validation</span>&gt;</span>true<span class="tag">&lt;/<span class="title">background-validation</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="title">background-validation-millis</span>&gt;</span>60000<span class="tag">&lt;/<span class="title">background-validation-millis</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;/<span class="title">validation</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="title">statement</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="title">share-prepared-statements</span>&gt;</span>false<span class="tag">&lt;/<span class="title">share-prepared-statements</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;/<span class="title">statement</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="title">datasource</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>添加driver：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;driver name=<span class="string">"com.db2"</span> module=<span class="string">"com.db2"</span>&gt;</span><br><span class="line">                  &lt;driver-class&gt;com<span class="class">.ibm</span><span class="class">.db2</span><span class="class">.jcc</span><span class="class">.DB2Driver</span>&lt;/driver-class&gt;</span><br><span class="line">              &lt;/driver&gt;</span><br></pre></td></tr></table></figure></p>
+<p>附上其他driver配置：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;driver name=<span class="string">"com.mysql"</span> module=<span class="string">"com.mysql"</span>&gt;</span><br><span class="line">                   &lt;driver-class&gt;com<span class="class">.mysql</span><span class="class">.jdbc</span><span class="class">.Driver</span>&lt;/driver-class&gt;</span><br><span class="line">               &lt;/driver&gt;</span><br><span class="line">               &lt;driver name=<span class="string">"oracle"</span> module=<span class="string">"com.oracle"</span>&gt;</span><br><span class="line">                   &lt;driver-class&gt;oracle<span class="class">.jdbc</span><span class="class">.driver</span><span class="class">.OracleDriver</span>&lt;/driver-class&gt;</span><br><span class="line">               &lt;/driver&gt;</span><br><span class="line">               &lt;driver name=<span class="string">"sybase"</span> module=<span class="string">"com.sybase"</span>&gt;</span><br><span class="line">                   &lt;driver-class&gt;com<span class="class">.sybase</span><span class="class">.jdbc4</span><span class="class">.jdbc</span><span class="class">.SybDataSource</span>&lt;/driver-class&gt;</span><br><span class="line">               &lt;/driver&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>以上配置完成，启动wildfly服务器即可。</p>
+<p>启动后，做一些请求测试，相关APM监控已生效。<br><img src="/img/pinpoint监控wildfly/pinpoint-web-1.PNG" alt="Alt text"></p>
+<p><img src="/img/pinpoint监控wildfly/pinpoint-wb-2.PNG" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>苦苦等待一年的时间，pinpoint-1.8.1-RC1 版本终于支持了对wildfly的监控。</p>]]>
+    
+    </summary>
+    
+      <category term="pinpoint" scheme="http://tonylit.me/tags/pinpoint/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[统计DB2并发数、回滚数、锁等待]]></title>
@@ -907,6 +969,48 @@
   </entry>
   
   <entry>
+    <title><![CDATA[iBase4J 源码之Swagger2接口管理]]></title>
+    <link href="http://tonylit.me/2018/07/05/iBase4J%20%E6%BA%90%E7%A0%81%E4%B9%8BSwagger2%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/"/>
+    <id>http://tonylit.me/2018/07/05/iBase4J 源码之Swagger2接口管理/</id>
+    <published>2018-07-05T03:37:27.000Z</published>
+    <updated>2018-07-05T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>The Best APIs are Built with Swagger Tools.</p>
+<p>by  <a href="https://swagger.io/" target="_blank" rel="external">https://swagger.io/</a></p>
+<a id="more"></a>
+<hr>
+<p>Swagger2 作为RESTful API的好伙伴， 很容易与spring boot整合在一起，并组织成一套RESTful API文档。开发人员修改了接口，接口文档会自动更新，Swagger2同时为开发人员提供了强大的接口测试功能，省去了很多测试代码的编写工作。</p>
+<p>iBase4J 中使用Swagger2 来进行接口管理，项目启动后访问<a href="http://localhost:8088/swagger-ui.html" target="_blank" rel="external">http://localhost:8088/swagger-ui.html</a> ，可以看到接口管理页面。</p>
+<p><img src="/img/iBase4J源码之Swagger2/swagger-list.PNG" alt="Alt text"></p>
+<hr>
+<p>下面咱们结合iBase4J源码来介绍，如何在Spring Boot中使用Swagger2。</p>
+<h1 id="添加Swagger2依赖">添加Swagger2依赖</h1><p>在pom.xml中加入Swagger2的依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- swagger --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springfox-swagger2<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;springfox.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springfox-swagger-ui<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;springfox.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="title">properties</span>&gt;</span>	<span class="tag">&lt;<span class="title">springfox.version</span>&gt;</span>2.7.0<span class="tag">&lt;/<span class="title">springfox.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="创建Swagger2配置类。">创建Swagger2配置类。</h1><p>iBase4J提供了SwaggerConfig.java进行Swagger2配置。</p>
+<p><img src="/img/iBase4J源码之Swagger2/swagger-config.PNG" alt="Alt text"></p>
+<p>@EnableSwagger2 用于开启swagger2配置。</p>
+<p>apiInfo() 用来创建该Api的基本信息（这些基本信息会展现在文档页面中）。</p>
+<hr>
+<h1 id="配置Controller中的API">配置Controller中的API</h1><p>iBase4J-SYS-Web项目和iBase4J-Biz-Web项目中的RestFull API都使用iBase4J进行接口管理，这里看一个LoginController的例子。</p>
+<p><img src="/img/iBase4J源码之Swagger2/login-api.PNG" alt="Alt text"></p>
+<p>需要关注的注解：<a href="https://blog.csdn.net/xiaojin21cen/article/details/78654652" target="_blank" rel="external">参考</a></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Api</span>：标记一个Controller类做为swagger。</span><br><span class="line"></span><br><span class="line"><span class="variable">@ApiOperation</span>：注解在方法上,描述接口操作。</span><br><span class="line"></span><br><span class="line"><span class="variable">@ApiParam</span>：请求参数的描述。</span><br></pre></td></tr></table></figure>
+<h1 id="API文档访问与测试">API文档访问与测试</h1><p><a href="http://localhost:8088/swagger-ui.html#/" target="_blank" rel="external">http://localhost:8088/swagger-ui.html#/</a> —看到接口列表</p>
+<p><img src="/img/iBase4J源码之Swagger2/swagger-test.PNG" alt="Alt text"></p>
+<p>输入请求入参，点击Try it out即可进行接口测试。</p>
+<p><img src="/img/iBase4J源码之Swagger2/swagger-result.PNG" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>The Best APIs are Built with Swagger Tools.</p>
+<p>by  <a href="https://swagger.io/">https://swagger.io/</a></p>]]>
+    
+    </summary>
+    
+      <category term="java" scheme="http://tonylit.me/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[iBase4J 源码之Shiro用户安全校验]]></title>
     <link href="http://tonylit.me/2018/07/05/iBase4J%20%E6%BA%90%E7%A0%81%E4%B9%8BShiro%E7%94%A8%E6%88%B7%E5%AE%89%E5%85%A8%E6%A0%A1%E9%AA%8C/"/>
     <id>http://tonylit.me/2018/07/05/iBase4J 源码之Shiro用户安全校验/</id>
@@ -961,48 +1065,6 @@
     <summary type="html">
     <![CDATA[<p>Apache Shiro? is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.</p>
 <p>by  <a href="https://shiro.apache.org/">https://shiro.apache.org/</a></p>]]>
-    
-    </summary>
-    
-      <category term="java" scheme="http://tonylit.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[iBase4J 源码之Swagger2接口管理]]></title>
-    <link href="http://tonylit.me/2018/07/05/iBase4J%20%E6%BA%90%E7%A0%81%E4%B9%8BSwagger2%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/"/>
-    <id>http://tonylit.me/2018/07/05/iBase4J 源码之Swagger2接口管理/</id>
-    <published>2018-07-05T03:37:27.000Z</published>
-    <updated>2018-07-05T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>The Best APIs are Built with Swagger Tools.</p>
-<p>by  <a href="https://swagger.io/" target="_blank" rel="external">https://swagger.io/</a></p>
-<a id="more"></a>
-<hr>
-<p>Swagger2 作为RESTful API的好伙伴， 很容易与spring boot整合在一起，并组织成一套RESTful API文档。开发人员修改了接口，接口文档会自动更新，Swagger2同时为开发人员提供了强大的接口测试功能，省去了很多测试代码的编写工作。</p>
-<p>iBase4J 中使用Swagger2 来进行接口管理，项目启动后访问<a href="http://localhost:8088/swagger-ui.html" target="_blank" rel="external">http://localhost:8088/swagger-ui.html</a> ，可以看到接口管理页面。</p>
-<p><img src="/img/iBase4J源码之Swagger2/swagger-list.PNG" alt="Alt text"></p>
-<hr>
-<p>下面咱们结合iBase4J源码来介绍，如何在Spring Boot中使用Swagger2。</p>
-<h1 id="添加Swagger2依赖">添加Swagger2依赖</h1><p>在pom.xml中加入Swagger2的依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- swagger --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springfox-swagger2<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;springfox.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springfox-swagger-ui<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;springfox.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="title">properties</span>&gt;</span>	<span class="tag">&lt;<span class="title">springfox.version</span>&gt;</span>2.7.0<span class="tag">&lt;/<span class="title">springfox.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h1 id="创建Swagger2配置类。">创建Swagger2配置类。</h1><p>iBase4J提供了SwaggerConfig.java进行Swagger2配置。</p>
-<p><img src="/img/iBase4J源码之Swagger2/swagger-config.PNG" alt="Alt text"></p>
-<p>@EnableSwagger2 用于开启swagger2配置。</p>
-<p>apiInfo() 用来创建该Api的基本信息（这些基本信息会展现在文档页面中）。</p>
-<hr>
-<h1 id="配置Controller中的API">配置Controller中的API</h1><p>iBase4J-SYS-Web项目和iBase4J-Biz-Web项目中的RestFull API都使用iBase4J进行接口管理，这里看一个LoginController的例子。</p>
-<p><img src="/img/iBase4J源码之Swagger2/login-api.PNG" alt="Alt text"></p>
-<p>需要关注的注解：<a href="https://blog.csdn.net/xiaojin21cen/article/details/78654652" target="_blank" rel="external">参考</a></p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Api</span>：标记一个Controller类做为swagger。</span><br><span class="line"></span><br><span class="line"><span class="variable">@ApiOperation</span>：注解在方法上,描述接口操作。</span><br><span class="line"></span><br><span class="line"><span class="variable">@ApiParam</span>：请求参数的描述。</span><br></pre></td></tr></table></figure>
-<h1 id="API文档访问与测试">API文档访问与测试</h1><p><a href="http://localhost:8088/swagger-ui.html#/" target="_blank" rel="external">http://localhost:8088/swagger-ui.html#/</a> —看到接口列表</p>
-<p><img src="/img/iBase4J源码之Swagger2/swagger-test.PNG" alt="Alt text"></p>
-<p>输入请求入参，点击Try it out即可进行接口测试。</p>
-<p><img src="/img/iBase4J源码之Swagger2/swagger-result.PNG" alt="Alt text"></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>The Best APIs are Built with Swagger Tools.</p>
-<p>by  <a href="https://swagger.io/">https://swagger.io/</a></p>]]>
     
     </summary>
     
@@ -5625,55 +5687,6 @@
     </summary>
     
       <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[staf使用]]></title>
-    <link href="http://tonylit.me/2015/12/22/staf%E4%BD%BF%E7%94%A8/"/>
-    <id>http://tonylit.me/2015/12/22/staf使用/</id>
-    <published>2015-12-22T03:37:27.000Z</published>
-    <updated>2015-12-22T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="STAF概念：">STAF概念：</h1><p>全称：Software Testing AntoMation Framework,软件测试自动化框架，为测试人员提供了一个端到端的自动化测试解决方案。<br>每台装有STAF环境的机器都是对等的，一个端可以直接调用另一个端提供服务。采用P2P架构，没有服务端、客户端之分，任何一台机器都可以向其他的机器发送请求。可以利用STAF的这种特性来实现分布式执行的功能。</p>
-<hr>
-<a id="more"></a>
-<h1 id="STAF在linunx下的安装：">STAF在linunx下的安装：</h1><p>1.下载STAF的安装包STAF3412-linux.tar.gz</p>
-<p>2.解压：tar -xzvf  STAF3412-linux.tar.gz</p>
-<p>3.解压缩完进入staf文件夹，执行./STAFIns，一直回车，安装OK</p>
-<p>4.在环境变量中加入STAF配置<br>编辑 /etc/profile，加入以下配置信息<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PATH=<span class="string">"/usr/local/staf/bin:<span class="variable">$&#123;PATH&#125;</span>"</span> <span class="built_in">export</span> STAFCONVDIR=/usr/<span class="built_in">local</span>/staf/codepage <span class="built_in">export</span></span><br><span class="line">LD_LIBRARY_PATH=<span class="string">"/usr/local/staf/lib:<span class="variable">$&#123;LD_LIBRARY_PATH&#125;</span>"</span> <span class="built_in">export</span></span><br><span class="line">CLASSPATH=<span class="string">"/usr/local/staf/lib/JSTAF.jar:/usr/local/staf/samples/demo/STAFDemo.jar:<span class="variable">$&#123;CLASSPATH&#125;</span>"</span></span><br></pre></td></tr></table></figure></p>
-<p>5.输入source /etc/profile,让配置文件生效</p>
-<p>6.修改staf配置文件，在staf安装目录下（默认会安装在/usr/local/staf/）的bin文件夹中-STAF.cfg<br><strong>参数格式</strong></p>
-<blockquote>
-<p>#当错误条件发生的时候形成trace信息 trace enable tracepoints “error deprecated”  </p>
-<p>#Enable TCP/IP connections</p>
-<p>#在网络上发送和接受STAF请求，默认端口为6500。如果需要定义自己的端口可以使用interface tcp library STAFTCP option Secure=No  option Port=6600</p>
-<p>#interface ssl library STAFTCP option Secure=Yes option Port=6550 interface tcp library STAFTCP option Secure=No  option Port=55500  </p>
-<p>#Set default local trust</p>
-<p>#设置本地机器为full access 信任级别 trust machine local://local level 5 trust machine <em>.</em>.<em>.</em> level 5</p>
-<p>#Add default service loader</p>
-<p>#注册默认的Service Loader。可以动态加载Log,Monitor等服务 serviceloader library STAFDSLS</p>
-</blockquote>
-<p>TRUST LEVEL 5 MACHINE，利用命令staf local trust list. 可以查看本机的信任机器<br>每种请求都有安全级别的限制，只有你达到这种安全级别才能发送这种请求。<br>分为六级，级别0-5,0最低，5最高</p>
-<blockquote>
-<p> Level 0 - No access<br>    Level 1 - Restricted access. Only PING and helps available.<br>    Level 2 - Limited access. Only query/view facilities available.<br>    Level 3 - Standard access. Non-destructive updates allowed, e.g., logging.<br>    Level 4 - Advanced access. Update abilities, e.g., copying files, deleting log files.<br>    Level 5 - All access, e.g., SHUTDOWN, Process invocation, Trust definition manipulation</p>
-</blockquote>
-<p>默认是trust machine local://local level 5     //表示本地local的操作是5级权限<br>如果需要外部的pc能够 操作本地的staf，发送各种请求的话，需要执行ip地址或是网段<br>trust machine ssl://192.100.<em> level 5   //表示 对于192.100 网段开放 5级权限  针对ssl<br>trust machine tcp://192.100.</em> level 5    //表示 对于192.100 网段开放 5级权限  针对tcp</p>
-<p>7.启动STAF服务<br>cd /usr/local/staf/bin<br>./STAFProc &amp;<br>查看是否启动</p>
-<p>8.确认已经安装完成<br>staf local service list<br><img src="/img/staf/staf_1.PNG" alt="Alt text"></p>
-<p>说明安装成功了</p>
-<h1 id="STAF请求格式">STAF请求格式</h1><p>STAF  <endpoint>  &lt; Service&gt;  <request></request></endpoint></p>
-<p><endpoint> 远程机器的IP或者localhost。表示向哪台机器发送请求</endpoint></p>
-<p><server> Endpoint端机器上STAF环境中的服务名称。表示向哪个服务发送请求</server></p>
-<p><request>请求的内容。<br> 例子：<br>staf 192.168.10.18 ping ping<br><img src="/img/staf/staf_2.PNG" alt="Alt text"></request></p>
-<h1 id="STAF服务">STAF服务</h1><p>STAF所有功能都是通过服务实现的<br>主要有两种类型的服务：内部服务（Internal Service），外部服务(External Service)。每种服务都可以处理多种请求，每种请求都有安全级别限制<br>内部服务：开启staf这些服务就可以工作了。一般被集成到STAFProc,一般都是一些比较基本常用的服务。<br>外部服务：不是staf基本服务，必须将服务注册到staf才可以使用。需要动态载入，可执行代码不在STAFProc中，一般都在jar中或者外部dll库中。<br><img src="/img/staf/staf_3.PNG" alt="Alt text"></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="STAF概念：">STAF概念：</h1><p>全称：Software Testing AntoMation Framework,软件测试自动化框架，为测试人员提供了一个端到端的自动化测试解决方案。<br>每台装有STAF环境的机器都是对等的，一个端可以直接调用另一个端提供服务。采用P2P架构，没有服务端、客户端之分，任何一台机器都可以向其他的机器发送请求。可以利用STAF的这种特性来实现分布式执行的功能。</p>
-<hr>]]>
-    
-    </summary>
-    
-      <category term="work" scheme="http://tonylit.me/tags/work/"/>
     
   </entry>
   
