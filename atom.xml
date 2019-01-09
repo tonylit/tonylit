@@ -35,7 +35,7 @@
 <hr>
 <h1 id="开启慢查询">开启慢查询</h1><p><strong>步骤一、</strong>查看是否已经开启了慢查询日志</p>
 <figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables <span class="keyword">like</span> <span class="string">'%query%'</span>;</span><br></pre></td></tr></table></figure>
-<p><img src="img/pt-query-digest/showlog.PNG" alt="Alt text"></p>
+<p><img src="/img/pt-query-digest/showlog.PNG" alt="Alt text"></p>
 <p><strong>步骤二、</strong>开启慢查询日志<br>如果未开启慢查询日志，可以通过以下两种方式开启：</p>
 <p><strong>方式一：全局变量设置</strong><br>将 slow_query_log 全局变量设置为“ON”状态<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; <span class="built_in">set</span> global slow_query_<span class="built_in">log</span>=<span class="string">'ON'</span>;</span><br></pre></td></tr></table></figure></p>
 <p>设置慢查询日志存放的位置<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; <span class="keyword">set</span> <span class="keyword">global</span> slow_query_log_file='/mysql/data/lcportalpstdb02-slow.<span class="command">log</span>';</span><br></pre></td></tr></table></figure></p>
