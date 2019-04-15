@@ -604,7 +604,7 @@
 
                                                 
                                                                 
-                                                                    <p>docker启动的时候通过-v /etc/localtime:/etc/localtime:ro ，<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run  -v  <span class="regexp">/etc/</span><span class="string">localtime:</span><span class="regexp">/etc/</span><span class="string">localtime:</span>ro  focustest-centos5  <span class="regexp">/opt/</span>ActivePython-<span class="number">2.7</span><span class="regexp">/bin/</span>supervisord -c <span class="regexp">/opt/</span>supervisor/supervisord.conf &amp;</span><br></pre></td></tr></table></figure></p>
+                                                                    <p>docker启动的时候通过-v /etc/localtime:/etc/localtime:ro ，<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run  -v  <span class="regexp">/etc/</span><span class="string">localtime:</span><span class="regexp">/etc/</span><span class="string">localtime:</span>ro  mytest-centos5  <span class="regexp">/opt/</span>ActivePython-<span class="number">2.7</span><span class="regexp">/bin/</span>supervisord -c <span class="regexp">/opt/</span>supervisor/supervisord.conf &amp;</span><br></pre></td></tr></table></figure></p>
 <p>容器内的系统时间确实跟宿主机的一样了，</p>
 <p>但是在docker中启动resin，发现resin日志里的时间和系统时间差8个小时…..<br><img src="/img/time-8.PNG" alt="Alt text"></p>
                                                                         

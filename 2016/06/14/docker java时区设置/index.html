@@ -6,17 +6,20 @@
   
   <title>docker java时区设置 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="docker启动的时候通过-v /etc/localtime:/etc/localtime:ro ，1docker run  -v  /etc/localtime:/etc/localtime:ro  focustest-centos5  /opt/ActivePython-2.7/bin/supervisord -c /opt/supervisor/supervisord.conf &amp;amp;">
+  <meta name="description" content="docker启动的时候通过-v /etc/localtime:/etc/localtime:ro ，1docker run  -v  /etc/localtime:/etc/localtime:ro  mytest-centos5  /opt/ActivePython-2.7/bin/supervisord -c /opt/supervisor/supervisord.conf &amp;amp;
+容器内">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker java时区设置">
 <meta property="og:url" content="http://tonylit.me/2016/06/14/docker java时区设置/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="docker启动的时候通过-v /etc/localtime:/etc/localtime:ro ，1docker run  -v  /etc/localtime:/etc/localtime:ro  focustest-centos5  /opt/ActivePython-2.7/bin/supervisord -c /opt/supervisor/supervisord.conf &amp;amp;">
+<meta property="og:description" content="docker启动的时候通过-v /etc/localtime:/etc/localtime:ro ，1docker run  -v  /etc/localtime:/etc/localtime:ro  mytest-centos5  /opt/ActivePython-2.7/bin/supervisord -c /opt/supervisor/supervisord.conf &amp;amp;
+容器内">
 <meta property="og:image" content="http://tonylit.me/img/time-8.PNG">
 <meta property="og:updated_time" content="2016-06-14T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker java时区设置">
-<meta name="twitter:description" content="docker启动的时候通过-v /etc/localtime:/etc/localtime:ro ，1docker run  -v  /etc/localtime:/etc/localtime:ro  focustest-centos5  /opt/ActivePython-2.7/bin/supervisord -c /opt/supervisor/supervisord.conf &amp;amp;">
+<meta name="twitter:description" content="docker启动的时候通过-v /etc/localtime:/etc/localtime:ro ，1docker run  -v  /etc/localtime:/etc/localtime:ro  mytest-centos5  /opt/ActivePython-2.7/bin/supervisord -c /opt/supervisor/supervisord.conf &amp;amp;
+容器内">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -254,7 +257,7 @@
                                                         
                                                             
                                                                 
-                                                                            <p>docker启动的时候通过-v /etc/localtime:/etc/localtime:ro ，<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run  -v  <span class="regexp">/etc/</span><span class="string">localtime:</span><span class="regexp">/etc/</span><span class="string">localtime:</span>ro  focustest-centos5  <span class="regexp">/opt/</span>ActivePython-<span class="number">2.7</span><span class="regexp">/bin/</span>supervisord -c <span class="regexp">/opt/</span>supervisor/supervisord.conf &amp;</span><br></pre></td></tr></table></figure></p>
+                                                                            <p>docker启动的时候通过-v /etc/localtime:/etc/localtime:ro ，<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run  -v  <span class="regexp">/etc/</span><span class="string">localtime:</span><span class="regexp">/etc/</span><span class="string">localtime:</span>ro  mytest-centos5  <span class="regexp">/opt/</span>ActivePython-<span class="number">2.7</span><span class="regexp">/bin/</span>supervisord -c <span class="regexp">/opt/</span>supervisor/supervisord.conf &amp;</span><br></pre></td></tr></table></figure></p>
 <p>容器内的系统时间确实跟宿主机的一样了，</p>
 <p>但是在docker中启动resin，发现resin日志里的时间和系统时间差8个小时…..<br><img src="/img/time-8.PNG" alt="Alt text"></p>
 <a id="more"></a>

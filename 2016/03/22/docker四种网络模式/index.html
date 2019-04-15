@@ -264,9 +264,9 @@
 </blockquote>
 <p>研究docker网络之前先看一下docker宿主机的网络情况：<br>输入ifconfig<br><img src="/img/docker-network/宿主机网络情况.PNG" alt="Alt text"><br>可以看到，安装了docker后，docker会虚拟出一个名字叫docker0的网桥（其上有一个 docker0 内部接口），它在内核层连通了其他的物理或虚拟网卡，这就将所有容器和本地主机都放到同一个物理网络。</p>
 <hr>
-<p>基于centos:5.11版本我自己做了一个镜像focustech/centos:5.11，就用这个镜像来实验。</p>
+<p>基于centos:5.11版本我自己做了一个镜像mytech/centos:5.11，就用这个镜像来实验。</p>
 <h1 id="bridge模式-默认模式">bridge模式-默认模式</h1><p>bridge模式是Docker默认的网络设置，此模式会为每一个容器分配Network Namespace、设置IP等，并将一个主机上的Docker容器连接到一个虚拟网桥上。<br>启动一个容器看一下：</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="command">run</span> -ti <span class="comment">--rm focustech/centos:5.11 /bin/bash</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="command">run</span> -ti <span class="comment">--rm mytech/centos:5.11 /bin/bash</span></span><br></pre></td></tr></table></figure>
 <p><img src="/img/docker-network/docker-bridge-network.PNG" alt="Alt text"></p>
 <h2 id="bridge模式拓扑">bridge模式拓扑</h2><p>上面也提到了，docker server启动的时候，会创建名叫docker0的虚拟网桥，在此宿主机上启动的docker容器都会连接到这个网桥上来进行通信，有点类似于交换机。<br>容器的ip分配会从<a href="http://tools.ietf.org/html/rfc1918" target="_blank" rel="external">RFC1918</a>所定义的私有ip网段中取，一般会使用172.17.0.0/16这个网段</p>
 <p><img src="/img/docker-network/docker0拓扑.png" alt="Alt text"><br>Docker完成以上网络配置的过程大致是这样的：</p>
@@ -276,11 +276,11 @@
 <p>从docker0子网中分配一个IP给容器使用，并设置docker0的IP地址为容器的默认网关。</p>
 </blockquote>
 <h1 id="host模式">host模式</h1><p>Docker使用了Linux的Namespaces技术来进行资源隔离，如PID Namespace隔离进程，Mount Namespace隔离文件系统，Network Namespace隔离网络等。一个Network Namespace提供了一份独立的网络环境，包括网卡、路由、Iptable规则等都与其他的Network Namespace隔离。一个Docker容器一般会分配一个独立的Network Namespace。但如果启动容器的时候使用host模式，那么这个容器将不会获得一个独立的Network Namespace，而是和宿主机共用一个Network Namespace。容器将不会虚拟出自己的网卡，配置自己的IP等，而是使用宿主机的IP和端口。</p>
-<p>使用–net=host来启动容器看一下：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span> -ti --<span class="keyword">net</span>=host --<span class="keyword">rm</span> focustech/centos:5.11 /bin/bash</span><br></pre></td></tr></table></figure></p>
+<p>使用–net=host来启动容器看一下：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span> -ti --<span class="keyword">net</span>=host --<span class="keyword">rm</span> mytech/centos:5.11 /bin/bash</span><br></pre></td></tr></table></figure></p>
 <p>输入ifconfig，会看到它的网络情况和宿主机器的一模一样。</p>
 <h1 id="container模式">container模式</h1><p>这个模式指定新创建的容器和已经存在的容器共享一个network namespace。新创建的容器不会创建自己的网卡，配置自己的IP，而是和一个指定的容器共享IP、端口范围等。同样，两个容器除了网络方面，其他的如文件系统、进程列表等还是隔离的。两个容器的进程可以通过lo网卡设备通信。</p>
 <h1 id="none模式">none模式</h1><p>在这种模式下，Docker容器拥有自己的Network Namespace，但是，并不为Docker容器进行任何网络配置。也就是说，这个Docker容器没有网卡、IP、路由等信息。需要我们自己为Docker容器添加网卡、配置IP等。</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span> -ti --<span class="keyword">net</span>=none --<span class="keyword">rm</span> focustech/centos:5.11 /bin/bash</span><br></pre></td></tr></table></figure>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span> -ti --<span class="keyword">net</span>=none --<span class="keyword">rm</span> mytech/centos:5.11 /bin/bash</span><br></pre></td></tr></table></figure>
 <p><img src="/img/docker-network/none.PNG" alt="Alt text"></p>
 
                                                                                 
