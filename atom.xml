@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Nothing is given. Everything is earned.]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2019-04-09T05:37:27.000Z</updated>
+  <updated>2019-06-07T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -13,6 +13,45 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[nGrinder socket协议+DLL库调用脚本]]></title>
+    <link href="http://tonylit.me/2019/06/07/nGrinder%20socket%E5%8D%8F%E8%AE%AE+DLL%E5%BA%93%E8%B0%83%E7%94%A8%E8%84%9A%E6%9C%AC/"/>
+    <id>http://tonylit.me/2019/06/07/nGrinder socket协议+DLL库调用脚本/</id>
+    <published>2019-06-07T03:37:27.000Z</published>
+    <updated>2019-06-07T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>最近有个POS机刷卡消费的压测需求，走的是socket协议，并且开发将标准银联POS终端MAC加密算法封装到了DLL中，消费报文组装的时候需要调DLL库中的方法进行报文加密。</p>
+<p>根据上面的描述，编写nGrinder脚本的时候需要实现：</p>
+<ol>
+<li>模拟socket协议</li>
+<li>调用dll库</li>
+</ol>
+<a id="more"></a>
+<hr>
+<h1 id="socket协议">socket协议</h1><p>java模拟socket通信</p>
+<p>脚本参考：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.<span class="keyword">BufferedReader</span>;</span><br><span class="line"><span class="keyword">import</span> java.io.BufferedWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.DataOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> net.grinder.script.GTest</span><br><span class="line"><span class="keyword">import</span> net.grinder.scriptengine.groovy.junit.GrinderRunner</span><br><span class="line"><span class="keyword">import</span> net.grinder.scriptengine.groovy.junit.annotation.BeforeProcess</span><br><span class="line"><span class="keyword">import</span> net.grinder.scriptengine.groovy.junit.annotation.BeforeThread</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.Assert.*</span><br><span class="line"><span class="keyword">import</span> org.junit.Before</span><br><span class="line"><span class="keyword">import</span> org.junit.Test</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> net.grinder.script.Grinder.grinder</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@RunWith(GrinderRunner)</span><br><span class="line">class SocketTest &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span>  <span class="keyword">BufferedReader</span> bufferedReader;</span><br><span class="line">	<span class="keyword">public</span>  InputStream inputStream;</span><br><span class="line">	<span class="keyword">public</span>  PrintWriter printWriter;</span><br><span class="line">	<span class="keyword">public</span>  DataOutputStream outputStream;</span><br><span class="line">	<span class="keyword">public</span>  BufferedWriter bufferedWriter;</span><br><span class="line">	<span class="keyword">public</span>  <span class="keyword">String</span> reqData;</span><br><span class="line"></span><br><span class="line">	GTest test1 = <span class="keyword">new</span> GTest(<span class="number">1</span>, <span class="string">"SocketTest"</span>)</span><br><span class="line"></span><br><span class="line">	@BeforeProcess</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> beforeProcess() &#123;</span><br><span class="line">		<span class="comment">//进程初始化</span></span><br><span class="line">		grinder.logger.info(<span class="string">"beforeProcess."</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@BeforeThread</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> beforeThread() &#123;</span><br><span class="line">		test1.record(<span class="keyword">this</span>, <span class="string">"action"</span>)</span><br><span class="line">		grinder.logger.info(<span class="string">"beforeThread."</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	@Test</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> action()&#123;</span><br><span class="line">		</span><br><span class="line">		Socket socket = <span class="keyword">new</span> Socket(<span class="string">"192.168.1.1"</span>, <span class="number">9100</span>);</span><br><span class="line">		socket.setSoLinger(<span class="keyword">false</span>, <span class="number">0</span>);</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			inputStream = socket.getInputStream();</span><br><span class="line">			outputStream = <span class="keyword">new</span> DataOutputStream(socket.getOutputStream());</span><br><span class="line">			bufferedWriter = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(outputStream, <span class="string">"UTF-8"</span>));</span><br><span class="line"></span><br><span class="line">			<span class="keyword">String</span> reqData = <span class="string">""</span>;</span><br><span class="line">			outputStream.write(reqData);</span><br><span class="line">			bufferedWriter.flush();</span><br><span class="line"></span><br><span class="line">			<span class="keyword">BufferedReader</span> br = <span class="keyword">new</span> <span class="keyword">BufferedReader</span>(<span class="keyword">new</span> InputStreamReader(inputStream));</span><br><span class="line">			<span class="keyword">String</span> mess = br.readLine();</span><br><span class="line"></span><br><span class="line">			System.out.<span class="built_in">println</span>(<span class="string">"mess==&gt;"</span> + mess);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span>(!mess.isEmpty())&#123;</span><br><span class="line">				System.out.<span class="built_in">println</span>(<span class="string">"&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;pass&gt;&gt;&gt;&gt;&gt;"</span>);</span><br><span class="line">				assertTrue(<span class="keyword">true</span>);</span><br><span class="line">			&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">				grinder.logger.error(<span class="string">"===失败=========="</span>)</span><br><span class="line">				assertFalse(<span class="keyword">true</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			fail(<span class="string">"exception"</span>+e.printStackTrace())</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> (socket != <span class="keyword">null</span>) &#123;</span><br><span class="line">				<span class="keyword">try</span> &#123;</span><br><span class="line">					socket.close();</span><br><span class="line">				&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">					socket = <span class="keyword">null</span>;</span><br><span class="line">					System.out.<span class="built_in">println</span>(<span class="string">"服务异常:"</span> + e.getMessage());</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="调用dll库">调用dll库</h1><p>这里使用jna调dll的方式，另外我们知道.dll是windows下的动态库，linux下的为.so文件。所以这里nGrinder的agent需要安装windows版本的。</p>
+<p>32位的dll对应32位的jdk，64位的dll对应64位的jdk。安装agent的时候需要注意jdk的版本。</p>
+<p>使用第三方jar包：jna-3.2.5.jar</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"><span class="keyword">import</span> com.sun.jna.Library;</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> com.sun.jna.Native;</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> com.sun.jna.Platform;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DLLUtils</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> String dllPath=<span class="string">"E:\\xxx.dll"</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">testdll</span> <span class="keyword">extends</span> <span class="title">Library</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    testdll Instance = (testdll) Native.loadLibrary(dllPath, testdll.<span class="keyword">class</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//dll中的方法</span></span><br><span class="line">    <span class="keyword">void</span> initKey(char[] a, char[] b, char[] c);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将以上dll调用打成jar包，放入nGrinder脚本中调用即可。</p>
+<hr>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近有个POS机刷卡消费的压测需求，走的是socket协议，并且开发将标准银联POS终端MAC加密算法封装到了DLL中，消费报文组装的时候需要调DLL库中的方法进行报文加密。</p>
+<p>根据上面的描述，编写nGrinder脚本的时候需要实现：</p>
+<ol>
+<li>模拟socket协议</li>
+<li>调用dll库</li>
+</ol>]]>
+    
+    </summary>
+    
+      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Java 诊断工具 Greys]]></title>
@@ -192,6 +231,35 @@
   </entry>
   
   <entry>
+    <title><![CDATA[spring-boot-starter-parent]]></title>
+    <link href="http://tonylit.me/2018/12/09/spring-boot-starter-parent/"/>
+    <id>http://tonylit.me/2018/12/09/spring-boot-starter-parent/</id>
+    <published>2018-12-09T03:37:27.000Z</published>
+    <updated>2018-12-09T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>Spring Boot项目pom.xml中，存在如下配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.5.1.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这是Spring Boot特有的父级依赖。</p>
+<p>使用spring-boot-starter-parent后，常用的Spring Boot依赖包可以不用写version标签了。</p>
+<a id="more"></a>
+<hr>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">project</span> <span class="attribute">xmlns</span>=<span class="value">"http://maven.apache.org/POM/4.0.0"</span></span><br><span class="line">       <span class="attribute">xmlns:xsi</span>=<span class="value">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">     <span class="attribute">xsi:schemaLocation</span>=<span class="value">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="title">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>demo.springboot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-quickstart<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">version</span>&gt;</span>2.0.0.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="title">dependencies</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="title">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="如何不使用spring-boot-starter-parent">如何不使用spring-boot-starter-parent</h2><p>在某些情况下，Spring Boot项目作为一个module，已经存在了parent依赖，这种情况下，无法再引入上述parent。</p>
+<p>针对这种情况需要删除spring-boot-starter-parent ，加入spring-boot-dependencies即可。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">project</span> <span class="attribute">xmlns</span>=<span class="value">"http://maven.apache.org/POM/4.0.0"</span></span><br><span class="line">       <span class="attribute">xmlns:xsi</span>=<span class="value">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">     <span class="attribute">xsi:schemaLocation</span>=<span class="value">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="title">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>demo.springboot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-quickstart<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="title">dependencyManagement</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependencies</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-dependencies<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">version</span>&gt;</span>2.0.0.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="title">type</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="title">scope</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">dependencyManagement</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="title">dependencies</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="title">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">project</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+    <summary type="html">
+    <![CDATA[<p>Spring Boot项目pom.xml中，存在如下配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.5.1.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这是Spring Boot特有的父级依赖。</p>
+<p>使用spring-boot-starter-parent后，常用的Spring Boot依赖包可以不用写version标签了。</p>]]>
+    
+    </summary>
+    
+      <category term="springboot" scheme="http://tonylit.me/tags/springboot/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[mybatis-generator]]></title>
     <link href="http://tonylit.me/2018/12/09/mybatis-generator/"/>
     <id>http://tonylit.me/2018/12/09/mybatis-generator/</id>
@@ -221,35 +289,6 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>mybatis-generator 可以生成开发中需要的dao、mapper.xml、实体类，很方便。这里推荐两种生成方法。</p>]]>
-    
-    </summary>
-    
-      <category term="springboot" scheme="http://tonylit.me/tags/springboot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[spring-boot-starter-parent]]></title>
-    <link href="http://tonylit.me/2018/12/09/spring-boot-starter-parent/"/>
-    <id>http://tonylit.me/2018/12/09/spring-boot-starter-parent/</id>
-    <published>2018-12-09T03:37:27.000Z</published>
-    <updated>2018-12-09T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>Spring Boot项目pom.xml中，存在如下配置：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.5.1.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这是Spring Boot特有的父级依赖。</p>
-<p>使用spring-boot-starter-parent后，常用的Spring Boot依赖包可以不用写version标签了。</p>
-<a id="more"></a>
-<hr>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">project</span> <span class="attribute">xmlns</span>=<span class="value">"http://maven.apache.org/POM/4.0.0"</span></span><br><span class="line">       <span class="attribute">xmlns:xsi</span>=<span class="value">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">     <span class="attribute">xsi:schemaLocation</span>=<span class="value">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="title">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>demo.springboot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-quickstart<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">version</span>&gt;</span>2.0.0.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="title">dependencies</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="title">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="如何不使用spring-boot-starter-parent">如何不使用spring-boot-starter-parent</h2><p>在某些情况下，Spring Boot项目作为一个module，已经存在了parent依赖，这种情况下，无法再引入上述parent。</p>
-<p>针对这种情况需要删除spring-boot-starter-parent ，加入spring-boot-dependencies即可。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">project</span> <span class="attribute">xmlns</span>=<span class="value">"http://maven.apache.org/POM/4.0.0"</span></span><br><span class="line">       <span class="attribute">xmlns:xsi</span>=<span class="value">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">     <span class="attribute">xsi:schemaLocation</span>=<span class="value">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="title">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>demo.springboot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-quickstart<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="title">dependencyManagement</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependencies</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-dependencies<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">version</span>&gt;</span>2.0.0.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="title">type</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="title">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="title">scope</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">dependencyManagement</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="title">dependencies</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="title">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">project</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
-    <summary type="html">
-    <![CDATA[<p>Spring Boot项目pom.xml中，存在如下配置：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.5.1.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这是Spring Boot特有的父级依赖。</p>
-<p>使用spring-boot-starter-parent后，常用的Spring Boot依赖包可以不用写version标签了。</p>]]>
     
     </summary>
     
@@ -1066,6 +1105,48 @@
   </entry>
   
   <entry>
+    <title><![CDATA[iBase4J 源码之Swagger2接口管理]]></title>
+    <link href="http://tonylit.me/2018/07/05/iBase4J%20%E6%BA%90%E7%A0%81%E4%B9%8BSwagger2%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/"/>
+    <id>http://tonylit.me/2018/07/05/iBase4J 源码之Swagger2接口管理/</id>
+    <published>2018-07-05T03:37:27.000Z</published>
+    <updated>2018-07-05T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>The Best APIs are Built with Swagger Tools.</p>
+<p>by  <a href="https://swagger.io/" target="_blank" rel="external">https://swagger.io/</a></p>
+<a id="more"></a>
+<hr>
+<p>Swagger2 作为RESTful API的好伙伴， 很容易与spring boot整合在一起，并组织成一套RESTful API文档。开发人员修改了接口，接口文档会自动更新，Swagger2同时为开发人员提供了强大的接口测试功能，省去了很多测试代码的编写工作。</p>
+<p>iBase4J 中使用Swagger2 来进行接口管理，项目启动后访问<a href="http://localhost:8088/swagger-ui.html" target="_blank" rel="external">http://localhost:8088/swagger-ui.html</a> ，可以看到接口管理页面。</p>
+<p><img src="/img/iBase4J源码之Swagger2/swagger-list.PNG" alt="Alt text"></p>
+<hr>
+<p>下面咱们结合iBase4J源码来介绍，如何在Spring Boot中使用Swagger2。</p>
+<h1 id="添加Swagger2依赖">添加Swagger2依赖</h1><p>在pom.xml中加入Swagger2的依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- swagger --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springfox-swagger2<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;springfox.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springfox-swagger-ui<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;springfox.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="title">properties</span>&gt;</span>	<span class="tag">&lt;<span class="title">springfox.version</span>&gt;</span>2.7.0<span class="tag">&lt;/<span class="title">springfox.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="创建Swagger2配置类。">创建Swagger2配置类。</h1><p>iBase4J提供了SwaggerConfig.java进行Swagger2配置。</p>
+<p><img src="/img/iBase4J源码之Swagger2/swagger-config.PNG" alt="Alt text"></p>
+<p>@EnableSwagger2 用于开启swagger2配置。</p>
+<p>apiInfo() 用来创建该Api的基本信息（这些基本信息会展现在文档页面中）。</p>
+<hr>
+<h1 id="配置Controller中的API">配置Controller中的API</h1><p>iBase4J-SYS-Web项目和iBase4J-Biz-Web项目中的RestFull API都使用iBase4J进行接口管理，这里看一个LoginController的例子。</p>
+<p><img src="/img/iBase4J源码之Swagger2/login-api.PNG" alt="Alt text"></p>
+<p>需要关注的注解：<a href="https://blog.csdn.net/xiaojin21cen/article/details/78654652" target="_blank" rel="external">参考</a></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Api</span>：标记一个Controller类做为swagger。</span><br><span class="line"></span><br><span class="line"><span class="variable">@ApiOperation</span>：注解在方法上,描述接口操作。</span><br><span class="line"></span><br><span class="line"><span class="variable">@ApiParam</span>：请求参数的描述。</span><br></pre></td></tr></table></figure>
+<h1 id="API文档访问与测试">API文档访问与测试</h1><p><a href="http://localhost:8088/swagger-ui.html#/" target="_blank" rel="external">http://localhost:8088/swagger-ui.html#/</a> —看到接口列表</p>
+<p><img src="/img/iBase4J源码之Swagger2/swagger-test.PNG" alt="Alt text"></p>
+<p>输入请求入参，点击Try it out即可进行接口测试。</p>
+<p><img src="/img/iBase4J源码之Swagger2/swagger-result.PNG" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>The Best APIs are Built with Swagger Tools.</p>
+<p>by  <a href="https://swagger.io/">https://swagger.io/</a></p>]]>
+    
+    </summary>
+    
+      <category term="java" scheme="http://tonylit.me/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[iBase4J 源码之Shiro用户安全校验]]></title>
     <link href="http://tonylit.me/2018/07/05/iBase4J%20%E6%BA%90%E7%A0%81%E4%B9%8BShiro%E7%94%A8%E6%88%B7%E5%AE%89%E5%85%A8%E6%A0%A1%E9%AA%8C/"/>
     <id>http://tonylit.me/2018/07/05/iBase4J 源码之Shiro用户安全校验/</id>
@@ -1120,48 +1201,6 @@
     <summary type="html">
     <![CDATA[<p>Apache Shiro? is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.</p>
 <p>by  <a href="https://shiro.apache.org/">https://shiro.apache.org/</a></p>]]>
-    
-    </summary>
-    
-      <category term="java" scheme="http://tonylit.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[iBase4J 源码之Swagger2接口管理]]></title>
-    <link href="http://tonylit.me/2018/07/05/iBase4J%20%E6%BA%90%E7%A0%81%E4%B9%8BSwagger2%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/"/>
-    <id>http://tonylit.me/2018/07/05/iBase4J 源码之Swagger2接口管理/</id>
-    <published>2018-07-05T03:37:27.000Z</published>
-    <updated>2018-07-05T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>The Best APIs are Built with Swagger Tools.</p>
-<p>by  <a href="https://swagger.io/" target="_blank" rel="external">https://swagger.io/</a></p>
-<a id="more"></a>
-<hr>
-<p>Swagger2 作为RESTful API的好伙伴， 很容易与spring boot整合在一起，并组织成一套RESTful API文档。开发人员修改了接口，接口文档会自动更新，Swagger2同时为开发人员提供了强大的接口测试功能，省去了很多测试代码的编写工作。</p>
-<p>iBase4J 中使用Swagger2 来进行接口管理，项目启动后访问<a href="http://localhost:8088/swagger-ui.html" target="_blank" rel="external">http://localhost:8088/swagger-ui.html</a> ，可以看到接口管理页面。</p>
-<p><img src="/img/iBase4J源码之Swagger2/swagger-list.PNG" alt="Alt text"></p>
-<hr>
-<p>下面咱们结合iBase4J源码来介绍，如何在Spring Boot中使用Swagger2。</p>
-<h1 id="添加Swagger2依赖">添加Swagger2依赖</h1><p>在pom.xml中加入Swagger2的依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- swagger --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springfox-swagger2<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;springfox.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springfox-swagger-ui<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;springfox.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="title">properties</span>&gt;</span>	<span class="tag">&lt;<span class="title">springfox.version</span>&gt;</span>2.7.0<span class="tag">&lt;/<span class="title">springfox.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h1 id="创建Swagger2配置类。">创建Swagger2配置类。</h1><p>iBase4J提供了SwaggerConfig.java进行Swagger2配置。</p>
-<p><img src="/img/iBase4J源码之Swagger2/swagger-config.PNG" alt="Alt text"></p>
-<p>@EnableSwagger2 用于开启swagger2配置。</p>
-<p>apiInfo() 用来创建该Api的基本信息（这些基本信息会展现在文档页面中）。</p>
-<hr>
-<h1 id="配置Controller中的API">配置Controller中的API</h1><p>iBase4J-SYS-Web项目和iBase4J-Biz-Web项目中的RestFull API都使用iBase4J进行接口管理，这里看一个LoginController的例子。</p>
-<p><img src="/img/iBase4J源码之Swagger2/login-api.PNG" alt="Alt text"></p>
-<p>需要关注的注解：<a href="https://blog.csdn.net/xiaojin21cen/article/details/78654652" target="_blank" rel="external">参考</a></p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Api</span>：标记一个Controller类做为swagger。</span><br><span class="line"></span><br><span class="line"><span class="variable">@ApiOperation</span>：注解在方法上,描述接口操作。</span><br><span class="line"></span><br><span class="line"><span class="variable">@ApiParam</span>：请求参数的描述。</span><br></pre></td></tr></table></figure>
-<h1 id="API文档访问与测试">API文档访问与测试</h1><p><a href="http://localhost:8088/swagger-ui.html#/" target="_blank" rel="external">http://localhost:8088/swagger-ui.html#/</a> —看到接口列表</p>
-<p><img src="/img/iBase4J源码之Swagger2/swagger-test.PNG" alt="Alt text"></p>
-<p>输入请求入参，点击Try it out即可进行接口测试。</p>
-<p><img src="/img/iBase4J源码之Swagger2/swagger-result.PNG" alt="Alt text"></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>The Best APIs are Built with Swagger Tools.</p>
-<p>by  <a href="https://swagger.io/">https://swagger.io/</a></p>]]>
     
     </summary>
     
@@ -3986,6 +4025,26 @@
   </entry>
   
   <entry>
+    <title><![CDATA[测试环境的docker实践]]></title>
+    <link href="http://tonylit.me/2016/10/12/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E7%9A%84docker%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://tonylit.me/2016/10/12/测试环境的docker实践/</id>
+    <published>2016-10-12T03:37:27.000Z</published>
+    <updated>2016-10-12T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>
+<a id="more"></a>
+<p>技术委员会也很有心，给出了分享后的反馈。<br><img src="/img/测试环境的docker实践/得分.PNG" alt="Alt text"></p>
+<h2 id="演讲内容">演讲内容</h2><p><img src="/img/测试环境的docker实践/幻灯片1.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片2.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片3.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片4.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片5.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片6.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片7.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片8.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片9.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片10.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片11.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片12.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片13.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片14.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片15.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片16.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片17.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片18.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片19.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片20.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片21.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片22.jpg" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[高级性能测试工程师成长计划]]></title>
     <link href="http://tonylit.me/2016/10/12/%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/"/>
     <id>http://tonylit.me/2016/10/12/工程师成长计划/</id>
@@ -4005,26 +4064,6 @@
     </summary>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[测试环境的docker实践]]></title>
-    <link href="http://tonylit.me/2016/10/12/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E7%9A%84docker%E5%AE%9E%E8%B7%B5/"/>
-    <id>http://tonylit.me/2016/10/12/测试环境的docker实践/</id>
-    <published>2016-10-12T03:37:27.000Z</published>
-    <updated>2016-10-12T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>
-<a id="more"></a>
-<p>技术委员会也很有心，给出了分享后的反馈。<br><img src="/img/测试环境的docker实践/得分.PNG" alt="Alt text"></p>
-<h2 id="演讲内容">演讲内容</h2><p><img src="/img/测试环境的docker实践/幻灯片1.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片2.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片3.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片4.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片5.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片6.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片7.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片8.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片9.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片10.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片11.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片12.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片13.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片14.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片15.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片16.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片17.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片18.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片19.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片20.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片21.jpg" alt="Alt text"><br><img src="/img/测试环境的docker实践/幻灯片22.jpg" alt="Alt text"></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>9月底，在焦点技术大会上做了docker方面的分享，<br>先前儿没经历过这么大场面的演讲，慌了好久。<br>讲完以后，回味起来，也没什么嘛，本可以讲的更好。</p>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   
@@ -4153,35 +4192,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[docker network 网络设置]]></title>
-    <link href="http://tonylit.me/2016/08/15/docker%20network%20%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE/"/>
-    <id>http://tonylit.me/2016/08/15/docker network 网络设置/</id>
-    <published>2016-08-15T03:37:27.000Z</published>
-    <updated>2016-08-15T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>
-<a id="more"></a>
-<p>使用docker network(1.9以后新特性)解决该问题。</p>
-<h1 id="新建docker网桥：">新建docker网桥：</h1><blockquote>
-<p>docker network create –subnet=192.168.42.0/24 -d=bridge   –gateway=192.168.42.3  mynetwork</p>
-</blockquote>
-<h1 id="启动网桥并把网卡桥接上">启动网桥并把网卡桥接上</h1><blockquote>
-<p>ifconfig   br-353aab8b89f2  up 0<br>brctl   addif  br-353aab8b89f2 eth1</p>
-</blockquote>
-<h1 id="docker启动时指定ip和网桥">docker启动时指定ip和网桥</h1><blockquote>
-<p>docker  run -it –rm  –ip=192.168.42.130  –net=mynetwork  docker.test.com/mytest/centos5:6.18 /bin/bash</p>
-</blockquote>
-<p>以上就可以了，不再需要pipework修改网络。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[使用strace定位性能问题]]></title>
     <link href="http://tonylit.me/2016/08/15/%E4%BD%BF%E7%94%A8strace%E5%AE%9A%E4%BD%8D%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/"/>
     <id>http://tonylit.me/2016/08/15/使用strace定位性能问题/</id>
@@ -4214,6 +4224,35 @@
     </summary>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[docker network 网络设置]]></title>
+    <link href="http://tonylit.me/2016/08/15/docker%20network%20%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE/"/>
+    <id>http://tonylit.me/2016/08/15/docker network 网络设置/</id>
+    <published>2016-08-15T03:37:27.000Z</published>
+    <updated>2016-08-15T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>
+<a id="more"></a>
+<p>使用docker network(1.9以后新特性)解决该问题。</p>
+<h1 id="新建docker网桥：">新建docker网桥：</h1><blockquote>
+<p>docker network create –subnet=192.168.42.0/24 -d=bridge   –gateway=192.168.42.3  mynetwork</p>
+</blockquote>
+<h1 id="启动网桥并把网卡桥接上">启动网桥并把网卡桥接上</h1><blockquote>
+<p>ifconfig   br-353aab8b89f2  up 0<br>brctl   addif  br-353aab8b89f2 eth1</p>
+</blockquote>
+<h1 id="docker启动时指定ip和网桥">docker启动时指定ip和网桥</h1><blockquote>
+<p>docker  run -it –rm  –ip=192.168.42.130  –net=mynetwork  docker.test.com/mytest/centos5:6.18 /bin/bash</p>
+</blockquote>
+<p>以上就可以了，不再需要pipework修改网络。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   
@@ -4894,29 +4933,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[rsync和scp传输时间比较]]></title>
-    <link href="http://tonylit.me/2016/05/18/scp%E5%92%8Crsync%E4%BC%A0%E8%BE%93%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83/"/>
-    <id>http://tonylit.me/2016/05/18/scp和rsync传输速度比较/</id>
-    <published>2016-05-18T03:37:27.000Z</published>
-    <updated>2016-05-18T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br><a id="more"></a><br>传输一个3.2G的文件，里面杂七杂八的图片、小文件、大文件、视频….</p>
-<h1 id="rsync传输">rsync传输</h1><p>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">rsync -avr --progress --delete /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
-<h2 id="第一次传输：">第一次传输：</h2><p><strong>时间：58s</strong></p>
-<h2 id="第二次传输：">第二次传输：</h2><p><strong>时间：1s</strong></p>
-<p>#scp传输<br>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">scp -r /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
-<p><strong>时间：511s</strong></p>
-<h1 id="结论：">结论：</h1><p>rsync的传输速度比scp快很多</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br>]]>
-    
-    </summary>
-    
-      <category term="work" scheme="http://tonylit.me/tags/work/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[ssh 免登陆]]></title>
     <link href="http://tonylit.me/2016/05/18/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/"/>
     <id>http://tonylit.me/2016/05/18/ssh免密码登录/</id>
@@ -4937,6 +4953,29 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>配置A服务器ssh无密码登陆到B服务器<br>]]>
+    
+    </summary>
+    
+      <category term="work" scheme="http://tonylit.me/tags/work/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[rsync和scp传输时间比较]]></title>
+    <link href="http://tonylit.me/2016/05/18/scp%E5%92%8Crsync%E4%BC%A0%E8%BE%93%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83/"/>
+    <id>http://tonylit.me/2016/05/18/scp和rsync传输速度比较/</id>
+    <published>2016-05-18T03:37:27.000Z</published>
+    <updated>2016-05-18T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br><a id="more"></a><br>传输一个3.2G的文件，里面杂七杂八的图片、小文件、大文件、视频….</p>
+<h1 id="rsync传输">rsync传输</h1><p>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">rsync -avr --progress --delete /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
+<h2 id="第一次传输：">第一次传输：</h2><p><strong>时间：58s</strong></p>
+<h2 id="第二次传输：">第二次传输：</h2><p><strong>时间：1s</strong></p>
+<p>#scp传输<br>脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">start=$(date +%s)  </span><br><span class="line"></span><br><span class="line">scp -r /app/src root@<span class="number">192.168</span>.<span class="number">47.11</span>:/app/</span><br><span class="line"></span><br><span class="line">end=$(date +%s)  </span><br><span class="line">time=$(( <span class="variable">$end</span> - <span class="variable">$start</span> ))  </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> `enter code here`</span><br></pre></td></tr></table></figure></p>
+<p><strong>时间：511s</strong></p>
+<h1 id="结论：">结论：</h1><p>rsync的传输速度比scp快很多</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>测试一下rsync和scp在跨服务器之间传输速度比较。因为rsync可以增量同步，但是scp不能，所以rsync测试两次。<br>]]>
     
     </summary>
     
@@ -4981,25 +5020,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[如何不输出docker日志到控制台]]></title>
-    <link href="http://tonylit.me/2016/04/22/%E5%A6%82%E4%BD%95%E4%B8%8D%E8%BE%93%E5%87%BAdocker%E6%97%A5%E5%BF%97%E5%88%B0%E6%8E%A7%E5%88%B6%E5%8F%B0/"/>
-    <id>http://tonylit.me/2016/04/22/如何不输出docker日志到控制台/</id>
-    <published>2016-04-22T03:37:27.000Z</published>
-    <updated>2016-04-22T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>docker run 后一些日志会打印到控制台，怎样不让信息打印到控制台呢？<br><a id="more"></a></p>
-<p>解决方法：docker -d &gt; docker.log</p>
-<p>docker run -d &gt; docker.log –name test -v /app/webroot/:/app/webroot/ -P docker.test.com:5000/mytest-centos5:5.4  /opt/ActivePython-2.7/bin/supervisord -c /opt/supervisor/supervisord.conf &amp;</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>docker run 后一些日志会打印到控制台，怎样不让信息打印到控制台呢？<br>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[supervisor管理容器进程]]></title>
     <link href="http://tonylit.me/2016/04/22/supervisor%E7%AE%A1%E7%90%86docker%E8%BF%9B%E7%A8%8B/"/>
     <id>http://tonylit.me/2016/04/22/supervisor管理docker进程/</id>
@@ -5022,6 +5042,25 @@
     <![CDATA[<p>启动容器的时候，为了保证容器退出时保持UP状态，可以使用 /usr/sbin/sshd -D<br>我们经常会在后面加上若干启动命令：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span> -ti --name <span class="keyword">test</span> docker.<span class="keyword">test</span>.com:5000/mytest-centos5 -P 22 -P 80 /usr/sbin/sshd -<span class="keyword">D</span> &amp;&amp; nginx &amp;&amp; /opt/resin.<span class="keyword">sh</span> restart</span><br></pre></td></tr></table></figure></p>
 <p>命令多的时候看起来会很乱<br>but，可以使用supervisor来进行优化（管理进程）<br>可以写成这样：</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[supervisord]</span></span><br><span class="line"><span class="setting">nodaemon=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"><span class="title">[program:sshd]</span></span><br><span class="line"><span class="setting">command=<span class="value">/usr/sbin/sshd -D</span></span></span><br><span class="line"><span class="title">[program:nginx]</span></span><br><span class="line"><span class="setting">command=<span class="value">nginx</span></span></span><br><span class="line"><span class="title">[program:resin]</span></span><br><span class="line"><span class="setting">command=<span class="value">/opt/resin.sh restart</span></span></span><br></pre></td></tr></table></figure>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[如何不输出docker日志到控制台]]></title>
+    <link href="http://tonylit.me/2016/04/22/%E5%A6%82%E4%BD%95%E4%B8%8D%E8%BE%93%E5%87%BAdocker%E6%97%A5%E5%BF%97%E5%88%B0%E6%8E%A7%E5%88%B6%E5%8F%B0/"/>
+    <id>http://tonylit.me/2016/04/22/如何不输出docker日志到控制台/</id>
+    <published>2016-04-22T03:37:27.000Z</published>
+    <updated>2016-04-22T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>docker run 后一些日志会打印到控制台，怎样不让信息打印到控制台呢？<br><a id="more"></a></p>
+<p>解决方法：docker -d &gt; docker.log</p>
+<p>docker run -d &gt; docker.log –name test -v /app/webroot/:/app/webroot/ -P docker.test.com:5000/mytest-centos5:5.4  /opt/ActivePython-2.7/bin/supervisord -c /opt/supervisor/supervisord.conf &amp;</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>docker run 后一些日志会打印到控制台，怎样不让信息打印到控制台呢？<br>]]>
     
     </summary>
     
@@ -5268,32 +5307,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[docker pull关于https的报错处理]]></title>
-    <link href="http://tonylit.me/2016/03/29/docker_pull_https_error/"/>
-    <id>http://tonylit.me/2016/03/29/docker_pull_https_error/</id>
-    <published>2016-03-29T03:37:27.000Z</published>
-    <updated>2016-03-29T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>
-<a id="more"></a>
-<p>网上很多解决方法都是Ubuntu系统的，centos7 docker的配置文件真是难找。</p>
-<h1 id="修改docker配置文件">修改docker配置文件</h1><p>刚开始修改/etc/sysconfig/docker文件，加入–insecure-registry docker.test.com:5000，没启作用。<br>起作用的配置如下修改：<br>vi /usr/lib/systemd/system/docker.service</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[Unit]</span></span><br><span class="line"><span class="setting">Description=<span class="value">Docker Application Container Engine</span></span></span><br><span class="line"><span class="comment">##这里讲https-&gt;http</span></span><br><span class="line"><span class="setting">Documentation=<span class="value">http://docs.docker.com</span></span></span><br><span class="line"><span class="setting">After=<span class="value">network.target docker.socket</span></span></span><br><span class="line"><span class="setting">Requires=<span class="value">docker.socket</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Service]</span></span><br><span class="line"><span class="comment">##这里加入-d  --insecure-registry docker.test.com:5000</span></span><br><span class="line"><span class="setting">ExecStart=<span class="value">/usr/bin/docker -d  --insecure-registry docker.test.com:<span class="number">5000</span> -H fd:// <span class="variable">$OPTIONS</span> <span class="variable">$DOCKER_STORAGE_OPTIONS</span>  </span></span></span><br><span class="line"><span class="setting">MountFlags=<span class="value">slave</span></span></span><br><span class="line"><span class="setting">LimitNOFILE=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitNPROC=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitCORE=<span class="value">infinity</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Install]</span></span><br><span class="line"><span class="setting">WantedBy=<span class="value">multi-user.target</span></span></span><br></pre></td></tr></table></figure>
-<p>以上修改后重启docker</p>
-<blockquote>
-<p>service docker restart<br>systemctl daemon-reload</p>
-</blockquote>
-<p>OK了</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[使用weave实现docker多宿主机互联]]></title>
     <link href="http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/"/>
     <id>http://tonylit.me/2016/03/29/docker-weave网络互连/</id>
@@ -5317,6 +5330,32 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>使用weave实现docker多宿主机互联<br>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[docker pull关于https的报错处理]]></title>
+    <link href="http://tonylit.me/2016/03/29/docker_pull_https_error/"/>
+    <id>http://tonylit.me/2016/03/29/docker_pull_https_error/</id>
+    <published>2016-03-29T03:37:27.000Z</published>
+    <updated>2016-03-29T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>
+<a id="more"></a>
+<p>网上很多解决方法都是Ubuntu系统的，centos7 docker的配置文件真是难找。</p>
+<h1 id="修改docker配置文件">修改docker配置文件</h1><p>刚开始修改/etc/sysconfig/docker文件，加入–insecure-registry docker.test.com:5000，没启作用。<br>起作用的配置如下修改：<br>vi /usr/lib/systemd/system/docker.service</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[Unit]</span></span><br><span class="line"><span class="setting">Description=<span class="value">Docker Application Container Engine</span></span></span><br><span class="line"><span class="comment">##这里讲https-&gt;http</span></span><br><span class="line"><span class="setting">Documentation=<span class="value">http://docs.docker.com</span></span></span><br><span class="line"><span class="setting">After=<span class="value">network.target docker.socket</span></span></span><br><span class="line"><span class="setting">Requires=<span class="value">docker.socket</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Service]</span></span><br><span class="line"><span class="comment">##这里加入-d  --insecure-registry docker.test.com:5000</span></span><br><span class="line"><span class="setting">ExecStart=<span class="value">/usr/bin/docker -d  --insecure-registry docker.test.com:<span class="number">5000</span> -H fd:// <span class="variable">$OPTIONS</span> <span class="variable">$DOCKER_STORAGE_OPTIONS</span>  </span></span></span><br><span class="line"><span class="setting">MountFlags=<span class="value">slave</span></span></span><br><span class="line"><span class="setting">LimitNOFILE=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitNPROC=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitCORE=<span class="value">infinity</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Install]</span></span><br><span class="line"><span class="setting">WantedBy=<span class="value">multi-user.target</span></span></span><br></pre></td></tr></table></figure>
+<p>以上修改后重启docker</p>
+<blockquote>
+<p>service docker restart<br>systemctl daemon-reload</p>
+</blockquote>
+<p>OK了</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>]]>
     
     </summary>
     
@@ -5694,35 +5733,6 @@
     <![CDATA[<p>平时查看服务器连接数，很多命令记不住<br>在此整理一下！</p>]]>
     
     </summary>
-    
-      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Loadrunner11录制APP]]></title>
-    <link href="http://tonylit.me/2016/01/13/loadrunner11%E5%BD%95%E5%88%B6app/"/>
-    <id>http://tonylit.me/2016/01/13/loadrunner11录制app/</id>
-    <published>2016-01-13T03:37:27.000Z</published>
-    <updated>2016-01-13T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>app的性能测试，loadrunner12已经支持该协议，无奈12的破解….<br>而且我要吐槽一下，12的bug好多啊，而且界面风格非驴非马，看着着实难受！<br>so，怎么使用我们的11来录制app脚本呢？<br><a id="more"></a></p>
-<h1 id="原理">原理</h1><p>手机终端和电脑在同一无线网络内，手机终端可以使用代理将请求通过电脑进行转发。</p>
-<h1 id="步骤">步骤</h1><h2 id="手机和电脑连接同一wifi">手机和电脑连接同一wifi</h2><p>看一下电脑的ip，记录下来<br><img src="/img/LR_APP/77.png" alt="Alt text"></p>
-<h2 id="loadrunner设置">loadrunner设置</h2><p>1.选择web（HTTP/HTML协议）<br><img src="/img/LR_APP/4.png" alt="Alt text"><br>2.选择Win32 Application<br>   Porgram to record:选择C:\Program Files(x86)\HP\LoadRunner\bin\wplus_init_wsock.exe<br>   <img src="/img/LR_APP/3.png" alt="Alt text"></p>
-<p>3.录制选项的设置：<br>a. Capture Level Socket level data<br><img src="/img/LR_APP/5.png" alt="Alt text"><br>b. New Entry 配置<br><img src="/img/LR_APP/66.png" alt="Alt text"><br>192.168.51.27:8094是我们进行测试的网址<br>说明：Taregt Server为需要录制的地址，Port设置为80<br>Traffic Forwarding 为代理转发的IP，需要与手机端设置一致，设置为本机不冲突的端口即可，如2008</p>
-<ol>
-<li>配置完成后保存即可</li>
-</ol>
-<p>##手机设置<br><img src="/img/LR_APP/88.png" alt="Alt text"><br>其中IP为笔记本IP，代理端口为Loadrunner设置的代理转发端口号</p>
-<h1 id="开始录制">开始录制</h1><p>点击开始录制，然后就可以操作手机app了。<br><img src="/img/LR_APP/1.png" alt="Alt text"><br><img src="/img/LR_APP/2.png" alt="Alt text"></p>
-<p>如果手机不能走电脑代理，可以参考：<br><a href="http://bbs.zol.com.cn/sjbbs/d297_391410.html" target="_blank" rel="external">http://bbs.zol.com.cn/sjbbs/d297_391410.html</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>app的性能测试，loadrunner12已经支持该协议，无奈12的破解….<br>而且我要吐槽一下，12的bug好多啊，而且界面风格非驴非马，看着着实难受！<br>so，怎么使用我们的11来录制app脚本呢？<br>]]>
-    
-    </summary>
-    
-      <category term="loadrunner" scheme="http://tonylit.me/tags/loadrunner/"/>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
     
