@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content=""/>
+  
+  <title>Junit4的执行流程 | 淘淘的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Junit作为一款优秀的Java单元测试框架，在工作中经常会用到，利用JUnit进行单元测试非常简单方便。
+我们平时在写的NGrinder性能测试脚本也是依托于Junit，所以熟悉Junit的执行流程很有必要。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Junit4的执行流程">
+<meta property="og:url" content="http://tonylit.me/2019/11/30/Junit4的执行流程/index.html">
+<meta property="og:site_name" content="淘淘的博客">
+<meta property="og:description" content="Junit作为一款优秀的Java单元测试框架，在工作中经常会用到，利用JUnit进行单元测试非常简单方便。
+我们平时在写的NGrinder性能测试脚本也是依托于Junit，所以熟悉Junit的执行流程很有必要。">
+<meta property="og:image" content="http://tonylit.me/img/junit4/junit插件.png">
+<meta property="og:image" content="http://tonylit.me/img/junit4/testA.PNG">
+<meta property="og:image" content="http://tonylit.me/img/junit4/debug.PNG">
+<meta property="og:image" content="http://tonylit.me/img/junit4/BlockJUnit4ClassRunner.png">
+<meta property="og:image" content="http://tonylit.me/img/junit4/getRunner.png">
+<meta property="og:image" content="http://tonylit.me/img/junit4/AllDefaultPossibilitiesBuilder.png">
+<meta property="og:image" content="http://tonylit.me/img/junit4/方法真正被run的入口.PNG">
+<meta property="og:image" content="http://tonylit.me/img/junit4/ParentRunner.png">
+<meta property="og:image" content="http://tonylit.me/img/junit4/classBlock.png">
+<meta property="og:image" content="http://tonylit.me/img/junit4/runChild.png">
+<meta property="og:image" content="http://tonylit.me/img/junit4/methodBlock.png">
+<meta property="og:image" content="http://tonylit.me/img/junit4/runLeaf.png">
+<meta property="og:updated_time" content="2019-11-30T05:37:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Junit4的执行流程">
+<meta name="twitter:description" content="Junit作为一款优秀的Java单元测试框架，在工作中经常会用到，利用JUnit进行单元测试非常简单方便。
+我们平时在写的NGrinder性能测试脚本也是依托于Junit，所以熟悉Junit的执行流程很有必要。">
+  
+    <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/leaves.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script src="http://tonylit.me//js/jquery.nicescroll.js"></script>
+
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+<form class="search" method="get" accept-charset="utf-8">
+			<input type="text" id="chillax-search-input" class="st-search-input_my" maxlength="30" placeholder="search" />
+		</form>
+
+
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/c.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/" class="alluraregular">tonyli</a></h1>
+		</hgroup>
+        <!--
+		
+		<p class="header-subtitle">Nothing is given. Everything is earned.</p>
+		
+        -->
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/work">工作日志</a></li>
+				        
+							<li><a href="/tags/life">点滴生活</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Appium/" style="font-size: 12.86px;">Appium</a> <a href="/tags/Gatling/" style="font-size: 11.43px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.43px;">Jmeter</a> <a href="/tags/Python/" style="font-size: 12.86px;">Python</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 17.14px;">docker</a> <a href="/tags/java/" style="font-size: 18.57px;">java</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/loadrunner/" style="font-size: 14.29px;">loadrunner</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/pinpoint/" style="font-size: 11.43px;">pinpoint</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/springboot/" style="font-size: 11.43px;">springboot</a> <a href="/tags/work/" style="font-size: 15.71px;">work</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a>
+					</div>
+				</section>
+				
+
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">Nothing is given. Everything is earned.</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tonyli</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/c.jpg" class="js-avatar">
+				<hgroup>
+				  <h1 class="header-author">tonyli</h1>
+				</hgroup>
+			</div>
+			
+			<p class="header-subtitle">Nothing is given. Everything is earned.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/work">工作日志</a></li>
+		        
+					<li><a href="/tags/life">点滴生活</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+
+	  <div class="recent">
+高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
+</div>
+
+      <div class="body-wrap"><article id="post-Junit4的执行流程" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2019/11/30/Junit4的执行流程/" class="article-date">
+  	<time datetime="2019-11-30T03:37:27.000Z" itemprop="datePublished">2019-11-30</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      Junit4的执行流程
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+	</div>
+
+
+                                        
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为何选择了BlockJUnit4ClassRunner执行器"><span class="toc-number">1.</span> <span class="toc-text">为何选择了BlockJUnit4ClassRunner执行器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BlockJUnit4ClassRunner中发生了什么"><span class="toc-number">2.</span> <span class="toc-text">BlockJUnit4ClassRunner中发生了什么</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number"></span> <span class="toc-text">总结</span></a>
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p>Junit作为一款优秀的Java单元测试框架，在工作中经常会用到，利用JUnit进行单元测试非常简单方便。</p>
+<p>我们平时在写的NGrinder性能测试脚本也是依托于Junit，所以熟悉Junit的执行流程很有必要。</p>
+<a id="more"></a>
+<hr>
+<p>通过一段简单的测试代码来分析Junit4的执行流程。</p>
+<p>添加Junit依赖，这里使用junit4.12版本。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>测试代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.Assert.assertTrue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">testA</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"junit4 dotest"</span>);</span><br><span class="line">        assertTrue(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们通过IDEA进行debug，这样能比较方便的看到Junit的执行流程。</p>
+<p>IDEA使用的IntelliJ IDEA 2017.3.5 (Ultimate Edition)版本，内部默认安装了Junit执行的相关插件。<br><img src="/img/junit4/junit插件.png" alt="Alt text"></p>
+<p>在测试代码上打断点，进行debug。</p>
+<p><img src="/img/junit4/testA.PNG" alt="Alt text"></p>
+<p><img src="/img/junit4/debug.PNG" alt="Alt text"></p>
+<p><img src="/img/junit4/BlockJUnit4ClassRunner.png" alt="Alt text"></p>
+<p>从debugger上可以看到，测试的JVM进程由com.intellij.rt.execution.junit.JUnitStarter.main()方法启动，这个类是IDEA JUnit插件的，真正进入到JUnit的代码是org.junit.runner.JUnitCore.run()，最终交由BlockJUnit4ClassRunner执行器来执行测试。</p>
+<hr>
+<h2 id="为何选择了BlockJUnit4ClassRunner执行器">为何选择了BlockJUnit4ClassRunner执行器</h2><p>Junit的执行器(runner)很多，在Junit4.4之前默认的是Junit4ClassRunner，JUnit4.4之后默认使用BlockJUnit4ClassRunner。</p>
+<p>当然我们也可以通过@RunWith注解来指定执行器，比如Spring项目的单元测试经常使用@RunWith(SpringJUnit4ClassRunner.class)。NGrinder脚本中使用的GrinderRunner执行器@RunWith(GrinderRunner)。</p>
+<p>这里我们使用默认的执行器BlockJUnit4ClassRunner来分析执行流程，先来看看Junit是如何选择BlockJUnit4ClassRunner执行器。</p>
+<p>在ClassRequest#getRunner()入口方法打上断点，执行测试。跟着代码一步一步调试。<br><img src="/img/junit4/getRunner.png" alt="Alt text"></p>
+<p>一直执行到AllDefaultPossibilitiesBuilder#runnerForClass(Class&lt;?&gt; testClass)方法。</p>
+<p><img src="/img/junit4/AllDefaultPossibilitiesBuilder.png" alt="Alt text"></p>
+<p>可以看到，执行测试时通过AllDefaultPossibilitiesBuilder类会找到合适的执行器(runner)。</p>
+<p>runnerForClass方法中给出了5种RunnerBuilder，它们会被按顺序依次遍历，找到一个合适的Runner后即停止：</p>
+<blockquote>
+<p>IgnoreBuilder。检查被测类是否含有@Ignore注解，如果有，则初始化一个IgnoredClassRunner，否则返回null。</p>
+<p>AnnotatedBuilder。检查被测类是否含有@RunWith注解，如果有，则用该注解的value初始化一个Runner，否则返回null。</p>
+<p>SuiteMethodBuilder。检查被测类是否含有一个叫“suite”的方法，如果有，则初始化一个SuiteMethod（这是JUnit3.8中使用的Runner），否则返回null。</p>
+<p>JUnit3Builder。检查被测类是否是TestCase的子类，如果是，则初始化一个JUnit38ClassRunner，否则返回null。</p>
+<p>JUnit4Builder。没有检查条件。将初始化一个BlockJUnint4ClassRunner。这也是JUnit4默认的Runner。</p>
+</blockquote>
+<p>经过这5步，必然会找到一个Runner，我们这个了例子就会返回<strong>BlockJUnit4ClassRunner</strong>。</p>
+<hr>
+<h2 id="BlockJUnit4ClassRunner中发生了什么">BlockJUnit4ClassRunner中发生了什么</h2><p>确认了BlockJUnit4ClassRunner执行器后，才真正进入正题。</p>
+<p>继续debug，跟着代码一步一步走，回到JUnitCore类，一直到run(Runner runner)方法。</p>
+<p>接下来是关键，到了测试方法被真正执行的地方。</p>
+<p><img src="/img/junit4/方法真正被run的入口.PNG" alt="Alt text"></p>
+<p>在方法内部调用到了Runner的run(notifier)方法，这里的Runner就是BlockJUnit4ClassRunner。它的run方法在其父类ParentRunner类中实现。</p>
+<p><img src="/img/junit4/ParentRunner.png" alt="Alt text"></p>
+<p>这段代码是关键的地方：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Statement statement = classBlock(notifier)<span class="comment">;</span></span><br><span class="line">statement.evaluate()<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>classBlock方法返回了包含测试执行单元的Statement，然后通过statement.evaluate方法执行我们的测试类。</p>
+<p>先来看下classBlock方法内部：<br><img src="/img/junit4/classBlock.png" alt="Alt text"></p>
+<p>这段代码的关键在childrenInvoker(notifier)方法，通过反射获得初始Statement，然后附加上RunBefore、RunAfter、用户自定义Rule。返回的Statement是一个可执行runChildren方法的Statement，后面的statement.evalueate()方法会回调runChildren方法。</p>
+<p>我们继续debug进入statement.evalueate()方法内部，一直到runChild()执行。</p>
+<p>仔细看看BlockJUnit4ClassRunner#runChild()的实现，这个方法是最终执行测试的地方。</p>
+<p><img src="/img/junit4/runChild.png" alt="Alt text"></p>
+<p>可以看到，如果测试用例上标注了@Ignore注解，则不会执行。否则会调用runLeaf方法来执行测试。</p>
+<p>上面说了这么多，终于到了最后一步runLeaf。</p>
+<p>runLeaf方法中第一个入参methodBlock(method)，跟上面的classBlock类似，也是一个处理测试方法的函数，返回更具体的Statement对象。</p>
+<p><img src="/img/junit4/methodBlock.png" alt="Alt text"></p>
+<blockquote>
+<p>先调用methodInvoker创建了一个InvokeMethod（Statement的子类）对象。</p>
+<p>如果该用例用@Test(expected=”xxx”)标注，则用statement组装并返回一个ExpectException（Statement的子类）对象。</p>
+<p>如果该用例用@Test(timeout=”xxx”)标注，则用statement组装并返回一个FailOnTimeout（Statement的子类）对象。</p>
+<p>如果该测试类中有方法用@Before标记，则用statement组装并返回一个RunBefores（Statement的子类）对象。</p>
+<p>如果该测试类中有方法用@After标记，则用statement组装并返回一个RunAfters（Statement的子类）对象。</p>
+<p>如果该用例上有@Rule，则用statement组装并返回一个RunRules（Statement的子类）对象。</p>
+</blockquote>
+<p>Statement是一个抽象类，这里提到的InvokeMethod，ExpectException，FailOnTimeout，RunBefores，RunAfters，RunRules这些对象都是Statement类的子类，并且都实现了evaluate方法。</p>
+<p>接下来就是发出调用执行了，我们看runLeaf方法：</p>
+<p><img src="/img/junit4/runLeaf.png" alt="Alt text"></p>
+<p>runLeaf方法会调用statement对象的evaluate方法，statement分成数种职责（BeforeClass, AfterClass,Before,After,测试方法等），不同的Statement负责自己的职责，执行结束后交给下一个Statement，直到所有Statement执行完毕。这也是我们所说的<strong>职责链模式</strong>（Chain Of Responsibility Pattern）。</p>
+<hr>
+<h1 id="总结">总结</h1><p>用一句话来总结整个执行流程：找到执行器BlockJUnit4ClassRunner，找到(BeforeClass, AfterClass,Before,After,测试方法等)Statement，依次执行evaluate。</p>
+<hr>
+<p>参考资料：<br><a href="https://my.oschina.net/itblog/blog/1550931" target="_blank" rel="external">https://my.oschina.net/itblog/blog/1550931</a><br><a href="https://www.jianshu.com/p/ad524e211ef3" target="_blank" rel="external">https://www.jianshu.com/p/ad524e211ef3</a></p>
+
+                                                                                
+                                        </div>
+                                        
+            </div>
+            
+                <div class="bdsharebuttonbox" style="margin-top:10px;margin-left:30px;float:left;">
+                    <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                    <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                    <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
+                    <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
+                    <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                    <a href="#" class="bds_more" data-cmd="more"></a>
+                </div>
+                <script>
+                    window._bd_share_config = {
+                        "common": {
+                            "bdSnsKey": {},
+                            "bdText": "",
+                            "bdMini": "1",
+                            "bdMiniList": false,
+                            "bdStyle": "2",
+                            "bdSize": "16"
+                        },
+                        "share": {}
+                    };
+                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
+  
+  
+    <a href="/2019/06/07/nGrinder socket协议+DLL库调用脚本/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">nGrinder socket协议+DLL库调用脚本</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-Junit4的执行流程" data-title="Junit4的执行流程" data-url="http://tonylit.me/2019/11/30/Junit4的执行流程/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "tonylit"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
+</article>
+
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+    
+-->
+<!--
+
+-->
+
+</div>
+      <!--<footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 tonyli
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+    
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+   
+  </div>
+</footer>-->
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/prefixfree.js" type="text/javascript"></script>
+<script src="/js/require-2.1.20.js" type="text/javascript"></script>
+<script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
+    <a title="返回顶部" style="opacity: 100%;">
+        <img src="/img/scrollup.png" />
+    </a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+
+  </div>
+</body>
+</html>
