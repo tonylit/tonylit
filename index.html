@@ -328,6 +328,116 @@
 
 
   
+    <article id="post-NGrinder 脚本不执行finally" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2019/12/20/NGrinder 脚本不执行finally/" class="article-date">
+  	<time datetime="2019-12-20T03:37:27.000Z" itemprop="datePublished">2019-12-20</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/20/NGrinder 脚本不执行finally/">NGrinder 脚本不执行finally</a>
+    </h1>
+  
+
+
+                            </header>
+                            
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p>try..catch..finally,一般情况下fianly代码块中的代码一定会执行。</p>
+<p>但finally也有不执行的情况</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.<span class="built_in">exit</span>(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p>System.exit()的作用是中止当前虚拟机，虚拟机都被中止了，finally代码块自然不会执行。</p>
+<hr>
+<p>最近写了个NGrinder脚本，未用到System.exit()，在try..catch..finally的时候，finally代码块竟然没有执行，让人费解。</p>
+<p>先来看一段简单的Junit测试代码的执行结果：</p>
+<figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.Assert.assertTrue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> JunitTest &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> test() &#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.<span class="keyword">out</span>.println(<span class="string">"false"</span>);</span><br><span class="line">            assertTrue(<span class="literal">false</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            System.<span class="keyword">out</span>.println(<span class="string">"catch"</span>);</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            System.<span class="keyword">out</span>.println(<span class="string">"finally"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">false</span></span><br><span class="line"><span class="keyword">finally</span></span><br></pre></td></tr></table></figure>
+<p>抛出的异常：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">java<span class="class">.lang</span><span class="class">.AssertionError</span></span><br><span class="line">	at org<span class="class">.junit</span><span class="class">.Assert</span><span class="class">.fail</span>(Assert<span class="class">.java</span>:<span class="number">86</span>)</span><br><span class="line">	at org<span class="class">.junit</span><span class="class">.Assert</span><span class="class">.assertTrue</span>(Assert<span class="class">.java</span>:<span class="number">41</span>)</span><br><span class="line">	at org<span class="class">.junit</span><span class="class">.Assert</span><span class="class">.assertTrue</span>(Assert<span class="class">.java</span>:<span class="number">52</span>)</span><br><span class="line">	at JunitTest.<span class="function"><span class="title">test</span><span class="params">(JunitTest.java:<span class="number">11</span>)</span></span></span><br><span class="line">	at sun<span class="class">.reflect</span><span class="class">.NativeMethodAccessorImpl</span><span class="class">.invoke0</span>(Native Method)</span><br><span class="line">	at sun<span class="class">.reflect</span><span class="class">.NativeMethodAccessorImpl</span><span class="class">.invoke</span>(NativeMethodAccessorImpl<span class="class">.java</span>:<span class="number">62</span>)</span><br><span class="line">	at sun<span class="class">.reflect</span><span class="class">.DelegatingMethodAccessorImpl</span><span class="class">.invoke</span>(DelegatingMethodAccessorImpl<span class="class">.java</span>:<span class="number">43</span>)</span><br><span class="line">	at java<span class="class">.lang</span><span class="class">.reflect</span><span class="class">.Method</span><span class="class">.invoke</span>(Method<span class="class">.java</span>:<span class="number">498</span>)</span><br><span class="line">	at org<span class="class">.junit</span><span class="class">.runners</span><span class="class">.model</span><span class="class">.FrameworkMethod</span>$<span class="number">1</span>.<span class="function"><span class="title">runReflectiveCall</span><span class="params">(FrameworkMethod.java:<span class="number">47</span>)</span></span></span><br><span class="line">	at org<span class="class">.junit</span><span class="class">.internal</span><span class="class">.runners</span><span class="class">.model</span><span class="class">.ReflectiveCallable</span><span class="class">.run</span>(ReflectiveCallable<span class="class">.java</span>:<span class="number">12</span>)</span><br><span class="line">	at org<span class="class">.junit</span><span class="class">.runners</span><span class="class">.model</span><span class="class">.FrameworkMethod</span><span class="class">.invokeExplosively</span>(FrameworkMethod<span class="class">.java</span>:<span class="number">44</span>)</span><br><span class="line">	at org<span class="class">.junit</span><span class="class">.internal</span><span class="class">.runners</span><span class="class">.statements</span><span class="class">.InvokeMethod</span><span class="class">.evaluate</span>(InvokeMethod<span class="class">.java</span>:<span class="number">17</span>)</span><br><span class="line">	at org<span class="class">.junit</span><span class="class">.runners</span><span class="class">.ParentRunner</span><span class="class">.runLeaf</span>(ParentRunner<span class="class">.java</span>:<span class="number">271</span>)</span><br><span class="line">	at org<span class="class">.junit</span><span class="class">.runners</span><span class="class">.BlockJUnit4ClassRunner</span><span class="class">.runChild</span>(BlockJUnit4ClassRunner<span class="class">.java</span>:<span class="number">70</span>)</span><br><span class="line">	at org<span class="class">.junit</span><span class="class">.runners</span><span class="class">.BlockJUnit4ClassRunner</span><span class="class">.runChild</span>(BlockJUnit4ClassRunner<span class="class">.java</span>:<span class="number">50</span>)</span><br><span class="line">	at org<span class="class">.junit</span><span class="class">.runners</span><span class="class">.ParentRunner</span>$<span class="number">3</span>.<span class="function"><span class="title">run</span><span class="params">(ParentRunner.java:<span class="number">238</span>)</span></span></span><br><span class="line">	at org<span class="class">.junit</span><span class="class">.runners</span><span class="class">.ParentRunner</span>$<span class="number">1</span>.<span class="function"><span class="title">schedule</span><span class="params">(ParentRunner.java:<span class="number">63</span>)</span></span></span><br><span class="line">	at org<span class="class">.junit</span><span class="class">.runners</span><span class="class">.ParentRunner</span><span class="class">.runChildren</span>(ParentRunner<span class="class">.java</span>:<span class="number">236</span>)</span><br><span class="line">	at org<span class="class">.junit</span><span class="class">.runners</span><span class="class">.ParentRunner</span><span class="class">.access</span>$<span class="number">000</span>(ParentRunner<span class="class">.java</span>:<span class="number">53</span>)</span><br><span class="line">	at org<span class="class">.junit</span><span class="class">.runners</span><span class="class">.ParentRunner</span>$<span class="number">2</span>.<span class="function"><span class="title">evaluate</span><span class="params">(ParentRunner.java:<span class="number">229</span>)</span></span></span><br><span class="line">	at org<span class="class">.junit</span><span class="class">.runners</span><span class="class">.ParentRunner</span><span class="class">.run</span>(ParentRunner<span class="class">.java</span>:<span class="number">309</span>)</span><br><span class="line">	at org<span class="class">.junit</span><span class="class">.runner</span><span class="class">.JUnitCore</span><span class="class">.run</span>(JUnitCore<span class="class">.java</span>:<span class="number">160</span>)</span><br><span class="line">	at com<span class="class">.intellij</span><span class="class">.junit4</span><span class="class">.JUnit4IdeaTestRunner</span><span class="class">.startRunnerWithArgs</span>(JUnit4IdeaTestRunner<span class="class">.java</span>:<span class="number">68</span>)</span><br><span class="line">	at com<span class="class">.intellij</span><span class="class">.rt</span><span class="class">.execution</span><span class="class">.junit</span><span class="class">.IdeaTestRunner</span><span class="variable">$Repeater</span>.<span class="function"><span class="title">startRunnerWithArgs</span><span class="params">(IdeaTestRunner.java:<span class="number">47</span>)</span></span></span><br><span class="line">	at com<span class="class">.intellij</span><span class="class">.rt</span><span class="class">.execution</span><span class="class">.junit</span><span class="class">.JUnitStarter</span><span class="class">.prepareStreamsAndStart</span>(JUnitStarter<span class="class">.java</span>:<span class="number">242</span>)</span><br><span class="line">	at com<span class="class">.intellij</span><span class="class">.rt</span><span class="class">.execution</span><span class="class">.junit</span><span class="class">.JUnitStarter</span><span class="class">.main</span>(JUnitStarter<span class="class">.java</span>:<span class="number">70</span>)</span><br></pre></td></tr></table></figure>
+<p>Junit的执行流程参考<a href="https://tonylit.me/2019/11/30/Junit4%E7%9A%84%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/">Junit4的执行流程</a></p>
+<p>assertTrue(false)案例执行失败的时候，finally代码块理所当然的执行了。</p>
+<p>再先来看一段简单的Ngrinder测试代码的执行结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith;</span><br><span class="line"><span class="keyword">import</span> net.grinder.script.GTest;</span><br><span class="line"><span class="keyword">import</span> net.grinder.script.NonInstrumentableTypeException;</span><br><span class="line"><span class="keyword">import</span> net.grinder.scriptengine.groovy.junit.annotation.BeforeProcess;</span><br><span class="line"><span class="keyword">import</span> net.grinder.scriptengine.groovy.junit.annotation.BeforeThread;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.Assert.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="annotation">@RunWith</span>(net.grinder.scriptengine.groovy.junit.GrinderRunner.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NgrinderTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> GTest test; <span class="comment">// 定义事务对象test</span></span><br><span class="line"></span><br><span class="line">    <span class="annotation">@BeforeProcess</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">beforeProcess</span><span class="params">()</span> </span>&#123; <span class="comment">// 在BeforeProcess方法体内进行事务初始化定义</span></span><br><span class="line">        test = <span class="keyword">new</span> GTest(<span class="number">1</span>, <span class="string">"ngrinder test"</span>); <span class="comment">// 1代表执行顺利，中文字符代表事务名称</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@BeforeThread</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">beforeThread</span><span class="params">()</span> <span class="keyword">throws</span> NonInstrumentableTypeException </span>&#123; <span class="comment">// 在BeforeThread方法体内进行事务注册</span></span><br><span class="line">        test.record(<span class="keyword">this</span>, <span class="string">"test"</span>); <span class="comment">// 事件注册，名称要和下面定义的方法名称一致</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"false"</span>);</span><br><span class="line">            assertTrue(<span class="keyword">false</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            System.out.println(<span class="string">"catch"</span>);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"finally"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>抛出的异常:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">java<span class="class">.lang</span><span class="class">.AssertionError</span></span><br><span class="line">	at NgrinderTest.<span class="function"><span class="title">test</span><span class="params">(NgrinderTest.java:<span class="number">29</span>)</span></span></span><br><span class="line">	at net<span class="class">.grinder</span><span class="class">.scriptengine</span><span class="class">.groovy</span><span class="class">.junit</span><span class="class">.RepetitionStatement</span><span class="class">.evaluate</span>(RepetitionStatement<span class="class">.java</span>:<span class="number">67</span>)</span><br><span class="line">	at net<span class="class">.grinder</span><span class="class">.scriptengine</span><span class="class">.groovy</span><span class="class">.junit</span><span class="class">.RunBeforeThreads</span><span class="class">.evaluate</span>(RunBeforeThreads<span class="class">.java</span>:<span class="number">62</span>)</span><br><span class="line">	at net<span class="class">.grinder</span><span class="class">.scriptengine</span><span class="class">.groovy</span><span class="class">.junit</span><span class="class">.RunAfterThreads</span><span class="class">.evaluate</span>(RunAfterThreads<span class="class">.java</span>:<span class="number">56</span>)</span><br><span class="line">	at net<span class="class">.grinder</span><span class="class">.scriptengine</span><span class="class">.groovy</span><span class="class">.junit</span><span class="class">.GrinderRunner</span><span class="class">.run</span>(GrinderRunner<span class="class">.java</span>:<span class="number">170</span>)</span><br><span class="line">	at com<span class="class">.intellij</span><span class="class">.junit4</span><span class="class">.JUnit4IdeaTestRunner</span><span class="class">.startRunnerWithArgs</span>(JUnit4IdeaTestRunner<span class="class">.java</span>:<span class="number">68</span>)</span><br><span class="line">	at com<span class="class">.intellij</span><span class="class">.rt</span><span class="class">.execution</span><span class="class">.junit</span><span class="class">.IdeaTestRunner</span><span class="variable">$Repeater</span>.<span class="function"><span class="title">startRunnerWithArgs</span><span class="params">(IdeaTestRunner.java:<span class="number">47</span>)</span></span></span><br><span class="line">	at com<span class="class">.intellij</span><span class="class">.rt</span><span class="class">.execution</span><span class="class">.junit</span><span class="class">.JUnitStarter</span><span class="class">.prepareStreamsAndStart</span>(JUnitStarter<span class="class">.java</span>:<span class="number">242</span>)</span><br><span class="line">	at com<span class="class">.intellij</span><span class="class">.rt</span><span class="class">.execution</span><span class="class">.junit</span><span class="class">.JUnitStarter</span><span class="class">.main</span>(JUnitStarter<span class="class">.java</span>:<span class="number">70</span>)</span><br></pre></td></tr></table></figure>
+<p>奇怪的事情出现了，assertTrue(false)案例执行失败的时候，finally代码块没有执行！！</p>
+<p>当然，如果assertTrue(true)案例执行成功的时候，finally代码块依然会执行。</p>
+<hr>
+<p>遂进行debug，最终发现finally不执行的关键在于：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test.record(<span class="keyword">this</span>, <span class="string">"test"</span>); <span class="comment">// 事件注册，名称要和下面定义的方法名称一致</span></span><br></pre></td></tr></table></figure>
+<p>record方法中会通过ASM，在test方法的入口和出口分别注入enter，exit方法。</p>
+<p>enter，exit方法在RecorderLocator类中实现：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">void</span> <span class="title">enter</span><span class="params">(Object <span class="keyword">target</span>, String location)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">target</span> != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Iterator i$ = s_instance.getRecorderList(<span class="keyword">target</span>, location).iterator();</span><br><span class="line"></span><br><span class="line">                <span class="keyword">while</span>(i$.hasNext()) &#123;</span><br><span class="line">                    Recorder recorder = (Recorder)i$.next();</span><br><span class="line">                    recorder.start();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125; <span class="keyword">catch</span> (EngineException var4) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RecorderLocator.RecordingFailureException(var4);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">void</span> <span class="title">exit</span><span class="params">(Object <span class="keyword">target</span>, String location, <span class="keyword">boolean</span> success)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">target</span> != <span class="keyword">null</span>) &#123;</span><br><span class="line">            List&lt;Recorder&gt; recorders = s_instance.getRecorderList(<span class="keyword">target</span>, location);![Alt text](./enter.PNG)</span><br><span class="line"></span><br><span class="line">            ListIterator i = recorders.listIterator(recorders.size());</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">while</span>(i.hasPrevious()) &#123;</span><br><span class="line">                    Recorder recorder = (Recorder)i.previous();</span><br><span class="line">                    recorder.end(success);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125; <span class="keyword">catch</span> (EngineException var6) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RecorderLocator.RecordingFailureException(var6);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>当执行到assertTrue(false)的时候，直接进入exit方法结束执行流程。</p>
+<p>所以，于人于己，在写NGrinder脚本的时候少用finally，避免采坑。</p>
+
+                                                                                
+                                        </div>
+                                        
+                                            <div class="article-info article-info-index">
+                                                
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+	</div>
+
+
+                                                    
+
+                                                        
+                                                                <div class="clearfix"></div>
+                                            </div>
+                                            
+            </div>
+            
+                    
+                                <!-- 多说评论框 start -->
+                                
+</article>
+
+<!--
+
+-->
+<!--
+
+-->
+
+  
     <article id="post-Junit4的执行流程" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
@@ -389,6 +499,89 @@
                                                                 <a  href="/2019/11/30/Junit4的执行流程/#more">More >></a>
                                                             </p>
                                                             
+                                                                <div class="clearfix"></div>
+                                            </div>
+                                            
+            </div>
+            
+                    
+                                <!-- 多说评论框 start -->
+                                
+</article>
+
+<!--
+
+-->
+<!--
+
+-->
+
+  
+    <article id="post-arthas-profiler成火焰图" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2019/10/21/arthas-profiler成火焰图/" class="article-date">
+  	<time datetime="2019-10-21T03:37:27.000Z" itemprop="datePublished">2019-10-21</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/21/arthas-profiler成火焰图/">arthas profiler 成火焰图</a>
+    </h1>
+  
+
+
+                            </header>
+                            
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p>之前写过<a href="https://tonylit.me/2018/10/26/JAVA%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E4%B9%8B%E7%81%AB%E7%84%B0%E5%9B%BE/">使用lightweight-java-profiler来生成火焰图</a>，它是通过-agentpath:${path}/liblagent.so的方式，来进行监控收集数据，收集完毕要停应用才能出数据，稍微有些麻烦。</p>
+<p>arthas在3.1.5版本加入了profiler火焰图功能，无需启停应用，开箱即用，命令非常简单。</p>
+<p>具体参考：<a href="https://alibaba.github.io/arthas/profiler.html" target="_blank" rel="external">https://alibaba.github.io/arthas/profiler.html</a></p>
+
+                                                                                
+                                        </div>
+                                        
+                                            <div class="article-info article-info-index">
+                                                
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+	</div>
+
+
+                                                    
+
+                                                        
                                                                 <div class="clearfix"></div>
                                             </div>
                                             
@@ -790,165 +983,6 @@
                                                     
 
                                                         
-                                                                <div class="clearfix"></div>
-                                            </div>
-                                            
-            </div>
-            
-                    
-                                <!-- 多说评论框 start -->
-                                
-</article>
-
-<!--
-
--->
-<!--
-
--->
-
-  
-    <article id="post-mybatis-generator" class="article article-type-post" itemscope itemprop="blogPost">
-    <script>
-        $("html").niceScroll({
-            cursorcolor: "#2a2929",
-            cursoropacitymax: 1,
-            touchbehavior: false,
-            cursorwidth: "6px",
-            cursorborder: "5",
-            cursorborderradius: "0px",
-            autohidemode: true
-        });
-    </script>
-    
-        <div class="article-meta">
-            <a href="/2018/12/09/mybatis-generator/" class="article-date">
-  	<time datetime="2018-12-09T03:37:27.000Z" itemprop="datePublished">2018-12-09</time>
-</a>
-
-        </div>
-        
-            <div class="article-inner">
-                
-                    <input type="hidden" class="isFancy" />
-                    
-                        
-                            <header class="article-header">
-                                
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/09/mybatis-generator/">mybatis-generator</a>
-    </h1>
-  
-
-
-                            </header>
-                            
-                                    
-                                        <div class="article-entry" itemprop="articleBody">
-                                            
-
-                                                
-                                                                
-                                                                    <p>mybatis-generator 可以生成开发中需要的dao、mapper.xml、实体类，很方便。这里推荐两种生成方法。</p>
-                                                                        
-                                        </div>
-                                        
-                                            <div class="article-info article-info-index">
-                                                
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li></ul>
-	</div>
-
-
-                                                    
-
-                                                        
-                                                            <p class="article-more-link">
-                                                                <a  href="/2018/12/09/mybatis-generator/#more">More >></a>
-                                                            </p>
-                                                            
-                                                                <div class="clearfix"></div>
-                                            </div>
-                                            
-            </div>
-            
-                    
-                                <!-- 多说评论框 start -->
-                                
-</article>
-
-<!--
-
--->
-<!--
-
--->
-
-  
-    <article id="post-spring-boot-starter-parent" class="article article-type-post" itemscope itemprop="blogPost">
-    <script>
-        $("html").niceScroll({
-            cursorcolor: "#2a2929",
-            cursoropacitymax: 1,
-            touchbehavior: false,
-            cursorwidth: "6px",
-            cursorborder: "5",
-            cursorborderradius: "0px",
-            autohidemode: true
-        });
-    </script>
-    
-        <div class="article-meta">
-            <a href="/2018/12/09/spring-boot-starter-parent/" class="article-date">
-  	<time datetime="2018-12-09T03:37:27.000Z" itemprop="datePublished">2018-12-09</time>
-</a>
-
-        </div>
-        
-            <div class="article-inner">
-                
-                    <input type="hidden" class="isFancy" />
-                    
-                        
-                            <header class="article-header">
-                                
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/09/spring-boot-starter-parent/">spring-boot-starter-parent</a>
-    </h1>
-  
-
-
-                            </header>
-                            
-                                    
-                                        <div class="article-entry" itemprop="articleBody">
-                                            
-
-                                                
-                                                                
-                                                                    <p>Spring Boot项目pom.xml中，存在如下配置：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.5.1.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这是Spring Boot特有的父级依赖。</p>
-<p>使用spring-boot-starter-parent后，常用的Spring Boot依赖包可以不用写version标签了。</p>
-                                                                        
-                                        </div>
-                                        
-                                            <div class="article-info article-info-index">
-                                                
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li></ul>
-	</div>
-
-
-                                                    
-
-                                                        
-                                                            <p class="article-more-link">
-                                                                <a  href="/2018/12/09/spring-boot-starter-parent/#more">More >></a>
-                                                            </p>
-                                                            
                                                                 <div class="clearfix"></div>
                                             </div>
                                             
