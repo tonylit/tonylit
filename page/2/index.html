@@ -120,7 +120,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Appium/" style="font-size: 12.86px;">Appium</a> <a href="/tags/Gatling/" style="font-size: 11.43px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.43px;">Jmeter</a> <a href="/tags/Python/" style="font-size: 12.86px;">Python</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 17.14px;">docker</a> <a href="/tags/java/" style="font-size: 18.57px;">java</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/loadrunner/" style="font-size: 14.29px;">loadrunner</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/pinpoint/" style="font-size: 11.43px;">pinpoint</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/springboot/" style="font-size: 11.43px;">springboot</a> <a href="/tags/work/" style="font-size: 15.71px;">work</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a>
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Appium/" style="font-size: 12.86px;">Appium</a> <a href="/tags/Gatling/" style="font-size: 11.43px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.43px;">Jmeter</a> <a href="/tags/Python/" style="font-size: 12.86px;">Python</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 17.14px;">docker</a> <a href="/tags/java/" style="font-size: 18.57px;">java</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/loadrunner/" style="font-size: 14.29px;">loadrunner</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/pinpoint/" style="font-size: 11.43px;">pinpoint</a> <a href="/tags/sandbox/" style="font-size: 10px;">sandbox</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/springboot/" style="font-size: 11.43px;">springboot</a> <a href="/tags/work/" style="font-size: 15.71px;">work</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a>
 					</div>
 				</section>
 				
@@ -328,7 +328,7 @@
 
 
   
-    <article id="post-mybatis-generator" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-统计DB2并发数、回滚数、锁等待" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -342,8 +342,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2018/12/09/mybatis-generator/" class="article-date">
-  	<time datetime="2018-12-09T03:37:27.000Z" itemprop="datePublished">2018-12-09</time>
+            <a href="/2018/12/19/统计DB2并发数、回滚数、锁等待/" class="article-date">
+  	<time datetime="2018-12-19T03:37:27.000Z" itemprop="datePublished">2018-12-19</time>
 </a>
 
         </div>
@@ -357,7 +357,7 @@
                                 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/09/mybatis-generator/">mybatis-generator</a>
+      <a class="article-title" href="/2018/12/19/统计DB2并发数、回滚数、锁等待/">统计DB2并发数、回滚数、锁等待</a>
     </h1>
   
 
@@ -367,27 +367,31 @@
                                     
                                         <div class="article-entry" itemprop="articleBody">
                                             
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    
+</div>
 
-                                                
+                                                        
+                                                            
                                                                 
-                                                                    <p>mybatis-generator 可以生成开发中需要的dao、mapper.xml、实体类，很方便。这里推荐两种生成方法。</p>
-                                                                        
+                                                                            <p>将DB2的并发数、事物回滚数、锁等待数每隔5s写入指定文件中，用于统计分析。</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#连接用户 </span></span><br><span class="line">su - 用户名     例如：      su -  db2ins</span><br><span class="line"><span class="comment">#连接数据库</span></span><br><span class="line">db2 <span class="keyword">connect</span> to 数据库名称    例如：db2 <span class="keyword">connect</span> to insdb  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行命令</span></span><br><span class="line"><span class="keyword">while</span> :; <span class="keyword">do</span> db2 -tx <span class="string">"select APPLS_IN_DB2,LOCK_TIMEOUTS,DEADLOCKS,LOCK_ESCALS,ROLLBACK_SQL_STMTS from sysibmadm.snapdb"</span>&gt;&gt;statistics.out; <span class="keyword">sleep</span> <span class="number">5</span><span class="keyword">s</span>; done</span><br></pre></td></tr></table></figure>
+
+                                                                                
                                         </div>
                                         
                                             <div class="article-info article-info-index">
                                                 
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
 	</div>
 
 
                                                     
 
                                                         
-                                                            <p class="article-more-link">
-                                                                <a  href="/2018/12/09/mybatis-generator/#more">More >></a>
-                                                            </p>
-                                                            
                                                                 <div class="clearfix"></div>
                                             </div>
                                             
@@ -467,6 +471,84 @@
                                                         
                                                             <p class="article-more-link">
                                                                 <a  href="/2018/12/09/spring-boot-starter-parent/#more">More >></a>
+                                                            </p>
+                                                            
+                                                                <div class="clearfix"></div>
+                                            </div>
+                                            
+            </div>
+            
+                    
+                                <!-- 多说评论框 start -->
+                                
+</article>
+
+<!--
+
+-->
+<!--
+
+-->
+
+  
+    <article id="post-mybatis-generator" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2018/12/09/mybatis-generator/" class="article-date">
+  	<time datetime="2018-12-09T03:37:27.000Z" itemprop="datePublished">2018-12-09</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/09/mybatis-generator/">mybatis-generator</a>
+    </h1>
+  
+
+
+                            </header>
+                            
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+
+                                                
+                                                                
+                                                                    <p>mybatis-generator 可以生成开发中需要的dao、mapper.xml、实体类，很方便。这里推荐两种生成方法。</p>
+                                                                        
+                                        </div>
+                                        
+                                            <div class="article-info article-info-index">
+                                                
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li></ul>
+	</div>
+
+
+                                                    
+
+                                                        
+                                                            <p class="article-more-link">
+                                                                <a  href="/2018/12/09/mybatis-generator/#more">More >></a>
                                                             </p>
                                                             
                                                                 <div class="clearfix"></div>
@@ -859,87 +941,6 @@
                                                         
                                                             <p class="article-more-link">
                                                                 <a  href="/2018/10/26/JAVA性能分析之火焰图/#more">More >></a>
-                                                            </p>
-                                                            
-                                                                <div class="clearfix"></div>
-                                            </div>
-                                            
-            </div>
-            
-                    
-                                <!-- 多说评论框 start -->
-                                
-</article>
-
-<!--
-
--->
-<!--
-
--->
-
-  
-    <article id="post-nGrinder activeMQ 消息发送脚本" class="article article-type-post" itemscope itemprop="blogPost">
-    <script>
-        $("html").niceScroll({
-            cursorcolor: "#2a2929",
-            cursoropacitymax: 1,
-            touchbehavior: false,
-            cursorwidth: "6px",
-            cursorborder: "5",
-            cursorborderradius: "0px",
-            autohidemode: true
-        });
-    </script>
-    
-        <div class="article-meta">
-            <a href="/2018/08/29/nGrinder activeMQ 消息发送脚本/" class="article-date">
-  	<time datetime="2018-08-29T03:37:27.000Z" itemprop="datePublished">2018-08-29</time>
-</a>
-
-        </div>
-        
-            <div class="article-inner">
-                
-                    <input type="hidden" class="isFancy" />
-                    
-                        
-                            <header class="article-header">
-                                
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/29/nGrinder activeMQ 消息发送脚本/">nGrinder activeMQ 消息发送脚本</a>
-    </h1>
-  
-
-
-                            </header>
-                            
-                                    
-                                        <div class="article-entry" itemprop="articleBody">
-                                            
-
-                                                
-                                                                
-                                                                    <p>最近有个项目想测试mq平台的性能，顺便测试自身业务的消费能力。</p>
-<p>本帅心里其实是拒绝的，MQ本身的性能实际上不需要做测试（公司MQ平台已上线多年，日均几十亿的流量完全没问题，该业务只有几百tps的消费能力），这种把消息抛出去没有返回的业务挺难过的。无奈项目组强烈要求，只能当成测试业务消费能力了。</p>
-<p>由于无法直接得知消息的消费情况，与项目组商议，从业务数据的入库情况，计算每秒入库的数据作为TPS。</p>
-<p>言归正传，来看看怎么写mq消息发送的脚本。</p>
-                                                                        
-                                        </div>
-                                        
-                                            <div class="article-info article-info-index">
-                                                
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
-	</div>
-
-
-                                                    
-
-                                                        
-                                                            <p class="article-more-link">
-                                                                <a  href="/2018/08/29/nGrinder activeMQ 消息发送脚本/#more">More >></a>
                                                             </p>
                                                             
                                                                 <div class="clearfix"></div>
