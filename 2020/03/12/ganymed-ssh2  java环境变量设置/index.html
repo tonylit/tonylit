@@ -4,22 +4,39 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content=""/>
   
-  <title>Docker 远程访问 | 淘淘的博客</title>
+  <title>ganymed-ssh2  java环境变量设置 | 淘淘的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="docker的client与server有两种连接方式，一种是socket连接，另外一种就是remote api。这里整理一下怎样进行remote api访问docker的server。">
+  <meta name="description" content="使用gantmed-ssh2的session远程执行服务器上java命令（session.execCommand(“java”)）的时候，发现java命令不存在。
+bash: java: command not found 
+原因是与Linux主机建立连接的时候session没有读取java环境变量等信息。
+解决方法：
+
+执行java命令的时候使用绝对路径
+
+1session.execComman">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker 远程访问">
-<meta property="og:url" content="http://tonylit.me/2016/04/02/docker远程连接/index.html">
+<meta property="og:title" content="ganymed-ssh2  java环境变量设置">
+<meta property="og:url" content="http://tonylit.me/2020/03/12/ganymed-ssh2  java环境变量设置/index.html">
 <meta property="og:site_name" content="淘淘的博客">
-<meta property="og:description" content="docker的client与server有两种连接方式，一种是socket连接，另外一种就是remote api。这里整理一下怎样进行remote api访问docker的server。">
-<meta property="og:image" content="http://tonylit.me/img/docker/docker连接方式.PNG">
-<meta property="og:image" content="http://tonylit.me/img/docker/docker-tcp连接方式.PNG">
-<meta property="og:image" content="http://tonylit.me/img/docker/docker-tcp进程.PNG">
-<meta property="og:image" content="http://tonylit.me/img/docker/remote-info.PNG">
-<meta property="og:updated_time" content="2016-04-02T05:37:27.000Z">
+<meta property="og:description" content="使用gantmed-ssh2的session远程执行服务器上java命令（session.execCommand(“java”)）的时候，发现java命令不存在。
+bash: java: command not found 
+原因是与Linux主机建立连接的时候session没有读取java环境变量等信息。
+解决方法：
+
+执行java命令的时候使用绝对路径
+
+1session.execComman">
+<meta property="og:updated_time" content="2020-03-12T05:37:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Docker 远程访问">
-<meta name="twitter:description" content="docker的client与server有两种连接方式，一种是socket连接，另外一种就是remote api。这里整理一下怎样进行remote api访问docker的server。">
+<meta name="twitter:title" content="ganymed-ssh2  java环境变量设置">
+<meta name="twitter:description" content="使用gantmed-ssh2的session远程执行服务器上java命令（session.execCommand(“java”)）的时候，发现java命令不存在。
+bash: java: command not found 
+原因是与Linux主机建立连接的时候session没有读取java环境变量等信息。
+解决方法：
+
+执行java命令的时候使用绝对路径
+
+1session.execComman">
   
     <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
   
@@ -197,7 +214,7 @@
 高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
 </div>
 
-      <div class="body-wrap"><article id="post-docker远程连接" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-ganymed-ssh2  java环境变量设置" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -211,8 +228,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2016/04/02/docker远程连接/" class="article-date">
-  	<time datetime="2016-04-02T03:37:27.000Z" itemprop="datePublished">2016-04-02</time>
+            <a href="/2020/03/12/ganymed-ssh2  java环境变量设置/" class="article-date">
+  	<time datetime="2020-03-12T03:37:27.000Z" itemprop="datePublished">2020-03-12</time>
 </a>
 
         </div>
@@ -226,7 +243,7 @@
                                 
   
     <h1 class="article-title" itemprop="name">
-      Docker 远程访问
+      ganymed-ssh2  java环境变量设置
     </h1>
   
 
@@ -236,7 +253,7 @@
                                 <div class="article-info article-info-post">
                                     
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
 	</div>
 
 
@@ -251,27 +268,25 @@
                                                     <!--02-->
                                                     <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#修改成tcp的连接方式"><span class="toc-number">1.</span> <span class="toc-text">修改成tcp的连接方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试一下remote_api"><span class="toc-number">2.</span> <span class="toc-text">测试一下remote api</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#也可以通过修改DOCKER_HOST的方式"><span class="toc-number">3.</span> <span class="toc-text">也可以通过修改DOCKER_HOST的方式</span></a></li></ol>
+    
 </div>
 
                                                         
                                                             
                                                                 
-                                                                            <p>docker的client与server有两种连接方式，一种是socket连接，另外一种就是remote api。<br>这里整理一下怎样进行remote api访问docker的server。<br><a id="more"></a><br>docker守护进程启动时-H 有三个选项：配置服务端的3种连接方式<br><img src="/img/docker/docker连接方式.PNG" alt="Alt text"></p>
-<h1 id="修改成tcp的连接方式">修改成tcp的连接方式</h1><p>我这里是centos7，修改/lib/systemd/system/docker.service<br><img src="/img/docker/docker-tcp连接方式.PNG" alt="Alt text"></p>
-<p>修改完成后重启docker service</p>
-<blockquote>
-<p>service docker restart</p>
-</blockquote>
-<p>看一下是不是tcp的方式<br><img src="/img/docker/docker-tcp进程.PNG" alt="Alt text"></p>
-<h1 id="测试一下remote_api">测试一下remote api</h1><blockquote>
-<p>curl localhost:2375/info<br><img src="/img/docker/remote-info.PNG" alt="Alt text"></p>
-</blockquote>
-<h1 id="也可以通过修改DOCKER_HOST的方式">也可以通过修改DOCKER_HOST的方式</h1><blockquote>
-<p>export DOCKER_HOST=”tcp://localhost:2375”</p>
-</blockquote>
-<p>添加此环境变量后，不用修改docker守护进程的启动方式也可以进行docker remote连接。</p>
-
+                                                                            <a id="more"></a>
+<p>使用gantmed-ssh2的session远程执行服务器上java命令（session.execCommand(“java”)）的时候，发现java命令不存在。</p>
+<p>bash: java: command not found </p>
+<p>原因是与Linux主机建立连接的时候session没有读取java环境变量等信息。</p>
+<p>解决方法：</p>
+<ol>
+<li>执行java命令的时候使用绝对路径</li>
+</ol>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">session.<span class="function"><span class="title">execCommand</span><span class="params">(<span class="string">"/opt/jdk1.8/bin/java"</span>)</span></span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>设置/etc/environment<br>我这边是通过该方法设置的，毕竟set once ,always use</li>
+</ol>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">    * 设置java运行环境</span><br><span class="line">    *</span><br><span class="line">    * @<span class="keyword">return</span></span><br><span class="line">    */</span><br><span class="line">   public <span class="keyword">static</span> boolean setJavaEnv(<span class="type">Connection</span> connection) &#123;</span><br><span class="line">       boolean <span class="literal">result</span> = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">       <span class="type">String</span> cmd = <span class="string">"echo \"export PATH=$PATH:`find /opt/wildfly/ -name java ! -path '*jre*'|head -n 1|awk -F java '&#123;print $1&#125;'`\"&gt;&gt;/etc/environment &amp;&amp;source /etc/environment"</span>;</span><br><span class="line">       <span class="type">SshResponse</span> sshResponse = excuteCmd(connection, cmd);</span><br><span class="line">       <span class="type">String</span> successMsg = sshResponse.getSuccessMsg();</span><br><span class="line">       <span class="keyword">if</span> (null != successMsg &amp;&amp; successMsg.contains(<span class="string">"Jps"</span>)) &#123;</span><br><span class="line">           <span class="literal">result</span> = <span class="literal">true</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> <span class="literal">result</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
                                                                                 
                                         </div>
                                         
@@ -304,18 +319,9 @@
                         
 <nav id="article-nav">
   
-    <a href="/2016/04/05/centos7自定义docker网桥/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          centos7 自定义docker网桥
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/03/29/docker_pull_https_error/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">docker pull关于https的报错处理</div>
+    <a href="/2019/12/31/异常/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">异常java.lang.ClassNotFoundException com.google.common.base.Strings</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -325,7 +331,7 @@
                             
                                 <!-- 多说评论框 start -->
                                 
-                                    <div class="ds-thread" data-thread-key="post-docker远程连接" data-title="Docker 远程访问" data-url="http://tonylit.me/2016/04/02/docker远程连接/"></div>
+                                    <div class="ds-thread" data-thread-key="post-ganymed-ssh2  java环境变量设置" data-title="ganymed-ssh2  java环境变量设置" data-url="http://tonylit.me/2020/03/12/ganymed-ssh2  java环境变量设置/"></div>
                                     <!-- 多说评论框 end -->
                                     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
                                     <script type="text/javascript">

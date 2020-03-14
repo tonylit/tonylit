@@ -328,6 +328,84 @@
 
 
   
+    <article id="post-修改docker loop-lvm存储大小和位置" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2016/07/04/修改docker loop-lvm存储大小和位置/" class="article-date">
+  	<time datetime="2016-07-04T03:37:27.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/04/修改docker loop-lvm存储大小和位置/">修改docker loop-lvm存储大小和位置</a>
+    </h1>
+  
+
+
+                            </header>
+                            
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+
+                                                
+                                                                
+                                                                    <p>刚开始使用docker的时候没有注意系统分区，根目录磁盘分小了，分了50G。<br>centos7 docker默认使用的devicemapper loop-lvm存储，默认大小是100G，导致容器多的时候存储不够。<br>
+                                                                        
+                                        </div>
+                                        
+                                            <div class="article-info article-info-index">
+                                                
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+	</div>
+
+
+                                                    
+
+                                                        
+                                                            <p class="article-more-link">
+                                                                <a  href="/2016/07/04/修改docker loop-lvm存储大小和位置/#more">More >></a>
+                                                            </p>
+                                                            
+                                                                <div class="clearfix"></div>
+                                            </div>
+                                            
+            </div>
+            
+                    
+                                <!-- 多说评论框 start -->
+                                
+</article>
+
+<!--
+
+-->
+<!--
+
+-->
+
+  
     <article id="post-docker java时区设置" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
@@ -720,86 +798,6 @@
 -->
 
   
-    <article id="post-supervisor管理docker进程" class="article article-type-post" itemscope itemprop="blogPost">
-    <script>
-        $("html").niceScroll({
-            cursorcolor: "#2a2929",
-            cursoropacitymax: 1,
-            touchbehavior: false,
-            cursorwidth: "6px",
-            cursorborder: "5",
-            cursorborderradius: "0px",
-            autohidemode: true
-        });
-    </script>
-    
-        <div class="article-meta">
-            <a href="/2016/04/22/supervisor管理docker进程/" class="article-date">
-  	<time datetime="2016-04-22T03:37:27.000Z" itemprop="datePublished">2016-04-22</time>
-</a>
-
-        </div>
-        
-            <div class="article-inner">
-                
-                    <input type="hidden" class="isFancy" />
-                    
-                        
-                            <header class="article-header">
-                                
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/22/supervisor管理docker进程/">supervisor管理容器进程</a>
-    </h1>
-  
-
-
-                            </header>
-                            
-                                    
-                                        <div class="article-entry" itemprop="articleBody">
-                                            
-
-                                                
-                                                                
-                                                                    <p>启动容器的时候，为了保证容器退出时保持UP状态，可以使用 /usr/sbin/sshd -D<br>我们经常会在后面加上若干启动命令：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span> -ti --name <span class="keyword">test</span> docker.<span class="keyword">test</span>.com:5000/mytest-centos5 -P 22 -P 80 /usr/sbin/sshd -<span class="keyword">D</span> &amp;&amp; nginx &amp;&amp; /opt/resin.<span class="keyword">sh</span> restart</span><br></pre></td></tr></table></figure></p>
-<p>命令多的时候看起来会很乱<br>but，可以使用supervisor来进行优化（管理进程）<br>可以写成这样：</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[supervisord]</span></span><br><span class="line"><span class="setting">nodaemon=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"><span class="title">[program:sshd]</span></span><br><span class="line"><span class="setting">command=<span class="value">/usr/sbin/sshd -D</span></span></span><br><span class="line"><span class="title">[program:nginx]</span></span><br><span class="line"><span class="setting">command=<span class="value">nginx</span></span></span><br><span class="line"><span class="title">[program:resin]</span></span><br><span class="line"><span class="setting">command=<span class="value">/opt/resin.sh restart</span></span></span><br></pre></td></tr></table></figure>
-                                                                        
-                                        </div>
-                                        
-                                            <div class="article-info article-info-index">
-                                                
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
-	</div>
-
-
-                                                    
-
-                                                        
-                                                            <p class="article-more-link">
-                                                                <a  href="/2016/04/22/supervisor管理docker进程/#more">More >></a>
-                                                            </p>
-                                                            
-                                                                <div class="clearfix"></div>
-                                            </div>
-                                            
-            </div>
-            
-                    
-                                <!-- 多说评论框 start -->
-                                
-</article>
-
-<!--
-
--->
-<!--
-
--->
-
-  
     <article id="post-如何不输出docker日志到控制台" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
@@ -878,7 +876,7 @@
 -->
 
   
-    <article id="post-南京软件开发者大会" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-supervisor管理docker进程" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
             cursorcolor: "#2a2929",
@@ -892,8 +890,8 @@
     </script>
     
         <div class="article-meta">
-            <a href="/2016/04/18/南京软件开发者大会/" class="article-date">
-  	<time datetime="2016-04-18T03:37:27.000Z" itemprop="datePublished">2016-04-18</time>
+            <a href="/2016/04/22/supervisor管理docker进程/" class="article-date">
+  	<time datetime="2016-04-22T03:37:27.000Z" itemprop="datePublished">2016-04-22</time>
 </a>
 
         </div>
@@ -907,7 +905,7 @@
                                 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/18/南京软件开发者大会/">中国南京软件开发者大会-参会收获</a>
+      <a class="article-title" href="/2016/04/22/supervisor管理docker进程/">supervisor管理容器进程</a>
     </h1>
   
 
@@ -920,14 +918,16 @@
 
                                                 
                                                                 
-                                                                    <p>4月16，17两天去参加<a href="http://www.njsd-china.org/">中国南京软件开发者大会</a>，比较感兴趣的方向是性能和容器技术这块，很遗憾这两块的分享比较少。其他技术方面（微服务架构、云平台、移动端、VR等）不能全都听明白，不过也有不少收获，开阔了视野。<br>今年是第二届南京开发者大会，参会的人数比去年多了3倍，大概700人。组委会和媒体人数比较多，挺有氛围。<br>
+                                                                    <p>启动容器的时候，为了保证容器退出时保持UP状态，可以使用 /usr/sbin/sshd -D<br>我们经常会在后面加上若干启动命令：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span> -ti --name <span class="keyword">test</span> docker.<span class="keyword">test</span>.com:5000/mytest-centos5 -P 22 -P 80 /usr/sbin/sshd -<span class="keyword">D</span> &amp;&amp; nginx &amp;&amp; /opt/resin.<span class="keyword">sh</span> restart</span><br></pre></td></tr></table></figure></p>
+<p>命令多的时候看起来会很乱<br>but，可以使用supervisor来进行优化（管理进程）<br>可以写成这样：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[supervisord]</span></span><br><span class="line"><span class="setting">nodaemon=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"><span class="title">[program:sshd]</span></span><br><span class="line"><span class="setting">command=<span class="value">/usr/sbin/sshd -D</span></span></span><br><span class="line"><span class="title">[program:nginx]</span></span><br><span class="line"><span class="setting">command=<span class="value">nginx</span></span></span><br><span class="line"><span class="title">[program:resin]</span></span><br><span class="line"><span class="setting">command=<span class="value">/opt/resin.sh restart</span></span></span><br></pre></td></tr></table></figure>
                                                                         
                                         </div>
                                         
                                             <div class="article-info article-info-index">
                                                 
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/">work</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
 	</div>
 
 
@@ -935,7 +935,7 @@
 
                                                         
                                                             <p class="article-more-link">
-                                                                <a  href="/2016/04/18/南京软件开发者大会/#more">More >></a>
+                                                                <a  href="/2016/04/22/supervisor管理docker进程/#more">More >></a>
                                                             </p>
                                                             
                                                                 <div class="clearfix"></div>

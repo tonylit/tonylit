@@ -328,6 +328,88 @@
 
 
   
+    <article id="post-JVM 配置参数整理" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2017/01/24/JVM 配置参数整理/" class="article-date">
+  	<time datetime="2017-01-24T03:37:27.000Z" itemprop="datePublished">2017-01-24</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/24/JVM 配置参数整理/">JVM 配置参数整理</a>
+    </h1>
+  
+
+
+                            </header>
+                            
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+
+                                                
+                                                                
+                                                                    <h1 id="-XX:+PrintFlagsFinal">-XX:+PrintFlagsFinal</h1><p>当你在网上兴冲冲找到一个可优化的参数时，先用-XX: +PrintFlagsFinal看看，它可能已经默认打开了;<strong>不要轻信网上任何文章，一切以JDK打出来的为准</strong>。<br>-XX:+PrintFlagsFinal显示所有可设置的参数及它们的值（ JDK 6 update 21开始才可以用），默认是不包括diagnostic或experimental系的。<br>要在-XX:+PrintFlagsFinal的输出里看到这两种参数的信息，分别需要显式指定</p>
+<blockquote>
+<p>-XX:+UnlockDiagnosticVMOptions<br>-XX:+UnlockExperimentalVMOptions</p>
+</blockquote>
+<p>另外，可以先看一下R大的<a href="http://hllvm.group.iteye.com/group/topic/27945">JVM调优的”标准参数”的各种陷阱</a>这篇文章。</p>
+                                                                        
+                                        </div>
+                                        
+                                            <div class="article-info article-info-index">
+                                                
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+	</div>
+
+
+                                                    
+
+                                                        
+                                                            <p class="article-more-link">
+                                                                <a  href="/2017/01/24/JVM 配置参数整理/#more">More >></a>
+                                                            </p>
+                                                            
+                                                                <div class="clearfix"></div>
+                                            </div>
+                                            
+            </div>
+            
+                    
+                                <!-- 多说评论框 start -->
+                                
+</article>
+
+<!--
+
+-->
+<!--
+
+-->
+
+  
     <article id="post-GC combination test" class="article article-type-post" itemscope itemprop="blogPost">
     <script>
         $("html").niceScroll({
@@ -859,84 +941,6 @@
                                                         
                                                             <p class="article-more-link">
                                                                 <a  href="/2016/10/19/tcpcopy/#more">More >></a>
-                                                            </p>
-                                                            
-                                                                <div class="clearfix"></div>
-                                            </div>
-                                            
-            </div>
-            
-                    
-                                <!-- 多说评论框 start -->
-                                
-</article>
-
-<!--
-
--->
-<!--
-
--->
-
-  
-    <article id="post-工程师成长计划" class="article article-type-post" itemscope itemprop="blogPost">
-    <script>
-        $("html").niceScroll({
-            cursorcolor: "#2a2929",
-            cursoropacitymax: 1,
-            touchbehavior: false,
-            cursorwidth: "6px",
-            cursorborder: "5",
-            cursorborderradius: "0px",
-            autohidemode: true
-        });
-    </script>
-    
-        <div class="article-meta">
-            <a href="/2016/10/12/工程师成长计划/" class="article-date">
-  	<time datetime="2016-10-12T03:37:27.000Z" itemprop="datePublished">2016-10-12</time>
-</a>
-
-        </div>
-        
-            <div class="article-inner">
-                
-                    <input type="hidden" class="isFancy" />
-                    
-                        
-                            <header class="article-header">
-                                
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/12/工程师成长计划/">高级性能测试工程师成长计划</a>
-    </h1>
-  
-
-
-                            </header>
-                            
-                                    
-                                        <div class="article-entry" itemprop="articleBody">
-                                            
-
-                                                
-                                                                
-                                                                    <p>公司实施了【<strong>工程师成长计划</strong>】，<br>部门主管结合我所在职级和岗位（中级性能测试工程师），给出了成长计划，罗列出一些需要提升的技术方向。</p>
-                                                                        
-                                        </div>
-                                        
-                                            <div class="article-info article-info-index">
-                                                
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
-	</div>
-
-
-                                                    
-
-                                                        
-                                                            <p class="article-more-link">
-                                                                <a  href="/2016/10/12/工程师成长计划/#more">More >></a>
                                                             </p>
                                                             
                                                                 <div class="clearfix"></div>
