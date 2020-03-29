@@ -367,29 +367,13 @@
                                     
                                         <div class="article-entry" itemprop="articleBody">
                                             
-                                                    <!--02-->
-                                                    <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    
-</div>
 
-                                                        
-                                                            
+                                                
                                                                 
-                                                                            <a id="more"></a>
-<p>使用gantmed-ssh2的session远程执行服务器上java命令（session.execCommand(“java”)）的时候，发现java命令不存在。</p>
+                                                                    <p>使用gantmed-ssh2的session远程执行服务器上java命令（session.execCommand(“java”)）的时候，发现java命令不存在。</p>
 <p>bash: java: command not found </p>
 <p>原因是与Linux主机建立连接的时候session没有读取java环境变量等信息。</p>
-<p>解决方法：</p>
-<ol>
-<li>执行java命令的时候使用绝对路径</li>
-</ol>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">session.<span class="function"><span class="title">execCommand</span><span class="params">(<span class="string">"/opt/jdk1.8/bin/java"</span>)</span></span></span><br></pre></td></tr></table></figure>
-<ol>
-<li>设置/etc/environment<br>我这边是通过该方法设置的，毕竟set once ,always use</li>
-</ol>
-<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">    * 设置java运行环境</span><br><span class="line">    *</span><br><span class="line">    * @<span class="keyword">return</span></span><br><span class="line">    */</span><br><span class="line">   public <span class="keyword">static</span> boolean setJavaEnv(<span class="type">Connection</span> connection) &#123;</span><br><span class="line">       boolean <span class="literal">result</span> = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">       <span class="type">String</span> cmd = <span class="string">"echo \"export PATH=$PATH:`find /opt/wildfly/ -name java ! -path '*jre*'|head -n 1|awk -F java '&#123;print $1&#125;'`\"&gt;&gt;/etc/environment &amp;&amp;source /etc/environment"</span>;</span><br><span class="line">       <span class="type">SshResponse</span> sshResponse = excuteCmd(connection, cmd);</span><br><span class="line">       <span class="type">String</span> successMsg = sshResponse.getSuccessMsg();</span><br><span class="line">       <span class="keyword">if</span> (null != successMsg &amp;&amp; successMsg.contains(<span class="string">"Jps"</span>)) &#123;</span><br><span class="line">           <span class="literal">result</span> = <span class="literal">true</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> <span class="literal">result</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-                                                                                
+                                                                        
                                         </div>
                                         
                                             <div class="article-info article-info-index">
@@ -402,6 +386,10 @@
                                                     
 
                                                         
+                                                            <p class="article-more-link">
+                                                                <a  href="/2020/03/12/ganymed-ssh2  java环境变量设置/#more">More >></a>
+                                                            </p>
+                                                            
                                                                 <div class="clearfix"></div>
                                             </div>
                                             

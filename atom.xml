@@ -20,10 +20,11 @@
     <id>http://tonylit.me/2020/03/12/ganymed-ssh2  java环境变量设置/</id>
     <published>2020-03-12T03:37:27.000Z</published>
     <updated>2020-03-12T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<a id="more"></a>
-<p>使用gantmed-ssh2的session远程执行服务器上java命令（session.execCommand(“java”)）的时候，发现java命令不存在。</p>
+    <content type="html"><![CDATA[<p>使用gantmed-ssh2的session远程执行服务器上java命令（session.execCommand(“java”)）的时候，发现java命令不存在。</p>
 <p>bash: java: command not found </p>
 <p>原因是与Linux主机建立连接的时候session没有读取java环境变量等信息。</p>
+<a id="more"></a>
+<hr>
 <p>解决方法：</p>
 <ol>
 <li>执行java命令的时候使用绝对路径</li>
@@ -34,9 +35,10 @@
 </ol>
 <figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">    * 设置java运行环境</span><br><span class="line">    *</span><br><span class="line">    * @<span class="keyword">return</span></span><br><span class="line">    */</span><br><span class="line">   public <span class="keyword">static</span> boolean setJavaEnv(<span class="type">Connection</span> connection) &#123;</span><br><span class="line">       boolean <span class="literal">result</span> = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">       <span class="type">String</span> cmd = <span class="string">"echo \"export PATH=$PATH:`find /opt/wildfly/ -name java ! -path '*jre*'|head -n 1|awk -F java '&#123;print $1&#125;'`\"&gt;&gt;/etc/environment &amp;&amp;source /etc/environment"</span>;</span><br><span class="line">       <span class="type">SshResponse</span> sshResponse = excuteCmd(connection, cmd);</span><br><span class="line">       <span class="type">String</span> successMsg = sshResponse.getSuccessMsg();</span><br><span class="line">       <span class="keyword">if</span> (null != successMsg &amp;&amp; successMsg.contains(<span class="string">"Jps"</span>)) &#123;</span><br><span class="line">           <span class="literal">result</span> = <span class="literal">true</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> <span class="literal">result</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>]]></content>
     <summary type="html">
-    <![CDATA[<a id="more"></a>
-<p>使用gantmed-ssh2的session远程执行服务器上java命令（session.execCommand(“java”)）的时候，发现java命令不存在。</p>
-<p>bash: java: command not found ]]>
+    <![CDATA[<p>使用gantmed-ssh2的session远程执行服务器上java命令（session.execCommand(“java”)）的时候，发现java命令不存在。</p>
+<p>bash: java: command not found </p>
+<p>原因是与Linux主机建立连接的时候session没有读取java环境变量等信息。</p>]]>
+    
     </summary>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
