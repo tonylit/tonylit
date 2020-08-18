@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Nothing is given. Everything is earned.]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tonylit.me/"/>
-  <updated>2020-05-12T05:37:27.000Z</updated>
+  <updated>2020-08-18T05:37:27.000Z</updated>
   <id>http://tonylit.me/</id>
   
   <author>
@@ -13,6 +13,49 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Jmeter自定义函数]]></title>
+    <link href="http://tonylit.me/2020/08/18/Jmeter%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0/"/>
+    <id>http://tonylit.me/2020/08/18/Jmeter自定义函数/</id>
+    <published>2020-08-18T03:37:27.000Z</published>
+    <updated>2020-08-18T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>Jmeter自带的函数有时满足不了日常压测的需求，需要根据业务情况做定制化的扩展，这时就需要自定义函数。</p>
+<p>在编写自己的函数之前，可以先了解Jmeter自带的函数是如何实现的，然后我们模仿的写写就可以了，没什么难度。</p>
+<a id="more"></a>
+<hr>
+<h2 id="学习Jmeter自带函数的实现方法">学习Jmeter自带函数的实现方法</h2><p>第一步：下载最新的Jmeter源码，我这里下载的apache-jmeter-5.3_src.tgz<br><a href="http://jmeter.apache.org/download_jmeter.cgi" target="_blank" rel="external">http://jmeter.apache.org/download_jmeter.cgi</a></p>
+<p>第二步：找到函数实现<br>在源码包中找到functions文件夹，里面放的就是Jmeter自带的函数实现。<br>\apache-jmeter-5.3\src\functions\src\main\java\org\apache\jmeter\functions</p>
+<p>我们找一个简单常用的_Random函数，来看看是如何实现的<br><img src="/img/jmeter自定义函数/random函数.PNG" alt="Alt text"></p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.apache.jmeter.functions;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Collection;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ThreadLocalRandom;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.jmeter.engine.util.CompoundVariable;</span><br><span class="line"><span class="keyword">import</span> org.apache.jmeter.samplers.SampleResult;</span><br><span class="line"><span class="keyword">import</span> org.apache.jmeter.samplers.Sampler;</span><br><span class="line"><span class="keyword">import</span> org.apache.jmeter.threads.JMeterVariables;</span><br><span class="line"><span class="keyword">import</span> org.apache.jmeter.util.JMeterUtils;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Provides a Random function which returns a random long integer between a min</span><br><span class="line"> * (first argument) and a max (second argument).</span><br><span class="line"> * @since 1.9</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> class Random extends AbstractFunction &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;<span class="keyword">String</span>&gt; desc = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">String</span> KEY = <span class="string">"__Random"</span>; <span class="comment">//Jmeter函数助手显示的函数名称，以_开头</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        desc.<span class="built_in">add</span>(JMeterUtils.getResString(<span class="string">"minimum_param"</span>)); <span class="comment">//入参</span></span><br><span class="line">        desc.<span class="built_in">add</span>(JMeterUtils.getResString(<span class="string">"maximum_param"</span>)); <span class="comment">//入参</span></span><br><span class="line">        desc.<span class="built_in">add</span>(JMeterUtils.getResString(<span class="string">"function_name_paropt"</span>)); <span class="comment">//入参</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> CompoundVariable varName;</span><br><span class="line">    <span class="keyword">private</span> CompoundVariable minimum;</span><br><span class="line">    <span class="keyword">private</span> CompoundVariable maximum;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * No-arg constructor.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">public</span> Random() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** JMeter会将上次运行的SampleResult和当前的Sampler作为参数传入到该方法里，返回值就是在运行该function后得到的值，以String类型返回。</span><br><span class="line">        逻辑放在这里面就可以了。</span><br><span class="line">	*/</span></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">String</span> execute(SampleResult previousResult, Sampler currentSampler)</span><br><span class="line">            <span class="keyword">throws</span> InvalidVariableException &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">long</span> <span class="built_in">min</span> = Long.parseLong(minimum.execute().<span class="built_in">trim</span>());</span><br><span class="line">        <span class="keyword">long</span> <span class="built_in">max</span> = Long.parseLong(maximum.execute().<span class="built_in">trim</span>());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">long</span> rand = ThreadLocalRandom.current().nextLong(<span class="built_in">min</span>, <span class="built_in">max</span>+<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">String</span> randString = Long.toString(rand);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (varName != <span class="keyword">null</span>) &#123;</span><br><span class="line">            JMeterVariables vars = getVariables();</span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">String</span> varTrim = varName.execute().<span class="built_in">trim</span>();</span><br><span class="line">            <span class="keyword">if</span> (vars != <span class="keyword">null</span> &amp;&amp; varTrim.length() &gt; <span class="number">0</span>)&#123;<span class="comment">// vars will be null on TestPlan</span></span><br><span class="line">                vars.put(varTrim, randString);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> randString;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** setParameters函数作用就是获取函数输入框界面输入的值，将输入的值传递给execute */</span></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> setParameters(Collection&lt;CompoundVariable&gt; parameters) <span class="keyword">throws</span> InvalidVariableException &#123;</span><br><span class="line">        checkParameterCount(parameters, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">        <span class="keyword">Object</span>[] values = parameters.toArray();</span><br><span class="line"></span><br><span class="line">        minimum = (CompoundVariable) values[<span class="number">0</span>];</span><br><span class="line">        maximum = (CompoundVariable) values[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span> (values.length&gt;<span class="number">2</span>)&#123;</span><br><span class="line">            varName = (CompoundVariable) values[<span class="number">2</span>];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            varName = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** getReferenceKey函数是提供一个在Jmeter函数助手显示的函数名称 */</span></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">String</span> getReferenceKey() &#123;</span><br><span class="line">        <span class="keyword">return</span> KEY;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** getArgumentDesc函数用来获取对输入参数的描述 */</span></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> List&lt;<span class="keyword">String</span>&gt; getArgumentDesc() &#123;</span><br><span class="line">        <span class="keyword">return</span> desc;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，Random类中主要实现了4个方法:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">execute</span><span class="params">(SampleResult previousResult, Sampler currentSampler)</span></span></span><br><span class="line"><span class="function"><span class="title">setParameters</span><span class="params">(Collection&lt;CompoundVariable&gt; parameters)</span></span></span><br><span class="line"><span class="function"><span class="title">getReferenceKey</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">getArgumentDesc</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<p>如果我们要实现自己的函数，可以实现这4个方法，另外还需要满足Jmeter自身设计中类加载的一些规则，总体来说满足2点即可：</p>
+<p><strong>1、实现function的类的package声明必须包含”.functions”。</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">package</span> <span class="tag">org</span><span class="class">.apache</span><span class="class">.jmeter</span><span class="class">.functions</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>2、继承AbstractFunction类，然后实现父类的四个方法</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.apache.jmeter.functions;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.jmeter.engine.util.CompoundVariable;</span><br><span class="line"><span class="keyword">import</span> org.apache.jmeter.samplers.SampleResult;</span><br><span class="line"><span class="keyword">import</span> org.apache.jmeter.samplers.Sampler;</span><br><span class="line"><span class="keyword">import</span> java.util.Collection;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Testfunction</span> <span class="keyword">extends</span> <span class="title">AbstractFunction</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">execute</span><span class="params">(SampleResult previousResult, Sampler currentSampler)</span> <span class="keyword">throws</span> InvalidVariableException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setParameters</span><span class="params">(Collection&lt;CompoundVariable&gt; parameters)</span> <span class="keyword">throws</span> InvalidVariableException </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getReferenceKey</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getArgumentDesc</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="实现加密函数">实现加密函数</h2><p>业务中需要对http请求中的入参做RSA加密处理，这里实现一个简单的加密函数。两个入参，第一个入参为加密的字符串，第二个入参为公钥key。</p>
+<p>第一步：新建maven工程jmeterfunction，依赖如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">project</span> <span class="attribute">xmlns</span>=<span class="value">"http://maven.apache.org/POM/4.0.0"</span></span><br><span class="line">         <span class="attribute">xmlns:xsi</span>=<span class="value">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">         <span class="attribute">xsi:schemaLocation</span>=<span class="value">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="title">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>jmeter-function<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>jmeter-function<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">plugins</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">configuration</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="title">source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="title">source</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="title">target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="title">target</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="title">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">build</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.apache.jmeter<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>ApacheJMeter_functions<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">version</span>&gt;</span>4.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.apache.jmeter<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>ApacheJMeter_core<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">version</span>&gt;</span>4.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.junit.jupiter<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>junit-jupiter-api<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">version</span>&gt;</span>RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>第二步：<br>新建package：org.apache.jmeter.functions</p>
+<p>新建函数EncryptionUtils并继承AbstractFunction</p>
+<p><img src="/img/jmeter自定义函数/jmeterfunction.PNG" alt="Alt text"></p>
+<p>第三步：实现4个方法：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自定义function的描述</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;<span class="keyword">String</span>&gt; desc = <span class="keyword">new</span> LinkedList&lt;<span class="keyword">String</span>&gt;( );</span><br><span class="line"></span><br><span class="line"><span class="comment">//两个入参</span></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        desc.<span class="built_in">add</span>(JMeterUtils.getResString(<span class="string">"submitPwd"</span>));</span><br><span class="line">        desc.<span class="built_in">add</span>(JMeterUtils.getResString(<span class="string">"PUBLIC_PWD_RSA"</span>));</span><br><span class="line">    &#125;</span><br><span class="line"> <span class="comment">//function名称</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">String</span> KEY = <span class="string">"__MyEncryptionFunc"</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">int</span> MAX_PARA_COUNT = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">int</span> MIN_PARA_COUNT = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//传入参数的值</span></span><br><span class="line">    <span class="keyword">private</span> CompoundVariable[] values;</span><br><span class="line"></span><br><span class="line"> @Override</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">String</span> execute(SampleResult previousResult, Sampler currentSampler) <span class="keyword">throws</span> InvalidVariableException &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">String</span> submitPwd = values[<span class="number">0</span>].execute( );</span><br><span class="line">            <span class="keyword">String</span> PUBLIC_PWD_RSA = values[<span class="number">1</span>].execute( );</span><br><span class="line">            <span class="keyword">return</span> getEncryPwdStr(submitPwd, PUBLIC_PWD_RSA);<span class="comment">//getEncryPwdStr() 业务方提供的RSA加解密的算法，涉及公钥秘钥这里不提供源码</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> InvalidVariableException(ex);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> setParameters(Collection&lt;CompoundVariable&gt; parameters) <span class="keyword">throws</span> InvalidVariableException &#123;</span><br><span class="line">        checkParameterCount(parameters, MIN_PARA_COUNT, MAX_PARA_COUNT); <span class="comment">//检查参数的个数是否正确</span></span><br><span class="line">        values = parameters.toArray(<span class="keyword">new</span> CompoundVariable[parameters.<span class="built_in">size</span>( )]); <span class="comment">//将值存入类变量中</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">String</span> getReferenceKey() &#123;</span><br><span class="line">        <span class="keyword">return</span> KEY;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> List&lt;<span class="keyword">String</span>&gt; getArgumentDesc() &#123;</span><br><span class="line">        <span class="keyword">return</span> desc;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>第四步： 编译，打包；将jar文件放到jmeter的lib/ext文件夹中，重启Jmeter即可。</p>
+<p>打开Jmeter，即可使用我们自己编写的函数。<br><img src="/img/jmeter自定义函数/自定义加解密函数.PNG" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Jmeter自带的函数有时满足不了日常压测的需求，需要根据业务情况做定制化的扩展，这时就需要自定义函数。</p>
+<p>在编写自己的函数之前，可以先了解Jmeter自带的函数是如何实现的，然后我们模仿的写写就可以了，没什么难度。</p>]]>
+    
+    </summary>
+    
+      <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[性能测试瓶颈分析方法指导]]></title>
@@ -1381,48 +1424,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[iBase4J 源码之Swagger2接口管理]]></title>
-    <link href="http://tonylit.me/2018/07/05/iBase4J%20%E6%BA%90%E7%A0%81%E4%B9%8BSwagger2%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/"/>
-    <id>http://tonylit.me/2018/07/05/iBase4J 源码之Swagger2接口管理/</id>
-    <published>2018-07-05T03:37:27.000Z</published>
-    <updated>2018-07-05T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>The Best APIs are Built with Swagger Tools.</p>
-<p>by  <a href="https://swagger.io/" target="_blank" rel="external">https://swagger.io/</a></p>
-<a id="more"></a>
-<hr>
-<p>Swagger2 作为RESTful API的好伙伴， 很容易与spring boot整合在一起，并组织成一套RESTful API文档。开发人员修改了接口，接口文档会自动更新，Swagger2同时为开发人员提供了强大的接口测试功能，省去了很多测试代码的编写工作。</p>
-<p>iBase4J 中使用Swagger2 来进行接口管理，项目启动后访问<a href="http://localhost:8088/swagger-ui.html" target="_blank" rel="external">http://localhost:8088/swagger-ui.html</a> ，可以看到接口管理页面。</p>
-<p><img src="/img/iBase4J源码之Swagger2/swagger-list.PNG" alt="Alt text"></p>
-<hr>
-<p>下面咱们结合iBase4J源码来介绍，如何在Spring Boot中使用Swagger2。</p>
-<h1 id="添加Swagger2依赖">添加Swagger2依赖</h1><p>在pom.xml中加入Swagger2的依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- swagger --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springfox-swagger2<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;springfox.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springfox-swagger-ui<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;springfox.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="title">properties</span>&gt;</span>	<span class="tag">&lt;<span class="title">springfox.version</span>&gt;</span>2.7.0<span class="tag">&lt;/<span class="title">springfox.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h1 id="创建Swagger2配置类。">创建Swagger2配置类。</h1><p>iBase4J提供了SwaggerConfig.java进行Swagger2配置。</p>
-<p><img src="/img/iBase4J源码之Swagger2/swagger-config.PNG" alt="Alt text"></p>
-<p>@EnableSwagger2 用于开启swagger2配置。</p>
-<p>apiInfo() 用来创建该Api的基本信息（这些基本信息会展现在文档页面中）。</p>
-<hr>
-<h1 id="配置Controller中的API">配置Controller中的API</h1><p>iBase4J-SYS-Web项目和iBase4J-Biz-Web项目中的RestFull API都使用iBase4J进行接口管理，这里看一个LoginController的例子。</p>
-<p><img src="/img/iBase4J源码之Swagger2/login-api.PNG" alt="Alt text"></p>
-<p>需要关注的注解：<a href="https://blog.csdn.net/xiaojin21cen/article/details/78654652" target="_blank" rel="external">参考</a></p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Api</span>：标记一个Controller类做为swagger。</span><br><span class="line"></span><br><span class="line"><span class="variable">@ApiOperation</span>：注解在方法上,描述接口操作。</span><br><span class="line"></span><br><span class="line"><span class="variable">@ApiParam</span>：请求参数的描述。</span><br></pre></td></tr></table></figure>
-<h1 id="API文档访问与测试">API文档访问与测试</h1><p><a href="http://localhost:8088/swagger-ui.html#/" target="_blank" rel="external">http://localhost:8088/swagger-ui.html#/</a> —看到接口列表</p>
-<p><img src="/img/iBase4J源码之Swagger2/swagger-test.PNG" alt="Alt text"></p>
-<p>输入请求入参，点击Try it out即可进行接口测试。</p>
-<p><img src="/img/iBase4J源码之Swagger2/swagger-result.PNG" alt="Alt text"></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>The Best APIs are Built with Swagger Tools.</p>
-<p>by  <a href="https://swagger.io/">https://swagger.io/</a></p>]]>
-    
-    </summary>
-    
-      <category term="java" scheme="http://tonylit.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[iBase4J 源码之Shiro用户安全校验]]></title>
     <link href="http://tonylit.me/2018/07/05/iBase4J%20%E6%BA%90%E7%A0%81%E4%B9%8BShiro%E7%94%A8%E6%88%B7%E5%AE%89%E5%85%A8%E6%A0%A1%E9%AA%8C/"/>
     <id>http://tonylit.me/2018/07/05/iBase4J 源码之Shiro用户安全校验/</id>
@@ -1477,6 +1478,48 @@
     <summary type="html">
     <![CDATA[<p>Apache Shiro? is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.</p>
 <p>by  <a href="https://shiro.apache.org/">https://shiro.apache.org/</a></p>]]>
+    
+    </summary>
+    
+      <category term="java" scheme="http://tonylit.me/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[iBase4J 源码之Swagger2接口管理]]></title>
+    <link href="http://tonylit.me/2018/07/05/iBase4J%20%E6%BA%90%E7%A0%81%E4%B9%8BSwagger2%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/"/>
+    <id>http://tonylit.me/2018/07/05/iBase4J 源码之Swagger2接口管理/</id>
+    <published>2018-07-05T03:37:27.000Z</published>
+    <updated>2018-07-05T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>The Best APIs are Built with Swagger Tools.</p>
+<p>by  <a href="https://swagger.io/" target="_blank" rel="external">https://swagger.io/</a></p>
+<a id="more"></a>
+<hr>
+<p>Swagger2 作为RESTful API的好伙伴， 很容易与spring boot整合在一起，并组织成一套RESTful API文档。开发人员修改了接口，接口文档会自动更新，Swagger2同时为开发人员提供了强大的接口测试功能，省去了很多测试代码的编写工作。</p>
+<p>iBase4J 中使用Swagger2 来进行接口管理，项目启动后访问<a href="http://localhost:8088/swagger-ui.html" target="_blank" rel="external">http://localhost:8088/swagger-ui.html</a> ，可以看到接口管理页面。</p>
+<p><img src="/img/iBase4J源码之Swagger2/swagger-list.PNG" alt="Alt text"></p>
+<hr>
+<p>下面咱们结合iBase4J源码来介绍，如何在Spring Boot中使用Swagger2。</p>
+<h1 id="添加Swagger2依赖">添加Swagger2依赖</h1><p>在pom.xml中加入Swagger2的依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- swagger --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springfox-swagger2<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;springfox.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springfox-swagger-ui<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">version</span>&gt;</span>$&#123;springfox.version&#125;<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="title">properties</span>&gt;</span>	<span class="tag">&lt;<span class="title">springfox.version</span>&gt;</span>2.7.0<span class="tag">&lt;/<span class="title">springfox.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="创建Swagger2配置类。">创建Swagger2配置类。</h1><p>iBase4J提供了SwaggerConfig.java进行Swagger2配置。</p>
+<p><img src="/img/iBase4J源码之Swagger2/swagger-config.PNG" alt="Alt text"></p>
+<p>@EnableSwagger2 用于开启swagger2配置。</p>
+<p>apiInfo() 用来创建该Api的基本信息（这些基本信息会展现在文档页面中）。</p>
+<hr>
+<h1 id="配置Controller中的API">配置Controller中的API</h1><p>iBase4J-SYS-Web项目和iBase4J-Biz-Web项目中的RestFull API都使用iBase4J进行接口管理，这里看一个LoginController的例子。</p>
+<p><img src="/img/iBase4J源码之Swagger2/login-api.PNG" alt="Alt text"></p>
+<p>需要关注的注解：<a href="https://blog.csdn.net/xiaojin21cen/article/details/78654652" target="_blank" rel="external">参考</a></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Api</span>：标记一个Controller类做为swagger。</span><br><span class="line"></span><br><span class="line"><span class="variable">@ApiOperation</span>：注解在方法上,描述接口操作。</span><br><span class="line"></span><br><span class="line"><span class="variable">@ApiParam</span>：请求参数的描述。</span><br></pre></td></tr></table></figure>
+<h1 id="API文档访问与测试">API文档访问与测试</h1><p><a href="http://localhost:8088/swagger-ui.html#/" target="_blank" rel="external">http://localhost:8088/swagger-ui.html#/</a> —看到接口列表</p>
+<p><img src="/img/iBase4J源码之Swagger2/swagger-test.PNG" alt="Alt text"></p>
+<p>输入请求入参，点击Try it out即可进行接口测试。</p>
+<p><img src="/img/iBase4J源码之Swagger2/swagger-result.PNG" alt="Alt text"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>The Best APIs are Built with Swagger Tools.</p>
+<p>by  <a href="https://swagger.io/">https://swagger.io/</a></p>]]>
     
     </summary>
     
@@ -3937,6 +3980,61 @@
   </entry>
   
   <entry>
+    <title><![CDATA[JAVA程序怎样使用jvm堆栈内存]]></title>
+    <link href="http://tonylit.me/2016/12/07/JAVA%E7%A8%8B%E5%BA%8F%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8jvm%E5%A0%86%E6%A0%88%E5%86%85%E5%AD%98/"/>
+    <id>http://tonylit.me/2016/12/07/JAVA程序怎样使用jvm堆栈内存/</id>
+    <published>2016-12-07T03:37:27.000Z</published>
+    <updated>2016-12-07T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>java是一门面向对象的编程语言，平时我们创建对象通常是通过new的方式。</p>
+<p>java虚拟机在遇到new指令的时候，首先去检查new的类是否已经被加载、链接、初始化；<br>如果没有，则必须先执行相应的类加载过程。<br><strong>类加载过程见下图：</strong><br><img src="/img/jvm/class_run_jvm/类加载过程.PNG" alt="Alt text"></p>
+<a id="more"></a>
+<hr>
+<h1 id="程序运行时jvm内存使用">程序运行时jvm内存使用</h1><p>类加载完成以后，程序运行的内存分配工作主要在堆与栈上面了。</p>
+<blockquote>
+<p>通俗来讲，栈上放局部变量，堆上放成员变量<br>基本类型的变量在栈中直接保存它所对应的值<br>引用类型的变量在栈中保存的是一个指向堆区对应对象存放地址的指针<br><a href="https://www.zhihu.com/question/31203609" target="_blank" rel="external">java是值传递还是引用传递？</a></p>
+</blockquote>
+<p>以下实例转载（<a href="http://blog.csdn.net/shimiso/article/details/8595564）" target="_blank" rel="external">http://blog.csdn.net/shimiso/article/details/8595564）</a></p>
+<p><img src="/img/jvm/class_run_jvm/调用过程一.PNG" alt="Alt text"></p>
+<p>1.JVM自动寻找main方法，执行第一句代码，创建一个Test类的实例，<br>在栈中分配一块内存，存放一个指向堆区对象的指针110925。</p>
+<p>2.创建一个int型的变量date，由于是基本类型，直接在栈中存放date对应的值9。</p>
+<p>3.创建两个BirthDate类的实例d1、d2，在栈中分别存放了对应的指针指向各自的对象。<br>他们在实例化时调用了有参数的构造方法，因此对象中有自定义初始值。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程二.PNG" alt="Alt text"></p>
+<p>调用test对象的change1方法，并且以date为参数。<br>JVM读到这段代码时，检测到i是局部变量，因此会把i放在栈中，并且把date的值赋给i。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程三.PNG" alt="Alt text"></p>
+<p>把1234赋给i。很简单的一步。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程四.PNG" alt="Alt text"></p>
+<p>change1方法执行完毕，立即释放局部变量i所占用的栈空间。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程五.PNG" alt="Alt text"></p>
+<p>调用test对象的change2方法，以实例d1为参数。<br>JVM检测到change2方法中的b参数为局部变量，立即加入到栈中，由于是引用类型的变量，<br>所以b中保存的是d1中的指针，此时b和d1指向同一个堆中的对象，在b和d1之间传递是指针。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程六.PNG" alt="Alt text"></p>
+<p>change2方法中又实例化了一个BirthDate对象，并且赋给b。<br>在内部执行过程是：在堆区new了一个对象，并且把该对象的指针保存在栈中的b对应空间，<br>此时实例b不再指向实例d1所指向的对象，但是实例d1所指向的对象并无变化，这样无法对d1造成任何影响。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程七.PNG" alt="Alt text"></p>
+<p>change2方法执行完毕，立即释放局部引用变量b所占的栈空间，<br><strong>注意只是释放了栈空间，堆空间要等待自动回收</strong>。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程八.PNG" alt="Alt text"></p>
+<p>调用test实例的change3方法，以实例d2为参数。<br>同理，JVM会在栈中为局部引用变量b分配空间，并且把d2中的指针存放在b中，此时d2和b指向同一个对象。<br>再调用实例b的setDay方法，其实就是调用d2指向的对象的setDay方法。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程九.PNG" alt="Alt text"></p>
+<p>调用实例b的setDay方法会影响d2，因为二者指向的是同一个对象。</p>
+<p><img src="/img/jvm/class_run_jvm/调用过程十.PNG" alt="Alt text"></p>
+<p>change3方法执行完毕，立即释放局部引用变量b。</p>
+<hr>
+<h1 id="String对象实例">String对象实例</h1><p>对于String对象的赋值，一直都很模糊，<br>比如下面的例子，</p>
+<blockquote>
+<p>str1=str2 ？<br>程序执行的时候，内存里到底有几个实例？<br>实例存在内存的哪里?</p>
+</blockquote>
+<p>String str1 = “Hello”;<br>String str2 = new String(“Hello”);</p>
+<p>想深入了解，可以参见：<br><a href="https://www.zhihu.com/question/29884421" target="_blank" rel="external">https://www.zhihu.com/question/29884421</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>java是一门面向对象的编程语言，平时我们创建对象通常是通过new的方式。</p>
+<p>java虚拟机在遇到new指令的时候，首先去检查new的类是否已经被加载、链接、初始化；<br>如果没有，则必须先执行相应的类加载过程。<br><strong>类加载过程见下图：</strong><br><img src="/img/jvm/class_run_jvm/类加载过程.PNG" alt="Alt text"></p>]]>
+    
+    </summary>
+    
+      <category term="java" scheme="http://tonylit.me/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[浅谈JVM垃圾收集器]]></title>
     <link href="http://tonylit.me/2016/12/07/%E6%B5%85%E8%B0%88JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/"/>
     <id>http://tonylit.me/2016/12/07/浅谈JVM垃圾收集器/</id>
@@ -4042,61 +4140,6 @@
     <![CDATA[<p>Java虚拟机规范中对垃圾收集器应该如何实现并没有任何规定，</p>
 <p>因此不同的厂商、不同版本的虚拟机所提供的垃圾收集器都可能会有很大差别，</p>
 <p>并且一般都会提供参数供用户根据自己的应用特点和要求组合出各个年代所使用的收集器。</p>]]>
-    
-    </summary>
-    
-      <category term="java" scheme="http://tonylit.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[JAVA程序怎样使用jvm堆栈内存]]></title>
-    <link href="http://tonylit.me/2016/12/07/JAVA%E7%A8%8B%E5%BA%8F%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8jvm%E5%A0%86%E6%A0%88%E5%86%85%E5%AD%98/"/>
-    <id>http://tonylit.me/2016/12/07/JAVA程序怎样使用jvm堆栈内存/</id>
-    <published>2016-12-07T03:37:27.000Z</published>
-    <updated>2016-12-07T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>java是一门面向对象的编程语言，平时我们创建对象通常是通过new的方式。</p>
-<p>java虚拟机在遇到new指令的时候，首先去检查new的类是否已经被加载、链接、初始化；<br>如果没有，则必须先执行相应的类加载过程。<br><strong>类加载过程见下图：</strong><br><img src="/img/jvm/class_run_jvm/类加载过程.PNG" alt="Alt text"></p>
-<a id="more"></a>
-<hr>
-<h1 id="程序运行时jvm内存使用">程序运行时jvm内存使用</h1><p>类加载完成以后，程序运行的内存分配工作主要在堆与栈上面了。</p>
-<blockquote>
-<p>通俗来讲，栈上放局部变量，堆上放成员变量<br>基本类型的变量在栈中直接保存它所对应的值<br>引用类型的变量在栈中保存的是一个指向堆区对应对象存放地址的指针<br><a href="https://www.zhihu.com/question/31203609" target="_blank" rel="external">java是值传递还是引用传递？</a></p>
-</blockquote>
-<p>以下实例转载（<a href="http://blog.csdn.net/shimiso/article/details/8595564）" target="_blank" rel="external">http://blog.csdn.net/shimiso/article/details/8595564）</a></p>
-<p><img src="/img/jvm/class_run_jvm/调用过程一.PNG" alt="Alt text"></p>
-<p>1.JVM自动寻找main方法，执行第一句代码，创建一个Test类的实例，<br>在栈中分配一块内存，存放一个指向堆区对象的指针110925。</p>
-<p>2.创建一个int型的变量date，由于是基本类型，直接在栈中存放date对应的值9。</p>
-<p>3.创建两个BirthDate类的实例d1、d2，在栈中分别存放了对应的指针指向各自的对象。<br>他们在实例化时调用了有参数的构造方法，因此对象中有自定义初始值。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程二.PNG" alt="Alt text"></p>
-<p>调用test对象的change1方法，并且以date为参数。<br>JVM读到这段代码时，检测到i是局部变量，因此会把i放在栈中，并且把date的值赋给i。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程三.PNG" alt="Alt text"></p>
-<p>把1234赋给i。很简单的一步。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程四.PNG" alt="Alt text"></p>
-<p>change1方法执行完毕，立即释放局部变量i所占用的栈空间。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程五.PNG" alt="Alt text"></p>
-<p>调用test对象的change2方法，以实例d1为参数。<br>JVM检测到change2方法中的b参数为局部变量，立即加入到栈中，由于是引用类型的变量，<br>所以b中保存的是d1中的指针，此时b和d1指向同一个堆中的对象，在b和d1之间传递是指针。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程六.PNG" alt="Alt text"></p>
-<p>change2方法中又实例化了一个BirthDate对象，并且赋给b。<br>在内部执行过程是：在堆区new了一个对象，并且把该对象的指针保存在栈中的b对应空间，<br>此时实例b不再指向实例d1所指向的对象，但是实例d1所指向的对象并无变化，这样无法对d1造成任何影响。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程七.PNG" alt="Alt text"></p>
-<p>change2方法执行完毕，立即释放局部引用变量b所占的栈空间，<br><strong>注意只是释放了栈空间，堆空间要等待自动回收</strong>。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程八.PNG" alt="Alt text"></p>
-<p>调用test实例的change3方法，以实例d2为参数。<br>同理，JVM会在栈中为局部引用变量b分配空间，并且把d2中的指针存放在b中，此时d2和b指向同一个对象。<br>再调用实例b的setDay方法，其实就是调用d2指向的对象的setDay方法。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程九.PNG" alt="Alt text"></p>
-<p>调用实例b的setDay方法会影响d2，因为二者指向的是同一个对象。</p>
-<p><img src="/img/jvm/class_run_jvm/调用过程十.PNG" alt="Alt text"></p>
-<p>change3方法执行完毕，立即释放局部引用变量b。</p>
-<hr>
-<h1 id="String对象实例">String对象实例</h1><p>对于String对象的赋值，一直都很模糊，<br>比如下面的例子，</p>
-<blockquote>
-<p>str1=str2 ？<br>程序执行的时候，内存里到底有几个实例？<br>实例存在内存的哪里?</p>
-</blockquote>
-<p>String str1 = “Hello”;<br>String str2 = new String(“Hello”);</p>
-<p>想深入了解，可以参见：<br><a href="https://www.zhihu.com/question/29884421" target="_blank" rel="external">https://www.zhihu.com/question/29884421</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>java是一门面向对象的编程语言，平时我们创建对象通常是通过new的方式。</p>
-<p>java虚拟机在遇到new指令的时候，首先去检查new的类是否已经被加载、链接、初始化；<br>如果没有，则必须先执行相应的类加载过程。<br><strong>类加载过程见下图：</strong><br><img src="/img/jvm/class_run_jvm/类加载过程.PNG" alt="Alt text"></p>]]>
     
     </summary>
     
@@ -4468,35 +4511,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[docker network 网络设置]]></title>
-    <link href="http://tonylit.me/2016/08/15/docker%20network%20%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE/"/>
-    <id>http://tonylit.me/2016/08/15/docker network 网络设置/</id>
-    <published>2016-08-15T03:37:27.000Z</published>
-    <updated>2016-08-15T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>
-<a id="more"></a>
-<p>使用docker network(1.9以后新特性)解决该问题。</p>
-<h1 id="新建docker网桥：">新建docker网桥：</h1><blockquote>
-<p>docker network create –subnet=192.168.42.0/24 -d=bridge   –gateway=192.168.42.3  mynetwork</p>
-</blockquote>
-<h1 id="启动网桥并把网卡桥接上">启动网桥并把网卡桥接上</h1><blockquote>
-<p>ifconfig   br-353aab8b89f2  up 0<br>brctl   addif  br-353aab8b89f2 eth1</p>
-</blockquote>
-<h1 id="docker启动时指定ip和网桥">docker启动时指定ip和网桥</h1><blockquote>
-<p>docker  run -it –rm  –ip=192.168.42.130  –net=mynetwork  docker.test.com/mytest/centos5:6.18 /bin/bash</p>
-</blockquote>
-<p>以上就可以了，不再需要pipework修改网络。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[使用strace定位性能问题]]></title>
     <link href="http://tonylit.me/2016/08/15/%E4%BD%BF%E7%94%A8strace%E5%AE%9A%E4%BD%8D%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/"/>
     <id>http://tonylit.me/2016/08/15/使用strace定位性能问题/</id>
@@ -4529,6 +4543,35 @@
     </summary>
     
       <category term="性能" scheme="http://tonylit.me/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[docker network 网络设置]]></title>
+    <link href="http://tonylit.me/2016/08/15/docker%20network%20%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE/"/>
+    <id>http://tonylit.me/2016/08/15/docker network 网络设置/</id>
+    <published>2016-08-15T03:37:27.000Z</published>
+    <updated>2016-08-15T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>
+<a id="more"></a>
+<p>使用docker network(1.9以后新特性)解决该问题。</p>
+<h1 id="新建docker网桥：">新建docker网桥：</h1><blockquote>
+<p>docker network create –subnet=192.168.42.0/24 -d=bridge   –gateway=192.168.42.3  mynetwork</p>
+</blockquote>
+<h1 id="启动网桥并把网卡桥接上">启动网桥并把网卡桥接上</h1><blockquote>
+<p>ifconfig   br-353aab8b89f2  up 0<br>brctl   addif  br-353aab8b89f2 eth1</p>
+</blockquote>
+<h1 id="docker启动时指定ip和网桥">docker启动时指定ip和网桥</h1><blockquote>
+<p>docker  run -it –rm  –ip=192.168.42.130  –net=mynetwork  docker.test.com/mytest/centos5:6.18 /bin/bash</p>
+</blockquote>
+<p>以上就可以了，不再需要pipework修改网络。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>测试环境，docker容器替换vmware已经落地，<br>网络配置之前使用的自建网桥+pipework修改容器ip的方式，<br>适用一段时间发现有问题：容器内eth0为docker自己分配的ip，eth1为pipework配置的ip。<br><img src="/img/dockerip.PNG" alt="Alt text"><br>无奈，公司服务化应用将eth0的ip上报zk，导致两台不同物理机上的服务化应用相互找不到。</p>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
     
   </entry>
   
@@ -4898,6 +4941,24 @@
   </entry>
   
   <entry>
+    <title><![CDATA[docker容器时间修改-通过时区偏移量]]></title>
+    <link href="http://tonylit.me/2016/07/19/docker%E5%AE%B9%E5%99%A8%E6%97%B6%E9%97%B4%E4%BF%AE%E6%94%B9-%E9%80%9A%E8%BF%87%E6%97%B6%E5%8C%BA%E5%81%8F%E7%A7%BB%E9%87%8F/"/>
+    <id>http://tonylit.me/2016/07/19/docker容器时间修改-通过时区偏移量/</id>
+    <published>2016-07-19T03:37:27.000Z</published>
+    <updated>2016-07-19T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。<br>如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。<br>but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。<br><a id="more"></a><br>这边写了个脚本，date.sh<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> != <span class="number">2</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">         <span class="built_in">echo</span> <span class="string">"Please input two parameter,like  '2016-05-20 12:00' "</span></span><br><span class="line">         <span class="built_in">exit</span> <span class="number">200</span>;</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#check /etc/profile exits 'export TZ' environment,if exits ,delete</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">checkProfile</span></span>()&#123;</span><br><span class="line">  <span class="built_in">return</span>Str=`grep -ri <span class="string">'export TZ'</span> /etc/profile`</span><br><span class="line">  <span class="keyword">if</span> [ <span class="string">"<span class="variable">$returnStr</span>"</span> !=  <span class="string">""</span>  ]</span><br><span class="line">   <span class="keyword">then</span></span><br><span class="line">     sed -i <span class="operator">-e</span> <span class="string">'/export TZ/d'</span>  /etc/profile</span><br><span class="line">       </span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line">checkProfile</span><br><span class="line"><span class="comment">#check time format</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">isValidDate</span></span>()&#123;  </span><br><span class="line">    date <span class="operator">-d</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="string">"+%F"</span>|grep -q <span class="string">"<span class="variable">$1</span>"</span> <span class="number">2</span>&gt;/dev/null </span><br><span class="line">    <span class="keyword">if</span> [ $? = <span class="number">0</span> ]; <span class="keyword">then</span>  </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"input:"</span> <span class="variable">$1</span> <span class="variable">$2</span> </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Time format is not correct ,please input like '2016-05-20 12:00' "</span> </span><br><span class="line">    <span class="keyword">fi</span>  </span><br><span class="line">&#125;</span><br><span class="line">isValidDate <span class="variable">$1</span> <span class="variable">$2</span></span><br><span class="line">CURTIME=`date <span class="string">"+%Y-%m-%d %H:%M"</span> `;</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"now:"</span> <span class="variable">$CURTIME</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">timeExport</span></span>()&#123;</span><br><span class="line">    <span class="keyword">if</span> [ <span class="string">"<span class="variable">$2</span>"</span> == <span class="number">1</span> ]</span><br><span class="line">     <span class="keyword">then</span></span><br><span class="line">     timeFormat=`awk <span class="string">'BEGIN&#123;printf "%.2f\n",'</span><span class="variable">$1</span><span class="string">'/3600&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$1</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeFormat</span></span><br><span class="line">     hour=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line">     mins=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     minm=`awk <span class="string">'BEGIN&#123;printf "%.0f\n",0.'</span><span class="variable">$mins</span><span class="string">'*60&#125;'</span>`</span><br><span class="line">     timeRetrunHour=`expr <span class="variable">$hour</span> + <span class="number">8</span>`</span><br><span class="line">      </span><br><span class="line">     <span class="comment">###分钟计算</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"input min:"</span><span class="variable">$3</span></span><br><span class="line">     inputmin=`<span class="built_in">echo</span> <span class="variable">$3</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     nowmin=`date |awk <span class="string">'&#123;print $4&#125;'</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$nowmin</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$inputmin</span></span><br><span class="line">     <span class="keyword">if</span> [ <span class="string">"<span class="variable">$nowmin</span>"</span> <span class="operator">-gt</span> <span class="string">"<span class="variable">$inputmin</span>"</span> ]</span><br><span class="line">      <span class="keyword">then</span> </span><br><span class="line">       <span class="built_in">let</span> hour=<span class="variable">$hour</span>-<span class="number">1</span></span><br><span class="line">     <span class="keyword">fi</span></span><br><span class="line">       </span><br><span class="line">     timeRetrunTime=<span class="variable">$timeRetrunHour</span>:<span class="variable">$minm</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"export TZ=RPC-<span class="variable">$timeRetrunTime</span>"</span>     </span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">       <span class="keyword">if</span> [ <span class="string">"<span class="variable">$2</span>"</span> == <span class="number">2</span> ]</span><br><span class="line">        <span class="keyword">then</span></span><br><span class="line">     timeFormat=`awk <span class="string">'BEGIN&#123;printf "%.2f\n",'</span><span class="variable">$1</span><span class="string">'/3600&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$1</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeFormat</span></span><br><span class="line">     hour=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line">     mins=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     minm=`awk <span class="string">'BEGIN&#123;printf "%.0f\n",0.'</span><span class="variable">$mins</span><span class="string">'*60&#125;'</span>`</span><br><span class="line">     <span class="built_in">let</span> timeRetrunHour=<span class="variable">$hour</span>-<span class="number">8</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeRetrunHour</span></span><br><span class="line">          <span class="comment">###分钟计算</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"input min:"</span><span class="variable">$3</span></span><br><span class="line">     inputmin=`<span class="built_in">echo</span> <span class="variable">$3</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     nowmin=`date |awk <span class="string">'&#123;print $4&#125;'</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$nowmin</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$inputmin</span></span><br><span class="line">     <span class="keyword">if</span> [ <span class="string">"<span class="variable">$nowmin</span>"</span> <span class="operator">-gt</span> <span class="string">"<span class="variable">$inputmin</span>"</span> ]</span><br><span class="line">      <span class="keyword">then</span> </span><br><span class="line">       <span class="built_in">let</span> hour=<span class="variable">$hour</span>-<span class="number">1</span></span><br><span class="line">     <span class="keyword">fi</span> </span><br><span class="line">     timeRetrunTime=<span class="variable">$timeRetrunHour</span>:<span class="variable">$minm</span></span><br><span class="line">          <span class="keyword">if</span> [ <span class="string">"<span class="variable">$timeRetrunHour</span>"</span> <span class="operator">-lt</span> <span class="number">0</span> ]</span><br><span class="line">        <span class="keyword">then</span></span><br><span class="line">           <span class="built_in">echo</span> <span class="string">"export TZ=RPC-<span class="variable">$&#123;timeRetrunTime#-&#125;</span>"</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">           <span class="built_in">echo</span> <span class="string">"export TZ=RPC+<span class="variable">$timeRetrunTime</span>"</span></span><br><span class="line">         <span class="keyword">fi</span></span><br><span class="line">     <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">Sys_data=`date <span class="operator">-d</span>  <span class="string">"<span class="variable">$CURTIME</span>"</span> +%s`    <span class="comment">#把当前时间转化为Linux时间</span></span><br><span class="line">In_data=`date <span class="operator">-d</span>  <span class="string">"<span class="variable">$1</span> <span class="variable">$2</span>"</span> +%s`</span><br><span class="line">  <span class="keyword">if</span> [ <span class="variable">$In_data</span> -ge <span class="variable">$Sys_data</span> ]</span><br><span class="line">   <span class="keyword">then</span></span><br><span class="line">    interval=`expr <span class="variable">$In_data</span> - <span class="variable">$Sys_data</span>`  <span class="comment">#计算2个时间的差</span></span><br><span class="line">    timeExport <span class="variable">$interval</span> <span class="number">1</span> <span class="variable">$2</span></span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">    interval=`expr  <span class="variable">$Sys_data</span> - <span class="variable">$In_data</span>`  </span><br><span class="line">    timeExport <span class="variable">$interval</span> <span class="number">2</span> <span class="variable">$2</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$interval</span></span><br></pre></td></tr></table></figure></p>
+<p>然后手动执行输出的结果：<br>export TZ=xxxx</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。<br>如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。<br>but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。<br>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[docker crontab不执行解决方法]]></title>
     <link href="http://tonylit.me/2016/07/19/docker%20crontab%E4%B8%8D%E6%89%A7%E8%A1%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
     <id>http://tonylit.me/2016/07/19/docker crontab不执行解决方法/</id>
@@ -4909,24 +4970,6 @@
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># The PAM configuration file for the cron daemon</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">auth       sufficient pam_env.so</span><br><span class="line">auth       sufficient   pam_rootok.so</span><br><span class="line">auth       <span class="built_in">include</span>    <span class="keyword">system</span>-auth</span><br><span class="line">account    sufficient   pam_access.so</span><br><span class="line">account    <span class="built_in">include</span>    <span class="keyword">system</span>-auth</span><br><span class="line">session    sufficient   pam_loginuid.so</span><br><span class="line">session    <span class="built_in">include</span>    <span class="keyword">system</span>-auth</span><br></pre></td></tr></table></figure>]]></content>
     <summary type="html">
     <![CDATA[<p>centos镜像，在该镜像中没有安装crond，通过yum安装成功后，crontab没有生效。</p>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[docker容器时间修改-通过时区偏移量]]></title>
-    <link href="http://tonylit.me/2016/07/19/docker%E5%AE%B9%E5%99%A8%E6%97%B6%E9%97%B4%E4%BF%AE%E6%94%B9-%E9%80%9A%E8%BF%87%E6%97%B6%E5%8C%BA%E5%81%8F%E7%A7%BB%E9%87%8F/"/>
-    <id>http://tonylit.me/2016/07/19/docker容器时间修改-通过时区偏移量/</id>
-    <published>2016-07-19T03:37:27.000Z</published>
-    <updated>2016-07-19T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。<br>如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。<br>but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。<br><a id="more"></a><br>这边写了个脚本，date.sh<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> != <span class="number">2</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">         <span class="built_in">echo</span> <span class="string">"Please input two parameter,like  '2016-05-20 12:00' "</span></span><br><span class="line">         <span class="built_in">exit</span> <span class="number">200</span>;</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#check /etc/profile exits 'export TZ' environment,if exits ,delete</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">checkProfile</span></span>()&#123;</span><br><span class="line">  <span class="built_in">return</span>Str=`grep -ri <span class="string">'export TZ'</span> /etc/profile`</span><br><span class="line">  <span class="keyword">if</span> [ <span class="string">"<span class="variable">$returnStr</span>"</span> !=  <span class="string">""</span>  ]</span><br><span class="line">   <span class="keyword">then</span></span><br><span class="line">     sed -i <span class="operator">-e</span> <span class="string">'/export TZ/d'</span>  /etc/profile</span><br><span class="line">       </span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line">checkProfile</span><br><span class="line"><span class="comment">#check time format</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">isValidDate</span></span>()&#123;  </span><br><span class="line">    date <span class="operator">-d</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="string">"+%F"</span>|grep -q <span class="string">"<span class="variable">$1</span>"</span> <span class="number">2</span>&gt;/dev/null </span><br><span class="line">    <span class="keyword">if</span> [ $? = <span class="number">0</span> ]; <span class="keyword">then</span>  </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"input:"</span> <span class="variable">$1</span> <span class="variable">$2</span> </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Time format is not correct ,please input like '2016-05-20 12:00' "</span> </span><br><span class="line">    <span class="keyword">fi</span>  </span><br><span class="line">&#125;</span><br><span class="line">isValidDate <span class="variable">$1</span> <span class="variable">$2</span></span><br><span class="line">CURTIME=`date <span class="string">"+%Y-%m-%d %H:%M"</span> `;</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"now:"</span> <span class="variable">$CURTIME</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">timeExport</span></span>()&#123;</span><br><span class="line">    <span class="keyword">if</span> [ <span class="string">"<span class="variable">$2</span>"</span> == <span class="number">1</span> ]</span><br><span class="line">     <span class="keyword">then</span></span><br><span class="line">     timeFormat=`awk <span class="string">'BEGIN&#123;printf "%.2f\n",'</span><span class="variable">$1</span><span class="string">'/3600&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$1</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeFormat</span></span><br><span class="line">     hour=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line">     mins=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     minm=`awk <span class="string">'BEGIN&#123;printf "%.0f\n",0.'</span><span class="variable">$mins</span><span class="string">'*60&#125;'</span>`</span><br><span class="line">     timeRetrunHour=`expr <span class="variable">$hour</span> + <span class="number">8</span>`</span><br><span class="line">      </span><br><span class="line">     <span class="comment">###分钟计算</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"input min:"</span><span class="variable">$3</span></span><br><span class="line">     inputmin=`<span class="built_in">echo</span> <span class="variable">$3</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     nowmin=`date |awk <span class="string">'&#123;print $4&#125;'</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$nowmin</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$inputmin</span></span><br><span class="line">     <span class="keyword">if</span> [ <span class="string">"<span class="variable">$nowmin</span>"</span> <span class="operator">-gt</span> <span class="string">"<span class="variable">$inputmin</span>"</span> ]</span><br><span class="line">      <span class="keyword">then</span> </span><br><span class="line">       <span class="built_in">let</span> hour=<span class="variable">$hour</span>-<span class="number">1</span></span><br><span class="line">     <span class="keyword">fi</span></span><br><span class="line">       </span><br><span class="line">     timeRetrunTime=<span class="variable">$timeRetrunHour</span>:<span class="variable">$minm</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"export TZ=RPC-<span class="variable">$timeRetrunTime</span>"</span>     </span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">       <span class="keyword">if</span> [ <span class="string">"<span class="variable">$2</span>"</span> == <span class="number">2</span> ]</span><br><span class="line">        <span class="keyword">then</span></span><br><span class="line">     timeFormat=`awk <span class="string">'BEGIN&#123;printf "%.2f\n",'</span><span class="variable">$1</span><span class="string">'/3600&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$1</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeFormat</span></span><br><span class="line">     hour=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line">     mins=`<span class="built_in">echo</span> <span class="variable">$timeFormat</span>|awk -F <span class="string">'.'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     minm=`awk <span class="string">'BEGIN&#123;printf "%.0f\n",0.'</span><span class="variable">$mins</span><span class="string">'*60&#125;'</span>`</span><br><span class="line">     <span class="built_in">let</span> timeRetrunHour=<span class="variable">$hour</span>-<span class="number">8</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$timeRetrunHour</span></span><br><span class="line">          <span class="comment">###分钟计算</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"input min:"</span><span class="variable">$3</span></span><br><span class="line">     inputmin=`<span class="built_in">echo</span> <span class="variable">$3</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     nowmin=`date |awk <span class="string">'&#123;print $4&#125;'</span>|awk -F <span class="string">':'</span> <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$nowmin</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$inputmin</span></span><br><span class="line">     <span class="keyword">if</span> [ <span class="string">"<span class="variable">$nowmin</span>"</span> <span class="operator">-gt</span> <span class="string">"<span class="variable">$inputmin</span>"</span> ]</span><br><span class="line">      <span class="keyword">then</span> </span><br><span class="line">       <span class="built_in">let</span> hour=<span class="variable">$hour</span>-<span class="number">1</span></span><br><span class="line">     <span class="keyword">fi</span> </span><br><span class="line">     timeRetrunTime=<span class="variable">$timeRetrunHour</span>:<span class="variable">$minm</span></span><br><span class="line">          <span class="keyword">if</span> [ <span class="string">"<span class="variable">$timeRetrunHour</span>"</span> <span class="operator">-lt</span> <span class="number">0</span> ]</span><br><span class="line">        <span class="keyword">then</span></span><br><span class="line">           <span class="built_in">echo</span> <span class="string">"export TZ=RPC-<span class="variable">$&#123;timeRetrunTime#-&#125;</span>"</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">           <span class="built_in">echo</span> <span class="string">"export TZ=RPC+<span class="variable">$timeRetrunTime</span>"</span></span><br><span class="line">         <span class="keyword">fi</span></span><br><span class="line">     <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">Sys_data=`date <span class="operator">-d</span>  <span class="string">"<span class="variable">$CURTIME</span>"</span> +%s`    <span class="comment">#把当前时间转化为Linux时间</span></span><br><span class="line">In_data=`date <span class="operator">-d</span>  <span class="string">"<span class="variable">$1</span> <span class="variable">$2</span>"</span> +%s`</span><br><span class="line">  <span class="keyword">if</span> [ <span class="variable">$In_data</span> -ge <span class="variable">$Sys_data</span> ]</span><br><span class="line">   <span class="keyword">then</span></span><br><span class="line">    interval=`expr <span class="variable">$In_data</span> - <span class="variable">$Sys_data</span>`  <span class="comment">#计算2个时间的差</span></span><br><span class="line">    timeExport <span class="variable">$interval</span> <span class="number">1</span> <span class="variable">$2</span></span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">    interval=`expr  <span class="variable">$Sys_data</span> - <span class="variable">$In_data</span>`  </span><br><span class="line">    timeExport <span class="variable">$interval</span> <span class="number">2</span> <span class="variable">$2</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$interval</span></span><br></pre></td></tr></table></figure></p>
-<p>然后手动执行输出的结果：<br>export TZ=xxxx</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>我们知道docker容器的时间使用的是宿主机内核的时间，没有做date namespace，所以修改docker容器时间的时候，同时修改了宿主机的时间，反之一样。<br>如果需要在容器内做时间修改，但是不影响其他容器，就比较困难。<br>but，我们可以通过修改时区的方式间接修改时间，但是有局限性，只能修改到24h之内的时间。<br>]]>
     
     </summary>
     
@@ -5583,32 +5626,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[docker pull关于https的报错处理]]></title>
-    <link href="http://tonylit.me/2016/03/29/docker_pull_https_error/"/>
-    <id>http://tonylit.me/2016/03/29/docker_pull_https_error/</id>
-    <published>2016-03-29T03:37:27.000Z</published>
-    <updated>2016-03-29T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>
-<a id="more"></a>
-<p>网上很多解决方法都是Ubuntu系统的，centos7 docker的配置文件真是难找。</p>
-<h1 id="修改docker配置文件">修改docker配置文件</h1><p>刚开始修改/etc/sysconfig/docker文件，加入–insecure-registry docker.test.com:5000，没启作用。<br>起作用的配置如下修改：<br>vi /usr/lib/systemd/system/docker.service</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[Unit]</span></span><br><span class="line"><span class="setting">Description=<span class="value">Docker Application Container Engine</span></span></span><br><span class="line"><span class="comment">##这里讲https-&gt;http</span></span><br><span class="line"><span class="setting">Documentation=<span class="value">http://docs.docker.com</span></span></span><br><span class="line"><span class="setting">After=<span class="value">network.target docker.socket</span></span></span><br><span class="line"><span class="setting">Requires=<span class="value">docker.socket</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Service]</span></span><br><span class="line"><span class="comment">##这里加入-d  --insecure-registry docker.test.com:5000</span></span><br><span class="line"><span class="setting">ExecStart=<span class="value">/usr/bin/docker -d  --insecure-registry docker.test.com:<span class="number">5000</span> -H fd:// <span class="variable">$OPTIONS</span> <span class="variable">$DOCKER_STORAGE_OPTIONS</span>  </span></span></span><br><span class="line"><span class="setting">MountFlags=<span class="value">slave</span></span></span><br><span class="line"><span class="setting">LimitNOFILE=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitNPROC=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitCORE=<span class="value">infinity</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Install]</span></span><br><span class="line"><span class="setting">WantedBy=<span class="value">multi-user.target</span></span></span><br></pre></td></tr></table></figure>
-<p>以上修改后重启docker</p>
-<blockquote>
-<p>service docker restart<br>systemctl daemon-reload</p>
-</blockquote>
-<p>OK了</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>]]>
-    
-    </summary>
-    
-      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[使用weave实现docker多宿主机互联]]></title>
     <link href="http://tonylit.me/2016/03/29/docker-weave%E7%BD%91%E7%BB%9C%E4%BA%92%E8%BF%9E/"/>
     <id>http://tonylit.me/2016/03/29/docker-weave网络互连/</id>
@@ -5632,6 +5649,32 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>使用weave实现docker多宿主机互联<br>]]>
+    
+    </summary>
+    
+      <category term="docker" scheme="http://tonylit.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[docker pull关于https的报错处理]]></title>
+    <link href="http://tonylit.me/2016/03/29/docker_pull_https_error/"/>
+    <id>http://tonylit.me/2016/03/29/docker_pull_https_error/</id>
+    <published>2016-03-29T03:37:27.000Z</published>
+    <updated>2016-03-29T05:37:27.000Z</updated>
+    <content type="html"><![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>
+<a id="more"></a>
+<p>网上很多解决方法都是Ubuntu系统的，centos7 docker的配置文件真是难找。</p>
+<h1 id="修改docker配置文件">修改docker配置文件</h1><p>刚开始修改/etc/sysconfig/docker文件，加入–insecure-registry docker.test.com:5000，没启作用。<br>起作用的配置如下修改：<br>vi /usr/lib/systemd/system/docker.service</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[Unit]</span></span><br><span class="line"><span class="setting">Description=<span class="value">Docker Application Container Engine</span></span></span><br><span class="line"><span class="comment">##这里讲https-&gt;http</span></span><br><span class="line"><span class="setting">Documentation=<span class="value">http://docs.docker.com</span></span></span><br><span class="line"><span class="setting">After=<span class="value">network.target docker.socket</span></span></span><br><span class="line"><span class="setting">Requires=<span class="value">docker.socket</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Service]</span></span><br><span class="line"><span class="comment">##这里加入-d  --insecure-registry docker.test.com:5000</span></span><br><span class="line"><span class="setting">ExecStart=<span class="value">/usr/bin/docker -d  --insecure-registry docker.test.com:<span class="number">5000</span> -H fd:// <span class="variable">$OPTIONS</span> <span class="variable">$DOCKER_STORAGE_OPTIONS</span>  </span></span></span><br><span class="line"><span class="setting">MountFlags=<span class="value">slave</span></span></span><br><span class="line"><span class="setting">LimitNOFILE=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitNPROC=<span class="value"><span class="number">1048576</span></span></span></span><br><span class="line"><span class="setting">LimitCORE=<span class="value">infinity</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Install]</span></span><br><span class="line"><span class="setting">WantedBy=<span class="value">multi-user.target</span></span></span><br></pre></td></tr></table></figure>
+<p>以上修改后重启docker</p>
+<blockquote>
+<p>service docker restart<br>systemctl daemon-reload</p>
+</blockquote>
+<p>OK了</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>从docker1.3.2版本以后，docker registry使用的是https，用docker pull 非https的docker regsitry的时候会报下面错误：<br><img src="/img/docker异常/docker_pull_https_error.PNG" alt="Alt text"></p>]]>
     
     </summary>
     
@@ -5697,140 +5740,6 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>最近定时任务总是执行延后，定时任务执行比较频繁，而且时间比较长<br>查了许久，发现自己没有配置定时任务线程数量<br>在此回顾一下quartz配置。<br>]]>
-    
-    </summary>
-    
-      <category term="java" scheme="http://tonylit.me/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[40个Java多线程问题总结]]></title>
-    <link href="http://tonylit.me/2016/03/12/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%8440%E4%B8%AA%E9%97%AE%E9%A2%98/"/>
-    <id>http://tonylit.me/2016/03/12/java多线程的40个问题/</id>
-    <published>2016-03-12T03:37:27.000Z</published>
-    <updated>2016-03-12T05:37:27.000Z</updated>
-    <content type="html"><![CDATA[<p>朋友圈分享的好文章，关于java多线程的，在此转载。我很喜欢作者对技术的态度，引用他的一段话：</p>
-<blockquote>
-<p>我不能保证写的每个地方都是对的，但是至少能保证不复制、不黏贴，保证每一句话、每一行代码都经过了认真的推敲、仔细的斟酌。每一篇文章的背后，希望都能看到自己对于技术、对于生活的态度。<br>我相信乔布斯说的，只有那些疯狂到认为自己可以改变世界的人才能真正地改变世界。面对压力，我可以挑灯夜战、不眠不休；面对困难，我愿意迎难而上、永不退缩</p>
-</blockquote>
-<p><a href="http://www.cnblogs.com/xrq730/p/5060921.html" target="_blank" rel="external">原创地址</a><br><a id="more"></a></p>
-<h1 id="40个问题汇总">40个问题汇总</h1><h2 id="1、多线程有什么用？">1、多线程有什么用？</h2><p>一个可能在很多人看来很扯淡的一个问题：我会用多线程就好了，还管它有什么用？在我看来，这个回答更扯淡。所谓”知其然知其所以然”，”会用”只是”知其然”，”为什么用”才是”知其所以然”，只有达到”知其然知其所以然”的程度才可以说是把一个知识点运用自如。OK，下面说说我对这个问题的看法：</p>
-<p>（1）发挥多核CPU的优势</p>
-<p>随着工业的进步，现在的笔记本、台式机乃至商用的应用服务器至少也都是双核的，4核、8核甚至16核的也都不少见，如果是单线程的程序，那么在双核CPU上就浪费了50%，在4核CPU上就浪费了75%。单核CPU上所谓的”多线程”那是假的多线程，同一时间处理器只会处理一段逻辑，只不过线程之间切换得比较快，看着像多个线程”同时”运行罢了。多核CPU上的多线程才是真正的多线程，它能让你的多段逻辑同时工作，多线程，可以真正发挥出多核CPU的优势来，达到充分利用CPU的目的。</p>
-<p>（2）防止阻塞</p>
-<p>从程序运行效率的角度来看，单核CPU不但不会发挥出多线程的优势，反而会因为在单核CPU上运行多线程导致线程上下文的切换，而降低程序整体的效率。但是单核CPU我们还是要应用多线程，就是为了防止阻塞。试想，如果单核CPU使用单线程，那么只要这个线程阻塞了，比方说远程读取某个数据吧，对端迟迟未返回又没有设置超时时间，那么你的整个程序在数据返回回来之前就停止运行了。多线程可以防止这个问题，多条线程同时运行，哪怕一条线程的代码执行读取数据阻塞，也不会影响其它任务的执行。</p>
-<p>（3）便于建模</p>
-<p>这是另外一个没有这么明显的优点了。假设有一个大的任务A，单线程编程，那么就要考虑很多，建立整个程序模型比较麻烦。但是如果把这个大的任务A分解成几个小任务，任务B、任务C、任务D，分别建立程序模型，并通过多线程分别运行这几个任务，那就简单很多了。</p>
-<h2 id="2、创建线程的方式">2、创建线程的方式</h2><p>比较常见的一个问题了，一般就是两种：</p>
-<p>（1）继承Thread类</p>
-<p>（2）实现Runnable接口</p>
-<p>至于哪个好，不用说肯定是后者好，因为实现接口的方式比继承类的方式更灵活，也能减少程序之间的耦合度，面向接口编程也是设计模式6大原则的核心。</p>
-<h2 id="3、start()方法和run()方法的区别">3、start()方法和run()方法的区别</h2><p>只有调用了start()方法，才会表现出多线程的特性，不同线程的run()方法里面的代码交替执行。如果只是调用run()方法，那么代码还是同步执行的，必须等待一个线程的run()方法里面的代码全部执行完毕之后，另外一个线程才可以执行其run()方法里面的代码。</p>
-<h2 id="4、Runnable接口和Callable接口的区别">4、Runnable接口和Callable接口的区别</h2><p>有点深的问题了，也看出一个Java程序员学习知识的广度。</p>
-<p>Runnable接口中的run()方法的返回值是void，它做的事情只是纯粹地去执行run()方法中的代码而已；Callable接口中的call()方法是有返回值的，是一个泛型，和Future、FutureTask配合可以用来获取异步执行的结果。</p>
-<p>这其实是很有用的一个特性，因为多线程相比单线程更难、更复杂的一个重要原因就是因为多线程充满着未知性，某条线程是否执行了？某条线程执行了多久？某条线程执行的时候我们期望的数据是否已经赋值完毕？无法得知，我们能做的只是等待这条多线程的任务执行完毕而已。而Callable+Future/FutureTask却可以获取多线程运行的结果，可以在等待时间太长没获取到需要的数据的情况下取消该线程的任务，真的是非常有用。</p>
-<h2 id="5、CyclicBarrier和CountDownLatch的区别">5、CyclicBarrier和CountDownLatch的区别</h2><p>两个看上去有点像的类，都在java.util.concurrent下，都可以用来表示代码运行到某个点上，二者的区别在于：</p>
-<p>（1）CyclicBarrier的某个线程运行到某个点上之后，该线程即停止运行，直到所有的线程都到达了这个点，所有线程才重新运行；CountDownLatch则不是，某线程运行到某个点上之后，只是给某个数值-1而已，该线程继续运行</p>
-<p>（2）CyclicBarrier只能唤起一个任务，CountDownLatch可以唤起多个任务</p>
-<p>（3）CyclicBarrier可重用，CountDownLatch不可重用，计数值为0该CountDownLatch就不可再用了</p>
-<h2 id="6、volatile关键字的作用">6、volatile关键字的作用</h2><p>一个非常重要的问题，是每个学习、应用多线程的Java程序员都必须掌握的。理解volatile关键字的作用的前提是要理解Java内存模型，这里就不讲Java内存模型了，可以参见第31点，volatile关键字的作用主要有两个：</p>
-<p>（1）多线程主要围绕可见性和原子性两个特性而展开，使用volatile关键字修饰的变量，保证了其在多线程之间的可见性，即每次读取到volatile变量，一定是最新的数据</p>
-<p>（2）代码底层执行不像我们看到的高级语言—-Java程序这么简单，它的执行是Java代码–&gt;字节码–&gt;根据字节码执行对应的C/C++代码–&gt;C/C++代码被编译成汇编语言–&gt;和硬件电路交互，现实中，为了获取更好的性能JVM可能会对指令进行重排序，多线程下可能会出现一些意想不到的问题。使用volatile则会对禁止语义重排序，当然这也一定程度上降低了代码执行效率</p>
-<p>从实践角度而言，volatile的一个重要作用就是和CAS结合，保证了原子性，详细的可以参见java.util.concurrent.atomic包下的类，比如AtomicInteger。</p>
-<h2 id="7、什么是线程安全">7、什么是线程安全</h2><p>又是一个理论的问题，各式各样的答案有很多，我给出一个个人认为解释地最好的：如果你的代码在多线程下执行和在单线程下执行永远都能获得一样的结果，那么你的代码就是线程安全的。</p>
-<p>这个问题有值得一提的地方，就是线程安全也是有几个级别的：</p>
-<p>（1）不可变</p>
-<p>像String、Integer、Long这些，都是final类型的类，任何一个线程都改变不了它们的值，要改变除非新创建一个，因此这些不可变对象不需要任何同步手段就可以直接在多线程环境下使用</p>
-<p>（2）绝对线程安全</p>
-<p>不管运行时环境如何，调用者都不需要额外的同步措施。要做到这一点通常需要付出许多额外的代价，Java中标注自己是线程安全的类，实际上绝大多数都不是线程安全的，不过绝对线程安全的类，Java中也有，比方说CopyOnWriteArrayList、CopyOnWriteArraySet</p>
-<p>（3）相对线程安全</p>
-<p>相对线程安全也就是我们通常意义上所说的线程安全，像Vector这种，add、remove方法都是原子操作，不会被打断，但也仅限于此，如果有个线程在遍历某个Vector、有个线程同时在add这个Vector，99%的情况下都会出现ConcurrentModificationException，也就是fail-fast机制。</p>
-<p>（4）线程非安全</p>
-<p>这个就没什么好说的了，ArrayList、LinkedList、HashMap等都是线程非安全的类</p>
-<h2 id="8、Java中如何获取到线程dump文件">8、Java中如何获取到线程dump文件</h2><p>死循环、死锁、阻塞、页面打开慢等问题，打线程dump是最好的解决问题的途径。所谓线程dump也就是线程堆栈，获取到线程堆栈有两步：</p>
-<p>（1）获取到线程的pid，可以通过使用jps命令，在Linux环境下还可以使用ps -ef | grep java</p>
-<p>（2）打印线程堆栈，可以通过使用jstack pid命令，在Linux环境下还可以使用kill -3 pid</p>
-<p>另外提一点，Thread类提供了一个getStackTrace()方法也可以用于获取线程堆栈。这是一个实例方法，因此此方法是和具体线程实例绑定的，每次获取获取到的是具体某个线程当前运行的堆栈，</p>
-<h2 id="9、一个线程如果出现了运行时异常会怎么样">9、一个线程如果出现了运行时异常会怎么样</h2><p>如果这个异常没有被捕获的话，这个线程就停止执行了。另外重要的一点是：如果这个线程持有某个某个对象的监视器，那么这个对象监视器会被立即释放</p>
-<h2 id="10、如何在两个线程之间共享数据">10、如何在两个线程之间共享数据</h2><p>通过在线程之间共享对象就可以了，然后通过wait/notify/notifyAll、await/signal/signalAll进行唤起和等待，比方说阻塞队列BlockingQueue就是为线程之间共享数据而设计的</p>
-<h2 id="11、sleep方法和wait方法有什么区别">11、sleep方法和wait方法有什么区别</h2><p>这个问题常问，sleep方法和wait方法都可以用来放弃CPU一定的时间，不同点在于如果线程持有某个对象的监视器，sleep方法不会放弃这个对象的监视器，wait方法会放弃这个对象的监视器</p>
-<h2 id="12、生产者消费者模型的作用是什么">12、生产者消费者模型的作用是什么</h2><p>这个问题很理论，但是很重要：</p>
-<p>（1）通过平衡生产者的生产能力和消费者的消费能力来提升整个系统的运行效率，这是生产者消费者模型最重要的作用</p>
-<p>（2）解耦，这是生产者消费者模型附带的作用，解耦意味着生产者和消费者之间的联系少，联系越少越可以独自发展而不需要收到相互的制约</p>
-<h2 id="13、ThreadLocal有什么用">13、ThreadLocal有什么用</h2><p>简单说ThreadLocal就是一种以空间换时间的做法，在每个Thread里面维护了一个以开地址法实现的ThreadLocal.ThreadLocalMap，把数据进行隔离，数据不共享，自然就没有线程安全方面的问题了</p>
-<h2 id="14、为什么wait()方法和notify()/notifyAll()方法要在同步块中被调用">14、为什么wait()方法和notify()/notifyAll()方法要在同步块中被调用</h2><p>这是JDK强制的，wait()方法和notify()/notifyAll()方法在调用前都必须先获得对象的锁</p>
-<h2 id="15、wait()方法和notify()/notifyAll()方法在放弃对象监视器时有什么区别">15、wait()方法和notify()/notifyAll()方法在放弃对象监视器时有什么区别</h2><p>wait()方法和notify()/notifyAll()方法在放弃对象监视器的时候的区别在于：wait()方法立即释放对象监视器，notify()/notifyAll()方法则会等待线程剩余代码执行完毕才会放弃对象监视器。</p>
-<h2 id="16、为什么要使用线程池">16、为什么要使用线程池</h2><p>避免频繁地创建和销毁线程，达到线程对象的重用。另外，使用线程池还可以根据项目灵活地控制并发的数目。</p>
-<h2 id="17、怎么检测一个线程是否持有对象监视器">17、怎么检测一个线程是否持有对象监视器</h2><p>我也是在网上看到一道多线程面试题才知道有方法可以判断某个线程是否持有对象监视器：Thread类提供了一个holdsLock(Object obj)方法，当且仅当对象obj的监视器被某条线程持有的时候才会返回true，注意这是一个static方法，这意味着“某条线程”指的是当前线程。</p>
-<h2 id="18、synchronized和ReentrantLock的区别">18、synchronized和ReentrantLock的区别</h2><p>synchronized是和if、else、for、while一样的关键字，ReentrantLock是类，这是二者的本质区别。既然ReentrantLock是类，那么它就提供了比synchronized更多更灵活的特性，可以被继承、可以有方法、可以有各种各样的类变量，ReentrantLock比synchronized的扩展性体现在几点上：</p>
-<p>（1）ReentrantLock可以对获取锁的等待时间进行设置，这样就避免了死锁</p>
-<p>（2）ReentrantLock可以获取各种锁的信息</p>
-<p>（3）ReentrantLock可以灵活地实现多路通知</p>
-<p>另外，二者的锁机制其实也是不一样的。ReentrantLock底层调用的是Unsafe的park方法加锁，synchronized操作的应该是对象头中mark word，这点我不能确定。</p>
-<h2 id="19、ConcurrentHashMap的并发度是什么">19、ConcurrentHashMap的并发度是什么</h2><p>ConcurrentHashMap的并发度就是segment的大小，默认为16，这意味着最多同时可以有16条线程操作ConcurrentHashMap，这也是ConcurrentHashMap对Hashtable的最大优势，任何情况下，Hashtable能同时有两条线程获取Hashtable中的数据吗？</p>
-<h2 id="20、ReadWriteLock是什么">20、ReadWriteLock是什么</h2><p>首先明确一下，不是说ReentrantLock不好，只是ReentrantLock某些时候有局限。如果使用ReentrantLock，可能本身是为了防止线程A在写数据、线程B在读数据造成的数据不一致，但这样，如果线程C在读数据、线程D也在读数据，读数据是不会改变数据的，没有必要加锁，但是还是加锁了，降低了程序的性能。</p>
-<p>因为这个，才诞生了读写锁ReadWriteLock。ReadWriteLock是一个读写锁接口，ReentrantReadWriteLock是ReadWriteLock接口的一个具体实现，实现了读写的分离，读锁是共享的，写锁是独占的，读和读之间不会互斥，读和写、写和读、写和写之间才会互斥，提升了读写的性能。</p>
-<h2 id="21、FutureTask是什么">21、FutureTask是什么</h2><p>这个其实前面有提到过，FutureTask表示一个异步运算的任务。FutureTask里面可以传入一个Callable的具体实现类，可以对这个异步运算的任务的结果进行等待获取、判断是否已经完成、取消任务等操作。当然，由于FutureTask也是Runnable接口的实现类，所以FutureTask也可以放入线程池中。</p>
-<h2 id="22、Linux环境下如何查找哪个线程使用CPU最长">22、Linux环境下如何查找哪个线程使用CPU最长</h2><p>这是一个比较偏实践的问题，这种问题我觉得挺有意义的。可以这么做：</p>
-<p>（1）获取项目的pid，jps或者ps -ef | grep java，这个前面有讲过</p>
-<p>（2）top -H -p pid，顺序不能改变</p>
-<p>这样就可以打印出当前的项目，每条线程占用CPU时间的百分比。注意这里打出的是LWP，也就是操作系统原生线程的线程号，我笔记本山没有部署Linux环境下的Java工程，因此没有办法截图演示，网友朋友们如果公司是使用Linux环境部署项目的话，可以尝试一下。</p>
-<p>使用”top -H -p pid”+”jps pid”可以很容易地找到某条占用CPU高的线程的线程堆栈，从而定位占用CPU高的原因，一般是因为不当的代码操作导致了死循环。</p>
-<p>最后提一点，”top -H -p pid”打出来的LWP是十进制的，”jps pid”打出来的本地线程号是十六进制的，转换一下，就能定位到占用CPU高的线程的当前线程堆栈了。</p>
-<h2 id="23、Java编程写一个会导致死锁的程序">23、Java编程写一个会导致死锁的程序</h2><p>第一次看到这个题目，觉得这是一个非常好的问题。很多人都知道死锁是怎么一回事儿：线程A和线程B相互等待对方持有的锁导致程序无限死循环下去。当然也仅限于此了，问一下怎么写一个死锁的程序就不知道了，这种情况说白了就是不懂什么是死锁，懂一个理论就完事儿了，实践中碰到死锁的问题基本上是看不出来的。</p>
-<p>真正理解什么是死锁，这个问题其实不难，几个步骤：</p>
-<p>（1）两个线程里面分别持有两个Object对象：lock1和lock2。这两个lock作为同步代码块的锁；</p>
-<p>（2）线程1的run()方法中同步代码块先获取lock1的对象锁，Thread.sleep(xxx)，时间不需要太多，50毫秒差不多了，然后接着获取lock2的对象锁。这么做主要是为了防止线程1启动一下子就连续获得了lock1和lock2两个对象的对象锁</p>
-<p>（3）线程2的run)(方法中同步代码块先获取lock2的对象锁，接着获取lock1的对象锁，当然这时lock1的对象锁已经被线程1锁持有，线程2肯定是要等待线程1释放lock1的对象锁的</p>
-<p>这样，线程1″睡觉”睡完，线程2已经获取了lock2的对象锁了，线程1此时尝试获取lock2的对象锁，便被阻塞，此时一个死锁就形成了。代码就不写了，占的篇幅有点多，Java多线程7：死锁这篇文章里面有，就是上面步骤的代码实现。</p>
-<h2 id="24、怎么唤醒一个阻塞的线程">24、怎么唤醒一个阻塞的线程</h2><p>如果线程是因为调用了wait()、sleep()或者join()方法而导致的阻塞，可以中断线程，并且通过抛出InterruptedException来唤醒它；如果线程遇到了IO阻塞，无能为力，因为IO是操作系统实现的，Java代码并没有办法直接接触到操作系统。</p>
-<h2 id="25、不可变对象对多线程有什么帮助">25、不可变对象对多线程有什么帮助</h2><p>前面有提到过的一个问题，不可变对象保证了对象的内存可见性，对不可变对象的读取不需要进行额外的同步手段，提升了代码执行效率。</p>
-<h2 id="26、什么是多线程的上下文切换">26、什么是多线程的上下文切换</h2><p>多线程的上下文切换是指CPU控制权由一个已经正在运行的线程切换到另外一个就绪并等待获取CPU执行权的线程的过程。</p>
-<h2 id="27、如果你提交任务时，线程池队列已满，这时会发生什么">27、如果你提交任务时，线程池队列已满，这时会发生什么</h2><p>如果你使用的LinkedBlockingQueue，也就是无界队列的话，没关系，继续添加任务到阻塞队列中等待执行，因为LinkedBlockingQueue可以近乎认为是一个无穷大的队列，可以无限存放任务；如果你使用的是有界队列比方说ArrayBlockingQueue的话，任务首先会被添加到ArrayBlockingQueue中，ArrayBlockingQueue满了，则会使用拒绝策略RejectedExecutionHandler处理满了的任务，默认是AbortPolicy。</p>
-<h2 id="28、Java中用到的线程调度算法是什么">28、Java中用到的线程调度算法是什么</h2><p>抢占式。一个线程用完CPU之后，操作系统会根据线程优先级、线程饥饿情况等数据算出一个总的优先级并分配下一个时间片给某个线程执行。</p>
-<h2 id="29、Thread-sleep(0)的作用是什么">29、Thread.sleep(0)的作用是什么</h2><p>这个问题和上面那个问题是相关的，我就连在一起了。由于Java采用抢占式的线程调度算法，因此可能会出现某条线程常常获取到CPU控制权的情况，为了让某些优先级比较低的线程也能获取到CPU控制权，可以使用Thread.sleep(0)手动触发一次操作系统分配时间片的操作，这也是平衡CPU控制权的一种操作。</p>
-<h2 id="30、什么是自旋">30、什么是自旋</h2><p>很多synchronized里面的代码只是一些很简单的代码，执行时间非常快，此时等待的线程都加锁可能是一种不太值得的操作，因为线程阻塞涉及到用户态和内核态切换的问题。既然synchronized里面的代码执行得非常快，不妨让等待锁的线程不要被阻塞，而是在synchronized的边界做忙循环，这就是自旋。如果做了多次忙循环发现还没有获得锁，再阻塞，这样可能是一种更好的策略。</p>
-<h2 id="31、什么是Java内存模型">31、什么是Java内存模型</h2><p>Java内存模型定义了一种多线程访问Java内存的规范。Java内存模型要完整讲不是这里几句话能说清楚的，我简单总结一下Java内存模型的几部分内容：</p>
-<p>（1）Java内存模型将内存分为了主内存和工作内存。类的状态，也就是类之间共享的变量，是存储在主内存中的，每次Java线程用到这些主内存中的变量的时候，会读一次主内存中的变量，并让这些内存在自己的工作内存中有一份拷贝，运行自己线程代码的时候，用到这些变量，操作的都是自己工作内存中的那一份。在线程代码执行完毕之后，会将最新的值更新到主内存中去</p>
-<p>（2）定义了几个原子操作，用于操作主内存和工作内存中的变量</p>
-<p>（3）定义了volatile变量的使用规则</p>
-<p>（4）happens-before，即先行发生原则，定义了操作A必然先行发生于操作B的一些规则，比如在同一个线程内控制流前面的代码一定先行发生于控制流后面的代码、一个释放锁unlock的动作一定先行发生于后面对于同一个锁进行锁定lock的动作等等，只要符合这些规则，则不需要额外做同步措施，如果某段代码不符合所有的happens-before规则，则这段代码一定是线程非安全的</p>
-<h2 id="32、什么是CAS">32、什么是CAS</h2><p>CAS，全称为Compare and Swap，即比较-替换。假设有三个操作数：内存值V、旧的预期值A、要修改的值B，当且仅当预期值A和内存值V相同时，才会将内存值修改为B并返回true，否则什么都不做并返回false。当然CAS一定要volatile变量配合，这样才能保证每次拿到的变量是主内存中最新的那个值，否则旧的预期值A对某条线程来说，永远是一个不会变的值A，只要某次CAS操作失败，永远都不可能成功。</p>
-<h2 id="33、什么是乐观锁和悲观锁">33、什么是乐观锁和悲观锁</h2><p>（1）乐观锁：就像它的名字一样，对于并发间操作产生的线程安全问题持乐观状态，乐观锁认为竞争不总是会发生，因此它不需要持有锁，将比较-替换这两个动作作为一个原子操作尝试去修改内存中的变量，如果失败则表示发生冲突，那么就应该有相应的重试逻辑。</p>
-<p>（2）悲观锁：还是像它的名字一样，对于并发间操作产生的线程安全问题持悲观状态，悲观锁认为竞争总是会发生，因此每次对某资源进行操作时，都会持有一个独占的锁，就像synchronized，不管三七二十一，直接上了锁就操作资源了。</p>
-<h2 id="34、什么是AQS">34、什么是AQS</h2><p>简单说一下AQS，AQS全称为AbstractQueuedSychronizer，翻译过来应该是抽象队列同步器。</p>
-<p>如果说java.util.concurrent的基础是CAS的话，那么AQS就是整个Java并发包的核心了，ReentrantLock、CountDownLatch、Semaphore等等都用到了它。AQS实际上以双向队列的形式连接所有的Entry，比方说ReentrantLock，所有等待的线程都被放在一个Entry中并连成双向队列，前面一个线程使用ReentrantLock好了，则双向队列实际上的第一个Entry开始运行。</p>
-<p>AQS定义了对双向队列所有的操作，而只开放了tryLock和tryRelease方法给开发者使用，开发者可以根据自己的实现重写tryLock和tryRelease方法，以实现自己的并发功能。</p>
-<h2 id="35、单例模式的线程安全性">35、单例模式的线程安全性</h2><p>老生常谈的问题了，首先要说的是单例模式的线程安全意味着：某个类的实例在多线程环境下只会被创建一次出来。单例模式有很多种的写法，我总结一下：</p>
-<p>（1）饿汉式单例模式的写法：线程安全</p>
-<p>（2）懒汉式单例模式的写法：非线程安全</p>
-<p>（3）双检锁单例模式的写法：线程安全</p>
-<h2 id="36、Semaphore有什么作用">36、Semaphore有什么作用</h2><p>Semaphore就是一个信号量，它的作用是限制某段代码块的并发数。Semaphore有一个构造函数，可以传入一个int型整数n，表示某段代码最多只有n个线程可以访问，如果超出了n，那么请等待，等到某个线程执行完毕这段代码块，下一个线程再进入。由此可以看出如果Semaphore构造函数中传入的int型整数n=1，相当于变成了一个synchronized了。</p>
-<h2 id="37、Hashtable的size()方法中明明只有一条语句”return_count”，为什么还要做同步？">37、Hashtable的size()方法中明明只有一条语句”return count”，为什么还要做同步？</h2><p>这是我之前的一个困惑，不知道大家有没有想过这个问题。某个方法中如果有多条语句，并且都在操作同一个类变量，那么在多线程环境下不加锁，势必会引发线程安全问题，这很好理解，但是size()方法明明只有一条语句，为什么还要加锁？</p>
-<p>关于这个问题，在慢慢地工作、学习中，有了理解，主要原因有两点：</p>
-<p>（1）同一时间只能有一条线程执行固定类的同步方法，但是对于类的非同步方法，可以多条线程同时访问。所以，这样就有问题了，可能线程A在执行Hashtable的put方法添加数据，线程B则可以正常调用size()方法读取Hashtable中当前元素的个数，那读取到的值可能不是最新的，可能线程A添加了完了数据，但是没有对size++，线程B就已经读取size了，那么对于线程B来说读取到的size一定是不准确的。而给size()方法加了同步之后，意味着线程B调用size()方法只有在线程A调用put方法完毕之后才可以调用，这样就保证了线程安全性</p>
-<p>（2）CPU执行代码，执行的不是Java代码，这点很关键，一定得记住。Java代码最终是被翻译成汇编代码执行的，汇编代码才是真正可以和硬件电路交互的代码。即使你看到Java代码只有一行，甚至你看到Java代码编译之后生成的字节码也只有一行，也不意味着对于底层来说这句语句的操作只有一个。一句”return count”假设被翻译成了三句汇编语句执行，完全可能执行完第一句，线程就切换了。</p>
-<h2 id="38、线程类的构造方法、静态块是被哪个线程调用的">38、线程类的构造方法、静态块是被哪个线程调用的</h2><p>这是一个非常刁钻和狡猾的问题。请记住：线程类的构造方法、静态块是被new这个线程类所在的线程所调用的，而run方法里面的代码才是被线程自身所调用的。</p>
-<p>如果说上面的说法让你感到困惑，那么我举个例子，假设Thread2中new了Thread1，main函数中new了Thread2，那么：</p>
-<p>（1）Thread2的构造方法、静态块是main线程调用的，Thread2的run()方法是Thread2自己调用的</p>
-<p>（2）Thread1的构造方法、静态块是Thread2调用的，Thread1的run()方法是Thread1自己调用的</p>
-<h2 id="39、同步方法和同步块，哪个是更好的选择">39、同步方法和同步块，哪个是更好的选择</h2><p>同步块，这意味着同步块之外的代码是异步执行的，这比同步整个方法更提升代码的效率。请知道一条原则：同步的范围越小越好。</p>
-<p>借着这一条，我额外提一点，虽说同步的范围越少越好，但是在Java虚拟机中还是存在着一种叫做锁粗化的优化方法，这种方法就是把同步范围变大。这是有用的，比方说StringBuffer，它是一个线程安全的类，自然最常用的append()方法是一个同步方法，我们写代码的时候会反复append字符串，这意味着要进行反复的加锁-&gt;解锁，这对性能不利，因为这意味着Java虚拟机在这条线程上要反复地在内核态和用户态之间进行切换，因此Java虚拟机会将多次append方法调用的代码进行一个锁粗化的操作，将多次的append的操作扩展到append方法的头尾，变成一个大的同步块，这样就减少了加锁–&gt;解锁的次数，有效地提升了代码执行的效率。</p>
-<h2 id="40、高并发、任务执行时间短的业务怎样使用线程池？并发不高、任务执行时间长的业务怎样使用线程池？并发高、业务执行时间长的业务怎样使用线程池？">40、高并发、任务执行时间短的业务怎样使用线程池？并发不高、任务执行时间长的业务怎样使用线程池？并发高、业务执行时间长的业务怎样使用线程池？</h2><p>这是我在并发编程网上看到的一个问题，把这个问题放在最后一个，希望每个人都能看到并且思考一下，因为这个问题非常好、非常实际、非常专业。关于这个问题，个人看法是：</p>
-<p>（1）高并发、任务执行时间短的业务，线程池线程数可以设置为CPU核数+1，减少线程上下文的切换</p>
-<p>（2）并发不高、任务执行时间长的业务要区分开看：</p>
-<p>a）假如是业务时间长集中在IO操作上，也就是IO密集型的任务，因为IO操作并不占用CPU，所以不要让所有的CPU闲下来，可以加大线程池中的线程数目，让CPU处理更多的业务</p>
-<p>b）假如是业务时间长集中在计算操作上，也就是计算密集型任务，这个就没办法了，和（1）一样吧，线程池中的线程数设置得少一些，减少线程上下文的切换</p>
-<p>（3）并发高、业务执行时间长，解决这种类型任务的关键不在于线程池而在于整体架构的设计，看看这些业务里面某些数据是否能做缓存是第一步，增加服务器是第二步，至于线程池的设置，设置参考（2）。最后，业务执行时间长的问题，也可能需要分析一下，看看能不能使用中间件对任务进行拆分和解耦。</p>
-<p><strong>我不能保证写的每个地方都是对的，但是至少能保证不复制、不黏贴，保证每一句话、每一行代码都经过了认真的推敲、仔细的斟酌。每一篇文章的背后，希望都能看到自己对于技术、对于生活的态度。<br>我相信乔布斯说的，只有那些疯狂到认为自己可以改变世界的人才能真正地改变世界。面对压力，我可以挑灯夜战、不眠不休；面对困难，我愿意迎难而上、永不退缩。<br>其实我想说的是，我只是一个程序员，这就是我现在纯粹人生的全部。</strong></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>朋友圈分享的好文章，关于java多线程的，在此转载。我很喜欢作者对技术的态度，引用他的一段话：</p>
-<blockquote>
-<p>我不能保证写的每个地方都是对的，但是至少能保证不复制、不黏贴，保证每一句话、每一行代码都经过了认真的推敲、仔细的斟酌。每一篇文章的背后，希望都能看到自己对于技术、对于生活的态度。<br>我相信乔布斯说的，只有那些疯狂到认为自己可以改变世界的人才能真正地改变世界。面对压力，我可以挑灯夜战、不眠不休；面对困难，我愿意迎难而上、永不退缩</p>
-</blockquote>
-<p><a href="http://www.cnblogs.com/xrq730/p/5060921.html">原创地址</a><br>]]>
     
     </summary>
     

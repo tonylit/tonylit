@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content=""/>
+  
+  <title>Jmeter自定义函数 | 淘淘的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Jmeter自带的函数有时满足不了日常压测的需求，需要根据业务情况做定制化的扩展，这时就需要自定义函数。
+在编写自己的函数之前，可以先了解Jmeter自带的函数是如何实现的，然后我们模仿的写写就可以了，没什么难度。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jmeter自定义函数">
+<meta property="og:url" content="http://tonylit.me/2020/08/18/Jmeter自定义函数/index.html">
+<meta property="og:site_name" content="淘淘的博客">
+<meta property="og:description" content="Jmeter自带的函数有时满足不了日常压测的需求，需要根据业务情况做定制化的扩展，这时就需要自定义函数。
+在编写自己的函数之前，可以先了解Jmeter自带的函数是如何实现的，然后我们模仿的写写就可以了，没什么难度。">
+<meta property="og:image" content="http://tonylit.me/img/jmeter自定义函数/random函数.PNG">
+<meta property="og:image" content="http://tonylit.me/img/jmeter自定义函数/jmeterfunction.PNG">
+<meta property="og:image" content="http://tonylit.me/img/jmeter自定义函数/自定义加解密函数.PNG">
+<meta property="og:updated_time" content="2020-08-18T05:37:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jmeter自定义函数">
+<meta name="twitter:description" content="Jmeter自带的函数有时满足不了日常压测的需求，需要根据业务情况做定制化的扩展，这时就需要自定义函数。
+在编写自己的函数之前，可以先了解Jmeter自带的函数是如何实现的，然后我们模仿的写写就可以了，没什么难度。">
+  
+    <link rel="alternative" href="/atom.xml" title="淘淘的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/leaves.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script src="http://tonylit.me//js/jquery.nicescroll.js"></script>
+
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+<form class="search" method="get" accept-charset="utf-8">
+			<input type="text" id="chillax-search-input" class="st-search-input_my" maxlength="30" placeholder="search" />
+		</form>
+
+
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/c.jpg" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/" class="alluraregular">tonyli</a></h1>
+		</hgroup>
+        <!--
+		
+		<p class="header-subtitle">Nothing is given. Everything is earned.</p>
+		
+        -->
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/work">工作日志</a></li>
+				        
+							<li><a href="/tags/life">点滴生活</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Appium/" style="font-size: 12.86px;">Appium</a> <a href="/tags/Gatling/" style="font-size: 11.43px;">Gatling</a> <a href="/tags/Jmeter/" style="font-size: 11.43px;">Jmeter</a> <a href="/tags/Python/" style="font-size: 12.86px;">Python</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/docker/" style="font-size: 17.14px;">docker</a> <a href="/tags/java/" style="font-size: 18.57px;">java</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/loadrunner/" style="font-size: 14.29px;">loadrunner</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/pinpoint/" style="font-size: 11.43px;">pinpoint</a> <a href="/tags/sandbox/" style="font-size: 10px;">sandbox</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/springboot/" style="font-size: 11.43px;">springboot</a> <a href="/tags/work/" style="font-size: 15.71px;">work</a> <a href="/tags/性能/" style="font-size: 20px;">性能</a>
+					</div>
+				</section>
+				
+
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">Nothing is given. Everything is earned.</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">tonyli</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/c.jpg" class="js-avatar">
+				<hgroup>
+				  <h1 class="header-author">tonyli</h1>
+				</hgroup>
+			</div>
+			
+			<p class="header-subtitle">Nothing is given. Everything is earned.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/work">工作日志</a></li>
+		        
+					<li><a href="/tags/life">点滴生活</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tonylit" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2136920064/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/li-tao-40-20-98" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+
+	  <div class="recent">
+高手的存在，就是让服务10亿人的时候，你感觉只是为你一个人服务......
+</div>
+
+      <div class="body-wrap"><article id="post-Jmeter自定义函数" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/2020/08/18/Jmeter自定义函数/" class="article-date">
+  	<time datetime="2020-08-18T03:37:27.000Z" itemprop="datePublished">2020-08-18</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      Jmeter自定义函数
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能/">性能</a></li></ul>
+	</div>
+
+
+                                        
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
+                                        <div class="article-entry" itemprop="articleBody">
+                                            
+                                                    <!--02-->
+                                                    <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#学习Jmeter自带函数的实现方法"><span class="toc-number">1.</span> <span class="toc-text">学习Jmeter自带函数的实现方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现加密函数"><span class="toc-number">2.</span> <span class="toc-text">实现加密函数</span></a></li></ol>
+</div>
+
+                                                        
+                                                            
+                                                                
+                                                                            <p>Jmeter自带的函数有时满足不了日常压测的需求，需要根据业务情况做定制化的扩展，这时就需要自定义函数。</p>
+<p>在编写自己的函数之前，可以先了解Jmeter自带的函数是如何实现的，然后我们模仿的写写就可以了，没什么难度。</p>
+<a id="more"></a>
+<hr>
+<h2 id="学习Jmeter自带函数的实现方法">学习Jmeter自带函数的实现方法</h2><p>第一步：下载最新的Jmeter源码，我这里下载的apache-jmeter-5.3_src.tgz<br><a href="http://jmeter.apache.org/download_jmeter.cgi" target="_blank" rel="external">http://jmeter.apache.org/download_jmeter.cgi</a></p>
+<p>第二步：找到函数实现<br>在源码包中找到functions文件夹，里面放的就是Jmeter自带的函数实现。<br>\apache-jmeter-5.3\src\functions\src\main\java\org\apache\jmeter\functions</p>
+<p>我们找一个简单常用的_Random函数，来看看是如何实现的<br><img src="/img/jmeter自定义函数/random函数.PNG" alt="Alt text"></p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.apache.jmeter.functions;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Collection;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ThreadLocalRandom;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.jmeter.engine.util.CompoundVariable;</span><br><span class="line"><span class="keyword">import</span> org.apache.jmeter.samplers.SampleResult;</span><br><span class="line"><span class="keyword">import</span> org.apache.jmeter.samplers.Sampler;</span><br><span class="line"><span class="keyword">import</span> org.apache.jmeter.threads.JMeterVariables;</span><br><span class="line"><span class="keyword">import</span> org.apache.jmeter.util.JMeterUtils;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Provides a Random function which returns a random long integer between a min</span><br><span class="line"> * (first argument) and a max (second argument).</span><br><span class="line"> * @since 1.9</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> class Random extends AbstractFunction &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;<span class="keyword">String</span>&gt; desc = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">String</span> KEY = <span class="string">"__Random"</span>; <span class="comment">//Jmeter函数助手显示的函数名称，以_开头</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        desc.<span class="built_in">add</span>(JMeterUtils.getResString(<span class="string">"minimum_param"</span>)); <span class="comment">//入参</span></span><br><span class="line">        desc.<span class="built_in">add</span>(JMeterUtils.getResString(<span class="string">"maximum_param"</span>)); <span class="comment">//入参</span></span><br><span class="line">        desc.<span class="built_in">add</span>(JMeterUtils.getResString(<span class="string">"function_name_paropt"</span>)); <span class="comment">//入参</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> CompoundVariable varName;</span><br><span class="line">    <span class="keyword">private</span> CompoundVariable minimum;</span><br><span class="line">    <span class="keyword">private</span> CompoundVariable maximum;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * No-arg constructor.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">public</span> Random() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** JMeter会将上次运行的SampleResult和当前的Sampler作为参数传入到该方法里，返回值就是在运行该function后得到的值，以String类型返回。</span><br><span class="line">        逻辑放在这里面就可以了。</span><br><span class="line">	*/</span></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">String</span> execute(SampleResult previousResult, Sampler currentSampler)</span><br><span class="line">            <span class="keyword">throws</span> InvalidVariableException &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">long</span> <span class="built_in">min</span> = Long.parseLong(minimum.execute().<span class="built_in">trim</span>());</span><br><span class="line">        <span class="keyword">long</span> <span class="built_in">max</span> = Long.parseLong(maximum.execute().<span class="built_in">trim</span>());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">long</span> rand = ThreadLocalRandom.current().nextLong(<span class="built_in">min</span>, <span class="built_in">max</span>+<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">String</span> randString = Long.toString(rand);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (varName != <span class="keyword">null</span>) &#123;</span><br><span class="line">            JMeterVariables vars = getVariables();</span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">String</span> varTrim = varName.execute().<span class="built_in">trim</span>();</span><br><span class="line">            <span class="keyword">if</span> (vars != <span class="keyword">null</span> &amp;&amp; varTrim.length() &gt; <span class="number">0</span>)&#123;<span class="comment">// vars will be null on TestPlan</span></span><br><span class="line">                vars.put(varTrim, randString);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> randString;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** setParameters函数作用就是获取函数输入框界面输入的值，将输入的值传递给execute */</span></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> setParameters(Collection&lt;CompoundVariable&gt; parameters) <span class="keyword">throws</span> InvalidVariableException &#123;</span><br><span class="line">        checkParameterCount(parameters, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">        <span class="keyword">Object</span>[] values = parameters.toArray();</span><br><span class="line"></span><br><span class="line">        minimum = (CompoundVariable) values[<span class="number">0</span>];</span><br><span class="line">        maximum = (CompoundVariable) values[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span> (values.length&gt;<span class="number">2</span>)&#123;</span><br><span class="line">            varName = (CompoundVariable) values[<span class="number">2</span>];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            varName = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** getReferenceKey函数是提供一个在Jmeter函数助手显示的函数名称 */</span></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">String</span> getReferenceKey() &#123;</span><br><span class="line">        <span class="keyword">return</span> KEY;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** getArgumentDesc函数用来获取对输入参数的描述 */</span></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> List&lt;<span class="keyword">String</span>&gt; getArgumentDesc() &#123;</span><br><span class="line">        <span class="keyword">return</span> desc;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，Random类中主要实现了4个方法:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">execute</span><span class="params">(SampleResult previousResult, Sampler currentSampler)</span></span></span><br><span class="line"><span class="function"><span class="title">setParameters</span><span class="params">(Collection&lt;CompoundVariable&gt; parameters)</span></span></span><br><span class="line"><span class="function"><span class="title">getReferenceKey</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">getArgumentDesc</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<p>如果我们要实现自己的函数，可以实现这4个方法，另外还需要满足Jmeter自身设计中类加载的一些规则，总体来说满足2点即可：</p>
+<p><strong>1、实现function的类的package声明必须包含”.functions”。</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">package</span> <span class="tag">org</span><span class="class">.apache</span><span class="class">.jmeter</span><span class="class">.functions</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>2、继承AbstractFunction类，然后实现父类的四个方法</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.apache.jmeter.functions;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.jmeter.engine.util.CompoundVariable;</span><br><span class="line"><span class="keyword">import</span> org.apache.jmeter.samplers.SampleResult;</span><br><span class="line"><span class="keyword">import</span> org.apache.jmeter.samplers.Sampler;</span><br><span class="line"><span class="keyword">import</span> java.util.Collection;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Testfunction</span> <span class="keyword">extends</span> <span class="title">AbstractFunction</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">execute</span><span class="params">(SampleResult previousResult, Sampler currentSampler)</span> <span class="keyword">throws</span> InvalidVariableException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setParameters</span><span class="params">(Collection&lt;CompoundVariable&gt; parameters)</span> <span class="keyword">throws</span> InvalidVariableException </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getReferenceKey</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getArgumentDesc</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="实现加密函数">实现加密函数</h2><p>业务中需要对http请求中的入参做RSA加密处理，这里实现一个简单的加密函数。两个入参，第一个入参为加密的字符串，第二个入参为公钥key。</p>
+<p>第一步：新建maven工程jmeterfunction，依赖如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">project</span> <span class="attribute">xmlns</span>=<span class="value">"http://maven.apache.org/POM/4.0.0"</span></span><br><span class="line">         <span class="attribute">xmlns:xsi</span>=<span class="value">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">         <span class="attribute">xsi:schemaLocation</span>=<span class="value">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="title">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>jmeter-function<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>jmeter-function<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">plugins</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">configuration</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="title">source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="title">source</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="title">target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="title">target</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="title">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">build</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.apache.jmeter<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>ApacheJMeter_functions<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">version</span>&gt;</span>4.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.apache.jmeter<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>ApacheJMeter_core<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">version</span>&gt;</span>4.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.junit.jupiter<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>junit-jupiter-api<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">version</span>&gt;</span>RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>第二步：<br>新建package：org.apache.jmeter.functions</p>
+<p>新建函数EncryptionUtils并继承AbstractFunction</p>
+<p><img src="/img/jmeter自定义函数/jmeterfunction.PNG" alt="Alt text"></p>
+<p>第三步：实现4个方法：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自定义function的描述</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;<span class="keyword">String</span>&gt; desc = <span class="keyword">new</span> LinkedList&lt;<span class="keyword">String</span>&gt;( );</span><br><span class="line"></span><br><span class="line"><span class="comment">//两个入参</span></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        desc.<span class="built_in">add</span>(JMeterUtils.getResString(<span class="string">"submitPwd"</span>));</span><br><span class="line">        desc.<span class="built_in">add</span>(JMeterUtils.getResString(<span class="string">"PUBLIC_PWD_RSA"</span>));</span><br><span class="line">    &#125;</span><br><span class="line"> <span class="comment">//function名称</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">String</span> KEY = <span class="string">"__MyEncryptionFunc"</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">int</span> MAX_PARA_COUNT = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">int</span> MIN_PARA_COUNT = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//传入参数的值</span></span><br><span class="line">    <span class="keyword">private</span> CompoundVariable[] values;</span><br><span class="line"></span><br><span class="line"> @Override</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">String</span> execute(SampleResult previousResult, Sampler currentSampler) <span class="keyword">throws</span> InvalidVariableException &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">String</span> submitPwd = values[<span class="number">0</span>].execute( );</span><br><span class="line">            <span class="keyword">String</span> PUBLIC_PWD_RSA = values[<span class="number">1</span>].execute( );</span><br><span class="line">            <span class="keyword">return</span> getEncryPwdStr(submitPwd, PUBLIC_PWD_RSA);<span class="comment">//getEncryPwdStr() 业务方提供的RSA加解密的算法，涉及公钥秘钥这里不提供源码</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> InvalidVariableException(ex);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> setParameters(Collection&lt;CompoundVariable&gt; parameters) <span class="keyword">throws</span> InvalidVariableException &#123;</span><br><span class="line">        checkParameterCount(parameters, MIN_PARA_COUNT, MAX_PARA_COUNT); <span class="comment">//检查参数的个数是否正确</span></span><br><span class="line">        values = parameters.toArray(<span class="keyword">new</span> CompoundVariable[parameters.<span class="built_in">size</span>( )]); <span class="comment">//将值存入类变量中</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">String</span> getReferenceKey() &#123;</span><br><span class="line">        <span class="keyword">return</span> KEY;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> List&lt;<span class="keyword">String</span>&gt; getArgumentDesc() &#123;</span><br><span class="line">        <span class="keyword">return</span> desc;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>第四步： 编译，打包；将jar文件放到jmeter的lib/ext文件夹中，重启Jmeter即可。</p>
+<p>打开Jmeter，即可使用我们自己编写的函数。<br><img src="/img/jmeter自定义函数/自定义加解密函数.PNG" alt="Alt text"></p>
+
+                                                                                
+                                        </div>
+                                        
+            </div>
+            
+                <div class="bdsharebuttonbox" style="margin-top:10px;margin-left:30px;float:left;">
+                    <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                    <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                    <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
+                    <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
+                    <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                    <a href="#" class="bds_more" data-cmd="more"></a>
+                </div>
+                <script>
+                    window._bd_share_config = {
+                        "common": {
+                            "bdSnsKey": {},
+                            "bdText": "",
+                            "bdMini": "1",
+                            "bdMiniList": false,
+                            "bdStyle": "2",
+                            "bdSize": "16"
+                        },
+                        "share": {}
+                    };
+                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
+  
+  
+    <a href="/2020/05/12/性能测试瓶颈分析方法指导/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">性能测试瓶颈分析方法指导</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-Jmeter自定义函数" data-title="Jmeter自定义函数" data-url="http://tonylit.me/2020/08/18/Jmeter自定义函数/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "tonylit"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
+</article>
+
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+    
+-->
+<!--
+
+-->
+
+</div>
+      <!--<footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2020 tonyli
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+    
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+   
+  </div>
+</footer>-->
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/prefixfree.js" type="text/javascript"></script>
+<script src="/js/require-2.1.20.js" type="text/javascript"></script>
+<script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
+    <a title="返回顶部" style="opacity: 100%;">
+        <img src="/img/scrollup.png" />
+    </a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','ZDWgkzoEyRjqY6u-8gjX','2.0.0');
+</script>
+
+  </div>
+</body>
+</html>
